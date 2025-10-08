@@ -20,7 +20,13 @@ export default function GoogleCallbackClient() {
           },
         })
         .then((res) => {
-          const { userId, accessToken, refreshToken, first } = res.data.result;
+          const result = res.data?.result;
+          if (!result) {
+            router.replace('/login');
+            return;
+          }
+
+          const { userId, accessToken, refreshToken, first } = result;
           localStorage.setItem('userId', userId);
 
           if (res.data.code === '200') {
