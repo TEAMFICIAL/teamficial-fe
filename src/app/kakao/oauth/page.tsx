@@ -1,46 +1,16 @@
-'use client';
+import { Suspense } from 'react';
+import KakaoCallbackClient from './KakaoCallback';
 
-import { useEffect } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import api from '@/api/api';
-
-export default function KakaoCallbackPage() {
-  const router = useRouter();
-  const params = useSearchParams();
-
-  useEffect(() => {
-    const code = params.get('code');
-
-    if (code) {
-      api
-        .post('/auth/kakao', null, {
-          params: {
-            accessCode: code,
-            redirectUri: process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI,
-          },
-        })
-        .then((res) => {
-          const { userId, accessToken, refreshToken, first } = res.data.result;
-          localStorage.setItem('userId', userId);
-
-          if (res.data.code === '200') {
-            localStorage.setItem('accessToken', accessToken);
-            localStorage.setItem('refreshToken', refreshToken);
-            if (first) {
-              router.replace('/signup');
-            } else {
-              router.replace('/');
-            }
-          } else {
-            router.replace('/login');
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          router.replace('/login');
-        });
-    }
-  }, [params, router]);
-
-  return <div />;
+export default function Page() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen items-center justify-center">
+          <div className="h-16 w-16 animate-spin rounded-full border-4 border-gray-200 border-t-purple-500" />
+        </div>
+      }
+    >
+      <KakaoCallbackClient />
+    </Suspense>
+  );
 }
