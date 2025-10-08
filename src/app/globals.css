@@ -183,3 +183,12 @@ body {
   letter-spacing: var(--letter-spacing);
   line-height: var(--line-height);
 }
+
+/* Gradients */
+@utility gradient-bg-01 {
+  background: linear-gradient(90deg, #19e6b3 0%, #e9fbf6 100%);
+}
+
+@utility gradient-bg-02 {
+  background: linear-gradient(90deg, #19e6b3 0%, #fbfcd4 100%);
+}
