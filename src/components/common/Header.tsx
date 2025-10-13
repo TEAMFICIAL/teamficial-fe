@@ -4,7 +4,7 @@ import React from 'react';
 
 const Header = () => {
   return (
-    <header className="mx-auto flex w-full max-w-256 justify-between px-10 pt-5">
+    <header className="mx-auto flex w-full max-w-[1024px] justify-between px-10 pt-5">
       {/* TODO: 각 이동 링크로 변경 */}
       <div className="flex items-center">
         <Link href="/" className="flex items-center gap-2 pr-5">
