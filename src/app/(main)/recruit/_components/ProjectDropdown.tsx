@@ -57,7 +57,11 @@ const ProjectDropdown = ({
           if (e.key === 'Escape') setOpen(false);
         }}
       >
-        <span>{isPlaceholder ? placeholder : selectedLabel}</span>
+        {isPlaceholder ? (
+          <span className="body-6">{placeholder}</span>
+        ) : (
+          <span className="body-5">{selectedLabel}</span>
+        )}
         <Image
           src={open ? '/icons/arrow-up-gray.svg' : '/icons/arrow-down-gray.svg'}
           alt=""
@@ -89,8 +93,7 @@ const ProjectDropdown = ({
                 aria-selected={isSelected}
                 className={[
                   'cursor-pointer px-7 py-3',
-                  'hover:bg-primary-50',
-                  isSelected ? 'font-medium text-gray-900' : 'text-gray-800',
+                  'hover:bg-primary-50 body-6',
                   isLast ? 'rounded-b-md' : '',
                 ].join(' ')}
                 onClick={() => {
