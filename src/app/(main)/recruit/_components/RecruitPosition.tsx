@@ -2,48 +2,60 @@
 
 import Image from 'next/image';
 import React, { useState } from 'react';
+import PositionDropdown from './PositionDropdown';
 
 type RecruitItem = {
   id: number;
-  field: string; // TODO: 나중에 드롭다운 value로 교체 예정
+  fieldValue: string;
+  fieldLabel: string;
   count: number;
-  touched: boolean; // 입력/조작 시도 여부
+  touched: boolean;
   error: string | null;
+};
+
+const OPTIONS = [
+  { label: '프론트엔드', value: 'frontend' },
+  { label: '백엔드', value: 'backend' },
+  { label: 'UX/UI디자인', value: 'uxui' },
+  { label: 'AI', value: 'ai' },
+  { label: '안드로이드', value: 'android' },
+  { label: 'iOS', value: 'ios' },
+  { label: '기획', value: 'planning' },
+  { label: '마케팅', value: 'marketing' },
+  { label: 'PM', value: 'pm' },
+  { label: '클라우드', value: 'cloud' },
+  { label: '인프라', value: 'infrastructure' },
+  { label: '데브옵스', value: 'devops' },
+];
+
+const getErrorMessage = (fieldEmpty: boolean, countZero: boolean) => {
+  if (fieldEmpty && countZero) return '분야와 인원수를 입력해주세요.';
+  if (fieldEmpty) return '분야를 입력해주세요.';
+  if (countZero) return '인원수를 선택해주세요.';
+  return null;
 };
 
 const RecruitPosition = () => {
   const [positions, setPositions] = useState<RecruitItem[]>([
-    { id: Date.now(), field: '', count: 0, touched: false, error: null },
+    { id: Date.now(), fieldValue: '', fieldLabel: '', count: 0, touched: false, error: null },
   ]);
 
-  // 공통: 에러 메시지 생성
-  const getErrorMessage = (fieldEmpty: boolean, countZero: boolean) => {
-    if (fieldEmpty && countZero) return '분야와 인원수를 입력해주세요.';
-    if (fieldEmpty) return '분야를 입력해주세요.';
-    if (countZero) return '인원수를 선택해주세요.';
-    return null;
-  };
-
-  // 항목 추가 (검증 후, 전부 유효할 때만 새 항목 추가)
   const handleAdd = () => {
     setPositions((prev) => {
       const updated = prev.map((item) => {
-        const fieldEmpty = item.field.trim() === '';
+        const fieldEmpty = !item.fieldValue;
         const countZero = item.count === 0;
-        const error = getErrorMessage(fieldEmpty, countZero);
         return {
           ...item,
-          touched: error ? true : item.touched,
-          error,
+          touched: true,
+          error: getErrorMessage(fieldEmpty, countZero),
         };
       });
-
-      const hasError = updated.some((i) => i.error);
-      if (hasError) {
-        return updated;
-      }
-
-      return [...updated, { id: Date.now(), field: '', count: 0, touched: false, error: null }];
+      if (updated.some((i) => i.error)) return updated;
+      return [
+        ...updated,
+        { id: Date.now(), fieldValue: '', fieldLabel: '', count: 0, touched: false, error: null },
+      ];
     });
   };
 
@@ -51,16 +63,16 @@ const RecruitPosition = () => {
     setPositions((prev) => prev.filter((item) => item.id !== id));
   };
 
-  const handleDecrement = (id: number) => {
+  const handleCount = (id: number, delta: 1 | -1) => {
     setPositions((prev) =>
       prev.map((item) => {
         if (item.id !== id) return item;
-        const nextCount = Math.max(0, item.count - 1);
-        const fieldEmpty = item.field.trim() === '';
-        const countZero = nextCount === 0;
+        const next = Math.max(0, item.count + delta);
+        const fieldEmpty = !item.fieldValue;
+        const countZero = next === 0;
         return {
           ...item,
-          count: nextCount,
+          count: next,
           touched: true,
           error: getErrorMessage(fieldEmpty, countZero),
         };
@@ -68,16 +80,16 @@ const RecruitPosition = () => {
     );
   };
 
-  const handleIncrement = (id: number) => {
+  const handleSelectField = (id: number, value: string, label: string) => {
     setPositions((prev) =>
       prev.map((item) => {
         if (item.id !== id) return item;
-        const nextCount = item.count + 1;
-        const fieldEmpty = item.field.trim() === '';
-        const countZero = nextCount === 0;
+        const fieldEmpty = !value;
+        const countZero = item.count === 0;
         return {
           ...item,
-          count: nextCount,
+          fieldValue: value,
+          fieldLabel: label,
           touched: true,
           error: getErrorMessage(fieldEmpty, countZero),
         };
@@ -91,10 +103,10 @@ const RecruitPosition = () => {
 
       {positions.map((item) => {
         const isError = !!item.error;
-        const isFilled = item.field.trim() !== '' && item.count > 0;
+        const isFilled = !!item.fieldValue && item.count > 0;
 
         const borderColor = isError
-          ? 'border-red-100'
+          ? 'border-red-500'
           : item.touched && isFilled
             ? 'border-gray-600'
             : 'border-gray-300';
@@ -102,20 +114,29 @@ const RecruitPosition = () => {
         return (
           <div key={item.id} className="flex flex-col gap-2">
             <div
-              className={`flex items-center justify-between rounded-lg border px-7 py-3 transition-colors ${borderColor}`}
+              className={`flex items-center justify-between rounded-lg border py-3 pr-7 ${borderColor}`}
             >
-              {/* TODO: 이후 드롭다운으로 교체 */}
-              <span className="body-6 w-auto resize-none border-0 focus:ring-0">모집분야</span>
-
+              {/* 모집분야 드롭다운 */}
+              <div className="flex items-center">
+                <PositionDropdown
+                  className="flex-none"
+                  options={OPTIONS}
+                  placeholder="모집분야"
+                  value={item.fieldValue}
+                  disabled={!!item.fieldValue} // 선택 후 잠금
+                  onSelect={(opt) => handleSelectField(item.id, opt.value, opt.label)}
+                />
+              </div>
+              {/* 인원 증감 및 삭제 */}
               <div className="flex items-center gap-12">
                 <div className="flex items-center">
                   <button
-                    onClick={() => handleDecrement(item.id)}
+                    onClick={() => handleCount(item.id, -1)}
                     disabled={item.count === 0}
-                    className={`cursor-pointer rounded-l-sm p-1 ${
+                    className={`rounded-l-sm p-1 ${
                       item.count === 0
                         ? 'cursor-not-allowed bg-gray-100 opacity-50'
-                        : 'bg-gray-200 hover:bg-gray-300'
+                        : 'cursor-pointer bg-gray-200 hover:bg-gray-300'
                     }`}
                   >
                     <Image
@@ -127,15 +148,13 @@ const RecruitPosition = () => {
                   </button>
 
                   <span
-                    className={`body-6 bg-gray-100 px-3 py-1 ${
-                      item.count === 0 ? 'text-gray-500' : 'text-gray-800'
-                    }`}
+                    className={`body-6 bg-gray-100 px-3 py-1 ${item.count === 0 ? 'text-gray-500' : 'text-gray-800'}`}
                   >
                     {item.count}명
                   </span>
 
                   <button
-                    onClick={() => handleIncrement(item.id)}
+                    onClick={() => handleCount(item.id, +1)}
                     className="cursor-pointer rounded-r-sm bg-gray-200 p-1 hover:bg-gray-300"
                   >
                     <Image src="/icons/plus.svg" alt="plus" width={24} height={24} />
@@ -152,7 +171,7 @@ const RecruitPosition = () => {
             </div>
 
             {/* 에러 문구 */}
-            {isError && <span className="body-6 text-red-100">{item.error}</span>}
+            {isError && <span className="body-6 text-red-500">{item.error}</span>}
           </div>
         );
       })}
