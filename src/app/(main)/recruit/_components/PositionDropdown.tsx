@@ -72,7 +72,7 @@ export default function PositionDropdown({
         <ul
           role="listbox"
           className={`${listBoxBase} w-max max-w-[90vw] overflow-y-auto`}
-          style={{ maxHeight: 144 }}
+          style={{ maxHeight: 196 }}
         >
           {options.map((opt, idx) => (
             <li
