@@ -78,8 +78,7 @@ const ProjectDropdown = ({
           className={[
             'absolute top-full right-0 left-0 z-10',
             'border border-t-0 border-gray-300 bg-white',
-            'rounded-b-md shadow-sm',
-            'divide-y divide-gray-300',
+            'rounded-b-md, divide-y divide-gray-300',
           ].join(' ')}
         >
           {options.map((opt, idx) => {

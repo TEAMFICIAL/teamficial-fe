@@ -122,7 +122,7 @@ const DropdownSmall = ({
           id={name ? `${name}-listbox` : undefined}
           role="listbox"
           style={openWidth ? { width: openWidth } : undefined}
-          className={`absolute top-full left-0 z-10 divide-y divide-gray-300 rounded-b-md border border-t-0 border-gray-300 bg-white whitespace-nowrap shadow-sm`}
+          className={`absolute top-full left-0 z-10 divide-y divide-gray-300 rounded-b-md border border-t-0 border-gray-300 bg-white whitespace-nowrap`}
         >
           {options.map((opt, idx) => (
             <li
