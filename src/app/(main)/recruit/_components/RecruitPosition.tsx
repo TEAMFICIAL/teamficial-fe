@@ -116,16 +116,14 @@ const RecruitPosition = () => {
                 className={`flex items-center justify-between rounded-lg border py-3 pr-7 ${borderColor}`}
               >
                 {/* 모집분야 드롭다운 */}
-                <div className="flex items-center">
-                  <PositionDropdown
-                    className="flex-none"
-                    options={OPTIONS}
-                    placeholder="모집분야"
-                    value={item.fieldValue}
-                    disabled={!!item.fieldValue} // 선택 후 잠금
-                    onSelect={(opt) => handleSelectField(item.id, opt.value, opt.label)}
-                  />
-                </div>
+                <PositionDropdown
+                  className="flex-none"
+                  options={OPTIONS}
+                  placeholder="모집분야"
+                  value={item.fieldValue}
+                  disabled={!!item.fieldValue} // 선택 후 잠금
+                  onSelect={(opt) => handleSelectField(item.id, opt.value, opt.label)}
+                />
                 {/* 인원 증감 및 삭제 */}
                 <div className="flex items-center gap-12">
                   <div className="flex items-center">
