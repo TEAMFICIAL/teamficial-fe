@@ -11,7 +11,7 @@ const RecruitForm = () => {
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
 
-  const isEndDateInvalid = startDate && endDate && endDate > startDate;
+  const isEndDateInvalid = startDate !== null && endDate !== null && endDate > startDate;
 
   return (
     <>
@@ -31,7 +31,9 @@ const RecruitForm = () => {
               title="공고 마감일"
               date={endDate}
               setDate={setEndDate}
-              error={isEndDateInvalid ? '공고 마감일은 프로젝트 시작 예정일 이후여야 합니다.' : ''}
+              error={
+                isEndDateInvalid ? '공고 마감일은 프로젝트 시작 예정일 이전이어야 합니다.' : ''
+              }
             />
             <TextInput title="연락 방법" />
           </div>
