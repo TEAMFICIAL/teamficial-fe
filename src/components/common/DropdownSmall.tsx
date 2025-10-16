@@ -47,32 +47,22 @@ const DropdownSmall = ({
     return () => document.removeEventListener('mousedown', onDocClick);
   }, []);
 
-  // 열릴 때: 버튼/옵션 최대폭을 측정해서 동일 폭으로 고정
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!open) {
       setOpenWidth(null);
       return;
     }
 
-    const btnW = buttonRef.current?.getBoundingClientRect().width ?? 0;
-    const measW = measureRef.current?.getBoundingClientRect().width ?? 0;
-    const menuW = menuRef.current?.getBoundingClientRect().width ?? 0;
-
-    const next = Math.max(btnW, measW, menuW);
-    setOpenWidth(next);
-  }, [open, options, selectedLabel, placeholder]);
-
-  // 사이즈 재측정
-  useEffect(() => {
-    if (!open) return;
-    const onResize = () => {
+    const measureWidth = () => {
       const btnW = buttonRef.current?.getBoundingClientRect().width ?? 0;
       const measW = measureRef.current?.getBoundingClientRect().width ?? 0;
       const menuW = menuRef.current?.getBoundingClientRect().width ?? 0;
       setOpenWidth(Math.max(btnW, measW, menuW));
     };
-    window.addEventListener('resize', onResize);
-    return () => window.removeEventListener('resize', onResize);
+
+    measureWidth();
+    window.addEventListener('resize', measureWidth);
+    return () => window.removeEventListener('resize', measureWidth);
   }, [open, options, selectedLabel, placeholder]);
 
   return (
