@@ -44,7 +44,13 @@ const ProjectDropdown = ({
   }, []);
 
   return (
-    <div ref={ref} className={`relative ${className}`} role="combobox">
+    <div
+      ref={ref}
+      className={`relative ${className}`}
+      role="combobox"
+      aria-haspopup="listbox"
+      aria-expanded={open}
+    >
       <button
         type="button"
         className={`flex w-full items-center justify-between border border-gray-300 bg-white px-7 py-3 focus:border-gray-500 ${open ? 'rounded-t-md rounded-b-none' : 'rounded-md'} ${isPlaceholder ? 'text-gray-500' : 'text-gray-800'} `}
@@ -56,6 +62,8 @@ const ProjectDropdown = ({
           }
           if (e.key === 'Escape') setOpen(false);
         }}
+        aria-haspopup="listbox"
+        aria-expanded={open}
       >
         {isPlaceholder ? (
           <span className="body-6">{placeholder}</span>
@@ -78,7 +86,7 @@ const ProjectDropdown = ({
           className={[
             'absolute top-full right-0 left-0 z-10',
             'border border-t-0 border-gray-300 bg-white',
-            'rounded-b-md, divide-y divide-gray-300',
+            'divide-y divide-gray-300 rounded-b-md',
           ].join(' ')}
         >
           {options.map((opt, idx) => {
