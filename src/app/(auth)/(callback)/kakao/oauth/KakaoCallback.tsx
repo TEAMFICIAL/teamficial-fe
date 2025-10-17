@@ -10,6 +10,7 @@ export default function KakaoCallbackClient() {
 
   useEffect(() => {
     const code = params.get('code');
+    console.log(code);
 
     if (code) {
       api
