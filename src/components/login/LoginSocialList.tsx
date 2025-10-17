@@ -23,28 +23,25 @@ function handleNaverLogin() {
 }
 
 export const socialConfig = {
-  kakao: {
-    name: '카카오',
-    imageSrc: '/icons/kakao-icon.svg',
-    bgColor: 'bg-[#FEE500]',
-    textColor: 'text-black',
-    borderColor: '',
-    onClick: handleKakaoLogin,
-  },
   naver: {
     name: '네이버',
-    imageSrc: '/icons/naver-icon.svg',
-    bgColor: 'bg-[#03C75A]',
-    textColor: 'text-white',
-    borderColor: '',
+    imageSrc: '/icons/naver.svg',
+    bgColor: 'bg-[#05CB5B]',
+    textColor: 'text-gray-0',
     onClick: handleNaverLogin,
   },
+  kakao: {
+    name: '카카오',
+    imageSrc: '/icons/kakao.svg',
+    bgColor: 'bg-[#FEE500]',
+    textColor: 'text-gray-800',
+    onClick: handleKakaoLogin,
+  },
   google: {
-    name: 'Google',
-    imageSrc: '/icons/google-icon.svg',
-    bgColor: 'bg-white',
-    textColor: 'text-black',
-    borderColor: 'border border-[#E0E5F0]',
+    name: '구글',
+    imageSrc: '/icons/google.svg',
+    bgColor: 'bg-gray-200',
+    textColor: 'text-gray-800',
     onClick: handleGoogleLogin,
   },
 };
@@ -53,7 +50,7 @@ export default function LoginSocialList() {
   const socials = Object.keys(socialConfig) as Array<keyof typeof socialConfig>;
 
   return (
-    <div className="mb-6 flex flex-col items-center gap-4">
+    <div className="flex w-full flex-col items-center gap-4">
       {socials.map((type) => (
         <LoginSocial key={type} type={type} onClick={socialConfig[type].onClick} />
       ))}
