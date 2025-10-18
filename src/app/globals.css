@@ -1,4 +1,6 @@
 @import 'tailwindcss';
+@import '../styles/_variables.scss';
+@import '../styles/_keyframe-animations.scss';
 
 @theme {
   --breakpoint-*: initial;
@@ -218,4 +220,15 @@ body {
 
 @utility gradient-bg-02 {
   background: linear-gradient(90deg, #19e6b3 0%, #fbfcd4 100%);
+}
+
+/* tiptap */
+.ProseMirror h1 {
+  @apply my-2 text-3xl font-bold;
+}
+.ProseMirror h2 {
+  @apply my-2 text-2xl font-bold;
+}
+.ProseMirror h3 {
+  @apply my-2 text-xl font-bold;
 }
