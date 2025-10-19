@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useEffect, useMemo, useRef, useState, useLayoutEffect } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 type Option = { label: string; value: string };
 type DropdownProps = {
@@ -112,7 +112,7 @@ const DropdownSmall = ({
           id={name ? `${name}-listbox` : undefined}
           role="listbox"
           style={openWidth ? { width: openWidth } : undefined}
-          className={`absolute top-full left-0 z-10 divide-y divide-gray-300 rounded-b-md border border-t-0 border-gray-300 bg-white whitespace-nowrap`}
+          className={`absolute top-full left-0 z-10 max-h-[196px] divide-y divide-gray-300 overflow-y-auto rounded-b-md border border-t-0 border-gray-300 bg-white whitespace-nowrap`}
         >
           {options.map((opt, idx) => (
             <li
