@@ -7,6 +7,7 @@ import RecruitPosition from './RecruitPosition';
 import ProjectDate from './ProjectDate';
 import TextInput from './TextInput';
 import TextContent from './TextContent';
+import Button from '@/components/common/Button';
 
 const RecruitForm = () => {
   const [jobDescription, setJobDescription] = useState('');
@@ -45,9 +46,7 @@ const RecruitForm = () => {
       </div>
       {/* 추후 컴포넌트 분리 */}
       <div className="mt-6 mb-10 flex justify-end">
-        <button className="bg-primary-900 text-gray-0 body-3 w-48 rounded-lg py-4">
-          업로드하기
-        </button>
+        <Button label="저장하기" />
       </div>
     </>
   );
