@@ -16,9 +16,9 @@ const RecruitForm = () => {
 
   return (
     <>
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-4">
         <TitleInput />
-        <div className="flex flex-col gap-10 rounded-2xl border-1 border-gray-300 p-10">
+        <div className="flex flex-col gap-8 rounded-2xl border-1 border-gray-300 p-8">
           {/* 모집분야/인원 */}
           <RecruitPosition />
           {/* 진행방법 */}
