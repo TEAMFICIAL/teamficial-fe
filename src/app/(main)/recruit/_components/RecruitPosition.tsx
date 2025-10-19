@@ -84,8 +84,6 @@ const RecruitPosition = () => {
     setPositions((prev) =>
       prev.map((item) => {
         if (item.id !== id) return item;
-        const fieldEmpty = !value;
-        const countZero = item.count === 0;
         return {
           ...item,
           fieldValue: value,
