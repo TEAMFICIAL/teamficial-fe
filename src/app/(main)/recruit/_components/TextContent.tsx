@@ -2,6 +2,7 @@
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Link from '@tiptap/extension-link';
+import Placeholder from '@tiptap/extension-placeholder';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 type EditorProps = {
@@ -31,12 +32,30 @@ const TextContent = ({ editorContent, onChange }: EditorProps) => {
         },
         validate: (href) => /^(https?:\/\/|mailto:|tel:|www\.)/i.test(href),
       }),
+      Placeholder.configure({
+        placeholder: ({ node }) => {
+          if (node.type.name === 'paragraph') {
+            return [
+              '*최소 50자 이상부터 작성 가능해요',
+              '팀원에게 첫인상이 되는 모집글은 꼼꼼히 작성할수록 좋아요',
+              '',
+              '<작성 예시>',
+              '• 어떤 프로젝트인지 소개해주세요',
+              '• 누구와, 왜, 어떤 목표로 함께하고 싶은지 작성해주세요',
+              '• 어떤 성향의 사람들을 찾고 있는지 작성해주세요',
+            ].join('\n');
+          }
+          return '';
+        },
+        includeChildren: true,
+        showOnlyCurrent: false,
+      }),
     ],
     immediatelyRender: false,
     editorProps: {
       attributes: {
         class:
-          'ProseMirror shadow appearance-none min-h-[150px] border rounded w-full py-2 px-3 bg-white text-black text-sm mt-0 md:mt-3 leading-tight focus:outline-none',
+          'ProseMirror appearance-none min-h-[150px] w-full bg-white text-sm focus:outline-none',
       },
     },
     content: editorContent,
@@ -105,13 +124,16 @@ const TextContent = ({ editorContent, onChange }: EditorProps) => {
 
   if (!editor) return null;
   return (
-    <div className="flex flex-col gap-9 rounded-2xl border-1 border-gray-300 px-8 py-4">
+    <div className="flex flex-col rounded-2xl border-1 border-gray-300 px-8 pt-4 pb-9">
       {/* 에디터 툴바 */}
+      {/* TODO : ul 아이콘, h3 아이콘 추가 */}
+      {/* TODO : 툴바 컴포넌트화 */}
       <div className="flex w-full gap-6 border-b-1 border-gray-300 px-5 pt-2.5 pb-5">
         <button
           type="button"
           onClick={() => editor.chain().focus().toggleBold().run()}
           title="Bold (Ctrl+B)"
+          className="cursor-pointer transition-opacity hover:opacity-80"
         >
           <Image
             src={
@@ -129,6 +151,7 @@ const TextContent = ({ editorContent, onChange }: EditorProps) => {
           type="button"
           onClick={() => editor.chain().focus().toggleItalic().run()}
           title="Italic (Ctrl+I)"
+          className="cursor-pointer transition-opacity hover:opacity-80"
         >
           <Image
             src={
@@ -146,6 +169,7 @@ const TextContent = ({ editorContent, onChange }: EditorProps) => {
           type="button"
           onClick={() => editor.chain().focus().toggleUnderline().run()}
           title="Underline (Ctrl+U)"
+          className="cursor-pointer transition-opacity hover:opacity-80"
         >
           <Image
             src={
@@ -163,6 +187,7 @@ const TextContent = ({ editorContent, onChange }: EditorProps) => {
           type="button"
           onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
           title="Heading 1"
+          className="cursor-pointer transition-opacity hover:opacity-80"
         >
           <Image
             src={
@@ -180,6 +205,7 @@ const TextContent = ({ editorContent, onChange }: EditorProps) => {
           type="button"
           onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
           title="Heading 2"
+          className="cursor-pointer transition-opacity hover:opacity-80"
         >
           <Image
             src={
@@ -197,6 +223,7 @@ const TextContent = ({ editorContent, onChange }: EditorProps) => {
           type="button"
           onClick={() => editor.chain().focus().toggleBulletList().run()}
           title="Bullet List"
+          className="cursor-pointer transition-opacity hover:opacity-80"
         >
           <Image
             src={
@@ -214,6 +241,7 @@ const TextContent = ({ editorContent, onChange }: EditorProps) => {
           type="button"
           onClick={() => editor.chain().focus().toggleOrderedList().run()}
           title="Numbered list"
+          className="cursor-pointer transition-opacity hover:opacity-80"
         >
           <Image
             src={
@@ -231,6 +259,7 @@ const TextContent = ({ editorContent, onChange }: EditorProps) => {
           type="button"
           onClick={handleLinkButtonClick}
           title={editor.isActive('link') ? 'Unlink' : 'Link'}
+          className="cursor-pointer transition-opacity hover:opacity-80"
         >
           <Image
             src={
@@ -246,12 +275,7 @@ const TextContent = ({ editorContent, onChange }: EditorProps) => {
         </button>
       </div>
       {/* 에디터 본문 */}
-      <div className="body-6 text-gray-500">
-        *최소 50자 이상부터 작성 가능해요 <br /> 팀원에게 첫인상이 되는 모집글은 꼼꼼히 작성할수록
-        좋아요 <br /> <br /> {'<작성 예시>'} <br /> - 어떤 프로젝트인지 소개해주세요 <br /> -
-        누구와, 왜, 어떤 목표로 함께하고 싶은지 작성해주세요 <br />- 어떤 성향의 사람들을 찾고
-        있는지 작성해주세요
-      </div>
+      <EditorContent editor={editor} className="mt-7" />
     </div>
   );
 };

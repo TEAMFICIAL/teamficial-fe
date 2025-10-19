@@ -232,3 +232,11 @@ body {
 .ProseMirror h3 {
   @apply my-2 text-xl font-bold;
 }
+.ProseMirror p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: #c4c4c4;
+  pointer-events: none;
+  height: 0;
+  white-space: pre-wrap;
+}
