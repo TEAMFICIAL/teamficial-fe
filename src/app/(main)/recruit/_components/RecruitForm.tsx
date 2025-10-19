@@ -9,6 +9,8 @@ import TextInput from './TextInput';
 import TextContent from './TextContent';
 
 const RecruitForm = () => {
+  const [jobDescription, setJobDescription] = useState('');
+
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
 
@@ -39,7 +41,7 @@ const RecruitForm = () => {
             <TextInput title="연락 방법" />
           </div>
         </div>
-        <TextContent />
+        <TextContent editorContent={jobDescription} onChange={setJobDescription} />
       </div>
       {/* 추후 컴포넌트 분리 */}
       <div className="mt-6 mb-10 flex justify-end">
