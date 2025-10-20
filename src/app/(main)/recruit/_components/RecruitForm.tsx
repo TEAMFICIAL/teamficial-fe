@@ -6,7 +6,7 @@ import ProjectDuration from './ProjectDuration';
 import RecruitPosition from './RecruitPosition';
 import ProjectDate from './ProjectDate';
 import TextInput from './TextInput';
-import TextContent from './TextContent';
+import TextContent from './editor/TextContent';
 import Button from '@/components/common/Button';
 
 const RecruitForm = () => {
@@ -44,7 +44,6 @@ const RecruitForm = () => {
         </div>
         <TextContent editorContent={jobDescription} onChange={setJobDescription} />
       </div>
-      {/* 추후 컴포넌트 분리 */}
       <div className="mt-6 mb-10 flex justify-end">
         <Button label="저장하기" />
       </div>
