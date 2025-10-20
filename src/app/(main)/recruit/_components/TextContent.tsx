@@ -55,7 +55,7 @@ const TextContent = ({ editorContent, onChange }: EditorProps) => {
     editorProps: {
       attributes: {
         class:
-          'ProseMirror appearance-none min-h-[150px] w-full bg-white text-sm focus:outline-none',
+          'ProseMirror appearance-none min-h-[150px] w-full bg-white body-4 focus:outline-none',
       },
     },
     content: editorContent,
@@ -131,6 +131,60 @@ const TextContent = ({ editorContent, onChange }: EditorProps) => {
       <div className="flex w-full gap-6 border-b-1 border-gray-300 px-5 pt-2.5 pb-5">
         <button
           type="button"
+          onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
+          title="Heading 1"
+          className="cursor-pointer transition-opacity hover:opacity-80"
+        >
+          <Image
+            src={
+              editor.isActive('heading', { level: 1 })
+                ? '/icons/editor/text-h1-selected.svg'
+                : '/icons/editor/text-h1.svg'
+            }
+            alt="H1"
+            width={24}
+            height={24}
+            className="h-6 w-6"
+          />
+        </button>
+        <button
+          type="button"
+          onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+          title="Heading 2"
+          className="cursor-pointer transition-opacity hover:opacity-80"
+        >
+          <Image
+            src={
+              editor.isActive('heading', { level: 2 })
+                ? '/icons/editor/text-h2-selected.svg'
+                : '/icons/editor/text-h2.svg'
+            }
+            alt="H2"
+            width={24}
+            height={24}
+            className="h-6 w-6"
+          />
+        </button>
+        <button
+          type="button"
+          onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
+          title="Heading 3"
+          className="cursor-pointer transition-opacity hover:opacity-80"
+        >
+          <Image
+            src={
+              editor.isActive('heading', { level: 3 })
+                ? '/icons/editor/text-h3-selected.svg'
+                : '/icons/editor/text-h3.svg'
+            }
+            alt="H3"
+            width={24}
+            height={24}
+            className="h-6 w-6"
+          />
+        </button>
+        <button
+          type="button"
           onClick={() => editor.chain().focus().toggleBold().run()}
           title="Bold (Ctrl+B)"
           className="cursor-pointer transition-opacity hover:opacity-80"
@@ -185,42 +239,6 @@ const TextContent = ({ editorContent, onChange }: EditorProps) => {
         </button>
         <button
           type="button"
-          onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-          title="Heading 1"
-          className="cursor-pointer transition-opacity hover:opacity-80"
-        >
-          <Image
-            src={
-              editor.isActive('heading', { level: 1 })
-                ? '/icons/editor/text-h1-selected.svg'
-                : '/icons/editor/text-h1.svg'
-            }
-            alt="H1"
-            width={24}
-            height={24}
-            className="h-6 w-6"
-          />
-        </button>
-        <button
-          type="button"
-          onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-          title="Heading 2"
-          className="cursor-pointer transition-opacity hover:opacity-80"
-        >
-          <Image
-            src={
-              editor.isActive('heading', { level: 2 })
-                ? '/icons/editor/text-h2-selected.svg'
-                : '/icons/editor/text-h2.svg'
-            }
-            alt="H2"
-            width={24}
-            height={24}
-            className="h-6 w-6"
-          />
-        </button>
-        <button
-          type="button"
           onClick={() => editor.chain().focus().toggleBulletList().run()}
           title="Bullet List"
           className="cursor-pointer transition-opacity hover:opacity-80"
@@ -228,8 +246,8 @@ const TextContent = ({ editorContent, onChange }: EditorProps) => {
           <Image
             src={
               editor.isActive('bulletList')
-                ? '/icons/editor/text-ol-selected.svg'
-                : '/icons/editor/text-ol.svg'
+                ? '/icons/editor/text-ul-selected.svg'
+                : '/icons/editor/text-ul.svg'
             }
             alt="Bullet list"
             width={24}

@@ -224,13 +224,13 @@ body {
 
 /* tiptap */
 .ProseMirror h1 {
-  @apply my-2 text-3xl font-bold;
+  @apply my-2 text-4xl font-bold;
 }
 .ProseMirror h2 {
-  @apply my-2 text-2xl font-bold;
+  @apply my-2 text-3xl font-bold;
 }
 .ProseMirror h3 {
-  @apply my-2 text-xl font-bold;
+  @apply my-2 text-2xl font-bold;
 }
 .ProseMirror p.is-editor-empty:first-child::before {
   content: attr(data-placeholder);
