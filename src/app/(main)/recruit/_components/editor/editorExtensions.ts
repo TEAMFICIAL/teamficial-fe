@@ -23,7 +23,7 @@ export const getEditorExtensions = () => [
     placeholder: ({ node }) => {
       if (node.type.name === 'paragraph') {
         return [
-          '*최소 50자 이상부터d 작성 가능해요',
+          '*최소 50자 이상부터 작성 가능해요',
           '팀원에게 첫인상이 되는 모집글은 꼼꼼히 작성할수록 좋아요',
           '',
           '<작성 예시>',
