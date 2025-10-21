@@ -40,7 +40,7 @@ const Button = ({
       type={type}
       disabled={disabled}
       onClick={onClick}
-      className={`inline-flex items-center justify-center rounded-lg px-8 py-4 ${sizeStyles[size]} ${disabled ? disabledStyle : variantStyles[variant]} ${className}`}
+      className={`inline-flex cursor-pointer items-center justify-center rounded-lg px-8 py-4 ${sizeStyles[size]} ${disabled ? disabledStyle : variantStyles[variant]} ${className}`}
     >
       {label}
     </button>
