@@ -13,7 +13,7 @@ export const handleLink = (editor: Editor) => {
   let normalized = url.trim();
   if (/^www\./i.test(normalized)) normalized = 'https://' + normalized;
 
-  const valid = /^(https?:\/\/|mailto:|tel:)/i.test(normalized);
+  const valid = /^(https?:\/\/|mailto:|tel:|www\.)/i.test(normalized);
   if (!valid) {
     alert('유효한 URL을 입력해주세요 (예: https://example.com, mailto:, tel:, www.)');
     return;
@@ -24,9 +24,20 @@ export const handleLink = (editor: Editor) => {
     editor
       .chain()
       .focus()
-      .insertContent(
-        `<a href="${normalized}" target="_blank" rel="noopener noreferrer nofollow">${normalized}</a>`,
-      )
+      .insertContent({
+        type: 'text',
+        marks: [
+          {
+            type: 'link',
+            attrs: {
+              href: normalized,
+              target: '_blank',
+              rel: 'noopener noreferrer nofollow',
+            },
+          },
+        ],
+        text: normalized,
+      })
       .run();
   } else {
     editor

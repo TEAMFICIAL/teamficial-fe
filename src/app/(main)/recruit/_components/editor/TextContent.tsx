@@ -28,6 +28,12 @@ const TextContent = ({ editorContent, onChange }: EditorProps) => {
   });
 
   useEffect(() => {
+    return () => {
+      editor?.destroy();
+    };
+  }, [editor]);
+
+  useEffect(() => {
     if (!editor) return;
     const update = () => forceUpdate((v) => v + 1);
     editor.on('selectionUpdate', update);
