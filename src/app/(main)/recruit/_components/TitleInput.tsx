@@ -12,9 +12,11 @@ const TitleInput = () => {
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
-      <span className={`body-8 text-gray-500 ${title.length > 30 ? 'text-red-100' : ''}`}>
-        {title.length > 30 ? '제목을 30자 이하로 입력해주세요.' : ''}
-      </span>
+      {title.length > 30 && (
+        <span className={`body-8 text-gray-500 ${title.length > 30 ? 'text-red-100' : ''}`}>
+          제목을 30자 이하로 입력해주세요.
+        </span>
+      )}
     </div>
   );
 };
