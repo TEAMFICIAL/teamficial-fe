@@ -6,8 +6,12 @@ import ProjectDuration from './ProjectDuration';
 import RecruitPosition from './RecruitPosition';
 import ProjectDate from './ProjectDate';
 import TextInput from './TextInput';
+import TextContent from './editor/TextContent';
+import Button from '@/components/common/Button';
 
 const RecruitForm = () => {
+  const [jobDescription, setJobDescription] = useState('');
+
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
 
@@ -15,9 +19,9 @@ const RecruitForm = () => {
 
   return (
     <>
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-4">
         <TitleInput />
-        <div className="flex flex-col gap-10 rounded-2xl border-1 border-gray-300 p-10">
+        <div className="flex flex-col gap-8 rounded-2xl border-1 border-gray-300 p-8">
           {/* 모집분야/인원 */}
           <RecruitPosition />
           {/* 진행방법 */}
@@ -38,13 +42,10 @@ const RecruitForm = () => {
             <TextInput title="연락 방법" />
           </div>
         </div>
-        <div className="flex rounded-2xl border-1 border-gray-300 px-8 py-4">글 작성 구역</div>
+        <TextContent editorContent={jobDescription} onChange={setJobDescription} />
       </div>
-      {/* 추후 컴포넌트 분리 */}
       <div className="mt-6 mb-10 flex justify-end">
-        <button className="bg-primary-900 text-gray-0 body-3 w-48 rounded-lg py-4">
-          업로드하기
-        </button>
+        <Button label="저장하기" />
       </div>
     </>
   );
