@@ -28,33 +28,25 @@ const OPTIONS = [
   { label: '데브옵스', value: 'devops' },
 ];
 
-const getErrorMessage = (fieldEmpty: boolean, countZero: boolean) => {
-  if (fieldEmpty && countZero) return '분야와 인원수를 입력해주세요.';
-  if (fieldEmpty) return '분야를 입력해주세요.';
-  if (countZero) return '인원수를 선택해주세요.';
-  return null;
-};
-
 const RecruitPosition = () => {
   const [positions, setPositions] = useState<RecruitItem[]>([
-    { id: Date.now(), fieldValue: '', fieldLabel: '', count: 0, touched: false, error: null },
+    { id: Date.now(), fieldValue: '', fieldLabel: '', count: 1, touched: false, error: null },
   ]);
 
   const handleAdd = () => {
     setPositions((prev) => {
       const updated = prev.map((item) => {
         const fieldEmpty = !item.fieldValue;
-        const countZero = item.count === 0;
         return {
           ...item,
           touched: true,
-          error: getErrorMessage(fieldEmpty, countZero),
+          error: fieldEmpty ? '분야를 입력해주세요.' : null,
         };
       });
       if (updated.some((i) => i.error)) return updated;
       return [
         ...updated,
-        { id: Date.now(), fieldValue: '', fieldLabel: '', count: 0, touched: false, error: null },
+        { id: Date.now(), fieldValue: '', fieldLabel: '', count: 1, touched: false, error: null },
       ];
     });
   };
@@ -67,14 +59,13 @@ const RecruitPosition = () => {
     setPositions((prev) =>
       prev.map((item) => {
         if (item.id !== id) return item;
-        const next = Math.max(0, item.count + delta);
+        const next = Math.max(1, item.count + delta);
         const fieldEmpty = !item.fieldValue;
-        const countZero = next === 0;
         return {
           ...item,
           count: next,
           touched: true,
-          error: getErrorMessage(fieldEmpty, countZero),
+          error: fieldEmpty ? '분야를 입력해주세요.' : null,
         };
       }),
     );
@@ -127,24 +118,22 @@ const RecruitPosition = () => {
                   <div className="flex items-center">
                     <button
                       onClick={() => handleCount(item.id, -1)}
-                      disabled={item.count === 0}
+                      disabled={item.count === 1}
                       className={`rounded-l-sm p-1 ${
-                        item.count === 0
+                        item.count === 1
                           ? 'cursor-not-allowed bg-gray-100 opacity-50'
                           : 'cursor-pointer bg-gray-200 hover:bg-gray-300'
                       }`}
                     >
                       <Image
-                        src={item.count === 0 ? '/icons/minus-disabled.svg' : '/icons/minus.svg'}
+                        src={item.count === 1 ? '/icons/minus-disabled.svg' : '/icons/minus.svg'}
                         alt="minus"
                         width={24}
                         height={24}
                       />
                     </button>
 
-                    <span
-                      className={`body-6 bg-gray-100 px-4 py-1 ${item.count === 0 ? 'text-gray-500' : 'text-gray-800'}`}
-                    >
+                    <span className={`body-6 bg-gray-100 px-4 py-1 text-gray-800`}>
                       {item.count}명
                     </span>
 
