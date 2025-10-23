@@ -243,3 +243,12 @@ body {
   height: 0;
   white-space: pre-wrap;
 }
+.prose h1 {
+  @apply my-2 text-3xl font-bold;
+}
+.prose h2 {
+  @apply my-2 text-2xl font-bold;
+}
+.prose h3 {
+  @apply my-1 text-xl font-bold;
+}
