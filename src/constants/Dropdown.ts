@@ -8,8 +8,7 @@ export const RECRUIT_OPTIONS = [
   { label: '기획', value: 'planning' },
   { label: '마케팅', value: 'marketing' },
   { label: 'PM', value: 'pm' },
-  { label: '클라우드', value: 'cloud' },
-  { label: '인프라', value: 'infrastructure' },
+  { label: '클라우드/인프라', value: 'cloud' },
   { label: '데브옵스', value: 'devops' },
 ];
 
