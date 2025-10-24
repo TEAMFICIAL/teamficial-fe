@@ -1,6 +1,7 @@
 import React from 'react';
 import ProjectTitle from './ProjectTitle';
 import InfoCard from './InfoCard';
+import Profile1 from '@/components/profile/Profile1';
 
 type Props = {
   content: string;
@@ -15,12 +16,12 @@ const ProjectInfo = ({ content = SAMPLE_CONTENT }: Props) => {
   return (
     <>
       <ProjectTitle />
-      <div className="flex flex-col gap-4">
+      <div className="mb-14 flex flex-col gap-4">
         <InfoCard />
         <div className="prose max-w-none rounded-2xl border border-gray-300 p-10 text-gray-700">
           <div dangerouslySetInnerHTML={{ __html: content }} />
         </div>
-        <p>프로필 컴포넌트 부분</p>
+        <Profile1 />
       </div>
     </>
   );
