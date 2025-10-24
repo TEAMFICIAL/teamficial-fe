@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import React, { useState } from 'react';
 import PositionDropdown from './PositionDropdown';
+import { RECRUIT_OPTIONS } from '@/constants/Dropdown';
 
 type RecruitItem = {
   id: number;
@@ -12,21 +13,6 @@ type RecruitItem = {
   touched: boolean;
   error: string | null;
 };
-
-const OPTIONS = [
-  { label: '프론트엔드', value: 'frontend' },
-  { label: '백엔드', value: 'backend' },
-  { label: 'UX/UI디자인', value: 'uxui' },
-  { label: 'AI', value: 'ai' },
-  { label: '안드로이드', value: 'android' },
-  { label: 'iOS', value: 'ios' },
-  { label: '기획', value: 'planning' },
-  { label: '마케팅', value: 'marketing' },
-  { label: 'PM', value: 'pm' },
-  { label: '클라우드', value: 'cloud' },
-  { label: '인프라', value: 'infrastructure' },
-  { label: '데브옵스', value: 'devops' },
-];
 
 const RecruitPosition = () => {
   const [positions, setPositions] = useState<RecruitItem[]>([
@@ -107,7 +93,7 @@ const RecruitPosition = () => {
                 {/* 모집분야 드롭다운 */}
                 <PositionDropdown
                   className="flex-none"
-                  options={OPTIONS}
+                  options={RECRUIT_OPTIONS}
                   placeholder="모집분야"
                   value={item.fieldValue}
                   disabled={!!item.fieldValue} // 선택 후 잠금
