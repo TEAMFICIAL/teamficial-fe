@@ -1,25 +1,50 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import Button from '@/components/common/button/Button';
 import DropdownSmall from '@/components/common/DropdownSmall';
 import Toggle from '@/components/common/Toggle';
 import { DURATION_OPTIONS, RECRUIT_OPTIONS } from '@/constants/Dropdown';
 import { useState } from 'react';
 
+type Filters = {
+  duration: string;
+  recruit: string;
+  onlyOpen: boolean;
+};
+
 type Props = {
-  onChange?: (value: string) => void;
+  onChange?: (filters: Filters) => void;
 };
 
 const ButtonContainer = ({ onChange }: Props) => {
+  const router = useRouter();
   const [duration, setDuration] = useState('');
   const [recruit, setRecruit] = useState('');
   const [onlyOpen, setOnlyOpen] = useState(false);
 
-  const handleChange = (name: string, newValue: string) => {
-    if (name === 'duration') setDuration(newValue);
-    else if (name === 'recruit') setRecruit(newValue);
+  const notifyChange = (updates: Partial<Filters>) => {
+    const newFilters = { duration, recruit, onlyOpen, ...updates };
+    onChange?.(newFilters);
+  };
 
-    onChange?.(newValue);
+  const handleChange = (name: string, newValue: string) => {
+    if (name === 'duration') {
+      setDuration(newValue);
+      notifyChange({ duration: newValue });
+    } else if (name === 'recruit') {
+      setRecruit(newValue);
+      notifyChange({ recruit: newValue });
+    }
+  };
+
+  const handleToggleChange = (checked: boolean) => {
+    setOnlyOpen(checked);
+    notifyChange({ onlyOpen: checked });
+  };
+
+  const handleRecruitClick = () => {
+    router.push('/recruit');
   };
 
   return (
@@ -41,9 +66,14 @@ const ButtonContainer = ({ onChange }: Props) => {
             options={RECRUIT_OPTIONS}
           />
         </div>
-        <Button className="bg-primary-900 text-gray-0 hover:bg-primary-700">팀원 모집하기</Button>
+        <Button
+          className="bg-primary-900 text-gray-0 hover:bg-primary-700"
+          onClick={handleRecruitClick}
+        >
+          팀원 모집하기
+        </Button>
       </div>
-      <Toggle checked={onlyOpen} onChange={setOnlyOpen} label="모집 중만 보기" />
+      <Toggle checked={onlyOpen} onChange={handleToggleChange} label="모집 중만 보기" />
     </main>
   );
 };
