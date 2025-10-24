@@ -39,7 +39,7 @@ export default function PositionDropdown({
   }, []);
 
   const listBoxBase =
-    'absolute left-0 z-10 top-10 rounded-b-md border border-gray-300 bg-white whitespace-nowrap';
+    'absolute left-[-1px] z-10 top-[41px] rounded-b-md border border-gray-300 bg-white whitespace-nowrap';
 
   return (
     <div ref={wrapRef} className={`relative inline-block ${className}`}>

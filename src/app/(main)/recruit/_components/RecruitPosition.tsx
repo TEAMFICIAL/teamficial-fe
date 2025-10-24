@@ -84,8 +84,6 @@ const RecruitPosition = () => {
     setPositions((prev) =>
       prev.map((item) => {
         if (item.id !== id) return item;
-        const fieldEmpty = !value;
-        const countZero = item.count === 0;
         return {
           ...item,
           fieldValue: value,
@@ -145,7 +143,7 @@ const RecruitPosition = () => {
                     </button>
 
                     <span
-                      className={`body-6 bg-gray-100 px-3 py-1 ${item.count === 0 ? 'text-gray-500' : 'text-gray-800'}`}
+                      className={`body-6 bg-gray-100 px-4 py-1 ${item.count === 0 ? 'text-gray-500' : 'text-gray-800'}`}
                     >
                       {item.count}명
                     </span>
