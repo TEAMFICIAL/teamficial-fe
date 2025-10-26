@@ -11,7 +11,7 @@ const InfoItem = ({ label, value, className = '' }: InfoItemProps) => {
 
   return (
     <div className={`flex items-center ${className}`}>
-      <p className="body-3 w-30 flex-shrink-0 pt-0.5">{label}</p>
+      <p className="body-3 w-30 flex-shrink-0">{label}</p>
       <div className="min-w-0 flex-1">
         {isUrl ? (
           <a
