@@ -70,6 +70,7 @@ const DropdownSmall = ({
       ref={wrapRef}
       className={`relative inline-block flex-none ${className}`}
       role="combobox"
+      aria-controls={`${name}-listbox`}
       aria-expanded={open}
       aria-haspopup="listbox"
     >
