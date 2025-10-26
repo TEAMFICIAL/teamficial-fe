@@ -11,6 +11,7 @@ const SAMPLE_CONTENT = `
 
 const ProjectInfo = ({ id }: { id: string }) => {
   const sanitizedContent = DOMPurify.sanitize(SAMPLE_CONTENT);
+  console.log('Project ID:', id);
   return (
     <>
       <ProjectTitle />
