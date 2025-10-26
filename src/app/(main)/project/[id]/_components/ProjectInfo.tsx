@@ -1,3 +1,4 @@
+'use client';
 import DOMPurify from 'isomorphic-dompurify';
 import React from 'react';
 import ProjectTitle from './ProjectTitle';
