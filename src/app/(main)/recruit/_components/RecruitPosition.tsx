@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import React, { useState } from 'react';
 import PositionDropdown from './PositionDropdown';
+import { RECRUIT_OPTIONS } from '@/constants/Dropdown';
 
 type RecruitItem = {
   id: number;
@@ -13,48 +14,25 @@ type RecruitItem = {
   error: string | null;
 };
 
-const OPTIONS = [
-  { label: '프론트엔드', value: 'frontend' },
-  { label: '백엔드', value: 'backend' },
-  { label: 'UX/UI디자인', value: 'uxui' },
-  { label: 'AI', value: 'ai' },
-  { label: '안드로이드', value: 'android' },
-  { label: 'iOS', value: 'ios' },
-  { label: '기획', value: 'planning' },
-  { label: '마케팅', value: 'marketing' },
-  { label: 'PM', value: 'pm' },
-  { label: '클라우드', value: 'cloud' },
-  { label: '인프라', value: 'infrastructure' },
-  { label: '데브옵스', value: 'devops' },
-];
-
-const getErrorMessage = (fieldEmpty: boolean, countZero: boolean) => {
-  if (fieldEmpty && countZero) return '분야와 인원수를 입력해주세요.';
-  if (fieldEmpty) return '분야를 입력해주세요.';
-  if (countZero) return '인원수를 선택해주세요.';
-  return null;
-};
-
 const RecruitPosition = () => {
   const [positions, setPositions] = useState<RecruitItem[]>([
-    { id: Date.now(), fieldValue: '', fieldLabel: '', count: 0, touched: false, error: null },
+    { id: Date.now(), fieldValue: '', fieldLabel: '', count: 1, touched: false, error: null },
   ]);
 
   const handleAdd = () => {
     setPositions((prev) => {
       const updated = prev.map((item) => {
         const fieldEmpty = !item.fieldValue;
-        const countZero = item.count === 0;
         return {
           ...item,
           touched: true,
-          error: getErrorMessage(fieldEmpty, countZero),
+          error: fieldEmpty ? '분야를 입력해주세요.' : null,
         };
       });
       if (updated.some((i) => i.error)) return updated;
       return [
         ...updated,
-        { id: Date.now(), fieldValue: '', fieldLabel: '', count: 0, touched: false, error: null },
+        { id: Date.now(), fieldValue: '', fieldLabel: '', count: 1, touched: false, error: null },
       ];
     });
   };
@@ -67,14 +45,13 @@ const RecruitPosition = () => {
     setPositions((prev) =>
       prev.map((item) => {
         if (item.id !== id) return item;
-        const next = Math.max(0, item.count + delta);
+        const next = Math.max(1, item.count + delta);
         const fieldEmpty = !item.fieldValue;
-        const countZero = next === 0;
         return {
           ...item,
           count: next,
           touched: true,
-          error: getErrorMessage(fieldEmpty, countZero),
+          error: fieldEmpty ? '분야를 입력해주세요.' : null,
         };
       }),
     );
@@ -116,7 +93,7 @@ const RecruitPosition = () => {
                 {/* 모집분야 드롭다운 */}
                 <PositionDropdown
                   className="flex-none"
-                  options={OPTIONS}
+                  options={RECRUIT_OPTIONS}
                   placeholder="모집분야"
                   value={item.fieldValue}
                   disabled={!!item.fieldValue} // 선택 후 잠금
@@ -127,24 +104,22 @@ const RecruitPosition = () => {
                   <div className="flex items-center">
                     <button
                       onClick={() => handleCount(item.id, -1)}
-                      disabled={item.count === 0}
+                      disabled={item.count === 1}
                       className={`rounded-l-sm p-1 ${
-                        item.count === 0
+                        item.count === 1
                           ? 'cursor-not-allowed bg-gray-100 opacity-50'
                           : 'cursor-pointer bg-gray-200 hover:bg-gray-300'
                       }`}
                     >
                       <Image
-                        src={item.count === 0 ? '/icons/minus-disabled.svg' : '/icons/minus.svg'}
+                        src={item.count === 1 ? '/icons/minus-disabled.svg' : '/icons/minus.svg'}
                         alt="minus"
                         width={24}
                         height={24}
                       />
                     </button>
 
-                    <span
-                      className={`body-6 bg-gray-100 px-4 py-1 ${item.count === 0 ? 'text-gray-500' : 'text-gray-800'}`}
-                    >
+                    <span className={`body-6 bg-gray-100 px-4 py-1 text-gray-800`}>
                       {item.count}명
                     </span>
 

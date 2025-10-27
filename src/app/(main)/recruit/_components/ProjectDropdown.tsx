@@ -48,6 +48,7 @@ const ProjectDropdown = ({
       ref={ref}
       className={`relative ${className}`}
       role="combobox"
+      aria-controls={`${name}-listbox`}
       aria-haspopup="listbox"
       aria-expanded={open}
     >

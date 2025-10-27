@@ -23,9 +23,9 @@ const Button = ({
   type = 'button',
 }: ButtonProps) => {
   const variantStyles: Record<ButtonVariant, string> = {
-    primary: 'bg-primary-900 text-gray-0 hover:bg-primary-800',
-    red: 'bg-[#F1000D] text-gray-0 hover:bg-[#D7000B]',
-    gray: 'bg-gray-300 text-gray-800 hover:bg-gray-400',
+    primary: 'bg-primary-900 text-gray-0 hover:bg-primary-700',
+    red: 'bg-red-100 text-gray-0 hover:bg-red-200',
+    gray: 'bg-gray-300 text-gray-800 disabled:text-gray-600',
   };
 
   const sizeStyles: Record<ButtonSize, string> = {
@@ -40,7 +40,7 @@ const Button = ({
       type={type}
       disabled={disabled}
       onClick={onClick}
-      className={`inline-flex items-center justify-center rounded-lg px-8 py-4 ${sizeStyles[size]} ${disabled ? disabledStyle : variantStyles[variant]} ${className}`}
+      className={`inline-flex cursor-pointer items-center justify-center rounded-lg px-8 py-4 ${sizeStyles[size]} ${disabled ? disabledStyle : variantStyles[variant]} ${className}`}
     >
       {label}
     </button>

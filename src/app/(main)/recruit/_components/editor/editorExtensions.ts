@@ -15,7 +15,7 @@ export const getEditorExtensions = () => [
     HTMLAttributes: {
       target: '_blank',
       rel: 'noopener noreferrer nofollow',
-      class: 'underline text-blue-600 hover:opacity-80',
+      class: 'underline text-primary-900 hover:opacity-80',
     },
     validate: (href) => /^(https?:\/\/|mailto:|tel:|www\.)/i.test(href),
   }),
