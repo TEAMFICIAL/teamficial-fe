@@ -27,6 +27,7 @@ const MessageTextarea = ({
           onChange={handleChange}
           placeholder={placeholder}
           onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
           className={`body-6 bg-gray-0 resize-none rounded-lg border px-8 pt-5 pb-7.5 transition-colors ${
             isOverLimit
               ? 'border-red-100 text-gray-800'
