@@ -1,11 +1,20 @@
 'use client';
 
 import Button from '@/components/common/Button';
+import { useModal } from '@/contexts/ModalContext';
 import React from 'react';
 
 const ProjectTitle = () => {
   // TODO : 작성자 여부에 따른 조건 처리
   const isAuthor = true;
+
+  const { openModal } = useModal();
+  const handleApplyModal = () => {
+    openModal('apply', { projectId: 123 });
+  };
+  const handleDeleteModal = () => {
+    openModal('delete');
+  };
 
   return (
     <div className="flex items-center justify-between py-7">
@@ -20,10 +29,12 @@ const ProjectTitle = () => {
       {!isAuthor ? (
         <div className="flex w-23.5 items-end gap-0.5">
           <button className="body-4 flex-1 cursor-pointer">수정</button>
-          <button className="body-4 flex-1 cursor-pointer">삭제</button>
+          <button className="body-4 flex-1 cursor-pointer" onClick={handleDeleteModal}>
+            삭제
+          </button>
         </div>
       ) : (
-        <Button label="지원하기" size="large" onClick={() => {}} />
+        <Button label="지원하기" size="large" onClick={handleApplyModal} />
       )}
     </div>
   );
