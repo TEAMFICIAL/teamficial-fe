@@ -1,19 +1,22 @@
 import { ChangeEvent, useState } from 'react';
 
 interface ApplyMessageFieldProps {
+  value: string;
+  onChange: (value: string) => void;
   placeholder?: string;
   maxLength?: number;
 }
 
 const MessageTextarea = ({
+  value,
+  onChange,
   placeholder = '기술보다 중요한 건 함께하는 태도예요.\n어떤 마음으로 이 프로젝트에 참여하고 싶은지 적어주세요. (250자 내외, 선택사항)',
   maxLength = 250,
 }: ApplyMessageFieldProps) => {
-  const [value, setValue] = useState('');
   const [isFocused, setIsFocused] = useState(false);
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setValue(e.target.value);
+    onChange(e.target.value);
   };
 
   const isOverLimit = value.length > maxLength;
