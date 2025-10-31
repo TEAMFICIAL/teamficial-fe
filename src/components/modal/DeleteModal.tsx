@@ -5,12 +5,13 @@ import BaseModal from './index';
 import Image from 'next/image';
 
 interface DeleteModalProps {
+  isOpen: boolean;
   onClose: () => void;
 }
 
-const DeleteModal = ({ onClose }: DeleteModalProps) => {
+const DeleteModal = ({ isOpen, onClose }: DeleteModalProps) => {
   return (
-    <BaseModal isOpen={true} onClose={onClose}>
+    <BaseModal isOpen={isOpen} onClose={onClose}>
       <div className="flex flex-col items-center">
         <Image
           src={`/icons/gray_teamficial_symbol.svg`}
