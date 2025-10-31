@@ -52,41 +52,38 @@ const ProfileSlider = () => {
     <>
       <div className="flex w-full items-center justify-between gap-2 rounded-2xl border border-gray-300 px-5 py-8">
         {index > 0 ? (
-          <Image
-            src={`/icons/profile_arrow_left.svg`}
-            alt="arrow_left"
-            width={32}
-            height={32}
-            onClick={handlePrev}
-            className="cursor-pointer"
-          />
+          <button onClick={handlePrev} className="cursor-pointer" aria-label="prev">
+            <Image src={`/icons/profile_arrow_left.svg`} alt="arrow_left" width={32} height={32} />
+          </button>
         ) : (
-          <Image
-            src={`/icons/disabled_arrow_left.svg`}
-            alt="disabled_arrow_left"
-            width={32}
-            height={32}
-            className="pointer-events-none"
-          />
+          <button disabled className="pointer-events-none" aria-label="disabled_prev">
+            <Image
+              src={`/icons/disabled_arrow_left.svg`}
+              alt="disabled_arrow_left"
+              width={32}
+              height={32}
+            />
+          </button>
         )}
         <ProfileCard profile={currentProfile} />
         {index < profiles.length - 1 ? (
-          <Image
-            src={`/icons/profile_arrow_right.svg`}
-            alt="arrow_right"
-            width={32}
-            height={32}
-            onClick={handleNext}
-            className="cursor-pointer"
-          />
+          <button onClick={handleNext} className="cursor-pointer" aria-label="next">
+            <Image
+              src={`/icons/profile_arrow_right.svg`}
+              alt="arrow_right"
+              width={32}
+              height={32}
+            />
+          </button>
         ) : (
-          <Image
-            src={`/icons/disabled_arrow_right.svg`}
-            alt="disabled_arrow_right"
-            width={32}
-            height={32}
-            className="pointer-events-none"
-          />
+          <button disabled className="pointer-events-none" aria-label="disabled_next">
+            <Image
+              src={`/icons/disabled_arrow_right.svg`}
+              alt="disabled_arrow_right"
+              width={32}
+              height={32}
+            />
+          </button>
         )}
       </div>
       <div className="mt-4 flex items-center justify-center gap-4">
