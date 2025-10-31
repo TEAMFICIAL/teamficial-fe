@@ -4,6 +4,7 @@ import { createContext, useContext, useState, ReactNode } from 'react';
 import ApplyModal from '@/components/modal/apply/ApplyModal';
 import ApplyCompleteModal from '@/components/modal/ApplyCompleteModal';
 import DeleteModal from '@/components/modal/DeleteModal';
+import PartnerModal from '@/components/modal/apply/PartnerModal';
 
 interface ApplyModalProps {
   onClose: () => void;
@@ -20,12 +21,18 @@ interface DeleteModalProps {
   onConfirm?: () => void;
 }
 
-export type ModalType = 'apply' | 'applyComplete' | 'delete' | null;
+interface PartnerModalProps {
+  onClose: () => void;
+  partnerId?: number;
+}
+
+export type ModalType = 'apply' | 'applyComplete' | 'delete' | 'partner' | null;
 
 type ModalPropsMap = {
   apply: ApplyModalProps;
   applyComplete: ApplyCompleteModalProps;
   delete: DeleteModalProps;
+  partner: PartnerModalProps;
 };
 
 interface ModalContextProps {
@@ -58,15 +65,41 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const renderModal = () => {
+    const modalIsOpen = modalType !== null;
+
     switch (modalType) {
       case 'apply':
-        return <ApplyModal {...(modalProps as ApplyModalProps)} onClose={closeModal} />;
+        return (
+          <ApplyModal
+            {...(modalProps as ApplyModalProps)}
+            isOpen={modalIsOpen}
+            onClose={closeModal}
+          />
+        );
       case 'applyComplete':
         return (
-          <ApplyCompleteModal {...(modalProps as ApplyCompleteModalProps)} onClose={closeModal} />
+          <ApplyCompleteModal
+            {...(modalProps as ApplyCompleteModalProps)}
+            isOpen={modalIsOpen}
+            onClose={closeModal}
+          />
         );
       case 'delete':
-        return <DeleteModal {...(modalProps as DeleteModalProps)} onClose={closeModal} />;
+        return (
+          <DeleteModal
+            {...(modalProps as DeleteModalProps)}
+            isOpen={modalIsOpen}
+            onClose={closeModal}
+          />
+        );
+      case 'partner':
+        return (
+          <PartnerModal
+            {...(modalProps as PartnerModalProps)}
+            isOpen={modalIsOpen}
+            onClose={closeModal}
+          />
+        );
       default:
         return null;
     }

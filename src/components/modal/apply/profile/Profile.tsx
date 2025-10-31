@@ -1,8 +1,5 @@
-'use client';
-
-import { useState } from 'react';
+import Button from '@/components/common/button/Button';
 import Image from 'next/image';
-import ProfileCard from './ProfileCard';
 
 interface Profile {
   id: number;
@@ -12,96 +9,63 @@ interface Profile {
   keywords: string[];
 }
 
-const profiles: Profile[] = [
-  {
-    id: 1,
-    name: '목마른 햄스터님',
-    contact: '팀원이 되면 공개해요',
-    workTime: '새벽에 작업하는게 편해요',
-    keywords: ['피드백장인', '시간잘지킴', '꼼꼼한'],
-  },
-  {
-    id: 2,
-    name: '목마른 김지원님',
-    contact: '팀원이 되면 공개해요',
-    workTime: '새벽에 작업하는게 편해요',
-    keywords: ['피드백장인', '시간잘지킴', '꼼꼼한'],
-  },
-  {
-    id: 3,
-    name: '목마른 김선화님',
-    contact: '팀원이 되면 공개해요',
-    workTime: '새벽에 작업하는게 편해요',
-    keywords: ['피드백장인', '시간잘지킴', '꼼꼼한'],
-  },
-];
+interface ProfileCardProps {
+  profile: Profile;
+}
 
-const ProfileSlider = () => {
-  const [index, setIndex] = useState(0);
-  const currentProfile = profiles[index];
-
-  const handlePrev = () => {
-    if (index > 0) setIndex(index - 1);
-  };
-
-  const handleNext = () => {
-    if (index < profiles.length - 1) setIndex(index + 1);
-  };
-
+const Profile = ({ profile }: ProfileCardProps) => {
   return (
-    <>
-      <div className="flex w-full items-center justify-between gap-2 rounded-2xl border border-gray-300 px-5 py-8">
-        {index > 0 ? (
-          <Image
-            src={`/icons/profile_arrow_left.svg`}
-            alt="arrow_left"
-            width={32}
-            height={32}
-            onClick={handlePrev}
-            className="cursor-pointer"
-          />
-        ) : (
-          <Image
-            src={`/icons/disabled_arrow_left.svg`}
-            alt="disabled_arrow_left"
-            width={32}
-            height={32}
-            className="pointer-events-none"
-          />
-        )}
-        <ProfileCard profile={currentProfile} />
-        {index < profiles.length - 1 ? (
-          <Image
-            src={`/icons/profile_arrow_right.svg`}
-            alt="arrow_right"
-            width={32}
-            height={32}
-            onClick={handleNext}
-            className="cursor-pointer"
-          />
-        ) : (
-          <Image
-            src={`/icons/disabled_arrow_right.svg`}
-            alt="disabled_arrow_right"
-            width={32}
-            height={32}
-            className="pointer-events-none"
-          />
-        )}
+    <div className="mb-10 flex justify-between gap-8 rounded-lg border border-gray-300 p-8">
+      <div className="flex items-start gap-4">
+        <Image src="/icons/profile.svg" alt="profile" width={90} height={90} />
+        <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-2">
+            <p className="body-1">{profile.name}</p>
+
+            <div className="flex flex-col gap-1">
+              <div className="flex items-center gap-2">
+                <p className="body-5 text-gray-800">연락 수단</p>
+                <div className="h-3 w-[1px] bg-gray-700" />
+                <p className="body-6 text-gray-700">{profile.contact}</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <p className="body-5 text-gray-800">작업시간</p>
+                <div className="h-3 w-[1px] bg-gray-700" />
+                <p className="body-6 text-gray-700">{profile.workTime}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap gap-2">
+            {profile.keywords.map((keyword) => (
+              <span
+                key={keyword}
+                className="body-7 rounded-lg border border-gray-300 bg-gray-100 px-4 py-2 text-gray-600"
+              >
+                #{keyword}
+              </span>
+            ))}
+          </div>
+        </div>
       </div>
-      <div className="mt-4 flex items-center justify-center gap-4">
-        {profiles.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => setIndex(i)}
-            className={`h-2.5 w-2.5 rounded-full transition-all ${
-              i === index ? 'bg-gray-500' : 'bg-gray-300'
-            }`}
-          />
-        ))}
+
+      <div className="flex flex-col justify-between">
+        <div className="flex items-start justify-end gap-4">
+          {['behance', 'github', 'notion'].map((icon) => (
+            <Image
+              key={icon}
+              src={`/icons/${icon}.svg`}
+              alt={icon}
+              width={24}
+              height={24}
+              className="cursor-pointer"
+            />
+          ))}
+        </div>
+        <Button className="bg-primary-900 text-gray-0 px-4 py-2">전체 키워드 보기</Button>
       </div>
-    </>
+    </div>
   );
 };
 
-export default ProfileSlider;
+export default Profile;
