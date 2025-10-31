@@ -3,23 +3,27 @@
 import Button from '@/components/common/button/Button';
 import BaseModal from '../index';
 import MessageTextarea from './MessageTextarea';
-import ProfileSlider from './profile/Profile';
+import ProfileSlider from './profile/ProfileSlider';
 import { useModal } from '@/contexts/ModalContext';
+import { useState } from 'react';
 
 interface ApplyModalProps {
+  isOpen: boolean;
   onClose: () => void;
 }
 
-const ApplyModal = ({ onClose }: ApplyModalProps) => {
+const ApplyModal = ({ isOpen, onClose }: ApplyModalProps) => {
   const { openModal } = useModal();
+  const [message, setMessage] = useState('');
 
   const handleSubmit = () => {
+    if (message.length > 250) return;
     // API 요청
     openModal('applyComplete');
   };
 
   return (
-    <BaseModal isOpen={true} onClose={onClose}>
+    <BaseModal isOpen={isOpen} onClose={onClose}>
       <div className="flex flex-col gap-10">
         <div>
           <p className="title-3 flex">
@@ -32,7 +36,7 @@ const ApplyModal = ({ onClose }: ApplyModalProps) => {
           <ProfileSlider />
         </div>
         <div>
-          <MessageTextarea />
+          <MessageTextarea value={message} onChange={setMessage} />
           <div className="flex justify-end gap-2">
             <Button
               className="body-5 bg-gray-300 px-8 py-4 text-gray-800 disabled:cursor-not-allowed disabled:text-gray-600"
@@ -43,6 +47,7 @@ const ApplyModal = ({ onClose }: ApplyModalProps) => {
             <Button
               className="body-5 bg-primary-900 text-gray-0 hover:bg-primary-700 px-8 py-4"
               onClick={handleSubmit}
+              disabled={message.length > 250}
             >
               지원하기
             </Button>
