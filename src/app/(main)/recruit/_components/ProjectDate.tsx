@@ -3,6 +3,7 @@ import DatePicker from 'react-datepicker';
 import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
+import './datepicker.css';
 
 type Props = {
   title: string;
@@ -48,7 +49,7 @@ const ProjectDate = ({ title, date, setDate, error }: Props) => {
                   }
                 }}
                 inline
-                calendarClassName="rounded-lg border border-gray-300 shadow-lg bg-white"
+                calendarClassName="rounded-lg border border-gray-300 bg-white"
               />
             </div>
           )}
