@@ -17,7 +17,7 @@ const Header = () => {
             className="h-[31.6px]"
           />
         </Link>
-        <Link href="/" className="body-4 px-3">
+        <Link href="/project" className="body-4 px-3">
           프로젝트
         </Link>
         <Link href="/" className="body-4 px-3">

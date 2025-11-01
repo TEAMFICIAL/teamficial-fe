@@ -5,6 +5,7 @@ import Banner from './_components/Banner';
 import ButtonContainer from './_components/ButtonContainer';
 import RecruitCard from './_components/RecruitCard';
 import Pagination from './_components/Pagination';
+import { useRouter } from 'next/navigation';
 
 const Page = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -23,6 +24,12 @@ const Page = () => {
   const startIndex = (currentPage - 1) * cardsPerPage;
   const currentCards = dummyCards.slice(startIndex, startIndex + cardsPerPage);
 
+  // 상세 프로젝트 페이지 이동
+  const router = useRouter();
+  const handleCardClick = (id: number) => {
+    router.push(`/project/${id}`);
+  };
+
   return (
     <main className="flex flex-col pb-10">
       <div className="py-5">
@@ -33,7 +40,7 @@ const Page = () => {
       </div>
       <div className="grid grid-cols-3 gap-4 py-5">
         {currentCards.map((card) => (
-          <RecruitCard key={card.id} {...card} />
+          <RecruitCard key={card.id} {...card} onClick={() => handleCardClick(card.id)} />
         ))}
       </div>
       <Pagination
