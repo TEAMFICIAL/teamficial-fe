@@ -31,19 +31,17 @@
   cursor: not-allowed;
 }
 
-/* ▼ 월/년 텍스트 */
 .react-datepicker__current-month {
-  position: relative; /* ::before 캡슐을 깔기 위해 relative */
+  position: relative;
   font-size: 14px;
   font-weight: 500;
-  line-height: 21px; /* 캡슐 높이 맞춤 */
-  padding: 0 40px; /* 월/년 텍스트 좌우 패딩 */
+  line-height: 21px;
+  padding: 0 40px;
   white-space: nowrap;
   color: #3b3b3b;
   font-family: 'Pretendard', sans-serif;
 }
 
-/* ----- 요일/날짜 간격(앞서 합의한 값) ----- */
 .react-datepicker__day-names {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -83,14 +81,24 @@
   margin-bottom: 0;
 }
 
-/* 날짜 셀 자체의 크기와 정렬 조정 */
 .react-datepicker__day {
   width: 24px;
-  height: 24px; /* 높이를 24px로 통일 */
-  line-height: 24px; /* 텍스트 수직 중앙 정렬 */
+  height: 24px;
+  line-height: 24px;
   margin: 0;
   color: #191919;
   justify-self: center;
+}
+
+.react-datepicker__day:hover {
+  background: #f2f2f2;
+  border-radius: 40px !important;
+  cursor: pointer;
+}
+
+.react-datepicker__day--today {
+  font-weight: 600;
+  background: none !important;
 }
 
 .react-datepicker__day--selected {
@@ -107,7 +115,6 @@
   color: #c4c4c4;
 }
 
-/* 팝오버 삼각형은 숨김 */
 .react-datepicker__triangle {
   display: none;
 }
@@ -117,7 +124,6 @@
   content: none;
 }
 
-/* 이전/다음에 우리 아이콘 부착 */
 .react-datepicker__navigation--previous {
   background-image: url('/icons/date-left.svg');
   background-repeat: no-repeat;
