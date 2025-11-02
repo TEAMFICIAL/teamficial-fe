@@ -2,9 +2,11 @@
 
 import Button from '@/components/common/Button';
 import { useModal } from '@/contexts/ModalContext';
+import { ResponseProject } from '@/types/project';
 import React from 'react';
+import DDay from './DDayTag';
 
-const ProjectTitle = () => {
+const ProjectTitle = ({ title, status, dday, startDate, deadline }: ResponseProject) => {
   // TODO : 작성자 여부에 따른 조건 처리
   const isAuthor = true;
 
@@ -20,11 +22,12 @@ const ProjectTitle = () => {
     <div className="flex items-center justify-between py-7">
       <div className="flex flex-col">
         <div className="flex items-center gap-2.5">
-          <p className="title-1 text-gray-900">팀피셜 팀원 구해요</p>
-          {/* TODO : 날짜 컴포넌트 분리 */}
-          <p className="body-6 rounded-sm bg-[#FFD7D9] px-3 py-1 text-[#DA1E28]">D-14</p>
+          <p className="title-1 text-gray-900">{title}</p>
+          <DDay status={status} dday={dday} />
         </div>
-        <p className="body-2 text-gray-700">2025.10.12~2025.10.25</p>
+        <p className="body-2 text-gray-700">
+          {startDate}~{deadline}
+        </p>
       </div>
       {!isAuthor ? (
         <div className="flex w-23.5 items-end gap-0.5">
