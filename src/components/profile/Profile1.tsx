@@ -47,7 +47,6 @@ const Profile1 = ({ profileId }: { profileId: number }) => {
       <div className="flex flex-col justify-between">
         {/* 연락 수단 아이콘*/}
         <div className="flex gap-4 self-end">
-          <ProfileLinkButton link={'https://example.com'} />
           {data.links &&
             data.links.length > 0 &&
             data.links.map((link, index) => <ProfileLinkButton key={index} link={link} />)}
