@@ -5,9 +5,11 @@ export const useIsAuthor = (profileId: number | undefined) => {
 
   useEffect(() => {
     const userId = localStorage.getItem('userId');
-    if (userId && profileId) {
-      setIsAuthor(Number(userId) === profileId);
+    if (!userId || profileId === undefined) {
+      setIsAuthor(false);
+      return;
     }
+    setIsAuthor(Number(userId) === profileId);
   }, [profileId]);
 
   return isAuthor;
