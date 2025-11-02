@@ -1,0 +1,14 @@
+import { useState, useEffect } from 'react';
+
+export const useIsAuthor = (profileId: number | undefined) => {
+  const [isAuthor, setIsAuthor] = useState(false);
+
+  useEffect(() => {
+    const userId = localStorage.getItem('userId');
+    if (userId && profileId) {
+      setIsAuthor(Number(userId) === profileId);
+    }
+  }, [profileId]);
+
+  return isAuthor;
+};

@@ -5,10 +5,10 @@ import { useModal } from '@/contexts/ModalContext';
 import { ResponseProject } from '@/types/project';
 import React from 'react';
 import DDay from './DDayTag';
+import { useIsAuthor } from '@/hooks/useIsAuthor';
 
-const ProjectTitle = ({ title, status, dday, startDate, deadline }: ResponseProject) => {
-  // TODO : 작성자 여부에 따른 조건 처리
-  const isAuthor = true;
+const ProjectTitle = ({ title, status, dday, startDate, deadline, profileId }: ResponseProject) => {
+  const isAuthor = useIsAuthor(profileId);
 
   const { openModal } = useModal();
   const handleApplyModal = () => {
