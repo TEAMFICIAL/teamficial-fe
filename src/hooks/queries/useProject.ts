@@ -1,4 +1,4 @@
-import { getSingleProject } from '@/api/project';
+import { getSingleProject } from '@/libs/api/project';
 import { ResponseProject } from '@/types/project';
 import { useQuery } from '@tanstack/react-query';
 

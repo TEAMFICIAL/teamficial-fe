@@ -1,4 +1,4 @@
-import { getSingleProfile } from '@/api/profile';
+import { getSingleProfile } from '@/libs/api/profile';
 import { ResponseProfile } from '@/types/profile';
 import { useQuery } from '@tanstack/react-query';
 
