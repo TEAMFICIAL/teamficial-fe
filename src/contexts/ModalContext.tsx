@@ -1,46 +1,14 @@
 'use client';
 
 import { createContext, useContext, useState, ReactNode } from 'react';
-import ApplyModal from '@/components/modal/apply/ApplyModal';
-import ApplyCompleteModal from '@/components/modal/ApplyCompleteModal';
-import DeleteModal from '@/components/modal/DeleteModal';
-import PartnerModal from '@/components/modal/apply/PartnerModal';
-
-interface ApplyModalProps {
-  onClose: () => void;
-  projectId?: number;
-}
-
-interface ApplyCompleteModalProps {
-  onClose: () => void;
-  projectName?: string;
-}
-
-interface DeleteModalProps {
-  onClose: () => void;
-  onConfirm?: () => void;
-}
-
-interface PartnerModalProps {
-  onClose: () => void;
-  partnerId?: number;
-}
-
-export type ModalType = 'apply' | 'applyComplete' | 'delete' | 'partner' | null;
-
-type ModalPropsMap = {
-  apply: ApplyModalProps;
-  applyComplete: ApplyCompleteModalProps;
-  delete: DeleteModalProps;
-  partner: PartnerModalProps;
-};
+import { MODAL_COMPONENTS, ModalPropsMap, ModalType } from '@/constants/ModalList';
 
 interface ModalContextProps {
-  modalType: ModalType;
+  modalType: ModalType | null;
   modalProps: ModalPropsMap[keyof ModalPropsMap] | null;
   openModal: <T extends keyof ModalPropsMap>(
     type: T,
-    props?: Omit<ModalPropsMap[T], 'onClose'>,
+    props?: Omit<ModalPropsMap[T], 'onClose' | 'isOpen'>,
   ) => void;
   closeModal: () => void;
 }
@@ -48,15 +16,15 @@ interface ModalContextProps {
 const ModalContext = createContext<ModalContextProps | null>(null);
 
 export const ModalProvider = ({ children }: { children: ReactNode }) => {
-  const [modalType, setModalType] = useState<ModalType>(null);
+  const [modalType, setModalType] = useState<ModalType | null>(null);
   const [modalProps, setModalProps] = useState<ModalPropsMap[keyof ModalPropsMap] | null>(null);
 
   const openModal = <T extends keyof ModalPropsMap>(
     type: T,
-    props?: Omit<ModalPropsMap[T], 'onClose'>,
+    props?: Omit<ModalPropsMap[T], 'onClose' | 'isOpen'>,
   ) => {
     setModalType(type);
-    setModalProps((props as ModalPropsMap[keyof ModalPropsMap]) || null);
+    setModalProps(props as ModalPropsMap[T]);
   };
 
   const closeModal = () => {
@@ -65,44 +33,15 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const renderModal = () => {
-    const modalIsOpen = modalType !== null;
+    if (!modalType) return null;
 
-    switch (modalType) {
-      case 'apply':
-        return (
-          <ApplyModal
-            {...(modalProps as ApplyModalProps)}
-            isOpen={modalIsOpen}
-            onClose={closeModal}
-          />
-        );
-      case 'applyComplete':
-        return (
-          <ApplyCompleteModal
-            {...(modalProps as ApplyCompleteModalProps)}
-            isOpen={modalIsOpen}
-            onClose={closeModal}
-          />
-        );
-      case 'delete':
-        return (
-          <DeleteModal
-            {...(modalProps as DeleteModalProps)}
-            isOpen={modalIsOpen}
-            onClose={closeModal}
-          />
-        );
-      case 'partner':
-        return (
-          <PartnerModal
-            {...(modalProps as PartnerModalProps)}
-            isOpen={modalIsOpen}
-            onClose={closeModal}
-          />
-        );
-      default:
-        return null;
-    }
+    const ModalComponent = MODAL_COMPONENTS[modalType] as React.ComponentType<
+      ModalPropsMap[typeof modalType]
+    >;
+
+    const props = modalProps as ModalPropsMap[typeof modalType];
+
+    return <ModalComponent {...props} isOpen={true} onClose={closeModal} />;
   };
 
   return (

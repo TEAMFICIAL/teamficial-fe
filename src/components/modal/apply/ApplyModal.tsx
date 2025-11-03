@@ -6,11 +6,7 @@ import MessageTextarea from './MessageTextarea';
 import ProfileSlider from './profile/ProfileSlider';
 import { useModal } from '@/contexts/ModalContext';
 import { useState } from 'react';
-
-interface ApplyModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
+import { ApplyModalProps } from '@/constants/ModalList';
 
 const ApplyModal = ({ isOpen, onClose }: ApplyModalProps) => {
   const { openModal } = useModal();
