@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import api from '@/api/api';
+import api from '@/libs/api/api';
 
 export default function NaverCallbackClient() {
   const router = useRouter();

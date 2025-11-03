@@ -4,11 +4,7 @@ import MessageTextarea from './MessageTextarea';
 import Profile from './profile/Profile';
 import { useState } from 'react';
 import Image from 'next/image';
-
-interface PartnerModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
+import { PartnerModalProps } from '@/constants/ModalList';
 
 interface ProfileData {
   id: number;

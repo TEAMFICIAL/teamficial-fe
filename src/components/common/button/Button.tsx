@@ -1,19 +1,12 @@
 import { cn } from '@/utils/cn';
 
-interface ButtonProps {
-  children: React.ReactNode;
-  className: string;
-  disabled?: boolean;
-  onClick?: () => void;
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  className?: string;
 }
 
-const Button = ({ children, className, disabled, onClick }: ButtonProps) => {
+const Button = ({ children, className, ...props }: ButtonProps) => {
   return (
-    <button
-      onClick={onClick}
-      disabled={disabled}
-      className={cn('body-5 cursor-pointer rounded-lg', className)}
-    >
+    <button {...props} className={cn('body-5 cursor-pointer rounded-lg', className)}>
       {children}
     </button>
   );
