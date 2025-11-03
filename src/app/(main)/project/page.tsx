@@ -5,6 +5,7 @@ import Banner from './_components/Banner';
 import ButtonContainer from './_components/ButtonContainer';
 import RecruitCard from './_components/RecruitCard';
 import Pagination from './_components/Pagination';
+import { useRouter } from 'next/navigation';
 import { getRecruitingPosts } from '@/api/recruitingPosts';
 import { PagedProjects, ResponseProject } from '@/types/project';
 import { PERIOD_KR, POSITION_KR, PROGRESS_WAY_KR } from '@/constants/Translate';
@@ -28,6 +29,12 @@ const Page = () => {
 
   const currentCards = data?.content ?? [];
   const totalPages = data?.totalPages ?? 1;
+
+  // 상세 프로젝트 페이지 이동
+  const router = useRouter();
+  const handleCardClick = (id: number) => {
+    router.push(`/project/${id}`);
+  };
 
   return (
     <main className="flex flex-col">
@@ -55,6 +62,7 @@ const Page = () => {
               duration={PERIOD_KR[card.period] || card.period}
               mode={PROGRESS_WAY_KR[card.progressWay] || card.progressWay}
               dday={card.dday}
+              onClick={() => handleCardClick(card.postId)}
             />
           ))}
         </div>

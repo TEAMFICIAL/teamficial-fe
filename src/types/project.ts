@@ -27,6 +27,7 @@ export type ResponseProject = Project & {
   profileId: number;
   profileName: string;
   createdAt: string;
+  dday: number;
 };
 
 export type DeleteProject = {
