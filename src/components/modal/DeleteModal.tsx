@@ -1,13 +1,9 @@
 'use client';
 
+import { DeleteModalProps } from '@/constants/ModalList';
 import Button from '../common/button/Button';
 import BaseModal from './index';
 import Image from 'next/image';
-
-interface DeleteModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
 
 const DeleteModal = ({ isOpen, onClose }: DeleteModalProps) => {
   return (

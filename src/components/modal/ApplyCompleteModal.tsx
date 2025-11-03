@@ -1,13 +1,9 @@
 'use client';
 
+import { ApplyCompleteModalProps } from '@/constants/ModalList';
 import Button from '../common/button/Button';
 import BaseModal from './index';
 import Image from 'next/image';
-
-interface ApplyCompleteModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
 
 const ApplyCompleteModal = ({ isOpen, onClose }: ApplyCompleteModalProps) => {
   return (
