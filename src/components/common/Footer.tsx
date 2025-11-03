@@ -10,8 +10,17 @@ const Footer = () => {
       </div>
       <div className="flex flex-col justify-end gap-3">
         <div className="flex justify-end gap-3">
-          <Image src="/icons/mail.svg" alt="mail" width={24} height={24} />
-          <Image src="/icons/instagram.svg" alt="instgram" width={24} height={24} />
+          <a href="mailto:Teamficial@gmail.com" aria-label="이메일 문의">
+            <Image src="/icons/mail.svg" alt="mail" width={24} height={24} />
+          </a>
+          <a
+            href="https://instagram.com/teamficial"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="인스타그램"
+          >
+            <Image src="/icons/instagram.svg" alt="instagram" width={24} height={24} />
+          </a>
         </div>
         <div className="body-7 flex gap-4 text-gray-100">
           <p>서비스이용약관</p>
