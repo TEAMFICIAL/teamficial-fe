@@ -1,10 +1,10 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { getRecruitingPosts } from '@/api/recruitingPosts';
+import { getRecruitingPosts } from '@/libs/api/recruitingPosts';
 import { PagedProjects } from '@/types/project';
 
-interface Filters {
+export interface Filters {
   duration: string;
   recruit: string;
   onlyOpen: boolean;
