@@ -7,14 +7,18 @@ import useOutsideClick from '@/hooks/useOutsideClick';
 
 const options = ['기획', '디자인', '프론트엔드', '백엔드'];
 
-const PartDropdown = () => {
+interface PartDropdownProps {
+  selected: string | null;
+  onSelect: (value: string) => void;
+}
+
+const PartDropdown = ({ selected, onSelect }: PartDropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState<string | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   useOutsideClick(dropdownRef, () => setIsOpen(false));
 
   const handleSelect = (option: string) => {
-    setSelected(option);
+    onSelect(option);
     setIsOpen(false);
   };
 
