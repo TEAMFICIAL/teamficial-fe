@@ -1,21 +1,41 @@
 'use client';
+import { getLinkType } from '@/utils/project/linkType';
 import Image from 'next/image';
 import React from 'react';
 
-type LinkButtonProps = {
-  type: 'behance' | 'github' | 'notion';
-  link?: string;
-};
+const ProfileLinkButton = ({ link }: { link: string }) => {
+  const type = getLinkType(link);
 
-const ProfileLinkButton = ({ type, link }: LinkButtonProps) => {
+  const isValidUrl = (url: string) => {
+    try {
+      const parsed = new URL(url);
+      return parsed.protocol === 'http:' || parsed.protocol === 'https:';
+    } catch {
+      return false;
+    }
+  };
+
+  if (!isValidUrl(link)) {
+    return null;
+  }
+
   return (
     <button
-      aria-label="프로필 버튼"
-      disabled={!link}
+      aria-label={`${type} 링크`}
       className="h-7 w-7 cursor-pointer"
-      onClick={() => link && window.open(link, '_blank')}
+      onClick={() => {
+        if (link) {
+          window.open(link, '_blank', 'noopener,noreferrer');
+        }
+      }}
+      title={link}
     >
-      <Image src={`/icons/${type}.svg`} alt={type} width={28} height={28} />
+      <Image
+        src={`/icons/${type === 'other' ? 'plus' : type}.svg`}
+        alt={type}
+        width={28}
+        height={28}
+      />
     </button>
   );
 };
