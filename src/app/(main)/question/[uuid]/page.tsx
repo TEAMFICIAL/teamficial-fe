@@ -8,7 +8,7 @@ type Props = {
 const page = async ({ params }: Props) => {
   const { uuid } = await params;
   return (
-    <main className="-mx-10 bg-gray-100">
+    <main className="-mx-10 mt-5 bg-gray-100">
       <QuestionTemplate uuid={uuid} />
     </main>
   );
