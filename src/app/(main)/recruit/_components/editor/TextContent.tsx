@@ -18,7 +18,7 @@ const TextContent = ({ editorContent, onChange }: EditorProps) => {
     editorProps: {
       attributes: {
         class:
-          'ProseMirror appearance-none min-h-45 w-full bg-white body-4 text-gray-700 focus:outline-none',
+          'ProseMirror appearance-none min-h-45 w-full bg-white body-6 text-gray-700 focus:outline-none',
       },
     },
     immediatelyRender: false,
