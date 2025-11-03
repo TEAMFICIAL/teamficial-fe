@@ -14,7 +14,7 @@ interface QuestionListProps {
 
 const QuestionList = ({ setValue, watch, errors }: QuestionListProps) => {
   return (
-    <main className="flex flex-col gap-6 py-4">
+    <div className="flex flex-col gap-6 py-4">
       {QUESTION_SECTIONS.map(({ key, title, set }) => (
         <div
           key={key}
@@ -45,7 +45,7 @@ const QuestionList = ({ setValue, watch, errors }: QuestionListProps) => {
           </div>
         </div>
       ))}
-    </main>
+    </div>
   );
 };
 
