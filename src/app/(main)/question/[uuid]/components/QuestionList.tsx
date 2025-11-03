@@ -1,42 +1,18 @@
 'use client';
 
-import { useState } from 'react';
+import { FieldErrors, UseFormSetValue, UseFormWatch } from 'react-hook-form';
+import { QuestionFormValues } from '@/libs/schemas/questionFormSchema';
 import QuestionDropdown from './QuestionDropdown';
-import { QUESTION_SETS } from '@/constants/Questions';
+import { QUESTION_SECTIONS } from '@/constants/Questions';
 import Image from 'next/image';
 import QuestionAnswer from './QuestionAnswer';
+interface QuestionListProps {
+  setValue: UseFormSetValue<QuestionFormValues>;
+  watch: UseFormWatch<QuestionFormValues>;
+  errors: FieldErrors<QuestionFormValues>;
+}
 
-const QuestionList = () => {
-  const [selections, setSelections] = useState<{
-    [key: string]: { question: string | null; answer: string };
-  }>({
-    set1: { question: null, answer: '' },
-    set2: { question: null, answer: '' },
-    set3: { question: null, answer: '' },
-    set4: { question: null, answer: '' },
-  });
-
-  const handleQuestionSelect = (setKey: string, question: string) => {
-    setSelections((prev) => ({
-      ...prev,
-      [setKey]: { ...prev[setKey], question },
-    }));
-  };
-
-  const handleAnswerChange = (setKey: string, answer: string) => {
-    setSelections((prev) => ({
-      ...prev,
-      [setKey]: { ...prev[setKey], answer },
-    }));
-  };
-
-  const QUESTION_SECTIONS = [
-    { key: 'set1', title: '민수님과 함께하며 느낀 민수님의 강점', set: QUESTION_SETS.set1 },
-    { key: 'set2', title: '민수님과 함께하며 이런 점이 좋았어요', set: QUESTION_SETS.set2 },
-    { key: 'set3', title: '민수님과 성장을 위해서 해주고 싶은 말', set: QUESTION_SETS.set3 },
-    { key: 'set4', title: '민수님께 전하고 싶은 피드백이 있어요', set: QUESTION_SETS.set4 },
-  ];
-
+const QuestionList = ({ setValue, watch, errors }: QuestionListProps) => {
   return (
     <main className="flex flex-col gap-6 py-4">
       {QUESTION_SECTIONS.map(({ key, title, set }) => (
@@ -51,13 +27,21 @@ const QuestionList = () => {
           <div className="flex flex-col gap-2">
             <QuestionDropdown
               options={set}
-              selected={selections[key].question}
-              onSelect={(q) => handleQuestionSelect(key, q)}
+              selected={watch(`${key}.question`)}
+              onSelect={(value) => setValue(`${key}.question`, value)}
+              hasError={!!errors[key]?.question}
             />
+            {errors[key]?.question && (
+              <p className="body-8 text-red-100">{errors[key]?.question?.message}</p>
+            )}
             <QuestionAnswer
-              value={selections[key].answer}
-              onChange={(a) => handleAnswerChange(key, a)}
+              value={watch(`${key}.answer`)}
+              onChange={(text) => setValue(`${key}.answer`, text)}
+              hasError={!!errors[key]?.answer}
             />
+            {errors[key]?.answer && (
+              <p className="body-8 text-red-100">{errors[key]?.answer?.message}</p>
+            )}
           </div>
         </div>
       ))}
