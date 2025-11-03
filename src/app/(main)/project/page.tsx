@@ -1,21 +1,14 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Banner from './_components/Banner';
 import ButtonContainer from './_components/ButtonContainer';
 import RecruitCard from './_components/RecruitCard';
 import Pagination from './_components/Pagination';
 import { useRouter } from 'next/navigation';
-import { getRecruitingPosts } from '@/api/recruitingPosts';
-import { PagedProjects, ResponseProject } from '@/types/project';
+import { ResponseProject } from '@/types/project';
 import { PERIOD_KR, POSITION_KR, PROGRESS_WAY_KR } from '@/constants/Translate';
-import { useRecruitingPosts } from '@/hooks/queries/useRecruitingPosts';
-
-type Filters = {
-  duration: string;
-  recruit: string;
-  onlyOpen: boolean;
-};
+import { Filters, useRecruitingPosts } from '@/hooks/queries/useRecruitingPosts';
 
 const Page = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -26,11 +19,8 @@ const Page = () => {
   });
 
   const { data, isLoading, isError } = useRecruitingPosts(filters, currentPage, 9);
-
   const currentCards = data?.content ?? [];
   const totalPages = data?.totalPages ?? 1;
-
-  // 상세 프로젝트 페이지 이동
   const router = useRouter();
   const handleCardClick = (id: number) => {
     router.push(`/project/${id}`);
@@ -57,7 +47,7 @@ const Page = () => {
               hashtag={card.recruitingPositions
                 .map((r) => `#${POSITION_KR[r.position] || r.position}`)
                 .join(' ')}
-              author={card.profileName}
+              author={card.userName}
               date={card.createdAt.split('T')[0]}
               duration={PERIOD_KR[card.period] || card.period}
               mode={PROGRESS_WAY_KR[card.progressWay] || card.progressWay}
