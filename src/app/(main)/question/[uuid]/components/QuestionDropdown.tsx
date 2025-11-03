@@ -6,12 +6,13 @@ import Image from 'next/image';
 import useOutsideClick from '@/hooks/useOutsideClick';
 
 interface QuestionDropdownProps {
+  hasError?: boolean;
   options: string[];
   selected: string | null;
   onSelect: (value: string) => void;
 }
 
-const QuestionDropdown = ({ options, selected, onSelect }: QuestionDropdownProps) => {
+const QuestionDropdown = ({ options, selected, onSelect, hasError }: QuestionDropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   useOutsideClick(dropdownRef, () => setIsOpen(false));
@@ -26,7 +27,12 @@ const QuestionDropdown = ({ options, selected, onSelect }: QuestionDropdownProps
       <button
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
-        className="bg-gray-0 flex w-full cursor-pointer items-center justify-between rounded-lg border border-gray-300 px-7 py-3 transition"
+        className={clsx(
+          'bg-gray-0 flex w-full cursor-pointer items-center justify-between rounded-lg border px-7 py-3 transition',
+          hasError
+            ? 'border-red-100 focus:border-red-100'
+            : 'border-gray-300 focus:border-gray-600',
+        )}
       >
         <span className={clsx(selected ? 'body-6 text-gray-700' : 'body-6 text-gray-500')}>
           {selected || '질문을 선택해주세요'}
