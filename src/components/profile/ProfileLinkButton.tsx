@@ -31,7 +31,7 @@ const ProfileLinkButton = ({ link }: { link: string }) => {
       title={link}
     >
       <Image
-        src={`/icons/${type === 'other' ? 'plus' : type}.svg`}
+        src={`/icons/${type === 'other' ? 'etclink' : type}.svg`}
         alt={type}
         width={28}
         height={28}
