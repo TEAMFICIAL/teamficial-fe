@@ -24,3 +24,10 @@ export const QUESTION_SETS = {
     '실행 속도와 완성도 사이의 균형을 잡는 저의 방식은 어땠나요?',
   ],
 };
+
+export const QUESTION_SECTIONS = [
+  { key: 'set1', title: '민수님과 함께하며 느낀 민수님의 강점', set: QUESTION_SETS.set1 },
+  { key: 'set2', title: '민수님과 함께하며 이런 점이 좋았어요', set: QUESTION_SETS.set2 },
+  { key: 'set3', title: '민수님과 성장을 위해서 해주고 싶은 말', set: QUESTION_SETS.set3 },
+  { key: 'set4', title: '민수님께 전하고 싶은 피드백이 있어요', set: QUESTION_SETS.set4 },
+] as const;
