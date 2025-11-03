@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import clsx from 'clsx';
 import Image from 'next/image';
+import useOutsideClick from '@/hooks/useOutsideClick';
 
 interface QuestionDropdownProps {
   options: string[];
@@ -12,6 +13,8 @@ interface QuestionDropdownProps {
 
 const QuestionDropdown = ({ options, selected, onSelect }: QuestionDropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  useOutsideClick(dropdownRef, () => setIsOpen(false));
 
   const handleSelect = (option: string) => {
     onSelect(option);
@@ -19,11 +22,11 @@ const QuestionDropdown = ({ options, selected, onSelect }: QuestionDropdownProps
   };
 
   return (
-    <div className="relative w-full">
+    <div ref={dropdownRef} className="relative w-full">
       <button
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
-        className="bg-gray-0 flex w-full items-center justify-between rounded-lg border border-gray-300 px-7 py-3 transition"
+        className="bg-gray-0 flex w-full cursor-pointer items-center justify-between rounded-lg border border-gray-300 px-7 py-3 transition"
       >
         <span className={clsx(selected ? 'body-6 text-gray-700' : 'body-6 text-gray-500')}>
           {selected || '질문을 선택해주세요'}

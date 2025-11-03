@@ -1,14 +1,17 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import clsx from 'clsx';
 import Image from 'next/image';
+import useOutsideClick from '@/hooks/useOutsideClick';
 
 const options = ['기획', '디자인', '프론트엔드', '백엔드'];
 
 const PartDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState<string | null>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  useOutsideClick(dropdownRef, () => setIsOpen(false));
 
   const handleSelect = (option: string) => {
     setSelected(option);
@@ -21,7 +24,7 @@ const PartDropdown = () => {
   };
 
   return (
-    <div className="bg-gray-0 relative">
+    <div ref={dropdownRef} className="bg-gray-0 relative">
       <button
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
