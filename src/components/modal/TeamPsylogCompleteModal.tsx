@@ -2,11 +2,7 @@ import Button from '../common/button/Button';
 import BaseModal from './index';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-
-interface TeamPsylogCompleteModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
+import { TeamPsylogCompleteModalProps } from '@/constants/ModalList';
 
 const TeamPsylogCompleteModal = ({ isOpen, onClose }: TeamPsylogCompleteModalProps) => {
   const router = useRouter();
