@@ -16,5 +16,5 @@ export const RECRUIT_OPTIONS = [
 export const DURATION_OPTIONS = [
   { label: '온라인', value: 'ONLINE' },
   { label: '오프라인', value: 'OFFLINE' },
-  { label: '온/오프라인', value: 'ONOFF' },
+  { label: '온/오프라인', value: 'HYBRID' },
 ];
