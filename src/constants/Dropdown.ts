@@ -1,19 +1,20 @@
 export const RECRUIT_OPTIONS = [
-  { label: '프론트엔드', value: 'frontend' },
-  { label: '백엔드', value: 'backend' },
-  { label: 'UX/UI디자인', value: 'uxui' },
-  { label: 'AI', value: 'ai' },
-  { label: '안드로이드', value: 'android' },
-  { label: 'iOS', value: 'ios' },
-  { label: '기획', value: 'planning' },
-  { label: '마케팅', value: 'marketing' },
-  { label: 'PM', value: 'pm' },
-  { label: '클라우드/인프라', value: 'cloud' },
-  { label: '데브옵스', value: 'devops' },
-];
+  { label: '프론트엔드', value: 'FRONTEND' },
+  { label: '백엔드', value: 'BACKEND' },
+  { label: 'UX/UI디자인', value: 'UI_UX' },
+  { label: 'AI', value: 'AI' },
+  { label: '안드로이드', value: 'ANDROID' },
+  { label: 'iOS', value: 'IOS' },
+  { label: '기획', value: 'PLANNER' },
+  { label: '마케팅', value: 'MARKETER' },
+  { label: 'PM', value: 'PM' },
+  { label: '클라우드/인프라', value: 'CLOUD_INFRA' },
+  { label: '데브옵스', value: 'DEV_OPS' },
+  { label: '기타', value: 'ETC' },
+] as const;
 
 export const DURATION_OPTIONS = [
-  { label: '온라인', value: 'online' },
-  { label: '오프라인', value: 'offline' },
-  { label: '온/오프라인', value: 'onoff' },
+  { label: '온라인', value: 'ONLINE' },
+  { label: '오프라인', value: 'OFFLINE' },
+  { label: '온/오프라인', value: 'ONOFF' },
 ];
