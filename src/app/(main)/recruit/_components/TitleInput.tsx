@@ -7,10 +7,9 @@ import { Control, Controller } from 'react-hook-form';
 type Props = {
   name: 'title';
   control: Control<RecruitFormType>;
-  error?: string;
 };
 
-const TitleInput = ({ name, control, error }: Props) => {
+const TitleInput = ({ name, control }: Props) => {
   return (
     <Controller
       name={name}
@@ -25,12 +24,7 @@ const TitleInput = ({ name, control, error }: Props) => {
           />
           {value.length > 30 && (
             <span className={`body-8 text-gray-500 ${value.length > 30 ? 'text-red-100' : ''}`}>
-              제목을 30자 이하로 입력해주세요.
-            </span>
-          )}
-          {error && (
-            <span className={`body-8 text-gray-500 ${value.length > 30 ? 'text-red-100' : ''}`}>
-              {error}
+              제목을 30자 이하로 입력해주세요
             </span>
           )}
         </div>

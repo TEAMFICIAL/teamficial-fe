@@ -10,7 +10,6 @@ import { PositionType } from '@/utils/position';
 
 interface Props {
   control: Control<RecruitFormType>;
-  error?: string;
 }
 
 const RecruitPosition = ({ control }: Props) => {
@@ -153,7 +152,7 @@ const RecruitPosition = ({ control }: Props) => {
                 </div>
               </div>
 
-              {isError && <span className="body-6 text-red-100">{localError}</span>}
+              {isError && <span className="body-8 text-red-100">{localError}</span>}
             </div>
           );
         })}

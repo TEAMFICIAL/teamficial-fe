@@ -17,10 +17,9 @@ const DURATION_OPTIONS = [
 
 type Props = {
   control: Control<RecruitFormType>;
-  error?: string;
 };
 
-const ProjectDuration = ({ control, error }: Props) => {
+const ProjectDuration = ({ control }: Props) => {
   return (
     <div className="flex flex-col gap-4">
       <p className="title-3">프로젝트 진행기간</p>
@@ -35,7 +34,6 @@ const ProjectDuration = ({ control, error }: Props) => {
               onChange={onChange}
               options={DURATION_OPTIONS}
             />
-            {error && <span className="body-6 text-red-100">{error}</span>}
           </div>
         )}
       />

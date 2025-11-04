@@ -8,10 +8,9 @@ import { DURATION_OPTIONS } from '@/constants/Dropdown';
 
 type Props = {
   control: Control<RecruitFormType>;
-  error?: string;
 };
 
-const ProcessMethod = ({ control, error }: Props) => {
+const ProcessMethod = ({ control }: Props) => {
   return (
     <div className="flex flex-col gap-4">
       <p className="title-3">진행 방법</p>
@@ -33,7 +32,6 @@ const ProcessMethod = ({ control, error }: Props) => {
                 />
               ))}
             </div>
-            {error && <span className="body-6 text-red-100">{error}</span>}
           </div>
         )}
       />

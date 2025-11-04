@@ -43,9 +43,7 @@ const ProjectDate = ({ title, name, control, error }: Props) => {
         render={({ field: { value, onChange } }) => (
           <div className="flex flex-col gap-2">
             <div
-              className={`body-6 relative flex cursor-pointer items-center justify-between gap-2 rounded-md border-1 px-7 py-3 focus:border-gray-500 ${
-                error ? 'border-red-100' : 'border-gray-300'
-              }`}
+              className={`body-6 relative flex cursor-pointer items-center justify-between gap-2 rounded-md border-1 border-gray-300 px-7 py-3 focus:border-gray-500`}
               onClick={() => {
                 if (!open) setOpen(true);
               }}
@@ -70,7 +68,7 @@ const ProjectDate = ({ title, name, control, error }: Props) => {
                 </div>
               )}
             </div>
-            {error && <span className="body-6 text-red-100">{error}</span>}
+            {error && <span className="body-8 text-red-100">{error}</span>}
           </div>
         )}
       />
