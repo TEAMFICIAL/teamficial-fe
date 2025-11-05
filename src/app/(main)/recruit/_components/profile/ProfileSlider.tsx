@@ -26,61 +26,64 @@ const ProfileSlider = ({ control, name = 'profileId' }: Props) => {
       control={control}
       defaultValue={profiles[0]?.profileId}
       render={({ field: { onChange } }) => (
-        <div className="flex w-full items-center justify-between gap-2 rounded-2xl border border-gray-300 px-5 py-8">
-          {index > 0 ? (
-            <button
-              onClick={() => {
-                setIndex(index - 1);
-                onChange(profiles[index - 1].profileId);
-              }}
-              className="cursor-pointer"
-              aria-label="prev"
-            >
-              <Image
-                src={`/icons/profile_arrow_left.svg`}
-                alt="arrow_left"
-                width={32}
-                height={32}
-              />
-            </button>
-          ) : (
-            <button disabled className="pointer-events-none" aria-label="disabled_prev">
-              <Image
-                src={`/icons/disabled_arrow_left.svg`}
-                alt="disabled_arrow_left"
-                width={32}
-                height={32}
-              />
-            </button>
-          )}
-          <ProfileCard profile={currentProfile} />
-          {index < profiles.length - 1 ? (
-            <button
-              onClick={() => {
-                setIndex(index + 1);
-                onChange(profiles[index + 1].profileId);
-              }}
-              className="cursor-pointer"
-              aria-label="next"
-            >
-              <Image
-                src={`/icons/profile_arrow_right.svg`}
-                alt="arrow_right"
-                width={32}
-                height={32}
-              />
-            </button>
-          ) : (
-            <button disabled className="pointer-events-none" aria-label="disabled_next">
-              <Image
-                src={`/icons/disabled_arrow_right.svg`}
-                alt="disabled_arrow_right"
-                width={32}
-                height={32}
-              />
-            </button>
-          )}
-        </div>
+        <>
+          <p className="title-3">작성자 프로필 선택하기</p>
+          <div className="flex w-full items-center justify-between gap-2 rounded-2xl border border-gray-300 px-5 py-8">
+            {index > 0 ? (
+              <button
+                onClick={() => {
+                  setIndex(index - 1);
+                  onChange(profiles[index - 1].profileId);
+                }}
+                className="cursor-pointer"
+                aria-label="prev"
+              >
+                <Image
+                  src={`/icons/profile_arrow_left.svg`}
+                  alt="arrow_left"
+                  width={32}
+                  height={32}
+                />
+              </button>
+            ) : (
+              <button disabled className="pointer-events-none" aria-label="disabled_prev">
+                <Image
+                  src={`/icons/disabled_arrow_left.svg`}
+                  alt="disabled_arrow_left"
+                  width={32}
+                  height={32}
+                />
+              </button>
+            )}
+            <ProfileCard profile={currentProfile} />
+            {index < profiles.length - 1 ? (
+              <button
+                onClick={() => {
+                  setIndex(index + 1);
+                  onChange(profiles[index + 1].profileId);
+                }}
+                className="cursor-pointer"
+                aria-label="next"
+              >
+                <Image
+                  src={`/icons/profile_arrow_right.svg`}
+                  alt="arrow_right"
+                  width={32}
+                  height={32}
+                />
+              </button>
+            ) : (
+              <button disabled className="pointer-events-none" aria-label="disabled_next">
+                <Image
+                  src={`/icons/disabled_arrow_right.svg`}
+                  alt="disabled_arrow_right"
+                  width={32}
+                  height={32}
+                />
+              </button>
+            )}
+          </div>
+        </>
       )}
     />
   );
