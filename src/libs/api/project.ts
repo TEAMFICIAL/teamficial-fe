@@ -1,5 +1,5 @@
 import { CommonResponse } from '@/types/common';
-import { CreateProject, ResponseProject } from '@/types/project';
+import { CreateProject, DeleteProject, ResponseProject } from '@/types/project';
 import api from './api';
 
 export async function getSingleProject(postId: number): Promise<ResponseProject> {
@@ -17,6 +17,15 @@ export async function postProject(project: CreateProject): Promise<ResponseProje
 
   if (!data.isSuccess) {
     throw new Error(data.message || 'Failed to create project');
+  }
+  return data.result;
+}
+
+export async function deleteProject(postId: number): Promise<DeleteProject> {
+  const { data } = await api.delete<CommonResponse<DeleteProject>>(`recruiting-posts/${postId}`);
+
+  if (!data.isSuccess) {
+    throw new Error(data.message || 'Failed to delete project');
   }
   return data.result;
 }
