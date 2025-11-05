@@ -38,7 +38,8 @@ const TextContent = ({ control, name = 'content' }: Props) => {
     onUpdate: ({ editor }) => {
       try {
         const html = editor.getHTML();
-        onChangeRef.current?.(html);
+        const plainText = editor.getText();
+        onChangeRef.current?.(plainText.length >= 50 ? html : '');
       } catch {
         // silent
       }
