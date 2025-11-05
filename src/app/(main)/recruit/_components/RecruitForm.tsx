@@ -15,8 +15,12 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { CreateProject } from '@/types/project';
 import { isAfter, parse } from 'date-fns';
 import ProfileSlider from './profile/ProfileSlider';
+import { useRouter } from 'next/navigation';
+import { useModal } from '@/contexts/ModalContext';
 
 const RecruitForm = () => {
+  const router = useRouter();
+  const { openModal } = useModal();
   const { mutate: createProject } = useCreateProject();
 
   const {
@@ -43,15 +47,27 @@ const RecruitForm = () => {
     try {
       const projectData: CreateProject = {
         ...formData,
+        status: 'OPEN',
       };
 
-      // 상세 로깅 추가
-      console.group('프로젝트 제출 데이터');
-      console.log('전체 데이터:', projectData);
-      console.log('유효성 검사 오류:', errors);
-      console.groupEnd();
+      console.log('폼 데이터:', projectData);
 
-      // createProject(projectData);
+      createProject(projectData, {
+        onSuccess: (response) => {
+          console.log('프로젝트 생성 성공:', response);
+          openModal('recruitComplete', {
+            onListClick: () => {
+              router.push('/project');
+            },
+            onDetailClick: () => {
+              router.push(`/project/${response.postId}`);
+            },
+          });
+        },
+        onError: (error) => {
+          console.error('프로젝트 생성 실패:', error);
+        },
+      });
     } catch (error) {
       console.error('폼 제출 중 오류 발생:', error);
     }
@@ -61,6 +77,7 @@ const RecruitForm = () => {
   const onError = (errors: unknown) => {
     console.error('폼 유효성 검사 실패:', errors);
   };
+
   const startDate = watch('startDate');
   const deadline = watch('deadline');
 
