@@ -11,7 +11,7 @@ export const RECRUIT_OPTIONS = [
   { label: '클라우드/인프라', value: 'CLOUD_INFRA' },
   { label: '데브옵스', value: 'DEV_OPS' },
   { label: '기타', value: 'ETC' },
-] as const;
+];
 
 export const DURATION_OPTIONS = [
   { label: '온라인', value: 'ONLINE' },
