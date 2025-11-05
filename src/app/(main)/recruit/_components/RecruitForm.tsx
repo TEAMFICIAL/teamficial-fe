@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React from 'react';
 import TitleInput from './TitleInput';
 import ProcessMethod from './ProcessMethod';
 import ProjectDuration from './ProjectDuration';
@@ -8,46 +8,108 @@ import ProjectDate from './ProjectDate';
 import TextInput from './TextInput';
 import TextContent from './editor/TextContent';
 import Button from '@/components/common/Button';
+import { useCreateProject } from '@/hooks/mutation/useCreateProject';
+import { useForm } from 'react-hook-form';
+import { recruitFormSchema, RecruitFormType } from '@/libs/schemas/projectSchema';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { CreateProject } from '@/types/project';
+import { isAfter, parse } from 'date-fns';
+import ProfileSlider from './profile/ProfileSlider';
 
 const RecruitForm = () => {
-  const [jobDescription, setJobDescription] = useState('');
+  const { mutate: createProject } = useCreateProject();
 
-  const [startDate, setStartDate] = useState<Date | null>(null);
-  const [endDate, setEndDate] = useState<Date | null>(null);
+  const {
+    handleSubmit,
+    control,
+    watch,
+    formState: { isValid, errors },
+  } = useForm<RecruitFormType>({
+    resolver: zodResolver(recruitFormSchema),
+    defaultValues: {
+      title: '',
+      recruitingPositions: [],
+      progressWay: undefined,
+      startDate: '',
+      period: undefined,
+      deadline: '',
+      contactWay: '',
+      content: '',
+      profileId: undefined,
+    },
+  });
 
-  const isEndDateInvalid = startDate !== null && endDate !== null && endDate > startDate;
+  const onSubmit = (formData: RecruitFormType) => {
+    try {
+      const projectData: CreateProject = {
+        ...formData,
+      };
+
+      // 상세 로깅 추가
+      console.group('프로젝트 제출 데이터');
+      console.log('전체 데이터:', projectData);
+      console.log('유효성 검사 오류:', errors);
+      console.groupEnd();
+
+      // createProject(projectData);
+    } catch (error) {
+      console.error('폼 제출 중 오류 발생:', error);
+    }
+  };
+
+  // 폼 제출 실패 시 콜백 추가
+  const onError = (errors: unknown) => {
+    console.error('폼 유효성 검사 실패:', errors);
+  };
+  const startDate = watch('startDate');
+  const deadline = watch('deadline');
+
+  const isEndDateInvalid = (deadline: string, startDate: string) => {
+    if (!startDate || !deadline) return true;
+
+    try {
+      const start = parse(startDate, 'yyyy-MM-dd', new Date());
+      const end = parse(deadline, 'yyyy-MM-dd', new Date());
+      return !isAfter(end, start);
+    } catch {
+      return false;
+    }
+  };
 
   return (
-    <>
+    <form onSubmit={handleSubmit(onSubmit, onError)} className="flex flex-col gap-4">
       <div className="flex flex-col gap-4">
-        <TitleInput />
+        <TitleInput control={control} name={'title'} />
         <div className="flex flex-col gap-8 rounded-2xl border-1 border-gray-300 p-8">
           {/* 모집분야/인원 */}
-          <RecruitPosition />
+          <RecruitPosition control={control} />
           {/* 진행방법 */}
-          <ProcessMethod />
+          <ProcessMethod control={control} />
           {/* 프로젝트 기간 및 연락처 */}
           <div className="flex flex-col gap-6">
-            <ProjectDate title="프로젝트 시작 예정일" date={startDate} setDate={setStartDate} />
-            {/* 프로젝트 진행기간 */}
-            <ProjectDuration />
+            <ProjectDate title="프로젝트 시작 예정일" name="startDate" control={control} />
+            <ProjectDuration control={control} />
             <ProjectDate
               title="공고 마감일"
-              date={endDate}
-              setDate={setEndDate}
+              name="deadline"
+              control={control}
               error={
-                isEndDateInvalid ? '공고 마감일은 프로젝트 시작 예정일 이전이어야 합니다.' : ''
+                !isEndDateInvalid(deadline, startDate)
+                  ? '마감일은 시작일 이후일 수 없습니다'
+                  : errors.deadline?.message
               }
             />
-            <TextInput title="연락 방법" />
+            <TextInput title="연락 방법" name="contactWay" control={control} />
           </div>
         </div>
-        <TextContent editorContent={jobDescription} onChange={setJobDescription} />
+        <TextContent control={control} name="content" />
+        {/* 프로필 선택 컴포넌트 */}
+        <ProfileSlider control={control} />
       </div>
       <div className="mt-6 mb-10 flex justify-end">
-        <Button label="저장하기" />
+        <Button type="submit" label="업로드하기" disabled={!isValid} />
       </div>
-    </>
+    </form>
   );
 };
 
