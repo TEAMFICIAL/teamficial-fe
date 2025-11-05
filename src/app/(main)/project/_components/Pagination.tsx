@@ -23,7 +23,7 @@ const Pagination: React.FC<PaginationProps> = ({ totalPages, currentPage, onPage
   const visiblePages = Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i);
 
   return (
-    <div className="flex items-center justify-center gap-5">
+    <div className="flex items-center justify-center gap-5 pb-14">
       <div className="flex gap-2">
         <button onClick={() => handleChange(1)} disabled={page === 1} aria-label="첫 페이지">
           <Image src="/icons/double-arrow-left.svg" alt="first" width={24} height={24} />
