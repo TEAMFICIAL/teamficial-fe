@@ -31,6 +31,7 @@ const ProfileSlider = ({ control, name = 'profileId' }: Props) => {
           <div className="flex w-full items-center justify-between gap-2 rounded-2xl border border-gray-300 px-5 py-8">
             {index > 0 ? (
               <button
+                type="button"
                 onClick={() => {
                   setIndex(index - 1);
                   onChange(profiles[index - 1].profileId);
@@ -58,6 +59,7 @@ const ProfileSlider = ({ control, name = 'profileId' }: Props) => {
             <ProfileCard profile={currentProfile} />
             {index < profiles.length - 1 ? (
               <button
+                type="button"
                 onClick={() => {
                   setIndex(index + 1);
                   onChange(profiles[index + 1].profileId);

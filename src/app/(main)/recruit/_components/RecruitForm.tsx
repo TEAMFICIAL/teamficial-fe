@@ -29,6 +29,8 @@ const RecruitForm = () => {
     watch,
     formState: { isValid, errors },
   } = useForm<RecruitFormType>({
+    mode: 'onChange',
+    reValidateMode: 'onChange',
     resolver: zodResolver(recruitFormSchema),
     defaultValues: {
       title: '',

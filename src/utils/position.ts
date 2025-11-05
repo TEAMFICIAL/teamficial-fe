@@ -28,6 +28,6 @@ export const POSITION_VALUES = [
   Position.CLOUD_INFRA,
   Position.DEV_OPS,
   Position.ETC,
-] as const; // <- as const 중요
+] as const;
 
-export type PositionValueLiteral = (typeof POSITION_VALUES)[number]; // same as PositionType
+export type PositionValueLiteral = (typeof POSITION_VALUES)[number];
