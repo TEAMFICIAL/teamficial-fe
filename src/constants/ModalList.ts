@@ -27,6 +27,8 @@ export interface ApplyCompleteModalProps {
 export interface DeleteModalProps {
   isOpen: boolean;
   onClose: () => void;
+  postId?: number;
+  projectName?: string;
   onConfirm?: () => void;
 }
 
