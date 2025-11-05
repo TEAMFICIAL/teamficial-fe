@@ -62,6 +62,7 @@ const ProjectDate = ({ title, name, control, error }: Props) => {
                         setOpen(false);
                       }
                     }}
+                    minDate={new Date()}
                     inline
                     calendarClassName="rounded-lg border border-gray-300 bg-white"
                   />
