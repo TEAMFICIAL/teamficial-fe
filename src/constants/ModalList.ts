@@ -3,6 +3,14 @@ import ApplyCompleteModal from '@/components/modal/ApplyCompleteModal';
 import DeleteModal from '@/components/modal/DeleteModal';
 import PartnerModal from '@/components/modal/apply/PartnerModal';
 import TeamPsylogCompleteModal from '@/components/modal/TeamPsylogCompleteModal';
+import RecruitCompleteModal from '@/components/modal/RecruitCompleteModal';
+
+export interface RecruitCompleteModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onListClick?: () => void;
+  onDetailClick?: () => void;
+}
 
 export interface ApplyModalProps {
   isOpen: boolean;
@@ -40,6 +48,7 @@ export const MODAL_COMPONENTS = {
   delete: DeleteModal,
   partner: PartnerModal,
   teamPsylogComplete: TeamPsylogCompleteModal,
+  recruitComplete: RecruitCompleteModal,
 };
 
 export type ModalType = keyof typeof MODAL_COMPONENTS;
@@ -50,4 +59,5 @@ export interface ModalPropsMap {
   delete: DeleteModalProps;
   partner: PartnerModalProps;
   teamPsylogComplete: TeamPsylogCompleteModalProps;
+  recruitComplete: RecruitCompleteModalProps;
 }
