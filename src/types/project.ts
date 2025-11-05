@@ -18,16 +18,8 @@ export type Project = {
   recruitingPositions: RecruitingPosition[];
 };
 
-export type CreateProject = {
+export type CreateProject = Project & {
   profileId: number;
-  progressWay: ProgressWayType;
-  contactWay: string;
-  startDate: string;
-  period: PeriodType;
-  deadline: string;
-  content: string;
-  title: string;
-  recruitingPositions: RecruitingPosition[];
 };
 
 export type ResponseProject = Project & {
