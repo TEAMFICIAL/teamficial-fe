@@ -6,43 +6,57 @@ import ButtonContainer from './_components/ButtonContainer';
 import RecruitCard from './_components/RecruitCard';
 import Pagination from './_components/Pagination';
 import { useRouter } from 'next/navigation';
+import { ResponseProject } from '@/types/project';
+import { PERIOD_KR, POSITION_KR, PROGRESS_WAY_KR } from '@/constants/Translate';
+import { Filters, useRecruitingPosts } from '@/hooks/queries/useRecruitingPosts';
 
 const Page = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const cardsPerPage = 9;
-  const dummyCards = Array.from({ length: 22 }, (_, i) => ({
-    id: i + 1,
-    title: '팀피셜 팀원 구해요',
-    hashtag: '#프론트엔드',
-    author: '목마른 햄스터',
-    date: '2025.10.07',
-    duration: '3개월',
-    mode: '온/오프라인',
-    dday: 14,
-  }));
-  const totalPages = Math.ceil(dummyCards.length / cardsPerPage);
-  const startIndex = (currentPage - 1) * cardsPerPage;
-  const currentCards = dummyCards.slice(startIndex, startIndex + cardsPerPage);
+  const [filters, setFilters] = useState<Filters>({
+    duration: '',
+    recruit: '',
+    onlyOpen: false,
+  });
 
-  // 상세 프로젝트 페이지 이동
+  const { data, isLoading, isError } = useRecruitingPosts(filters, currentPage, 9);
+  const currentCards = data?.content ?? [];
+  const totalPages = data?.totalPages ?? 1;
   const router = useRouter();
   const handleCardClick = (id: number) => {
     router.push(`/project/${id}`);
   };
 
   return (
-    <main className="flex flex-col pb-10">
+    <main className="flex flex-col">
       <div className="py-5">
         <Banner />
       </div>
       <div className="w-full pt-5">
-        <ButtonContainer />
+        <ButtonContainer onChange={setFilters} />
       </div>
-      <div className="grid grid-cols-3 gap-4 py-5">
-        {currentCards.map((card) => (
-          <RecruitCard key={card.id} {...card} onClick={() => handleCardClick(card.id)} />
-        ))}
-      </div>
+      {isLoading ? (
+        <p className="py-10 text-center text-gray-500">불러오는 중...</p>
+      ) : isError ? (
+        <p className="py-10 text-center text-red-500">데이터를 불러오는 중 오류가 발생했습니다.</p>
+      ) : (
+        <div className="grid grid-cols-3 gap-4 py-5">
+          {currentCards.map((card: ResponseProject) => (
+            <RecruitCard
+              key={card.postId}
+              title={card.title}
+              hashtag={card.recruitingPositions
+                .map((r) => `#${POSITION_KR[r.position] || r.position}`)
+                .join(' ')}
+              author={card.userName}
+              date={card.createdAt.split('T')[0]}
+              duration={PERIOD_KR[card.period] || card.period}
+              mode={PROGRESS_WAY_KR[card.progressWay] || card.progressWay}
+              dday={card.dday}
+              onClick={() => handleCardClick(card.postId)}
+            />
+          ))}
+        </div>
+      )}
       <Pagination
         totalPages={totalPages}
         currentPage={currentPage}
