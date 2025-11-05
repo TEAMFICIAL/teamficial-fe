@@ -7,7 +7,7 @@ import React from 'react';
 import DDay from './DDayTag';
 import { useIsAuthor } from '@/hooks/useIsAuthor';
 
-const ProjectTitle = ({ title, status, dday, startDate, deadline, profileId }: ResponseProject) => {
+const ProjectTitle = ({ title, status, dday, createdAt, deadline, profileId }: ResponseProject) => {
   const isAuthor = useIsAuthor(profileId);
 
   const { openModal } = useModal();
@@ -26,7 +26,7 @@ const ProjectTitle = ({ title, status, dday, startDate, deadline, profileId }: R
           <DDay status={status} dday={dday} />
         </div>
         <p className="body-2 text-gray-700">
-          {startDate}~{deadline}
+          {createdAt.split(' ')[0]}~{deadline}
         </p>
       </div>
       {!isAuthor ? (

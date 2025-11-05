@@ -9,3 +9,11 @@ export async function getSingleProfile(profileId: number): Promise<ResponseProfi
   }
   return data.result;
 }
+
+export async function getProfileList(): Promise<ResponseProfile[]> {
+  const { data } = await api.get<CommonResponse<ResponseProfile[]>>('profile');
+  if (!data.isSuccess) {
+    throw new Error(data.message || 'Failed to fetch profile list');
+  }
+  return data.result;
+}

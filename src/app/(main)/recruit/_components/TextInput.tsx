@@ -1,17 +1,31 @@
 import React from 'react';
+import { Control, Controller } from 'react-hook-form';
+import { RecruitFormType } from '@/libs/schemas/projectSchema';
 
 type Props = {
   title: string;
+  name: 'contactWay';
+  control: Control<RecruitFormType>;
   placeholder?: string;
 };
 
-const TextInput = ({ title, placeholder = 'Ex. 카카오톡 오픈채팅 링크' }: Props) => {
+const TextInput = ({ title, name, control, placeholder = 'Ex. 카카오톡 오픈채팅 링크' }: Props) => {
   return (
     <div className="flex flex-col gap-4">
       <p className="title-3">{title}</p>
-      <input
-        className="body-6 rounded-md border-1 border-gray-300 p-2 px-7 py-3 focus:border-gray-500"
-        placeholder={placeholder}
+      <Controller
+        name={name}
+        control={control}
+        render={({ field: { value, onChange } }) => (
+          <div className="flex flex-col gap-2">
+            <input
+              value={value}
+              onChange={onChange}
+              className={`body-6 rounded-md border-1 border-gray-300 p-2 px-7 py-3 focus:border-gray-500`}
+              placeholder={placeholder}
+            />
+          </div>
+        )}
       />
     </div>
   );

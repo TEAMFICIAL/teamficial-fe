@@ -14,3 +14,20 @@ export const Position = {
 } as const;
 
 export type PositionType = (typeof Position)[keyof typeof Position];
+
+export const POSITION_VALUES = [
+  Position.FRONTEND,
+  Position.BACKEND,
+  Position.UI_UX,
+  Position.AI,
+  Position.ANDROID,
+  Position.IOS,
+  Position.PLANNER,
+  Position.MARKETER,
+  Position.PM,
+  Position.CLOUD_INFRA,
+  Position.DEV_OPS,
+  Position.ETC,
+] as const; // <- as const 중요
+
+export type PositionValueLiteral = (typeof POSITION_VALUES)[number]; // same as PositionType
