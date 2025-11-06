@@ -9,6 +9,7 @@ export type CurrentRecruitingPost = {
   period: string;
   deadline: string;
   recruitingDetails: string[];
+  createdAt: string;
   dday: number;
 };
 
