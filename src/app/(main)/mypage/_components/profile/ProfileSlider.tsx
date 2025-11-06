@@ -10,7 +10,7 @@ const ProfileSlider = () => {
   const [index, setIndex] = useState(0);
   const { data: profiles } = useGetProfileList();
 
-  if (!profiles) return null;
+  if (!profiles || profiles.length === 0) return null;
 
   const currentProfile: ResponseProfile = profiles[index];
 
