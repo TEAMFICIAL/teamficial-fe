@@ -1,44 +1,30 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import ProfileCard from './ProfileCard';
+import { useGetProfileList } from '@/hooks/queries/useProfile';
+import { PositionType } from '@/utils/position';
 
-interface Profile {
-  id: number;
-  name: string;
-  contact: string;
-  workTime: string;
-  keywords: string[];
+interface Props {
+  onProfileSelect: (profileId: number) => void;
+  onPositionSelect: (position: PositionType | null) => void;
+  positions: PositionType[];
 }
 
-const profiles: Profile[] = [
-  {
-    id: 1,
-    name: '목마른 햄스터님',
-    contact: '팀원이 되면 공개해요',
-    workTime: '새벽에 작업하는게 편해요',
-    keywords: ['피드백장인', '시간잘지킴', '꼼꼼한'],
-  },
-  {
-    id: 2,
-    name: '목마른 김지원님',
-    contact: '팀원이 되면 공개해요',
-    workTime: '새벽에 작업하는게 편해요',
-    keywords: ['피드백장인', '시간잘지킴', '꼼꼼한'],
-  },
-  {
-    id: 3,
-    name: '목마른 김선화님',
-    contact: '팀원이 되면 공개해요',
-    workTime: '새벽에 작업하는게 편해요',
-    keywords: ['피드백장인', '시간잘지킴', '꼼꼼한'],
-  },
-];
-
-const ProfileSlider = () => {
+const ProfileSlider = ({ onProfileSelect, onPositionSelect, positions }: Props) => {
   const [index, setIndex] = useState(0);
-  const currentProfile = profiles[index];
+  const { data: profiles } = useGetProfileList();
+
+  const currentProfile = profiles?.[index];
+
+  useEffect(() => {
+    if (currentProfile?.profileId !== undefined) {
+      onProfileSelect(currentProfile.profileId);
+    }
+  }, [currentProfile, onProfileSelect]);
+
+  if (!profiles) return null;
 
   const handlePrev = () => {
     if (index > 0) setIndex(index - 1);
@@ -65,7 +51,13 @@ const ProfileSlider = () => {
             />
           </button>
         )}
-        <ProfileCard profile={currentProfile} />
+        {currentProfile && (
+          <ProfileCard
+            profile={currentProfile}
+            onPositionSelect={onPositionSelect}
+            positions={positions}
+          />
+        )}
         {index < profiles.length - 1 ? (
           <button onClick={handleNext} className="cursor-pointer" aria-label="next">
             <Image

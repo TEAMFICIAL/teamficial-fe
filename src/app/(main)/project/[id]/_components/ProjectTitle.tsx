@@ -7,15 +7,24 @@ import React from 'react';
 import DDay from './DDayTag';
 import { useIsAuthor } from '@/hooks/useIsAuthor';
 
-const ProjectTitle = ({ title, status, dday, createdAt, deadline, profileId }: ResponseProject) => {
+const ProjectTitle = ({
+  postId,
+  title,
+  status,
+  dday,
+  createdAt,
+  deadline,
+  profileId,
+  recruitingPositions,
+}: ResponseProject) => {
   const isAuthor = useIsAuthor(profileId);
 
   const { openModal } = useModal();
   const handleApplyModal = () => {
-    openModal('apply', { projectId: 123 });
+    openModal('apply', { postId, recruitingPositions });
   };
   const handleDeleteModal = () => {
-    openModal('delete');
+    openModal('delete', { postId: postId, projectName: title });
   };
 
   return (

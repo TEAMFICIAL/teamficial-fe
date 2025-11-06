@@ -15,7 +15,12 @@ const ProfileCard = ({ profile, keywords }: ProfileCardProps) => {
   return (
     <div className="mx-8 flex w-full justify-between">
       <div className="flex items-start gap-7">
-        <Image src={'/icons/profile.svg'} alt="profile" width={100} height={100} />
+        <Image
+          src={profile.profileImageUrl || '/icons/profile.svg'}
+          alt="profile"
+          width={100}
+          height={100}
+        />
         <div className="flex flex-col gap-5">
           <div className="flex flex-col gap-2">
             {/* 이름 및 정보 */}

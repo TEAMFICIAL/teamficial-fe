@@ -68,3 +68,21 @@ export type PagedProjects = {
   last: boolean;
   empty: boolean;
 };
+
+// 모집 글 지원하기
+export type PostApplication = {
+  profileId: number;
+  recruitingPostId: number;
+  position: PositionType;
+  content?: string;
+};
+
+export type ResponseApplication = {
+  applicationId: number;
+  status: StatusType;
+  position: PositionType;
+  userId: number;
+  profileId: number;
+  recruitingPostId: number;
+  message: string;
+};
