@@ -17,6 +17,7 @@ import { isAfter, parse } from 'date-fns';
 import ProfileSlider from './profile/ProfileSlider';
 import { useRouter } from 'next/navigation';
 import { useModal } from '@/contexts/ModalContext';
+import { PositionType } from '@/utils/position';
 
 const RecruitForm = () => {
   const router = useRouter();
@@ -34,7 +35,7 @@ const RecruitForm = () => {
     resolver: zodResolver(recruitFormSchema),
     defaultValues: {
       title: '',
-      recruitingPositions: [],
+      recruitingPositions: [{ position: '' as PositionType, count: 1 }],
       progressWay: undefined,
       startDate: '',
       period: undefined,
