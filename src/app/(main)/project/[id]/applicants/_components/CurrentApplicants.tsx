@@ -5,6 +5,8 @@ import { PositionType } from '@/utils/position';
 import { POSITION_KR } from '@/constants/Translate';
 import CurrentApplicantItem from './CurrentApplicantItem';
 import { CurrentApplicant } from '@/types/application';
+import { useModal } from '@/contexts/ModalContext';
+import { useParams } from 'next/navigation';
 
 const CurrentApplicants = ({
   applicants,
@@ -15,6 +17,19 @@ const CurrentApplicants = ({
   filter: PositionType | undefined;
   onFilterChange?: (value: PositionType | undefined) => void;
 }) => {
+  const { openModal } = useModal();
+
+  const params = useParams();
+  const recruitingPostId = params?.id ? Number(params.id) : undefined;
+
+  const handleApplicantClick = (applicationId: number) => {
+    if (!params) return;
+    openModal('partner', {
+      applicationId,
+      recruitingPostId,
+    });
+  };
+
   // 필터 관리
   const handleChange = (value: string) => {
     if (!value) {
@@ -29,11 +44,6 @@ const CurrentApplicants = ({
         return item.profilePosition === POSITION_KR[filter];
       })
     : applicants;
-
-  // 지원자 클릭
-  const handleApplicantClick = (id: number) => {
-    console.log(`지원자 ${id} 클릭`);
-  };
 
   return (
     <div className="flex flex-col">

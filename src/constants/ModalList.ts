@@ -37,7 +37,8 @@ export interface DeleteModalProps {
 export interface PartnerModalProps {
   isOpen: boolean;
   onClose: () => void;
-  partnerId?: number;
+  recruitingPostId?: number;
+  applicationId?: number;
 }
 
 export interface TeamPsylogCompleteModalProps {
