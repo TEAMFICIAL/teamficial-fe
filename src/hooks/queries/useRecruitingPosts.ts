@@ -15,7 +15,7 @@ export const useRecruitingPosts = (filters: Filters, page: number, pageSize = 9)
     queryKey: ['recruitingPosts', filters, page],
     queryFn: async () => {
       const result = await getRecruitingPosts({
-        status: filters.onlyOpen ? 'OPEN' : 'CLOSED',
+        status: filters.onlyOpen ? 'OPEN' : undefined,
         position: filters.recruit || undefined,
         progressWay: filters.duration || undefined,
         pageable: { page: page - 1, size: pageSize, sort: ['createdAt,desc'] },
