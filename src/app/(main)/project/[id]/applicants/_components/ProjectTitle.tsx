@@ -6,7 +6,7 @@ import DDay from '../../_components/DDayTag';
 
 const ProjectTitle = ({
   recruitingPostTitle,
-  startDate,
+  createdAt,
   deadline,
   dday,
 }: CurrentRecruitingPost) => {
@@ -18,8 +18,7 @@ const ProjectTitle = ({
           <DDay status={'OPEN'} dday={dday} />
         </div>
         <p className="body-2 text-gray-700">
-          {/* TODO: createdAt 으로 변경 */}
-          {startDate.split(' ')[0]}~{deadline}
+          {createdAt.split('T')[0]}~{deadline}
         </p>
       </div>
     </div>
