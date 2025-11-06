@@ -6,10 +6,21 @@ import { useGetProjectApplicants } from '@/hooks/queries/useProject';
 import Image from 'next/image';
 import InfoCard from './InfoCard';
 import CurrentApplicants from './CurrentApplicants';
+import { PositionType } from '@/utils/position';
 
 const ProjectInfo = ({ id }: { id: string }) => {
   const [isContentOpen, setIsContentOpen] = useState(false);
-  const { data } = useGetProjectApplicants({ postId: Number(id) });
+  const [selectedPosition, setSelectedPosition] = useState<PositionType | undefined>(undefined);
+
+  const { data } = useGetProjectApplicants({
+    postId: Number(id),
+    position: selectedPosition,
+  });
+
+  const handleFilterChange = (position?: PositionType) => {
+    setSelectedPosition(position);
+  };
+
   if (!data) return null;
 
   const sanitizedContent = DOMPurify.sanitize(data.recruitingPost.recruitingPostContent);
@@ -38,7 +49,11 @@ const ProjectInfo = ({ id }: { id: string }) => {
           />
         </button>
         {/* 지원자 현황 */}
-        <CurrentApplicants applicants={data.applicantList} />
+        <CurrentApplicants
+          applicants={data.applicantList}
+          filter={selectedPosition}
+          onFilterChange={handleFilterChange}
+        />
       </div>
     </>
   );
