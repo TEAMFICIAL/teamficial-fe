@@ -3,42 +3,16 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import ProfileCard from './ProfileCard';
-
-interface Profile {
-  id: number;
-  name: string;
-  contact: string;
-  workTime: string;
-  keywords: string[];
-}
-
-const profiles: Profile[] = [
-  {
-    id: 1,
-    name: '목마른 햄스터님',
-    contact: '팀원이 되면 공개해요',
-    workTime: '새벽에 작업하는게 편해요',
-    keywords: ['피드백장인', '시간잘지킴', '꼼꼼한'],
-  },
-  {
-    id: 2,
-    name: '목마른 김지원님',
-    contact: '팀원이 되면 공개해요',
-    workTime: '새벽에 작업하는게 편해요',
-    keywords: ['피드백장인', '시간잘지킴', '꼼꼼한'],
-  },
-  {
-    id: 3,
-    name: '목마른 김선화님',
-    contact: '팀원이 되면 공개해요',
-    workTime: '새벽에 작업하는게 편해요',
-    keywords: ['피드백장인', '시간잘지킴', '꼼꼼한'],
-  },
-];
+import { useGetProfileList } from '@/hooks/queries/useProfile';
+import { ResponseProfile } from '@/types/profile';
 
 const ProfileSlider = () => {
   const [index, setIndex] = useState(0);
-  const currentProfile = profiles[index];
+  const { data: profiles } = useGetProfileList();
+
+  if (!profiles) return null;
+
+  const currentProfile: ResponseProfile = profiles[index];
 
   const handlePrev = () => {
     if (index > 0) setIndex(index - 1);
