@@ -86,3 +86,34 @@ export type ResponseApplication = {
   recruitingPostId: number;
   message: string;
 };
+
+// 마이페이지 dashboard Response
+export type MyApplication = {
+  recruitingPostId: number;
+  writerName: string;
+  progressWay: string;
+  profileImage: string;
+  title: string;
+  tags: string[];
+  status: string;
+  period: string;
+  deadline: string;
+  createdAt: string;
+};
+
+export type MyRecruitingPost = {
+  recruitingPostId: number;
+  writerName: string;
+  profileImage: string;
+  title: string;
+  tags: string[];
+  deadline: string;
+  totalApplicants: number;
+  createdAt: string;
+  dday: number;
+};
+
+export type ResponseDashboard = {
+  myApplications: MyApplication[];
+  myRecruitingPost: MyRecruitingPost[];
+};
