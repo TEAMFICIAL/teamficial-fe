@@ -4,6 +4,7 @@ import Image from 'next/image';
 interface Profile {
   id: number;
   name: string;
+  avatar?: string;
   contact: string;
   workTime: string;
   keywords: string[];
@@ -17,18 +18,24 @@ const ProfileCard = ({ profile }: ProfileCardProps) => {
   return (
     <div className="flex w-full justify-between px-8">
       <div className="flex gap-7">
-        <Image src="/icons/initial-profile.svg" alt="profile" width={100} height={100} />
+        <Image
+          src={profile.avatar || '/icons/initial-profile.svg'}
+          alt="profile"
+          width={100}
+          height={100}
+          className="self-start"
+        />
         <div className="flex flex-col">
-          <p className="body-1 mb-2 text-gray-900">목마른 햄스터님</p>
+          <p className="body-1 mb-2 text-gray-900">{profile.name}님</p>
           <div className="flex items-center gap-2">
             <p className="body-5 text-gray-800">연락수단</p>
             <div className="h-3 w-[1px] bg-gray-700"></div>
-            <p className="body-6 text-gray-600">연락수단을 등록해주세요</p>
+            <p className="body-6 text-gray-600">{profile.contact}</p>
           </div>
           <div className="mb-5 flex items-center gap-2">
             <p className="body-5 text-gray-800">작업시간</p>
             <div className="h-3 w-[1px] bg-gray-700"></div>
-            <p className="body-6 text-gray-600">연락수단을 등록해주세요</p>
+            <p className="body-6 text-gray-600">{profile.workTime}</p>
           </div>
           <div className="flex flex-wrap gap-2">
             {profile.keywords.map((keyword) => (

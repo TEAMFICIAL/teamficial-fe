@@ -1,6 +1,7 @@
 import MyPageTitle from './MyPageTitle';
 // import EmptyApplicantStatus from './applicant/EmptyApplicantStatus';
-// import EmptyAppliedTeam from './EmptyAppliedTeam';
+// import EmptyAppliedTeam from './applied/EmptyAppliedTeam';
+
 // import InitialProfile from './profile/InitialProfile';
 import ProfileSlider from './profile/ProfileSlider';
 import AppliedTeamSection from './applied/AppliedTeamsSection';

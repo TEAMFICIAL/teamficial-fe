@@ -1,6 +1,6 @@
 import MyPageInfo from './_components/MyPageInfo';
 
-const page = () => {
+const Page = () => {
   return (
     <>
       <MyPageInfo />
@@ -8,4 +8,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

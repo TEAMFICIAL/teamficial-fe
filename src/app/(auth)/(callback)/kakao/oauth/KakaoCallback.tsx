@@ -23,7 +23,6 @@ export default function KakaoCallbackClient() {
         })
         .then((res) => {
           const result = res.data?.result;
-          console.log(result);
           if (!result) {
             router.replace('/login');
             return;

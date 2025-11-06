@@ -6,11 +6,20 @@ import Image from 'next/image';
 
 const InitialProfile = () => {
   const { userName } = useUserStore();
+  if (!userName) {
+    return null;
+  }
 
   return (
     <div className="bg-gray-0 mb-4 flex rounded-2xl border border-gray-300 px-14 py-8">
       <div className="flex gap-7">
-        <Image src="/icons/initial-profile.svg" alt="profile" width={100} height={100} />
+        <Image
+          src="/icons/initial-profile.svg"
+          className="self-start"
+          alt="profile"
+          width={100}
+          height={100}
+        />
         <div>
           <div className="flex flex-col gap-2">
             <p className="body-1 text-gray-900">{userName}님</p>
