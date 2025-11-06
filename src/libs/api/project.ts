@@ -37,12 +37,18 @@ export async function deleteProject(postId: number): Promise<DeleteProject> {
 }
 
 export async function postApplication(application: PostApplication): Promise<ResponseApplication> {
-  const { data } = await api.post<CommonResponse<ResponseApplication>>(`applications`, {
-    ...application,
-  });
+  try {
+    const { data } = await api.post<ResponseApplication | CommonResponse<null>>(`applications`, {
+      ...application,
+    });
 
-  if (!data.isSuccess) {
-    throw new Error(data.message || 'Failed to apply for project');
+    if ('isSuccess' in data) {
+      const errorResponse = data as CommonResponse<null>;
+      throw new Error(errorResponse.message || 'Failed to apply for project');
+    }
+
+    return data as ResponseApplication;
+  } catch (error) {
+    throw error;
   }
-  return data.result;
 }
