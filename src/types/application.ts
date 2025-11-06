@@ -19,6 +19,7 @@ export type CurrentApplicant = {
   applicantName: string;
   profilePosition: string;
   profileImage: string;
+  applicationStatus: string;
 };
 
 export type ResponseApplicantsDetail = {
