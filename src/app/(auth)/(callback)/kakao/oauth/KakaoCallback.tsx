@@ -3,10 +3,12 @@
 import { useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import api from '@/libs/api/api';
+import { useUserStore } from '@/store/useUserStore';
 
 export default function KakaoCallbackClient() {
   const router = useRouter();
   const params = useSearchParams();
+  const { setUser } = useUserStore();
 
   useEffect(() => {
     const code = params.get('code');
@@ -21,15 +23,17 @@ export default function KakaoCallbackClient() {
         })
         .then((res) => {
           const result = res.data?.result;
+          console.log(result);
           if (!result) {
             router.replace('/login');
             return;
           }
 
-          const { userId, accessToken, refreshToken, first } = result;
-          localStorage.setItem('userId', userId);
+          const { userId, accessToken, refreshToken, first, uuid, userName } = result;
 
           if (res.data.code === '200') {
+            setUser({ uuid, userId, userName });
+
             localStorage.setItem('accessToken', accessToken);
             localStorage.setItem('refreshToken', refreshToken);
             if (first) {
@@ -46,7 +50,7 @@ export default function KakaoCallbackClient() {
           router.replace('/login');
         });
     }
-  }, [params, router]);
+  }, [params, router, setUser]);
 
   return null;
 }
