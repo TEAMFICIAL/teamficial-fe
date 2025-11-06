@@ -1,6 +1,7 @@
 import { getCurrentApplicants } from '@/libs/api/application';
 import { getSingleProject } from '@/libs/api/project';
-import { ResponseApplicantsDetail, ResponseProject } from '@/types/project';
+import { ResponseApplicantsDetail } from '@/types/application';
+import { ResponseProject } from '@/types/project';
 import { PositionType } from '@/utils/position';
 import { useQuery } from '@tanstack/react-query';
 
