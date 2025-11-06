@@ -7,6 +7,7 @@ import Image from 'next/image';
 import InfoCard from './InfoCard';
 import CurrentApplicants from './CurrentApplicants';
 import { PositionType } from '@/utils/position';
+import Button from '@/components/common/Button';
 
 const ProjectInfo = ({ id }: { id: string }) => {
   const [isContentOpen, setIsContentOpen] = useState(false);
@@ -54,6 +55,9 @@ const ProjectInfo = ({ id }: { id: string }) => {
           filter={selectedPosition}
           onFilterChange={handleFilterChange}
         />
+        <div className="flex justify-end">
+          <Button label="팀원 모집 마치기" onClick={() => {}} />
+        </div>
       </div>
     </>
   );
