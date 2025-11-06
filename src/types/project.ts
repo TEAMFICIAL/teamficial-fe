@@ -79,8 +79,8 @@ export type PostApplication = {
 
 export type ResponseApplication = {
   applicationId: number;
-  status: string;
-  position: string;
+  status: StatusType;
+  position: PositionType;
   userId: number;
   profileId: number;
   recruitingPostId: number;
