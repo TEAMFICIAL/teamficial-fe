@@ -11,7 +11,7 @@ const InitialProfile = () => {
   }
 
   return (
-    <div className="bg-gray-0 mb-4 flex rounded-2xl border border-gray-300 px-14 py-8">
+    <div className="bg-gray-0 mb-4 flex justify-between rounded-2xl border border-gray-300 px-14 py-8">
       <div className="flex gap-7">
         <Image
           src="/icons/initial-profile.svg"
@@ -38,6 +38,20 @@ const InitialProfile = () => {
             </Button>
           </div>
         </div>
+      </div>
+      <div className="flex gap-4">
+        {Array(3)
+          .fill(null)
+          .map((_, i) => (
+            <Image
+              key={i}
+              src="/icons/empty-link.svg"
+              className="self-start"
+              alt="link"
+              width={28}
+              height={28}
+            />
+          ))}
       </div>
     </div>
   );

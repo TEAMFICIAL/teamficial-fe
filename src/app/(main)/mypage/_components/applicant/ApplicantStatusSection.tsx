@@ -1,8 +1,13 @@
 'use client';
 
+import { MyRecruitingPost } from '@/types/project';
 import ApplicantStatusCard from './ApplicantStatusCard';
 
-const ApplicantStatusSection = () => {
+interface ApplicantStatusSectionProps {
+  recruitings: MyRecruitingPost[];
+}
+
+const ApplicantStatusSection = ({ recruitings }: ApplicantStatusSectionProps) => {
   return (
     <div className="mb-14">
       <div className="flex w-full justify-between py-5">
@@ -16,9 +21,9 @@ const ApplicantStatusSection = () => {
         </button>
       </div>
       <div className="flex gap-4">
-        <ApplicantStatusCard />
-        <ApplicantStatusCard />
-        <ApplicantStatusCard />
+        {recruitings.map((post) => (
+          <ApplicantStatusCard key={post.recruitingPostId} recruiting={post} />
+        ))}
       </div>
     </div>
   );
