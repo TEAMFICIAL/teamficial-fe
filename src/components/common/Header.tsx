@@ -1,8 +1,14 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
+import { useUserStore } from '@/store/useUserStore';
 
 const Header = () => {
+  const { userName } = useUserStore();
+  const isLoggedIn = !!userName;
+
   return (
     <header className="mx-auto flex w-full max-w-[1024px] justify-between px-10 pt-5">
       {/* TODO: 각 이동 링크로 변경 */}
@@ -24,11 +30,17 @@ const Header = () => {
           팀피셜록
         </Link>
       </div>
-      {/* TODO: 추후 로그인 상태 적용하여 변경 */}
-      <Link href="/login" className="flex items-center gap-4">
-        <span className="body-6">로그인/회원가입</span>
-        <Image src="/icons/profile.svg" alt="profile" width={44} height={44} />
-      </Link>
+      {isLoggedIn ? (
+        <Link href="/mypage" className="flex items-center gap-3">
+          <span className="body-6 font-semibold">{userName}님</span>
+          <Image src="/icons/profile.svg" alt="profile" width={44} height={44} />
+        </Link>
+      ) : (
+        <Link href="/login" className="flex items-center gap-3">
+          <span className="body-6">로그인/회원가입</span>
+          <Image src="/icons/profile.svg" alt="profile" width={44} height={44} />
+        </Link>
+      )}
     </header>
   );
 };
