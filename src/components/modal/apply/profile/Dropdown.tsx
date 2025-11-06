@@ -4,14 +4,14 @@ import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 
 interface DropdownSelectProps {
-  options: string[];
+  options: { label: string; value: string }[];
   defaultLabel?: string;
   onSelect?: (value: string) => void;
 }
 
 const DropdownSelect = ({ options, defaultLabel = '지원분야', onSelect }: DropdownSelectProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState<string | null>(null);
+  const [selected, setSelected] = useState<{ label: string; value: string } | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -24,10 +24,10 @@ const DropdownSelect = ({ options, defaultLabel = '지원분야', onSelect }: Dr
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const handleSelect = (option: string) => {
+  const handleSelect = (option: { label: string; value: string }) => {
     setSelected(option);
     setIsOpen(false);
-    onSelect?.(option);
+    onSelect?.(option.value);
   };
 
   return (
@@ -36,7 +36,7 @@ const DropdownSelect = ({ options, defaultLabel = '지원분야', onSelect }: Dr
         onClick={() => setIsOpen((prev) => !prev)}
         className={`body-7 flex w-[100px] items-center justify-between rounded-md bg-gray-200 pl-3 text-gray-700 transition-colors`}
       >
-        <span>{selected || defaultLabel}</span>
+        <span>{selected?.label || defaultLabel}</span>
         <Image
           src={`/icons/profile_dropdown_${isOpen ? 'up' : 'down'}.svg`}
           alt="arrow"
@@ -50,13 +50,13 @@ const DropdownSelect = ({ options, defaultLabel = '지원분야', onSelect }: Dr
         <ul className="absolute z-10 rounded-md bg-gray-200 text-gray-700">
           {options.map((option, index) => (
             <li
-              key={option}
+              key={option.value}
               onClick={() => handleSelect(option)}
               className={`body-7 w-[100px] cursor-pointer pr-6 pl-3 ${
                 index === 0 ? '' : 'border-t border-gray-300'
-              } ${selected === option ? 'bg-gray-300' : ''}`}
+              } ${selected?.value === option?.value ? 'bg-gray-300' : ''}`}
             >
-              {option}
+              {option.label}
             </li>
           ))}
         </ul>

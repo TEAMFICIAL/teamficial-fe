@@ -10,11 +10,19 @@ export const RECRUIT_OPTIONS = [
   { label: 'PM', value: 'PM' },
   { label: '클라우드/인프라', value: 'CLOUD_INFRA' },
   { label: '데브옵스', value: 'DEV_OPS' },
-  { label: '기타', value: 'ETC' },
 ];
 
 export const DURATION_OPTIONS = [
   { label: '온라인', value: 'ONLINE' },
   { label: '오프라인', value: 'OFFLINE' },
   { label: '온/오프라인', value: 'HYBRID' },
+];
+
+export const PERIOD_OPTIONS = [
+  { label: '1개월 이내', value: 'WITHIN_1_MONTH' },
+  { label: '1~2개월', value: 'ONE_TO_TWO_MONTHS' },
+  { label: '약 3개월', value: 'AROUND_3_MONTHS' },
+  { label: '3~6개월', value: 'THREE_TO_SIX_MONTHS' },
+  { label: '6개월 이상(장기)', value: 'OVER_6_MONTHS' },
+  { label: '미정/협의예정', value: 'FLEXIBLE' },
 ];

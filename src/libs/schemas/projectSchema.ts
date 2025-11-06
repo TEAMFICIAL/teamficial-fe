@@ -1,5 +1,5 @@
 import { POSITION_VALUES } from '@/utils/position';
-import { Period, ProgressWay } from '@/utils/project';
+import { Period, PeriodType, ProgressWay } from '@/utils/project';
 import { z } from 'zod';
 
 export const recruitFormSchema = z.object({
@@ -22,7 +22,7 @@ export const recruitFormSchema = z.object({
       message: '시작일을 선택해주세요',
     })
     .min(1, '시작일을 선택해주세요'),
-  period: z.enum(Period, {
+  period: z.enum(Object.values(Period) as [PeriodType, ...PeriodType[]], {
     message: '프로젝트 기간을 선택해주세요',
   }),
   deadline: z

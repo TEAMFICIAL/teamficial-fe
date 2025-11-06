@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PositionDropdown from './PositionDropdown';
 import { RECRUIT_OPTIONS } from '@/constants/Dropdown';
 import { Control, useFieldArray, useWatch } from 'react-hook-form';
@@ -25,11 +25,17 @@ const RecruitPosition = ({ control }: Props) => {
     name: 'recruitingPositions',
   }) as RecruitFormType['recruitingPositions'];
 
+  const initRef = useRef(false);
+
   useEffect(() => {
+    if (initRef.current) return;
+    initRef.current = true;
+
     if ((!watched || watched.length === 0) && fields.length === 0) {
       append({ position: '' as PositionType, count: 1 });
     }
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [append]);
 
   const handleAdd = () => {
     const item =
