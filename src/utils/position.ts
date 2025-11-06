@@ -10,7 +10,6 @@ export const Position = {
   PM: 'PM',
   CLOUD_INFRA: 'CLOUD_INFRA',
   DEV_OPS: 'DEV_OPS',
-  ETC: 'ETC',
 } as const;
 
 export type PositionType = (typeof Position)[keyof typeof Position];
@@ -27,7 +26,6 @@ export const POSITION_VALUES = [
   Position.PM,
   Position.CLOUD_INFRA,
   Position.DEV_OPS,
-  Position.ETC,
 ] as const;
 
 export type PositionValueLiteral = (typeof POSITION_VALUES)[number];

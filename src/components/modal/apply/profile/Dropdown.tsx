@@ -54,7 +54,7 @@ const DropdownSelect = ({ options, defaultLabel = '지원분야', onSelect }: Dr
               onClick={() => handleSelect(option)}
               className={`body-7 w-[100px] cursor-pointer pr-6 pl-3 ${
                 index === 0 ? '' : 'border-t border-gray-300'
-              } ${selected === option ? 'bg-gray-300' : ''}`}
+              } ${selected?.value === option?.value ? 'bg-gray-300' : ''}`}
             >
               {option.label}
             </li>

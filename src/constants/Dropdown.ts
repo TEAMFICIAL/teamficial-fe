@@ -10,7 +10,6 @@ export const RECRUIT_OPTIONS = [
   { label: 'PM', value: 'PM' },
   { label: '클라우드/인프라', value: 'CLOUD_INFRA' },
   { label: '데브옵스', value: 'DEV_OPS' },
-  { label: '기타', value: 'ETC' },
 ];
 
 export const DURATION_OPTIONS = [
