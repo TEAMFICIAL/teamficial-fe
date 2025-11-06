@@ -1,4 +1,5 @@
-import Tag from './Tag';
+import Tag from '@/components/common/Tag';
+import { formatDateDot, formatDday } from '@/utils/project/formatDate';
 import Image from 'next/image';
 
 interface RecruitCardProps {
@@ -24,15 +25,6 @@ const RecruitCard = ({
   profileImage = '/icons/profile.svg',
   onClick,
 }: RecruitCardProps) => {
-  const renderDdayText = () => {
-    if (dday > 0) return `D-${dday}`;
-    if (dday === 0) return 'D-DAY';
-    return '마감';
-  };
-  const ddayType = dday < 0 ? 'date-disabled' : 'date';
-
-  const formatDate = (date: string) => date.split(' ')[0];
-
   return (
     <article
       className="bg-gray-0 flex max-w-[304px] cursor-pointer flex-col justify-center gap-6 rounded-lg border-1 border-gray-300 p-5"
@@ -42,10 +34,16 @@ const RecruitCard = ({
       <div className="flex flex-col gap-2.5">
         <div className="flex w-full justify-between">
           <div className="flex gap-1">
-            <Tag type="text">{duration}</Tag>
-            <Tag type="text">{mode}</Tag>
+            <Tag className="bg-gray-200 text-gray-700 disabled:bg-gray-400 disabled:text-gray-50">
+              {duration}
+            </Tag>
+            <Tag className="bg-gray-200 text-gray-700 disabled:bg-gray-400 disabled:text-gray-50">
+              {mode}
+            </Tag>
           </div>
-          <Tag type={ddayType}>{renderDdayText()}</Tag>
+          <Tag className="bg-red-10 text-red-100 disabled:bg-gray-200 disabled:text-gray-500">
+            {formatDday(dday)}
+          </Tag>
         </div>
         <div className="flex flex-col">
           <span className="title-3 text-gray-900">{title}</span>
@@ -57,7 +55,7 @@ const RecruitCard = ({
           <Image src={profileImage} alt="profile" width={32} height={32} />
           <span className="body-8 text-gray-700">{author}</span>
         </div>
-        <span className="body-8 text-gray-700">{formatDate(date)}</span>
+        <span className="body-8 text-gray-700">{formatDateDot(date)}</span>
       </div>
     </article>
   );
