@@ -1,5 +1,11 @@
 import { CommonResponse } from '@/types/common';
-import { CreateProject, DeleteProject, ResponseProject } from '@/types/project';
+import {
+  CreateProject,
+  DeleteProject,
+  PostApplication,
+  ResponseApplication,
+  ResponseProject,
+} from '@/types/project';
 import api from './api';
 
 export async function getSingleProject(postId: number): Promise<ResponseProject> {
@@ -26,6 +32,17 @@ export async function deleteProject(postId: number): Promise<DeleteProject> {
 
   if (!data.isSuccess) {
     throw new Error(data.message || 'Failed to delete project');
+  }
+  return data.result;
+}
+
+export async function postApplication(application: PostApplication): Promise<ResponseApplication> {
+  const { data } = await api.post<CommonResponse<ResponseApplication>>(`applications`, {
+    ...application,
+  });
+
+  if (!data.isSuccess) {
+    throw new Error(data.message || 'Failed to apply for project');
   }
   return data.result;
 }
