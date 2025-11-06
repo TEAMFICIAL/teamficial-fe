@@ -15,12 +15,13 @@ const ProjectTitle = ({
   createdAt,
   deadline,
   profileId,
+  recruitingPositions,
 }: ResponseProject) => {
   const isAuthor = useIsAuthor(profileId);
 
   const { openModal } = useModal();
   const handleApplyModal = () => {
-    openModal('apply', { projectId: postId });
+    openModal('apply', { postId, recruitingPositions });
   };
   const handleDeleteModal = () => {
     openModal('delete', { postId: postId, projectName: title });

@@ -4,6 +4,7 @@ import DeleteModal from '@/components/modal/DeleteModal';
 import PartnerModal from '@/components/modal/apply/PartnerModal';
 import TeamPsylogCompleteModal from '@/components/modal/TeamPsylogCompleteModal';
 import RecruitCompleteModal from '@/components/modal/RecruitCompleteModal';
+import { RecruitingPosition } from '@/types/project';
 
 export interface RecruitCompleteModalProps {
   isOpen: boolean;
@@ -15,7 +16,8 @@ export interface RecruitCompleteModalProps {
 export interface ApplyModalProps {
   isOpen: boolean;
   onClose: () => void;
-  projectId?: number;
+  postId?: number;
+  recruitingPositions?: RecruitingPosition[];
 }
 
 export interface ApplyCompleteModalProps {
