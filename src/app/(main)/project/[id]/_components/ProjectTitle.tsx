@@ -38,7 +38,7 @@ const ProjectTitle = ({
           {createdAt.split(' ')[0]}~{deadline}
         </p>
       </div>
-      {!isAuthor ? (
+      {isAuthor ? (
         <div className="flex w-23.5 items-end gap-0.5">
           <button className="body-4 flex-1 cursor-pointer">수정</button>
           <button className="body-4 flex-1 cursor-pointer" onClick={handleDeleteModal}>

@@ -7,15 +7,52 @@ import ProfileSlider from './profile/ProfileSlider';
 import { useModal } from '@/contexts/ModalContext';
 import { useState } from 'react';
 import { ApplyModalProps } from '@/constants/ModalList';
+import { useApplicateProject } from '@/hooks/mutation/useApplicateProject';
 
-const ApplyModal = ({ isOpen, onClose }: ApplyModalProps) => {
+const ApplyModal = ({ isOpen, onClose, postId, recruitingPositions }: ApplyModalProps) => {
+  const { mutate: applicateProject } = useApplicateProject();
+  const positions = recruitingPositions?.map((pos) => pos.position) || [];
+
   const { openModal } = useModal();
+
+  const [selectedProfileId, setSelectedProfileId] = useState<number | null>(null);
+  const [selectedPosition, setSelectedPosition] = useState<string | null>(null);
+
+  const handleProfileSelect = (profileId: number) => {
+    setSelectedProfileId(profileId);
+  };
   const [message, setMessage] = useState('');
 
   const handleSubmit = () => {
+    if (!postId || !selectedProfileId || !selectedPosition) return;
     if (message.length > 250) return;
-    // API 요청
-    openModal('applyComplete');
+
+    const applicationData = {
+      recruitingPostId: postId,
+      profileId: selectedProfileId,
+      content: message,
+    };
+
+    // 테스트용 콘솔 출력
+    console.group('프로젝트 지원 데이터');
+    console.log('프로젝트 ID:', applicationData.recruitingPostId);
+    console.log('프로필 ID:', applicationData.profileId);
+    console.log('지원 분야:', selectedPosition);
+    console.log('지원 메시지:', applicationData.content);
+    console.groupEnd();
+
+    // applicateProject(
+    //   { ...applicationData },
+    //   {
+    //     onSuccess: () => {
+    //       onClose();
+    //       openModal('applyComplete');
+    //     },
+    //     onError: (error) => {
+    //       console.error('Failed to apply for project:', error);
+    //     },
+    //   },
+    // );
   };
 
   return (
@@ -29,7 +66,11 @@ const ApplyModal = ({ isOpen, onClose }: ApplyModalProps) => {
           <p className="body-6 mb-4 text-gray-700">
             마이페이지에서 설정한 프로필 중 한 가지를 선택해주세요
           </p>
-          <ProfileSlider />
+          <ProfileSlider
+            onProfileSelect={handleProfileSelect}
+            onPositionSelect={setSelectedPosition}
+            positions={positions}
+          />
         </div>
         <div>
           <MessageTextarea value={message} onChange={setMessage} />
@@ -43,7 +84,7 @@ const ApplyModal = ({ isOpen, onClose }: ApplyModalProps) => {
             <Button
               className="body-5 bg-primary-900 text-gray-0 hover:bg-primary-700 px-8 py-4"
               onClick={handleSubmit}
-              disabled={message.length > 250}
+              disabled={message.length > 250 || selectedPosition === null}
             >
               지원하기
             </Button>
