@@ -5,6 +5,8 @@ import PartnerModal from '@/components/modal/apply/PartnerModal';
 import TeamPsylogCompleteModal from '@/components/modal/TeamPsylogCompleteModal';
 import RecruitCompleteModal from '@/components/modal/RecruitCompleteModal';
 import { RecruitingPosition } from '@/types/project';
+import ApplicantFinishModal from '@/components/modal/ApplicantFinishModal';
+import ApplicateFinishModal from '@/components/modal/ApplicateFinishModal';
 
 export interface RecruitCompleteModalProps {
   isOpen: boolean;
@@ -47,6 +49,18 @@ export interface TeamPsylogCompleteModalProps {
   onConfirm?: () => void;
 }
 
+export interface ApplicateFinishModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onConfirm?: () => void;
+  recruitingPostId?: number;
+}
+
+export interface ApplicantFinishModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
 export const MODAL_COMPONENTS = {
   apply: ApplyModal,
   applyComplete: ApplyCompleteModal,
@@ -54,6 +68,8 @@ export const MODAL_COMPONENTS = {
   partner: PartnerModal,
   teamPsylogComplete: TeamPsylogCompleteModal,
   recruitComplete: RecruitCompleteModal,
+  applicateFinish: ApplicateFinishModal,
+  applicantFinish: ApplicantFinishModal,
 };
 
 export type ModalType = keyof typeof MODAL_COMPONENTS;
@@ -65,4 +81,6 @@ export interface ModalPropsMap {
   partner: PartnerModalProps;
   teamPsylogComplete: TeamPsylogCompleteModalProps;
   recruitComplete: RecruitCompleteModalProps;
+  applicateFinish: ApplicateFinishModalProps;
+  applicantFinish: ApplicantFinishModalProps;
 }
