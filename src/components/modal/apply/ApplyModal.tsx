@@ -8,6 +8,7 @@ import { useModal } from '@/contexts/ModalContext';
 import { useState } from 'react';
 import { ApplyModalProps } from '@/constants/ModalList';
 import { useApplicateProject } from '@/hooks/mutation/useApplicateProject';
+import { PositionType } from '@/utils/position';
 
 const ApplyModal = ({ isOpen, onClose, postId, recruitingPositions }: ApplyModalProps) => {
   const { mutate: applicateProject } = useApplicateProject();
@@ -16,7 +17,7 @@ const ApplyModal = ({ isOpen, onClose, postId, recruitingPositions }: ApplyModal
   const { openModal } = useModal();
 
   const [selectedProfileId, setSelectedProfileId] = useState<number | null>(null);
-  const [selectedPosition, setSelectedPosition] = useState<string | null>(null);
+  const [selectedPosition, setSelectedPosition] = useState<PositionType | null>(null);
 
   const handleProfileSelect = (profileId: number) => {
     setSelectedProfileId(profileId);
@@ -30,6 +31,7 @@ const ApplyModal = ({ isOpen, onClose, postId, recruitingPositions }: ApplyModal
     const applicationData = {
       recruitingPostId: postId,
       profileId: selectedProfileId,
+      position: selectedPosition,
       content: message,
     };
 
@@ -37,22 +39,22 @@ const ApplyModal = ({ isOpen, onClose, postId, recruitingPositions }: ApplyModal
     console.group('프로젝트 지원 데이터');
     console.log('프로젝트 ID:', applicationData.recruitingPostId);
     console.log('프로필 ID:', applicationData.profileId);
-    console.log('지원 분야:', selectedPosition);
+    console.log('지원 분야:', applicationData.position);
     console.log('지원 메시지:', applicationData.content);
     console.groupEnd();
 
-    // applicateProject(
-    //   { ...applicationData },
-    //   {
-    //     onSuccess: () => {
-    //       onClose();
-    //       openModal('applyComplete');
-    //     },
-    //     onError: (error) => {
-    //       console.error('Failed to apply for project:', error);
-    //     },
-    //   },
-    // );
+    applicateProject(
+      { ...applicationData },
+      {
+        onSuccess: () => {
+          onClose();
+          openModal('applyComplete');
+        },
+        onError: (error) => {
+          console.error('Failed to apply for project:', error);
+        },
+      },
+    );
   };
 
   return (

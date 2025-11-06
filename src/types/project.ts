@@ -73,12 +73,14 @@ export type PagedProjects = {
 export type PostApplication = {
   profileId: number;
   recruitingPostId: number;
+  position: PositionType;
   content?: string;
 };
 
 export type ResponseApplication = {
   applicationId: number;
   status: string;
+  position: string;
   userId: number;
   profileId: number;
   recruitingPostId: number;

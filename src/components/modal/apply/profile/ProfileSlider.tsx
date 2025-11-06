@@ -8,7 +8,7 @@ import { PositionType } from '@/utils/position';
 
 interface Props {
   onProfileSelect: (profileId: number) => void;
-  onPositionSelect: (position: string | null) => void;
+  onPositionSelect: (position: PositionType | null) => void;
   positions: PositionType[];
 }
 
