@@ -3,6 +3,7 @@ import { MyApplication } from '@/types/project';
 import Image from 'next/image';
 import { formatDateDot } from '@/utils/project/formatDate';
 import { useRouter } from 'next/navigation';
+import { getStatusColor } from '@/utils/project/getStatusColor';
 
 interface AppliedTeamCardProps {
   application: MyApplication;
@@ -13,19 +14,6 @@ const AppliedTeamCard = ({ application }: AppliedTeamCardProps) => {
 
   const handleClick = () => {
     router.push(`/project/${application.recruitingPostId}`);
-  };
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case '매칭중':
-        return 'bg-blue-50 text-blue-200';
-      case '매칭성공':
-        return 'bg-gray-200 text-gray-700';
-      case '매칭실패':
-        return 'bg-red-10 text-red-100';
-      default:
-        return 'bg-gray-200 text-gray-700';
-    }
   };
 
   return (
