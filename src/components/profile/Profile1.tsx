@@ -51,7 +51,7 @@ const Profile1 = ({ profileId }: { profileId: number }) => {
             data.links.length > 0 &&
             data.links.map((link, index) => <ProfileLinkButton key={index} link={link} />)}
         </div>
-        <Button label="전체 키워드보기 →" />
+        <Button label="전체 키워드보기" />
       </div>
     </div>
   );

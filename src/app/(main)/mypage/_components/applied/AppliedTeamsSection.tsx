@@ -1,8 +1,13 @@
 'use client';
 
+import { MyApplication } from '@/types/project';
 import AppliedTeamCard from './AppliedTeamCard';
 
-const AppliedTeamSection = () => {
+interface AppliedTeamSectionProps {
+  applications: MyApplication[];
+}
+
+const AppliedTeamSection = ({ applications }: AppliedTeamSectionProps) => {
   return (
     <>
       <div className="flex w-full justify-between py-5">
@@ -16,9 +21,9 @@ const AppliedTeamSection = () => {
         </button>
       </div>
       <div className="mb-3 flex gap-4">
-        <AppliedTeamCard />
-        <AppliedTeamCard />
-        <AppliedTeamCard />
+        {applications.map((app) => (
+          <AppliedTeamCard key={app.recruitingPostId} application={app} />
+        ))}
       </div>
     </>
   );
