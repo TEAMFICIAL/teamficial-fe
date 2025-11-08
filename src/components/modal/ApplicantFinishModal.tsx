@@ -10,11 +10,6 @@ import { useRouter } from 'next/navigation';
 const ApplicantFinishModal = ({ isOpen, onClose }: ApplicantFinishModalProps) => {
   const router = useRouter();
 
-  const handleCancelClick = () => {
-    onClose();
-    router.push('/');
-  };
-
   const handleFinishClick = () => {
     onClose();
     router.push('/mypage/');
@@ -35,14 +30,11 @@ const ApplicantFinishModal = ({ isOpen, onClose }: ApplicantFinishModalProps) =>
           {`마이페이지 > 지원자 현황에서 팀원정보를 확인할 수 있어요`}
         </p>
         <div className="flex gap-2">
-          <Button className="bg-gray-300 px-8 py-4 text-gray-800" onClick={handleCancelClick}>
-            홈으로
-          </Button>
           <Button
             className="bg-primary-900 text-gray-0 body-5 hover:bg-primary-700 px-30 py-4"
             onClick={handleFinishClick}
           >
-            팀원 확인하기
+            마이페이지로 돌아가기
           </Button>
         </div>
       </div>
