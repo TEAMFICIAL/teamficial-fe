@@ -13,7 +13,7 @@ const CurrentApplicantItem = ({
   const isSelected = item.applicationStatus === '매칭 성공';
 
   const cardStyle = isSelected
-    ? 'flex flex-col items-center gap-4 rounded-2xl border border-primary-900 bg-primary-50 p-10'
+    ? 'flex flex-col items-center gap-4 rounded-2xl border-[2px] border-primary-900 bg-primary-50 p-10'
     : 'flex cursor-pointer flex-col items-center gap-4 rounded-2xl border border-gray-300 p-10';
 
   const tagStyle = isSelected ? 'bg-primary-900 text-gray-0' : 'bg-gray-200 text-gray-700';
