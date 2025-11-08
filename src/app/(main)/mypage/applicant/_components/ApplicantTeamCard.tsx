@@ -19,7 +19,7 @@ const ApplicantTeamCard = ({ application, index }: ApplicantTeamCardProps) => {
 
   return (
     <button onClick={handleClick} className="flex cursor-pointer border-b border-gray-300 py-6">
-      <p className="body-6 flex w-5 w-25 items-center justify-center text-center text-gray-700">
+      <p className="body-6 flex w-25 items-center justify-center text-center text-gray-700">
         {index}
       </p>
       <div className="flex w-153 flex-col items-start gap-2">
