@@ -1,3 +1,5 @@
+'use client';
+
 import Tag from '@/components/common/Tag';
 
 const ApplicantTeamCard = () => {
