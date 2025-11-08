@@ -8,8 +8,22 @@ import InfoCard from './InfoCard';
 import CurrentApplicants from './CurrentApplicants';
 import { PositionType } from '@/utils/position';
 import Button from '@/components/common/Button';
+import { useModal } from '@/contexts/ModalContext';
+import { useParams } from 'next/dist/client/components/navigation';
 
 const ProjectInfo = ({ id }: { id: string }) => {
+  const { openModal } = useModal();
+
+  const params = useParams();
+  const recruitingPostId = Number(params.id);
+
+  const handleFinishClick = (recruitingPostId: number) => {
+    if (!params) return;
+    openModal('applicateFinish', {
+      recruitingPostId,
+    });
+  };
+
   const [isContentOpen, setIsContentOpen] = useState(false);
   const [selectedPosition, setSelectedPosition] = useState<PositionType | undefined>(undefined);
 
