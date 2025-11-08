@@ -1,12 +1,14 @@
 'use client';
 
 import DropdownSmall from '@/components/common/DropdownSmall';
-import { RECRUIT_STATUS } from '@/constants/Dropdown';
-import { useState } from 'react';
+import { APPLICATION_STATUS } from '@/constants/Dropdown';
 
-const ApplicantTitle = () => {
-  const [applicantStatus, setApplicantStatus] = useState<string>('');
+interface ApplicantTitleProps {
+  applicantStatus: string;
+  setApplicantStatus: (v: string) => void;
+}
 
+const ApplicantTitle = ({ applicantStatus, setApplicantStatus }: ApplicantTitleProps) => {
   return (
     <>
       <div className="flex flex-col pb-5">
@@ -16,7 +18,7 @@ const ApplicantTitle = () => {
           value={applicantStatus}
           placeholder="지원현황"
           onChange={(v) => setApplicantStatus(v)}
-          options={RECRUIT_STATUS}
+          options={APPLICATION_STATUS}
         />
       </div>
     </>
