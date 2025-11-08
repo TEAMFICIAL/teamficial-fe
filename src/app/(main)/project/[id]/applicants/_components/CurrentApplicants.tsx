@@ -22,7 +22,7 @@ const CurrentApplicants = ({
   const params = useParams();
   const recruitingPostId = params?.id ? Number(params.id) : undefined;
 
-  const handleApplicantClick = (applicationId: number) => {
+  const handleApplicantClick = (applicationId: number, recruitingPostId: number) => {
     if (!params) return;
     openModal('partner', {
       applicationId,
@@ -64,7 +64,7 @@ const CurrentApplicants = ({
           <CurrentApplicantItem
             key={item.applicationId}
             item={item}
-            onClick={() => handleApplicantClick(item.applicationId)}
+            onClick={() => handleApplicantClick(item.applicationId, recruitingPostId!)}
           />
         ))}
       </div>
