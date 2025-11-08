@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Banner from './_components/Banner';
 import ButtonContainer from './_components/ButtonContainer';
 import RecruitCard from './_components/RecruitCard';
-import Pagination from './_components/Pagination';
+import Pagination from '../../../components/common/Pagination';
 import { useRouter } from 'next/navigation';
 import { ResponseProject } from '@/types/project';
 import { PERIOD_KR, POSITION_KR, PROGRESS_WAY_KR } from '@/constants/Translate';

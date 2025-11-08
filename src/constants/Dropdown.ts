@@ -26,3 +26,9 @@ export const PERIOD_OPTIONS = [
   { label: '6개월 이상(장기)', value: 'OVER_6_MONTHS' },
   { label: '미정/협의예정', value: 'FLEXIBLE' },
 ];
+
+export const RECRUIT_STATUS = [
+  { label: '모집중', value: 'MATCHING' },
+  { label: '참여확정', value: 'MATCHED' },
+  { label: '모집마감', value: 'MATCH_FAILED' },
+];

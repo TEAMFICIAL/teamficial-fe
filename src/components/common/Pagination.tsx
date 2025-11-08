@@ -25,11 +25,17 @@ const Pagination: React.FC<PaginationProps> = ({ totalPages, currentPage, onPage
   return (
     <div className="flex items-center justify-center gap-5 pb-14">
       <div className="flex gap-2">
-        <button onClick={() => handleChange(1)} disabled={page === 1} aria-label="첫 페이지">
+        <button
+          onClick={() => handleChange(1)}
+          className="cursor-pointer"
+          disabled={page === 1}
+          aria-label="첫 페이지"
+        >
           <Image src="/icons/double-arrow-left.svg" alt="first" width={24} height={24} />
         </button>
         <button
           onClick={() => handleChange(page - 1)}
+          className="cursor-pointer"
           disabled={page === 1}
           aria-label="이전 페이지"
         >
@@ -44,7 +50,7 @@ const Pagination: React.FC<PaginationProps> = ({ totalPages, currentPage, onPage
             onClick={() => handleChange(num)}
             className={`${
               page === num ? 'text-gray-700' : 'text-gray-500 hover:text-gray-700'
-            } transition-colors`}
+            } cursor-pointer transition-colors`}
           >
             {num}
           </button>
@@ -55,6 +61,7 @@ const Pagination: React.FC<PaginationProps> = ({ totalPages, currentPage, onPage
         <button
           onClick={() => handleChange(page + 1)}
           disabled={page === totalPages}
+          className="cursor-pointer"
           aria-label="다음 페이지"
         >
           <Image src="/icons/arrow-right.svg" alt="next" width={24} height={24} />
@@ -63,6 +70,7 @@ const Pagination: React.FC<PaginationProps> = ({ totalPages, currentPage, onPage
           onClick={() => handleChange(totalPages)}
           disabled={page === totalPages}
           aria-label="마지막 페이지"
+          className="cursor-pointer"
         >
           <Image src="/icons/double-arrow-right.svg" alt="last" width={24} height={24} />
         </button>
