@@ -10,10 +10,10 @@ import { PositionType } from '@/utils/position';
 import Button from '@/components/common/Button';
 import { useModal } from '@/contexts/ModalContext';
 import { useParams } from 'next/dist/client/components/navigation';
+import { POSITION_KR } from '@/constants/Translate';
 
 const ProjectInfo = ({ id }: { id: string }) => {
   const { openModal } = useModal();
-
   const params = useParams();
   const recruitingPostId = Number(params.id);
 
@@ -39,6 +39,10 @@ const ProjectInfo = ({ id }: { id: string }) => {
   if (!data) return null;
 
   const sanitizedContent = DOMPurify.sanitize(data.recruitingPost.recruitingPostContent);
+
+  const hasAnyApplicants = data.applicantList.length > 0;
+  const isFilterApplied = !!selectedPosition; // 필터가 적용되었는지 확인
+  const isFilteredButEmpty = isFilterApplied && !hasAnyApplicants; // 필터 적용했는데 결과가 없음
 
   return (
     <>
@@ -69,9 +73,26 @@ const ProjectInfo = ({ id }: { id: string }) => {
           filter={selectedPosition}
           onFilterChange={handleFilterChange}
         />
-        <div className="flex justify-end">
-          <Button label="팀원 모집 마치기" onClick={() => {}} />
-        </div>
+        {!hasAnyApplicants && (
+          <div className="body-3 flex h-143 flex-col items-center justify-center text-gray-600">
+            <p>아직 지원자가 없어요</p>
+            <p>조금만 더 기다려볼까요?</p>
+          </div>
+        )}
+
+        {isFilteredButEmpty && (
+          <div className="body-3 flex h-143 flex-col items-center justify-center text-gray-600">
+            <p>이 파트는 아직 지원자가 없어요</p>
+            <p>조금만 더 기다려볼까요?</p>
+          </div>
+        )}
+
+        {/* 지원자가 있을 때만 버튼 */}
+        {hasAnyApplicants && (
+          <div className="flex justify-end">
+            <Button label="팀원 모집 마치기" onClick={() => handleFinishClick(recruitingPostId)} />
+          </div>
+        )}
       </div>
     </>
   );
