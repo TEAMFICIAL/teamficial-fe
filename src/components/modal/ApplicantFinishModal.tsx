@@ -4,16 +4,20 @@ import { ApplicantFinishModalProps } from '@/constants/ModalList';
 import Button from '../common/button/Button';
 import BaseModal from './index';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 // 팀원 모집을 마칠게요 모달2
 const ApplicantFinishModal = ({ isOpen, onClose }: ApplicantFinishModalProps) => {
+  const router = useRouter();
+
   const handleCancelClick = () => {
     onClose();
+    router.push('/');
   };
 
   const handleFinishClick = () => {
     onClose();
-    // 마이페이지 지원자 현황으로 이동
+    router.push('/mypage/');
   };
 
   return (
