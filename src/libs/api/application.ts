@@ -1,6 +1,6 @@
 import {
+  ApplicationResponse,
   ResponseApplicantsDetail,
-  ResponseProfile,
   UpdateApplicationStatus,
 } from '@/types/application';
 import api from './api';
@@ -30,8 +30,8 @@ export async function getCurrentApplicants(
 export async function getApplicantProfile(
   recruitingPostId: number,
   applicationId: number,
-): Promise<ResponseProfile> {
-  const { data } = await api.get<CommonResponse<ResponseProfile>>(
+): Promise<ApplicationResponse> {
+  const { data } = await api.get<CommonResponse<ApplicationResponse>>(
     `my-page/${recruitingPostId}/${applicationId}`,
   );
 
