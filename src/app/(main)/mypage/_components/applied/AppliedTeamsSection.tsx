@@ -2,12 +2,19 @@
 
 import { MyApplication } from '@/types/project';
 import AppliedTeamCard from './AppliedTeamCard';
+import { useRouter } from 'next/navigation';
 
 interface AppliedTeamSectionProps {
   applications: MyApplication[];
 }
 
 const AppliedTeamSection = ({ applications }: AppliedTeamSectionProps) => {
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push('/mypage/applied');
+  };
+
   return (
     <>
       <div className="flex w-full justify-between py-5">
@@ -15,7 +22,7 @@ const AppliedTeamSection = ({ applications }: AppliedTeamSectionProps) => {
         <button
           type="button"
           className="body-6 cursor-pointer self-end text-gray-700"
-          onClick={() => {}}
+          onClick={handleClick}
         >
           전체보기
         </button>
