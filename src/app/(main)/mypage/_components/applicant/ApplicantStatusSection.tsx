@@ -2,12 +2,19 @@
 
 import { MyRecruitingPost } from '@/types/project';
 import ApplicantStatusCard from './ApplicantStatusCard';
+import { useRouter } from 'next/navigation';
 
 interface ApplicantStatusSectionProps {
   recruitings: MyRecruitingPost[];
 }
 
 const ApplicantStatusSection = ({ recruitings }: ApplicantStatusSectionProps) => {
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push('/mypage/applicant');
+  };
+
   return (
     <div className="mb-14">
       <div className="flex w-full justify-between py-5">
@@ -15,7 +22,7 @@ const ApplicantStatusSection = ({ recruitings }: ApplicantStatusSectionProps) =>
         <button
           type="button"
           className="body-6 cursor-pointer self-end text-gray-700"
-          onClick={() => {}}
+          onClick={handleClick}
         >
           전체보기
         </button>
