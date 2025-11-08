@@ -1,25 +1,35 @@
 'use client';
 
 import Tag from '@/components/common/Tag';
+import { Application } from '@/types/applicant';
+import { formatDateDot } from '@/utils/project/formatDate';
+import { getStatusColor } from '@/utils/project/getStatusColor';
 
-const AppliedTeamCard = () => {
+interface AppliedTeamCardProps {
+  applicant: Application;
+  index: number;
+}
+
+const AppliedTeamCard = ({ applicant, index }: AppliedTeamCardProps) => {
   return (
-    <button onClick={() => {}} className="flex cursor-pointer border-b border-gray-300 px-8 py-6">
-      <p className="body-6 mr-12 flex w-5 items-center justify-center text-center text-gray-700">
-        1
+    <button onClick={() => {}} className="flex cursor-pointer border-b border-gray-300 py-6">
+      <p className="body-6 flex w-25 items-center justify-center text-center text-gray-700">
+        {index}
       </p>
-      <div className="mr-15 flex flex-col items-start gap-2">
+      <div className="flex w-150.75 flex-col items-start gap-2">
         <div className="flex gap-1">
-          <Tag className="bg-gray-200 text-gray-700">3개월</Tag>
-          <Tag className="bg-gray-200 text-gray-700">온/오프라인</Tag>
+          <Tag className="bg-gray-200 text-gray-700">{applicant.period}</Tag>
+          <Tag className="bg-gray-200 text-gray-700">{applicant.progressWay}</Tag>
         </div>
-        <p className="title-3 w-144.75 text-gray-900">
-          팀피셜 팀원구해요 팀피셜 팀원구해요 팀피셜 팀원구해요 팀피셜 팀원구해요
-        </p>
-        <p className="body-8 mr-12 text-gray-600">#프론트엔드</p>
+        <p className="title-3 flex items-start text-gray-900">{applicant.title}</p>
+        <p className="body-8 text-gray-600">#{applicant.tags.join(' #')}</p>
       </div>
-      <Tag className="bg-red-10 mr-12 self-center text-red-100">매칭실패</Tag>
-      <p className="body-8 flex w-17 items-center text-gray-700">2025.10.07</p>
+      <div className="flex w-30 items-center justify-center">
+        <Tag className={getStatusColor(applicant.status)}>{applicant.status}</Tag>
+      </div>
+      <p className="body-8 flex w-30.25 items-center justify-center text-gray-700">
+        {formatDateDot(applicant.createdAt)}
+      </p>
     </button>
   );
 };
