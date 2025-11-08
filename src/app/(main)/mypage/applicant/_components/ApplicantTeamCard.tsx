@@ -3,6 +3,7 @@
 import Tag from '@/components/common/Tag';
 import { CurrentApplicant } from '@/types/applicant';
 import { formatDday } from '@/utils/project/formatDate';
+import { useRouter } from 'next/navigation';
 
 interface ApplicantTeamCardProps {
   application: CurrentApplicant;
@@ -10,8 +11,14 @@ interface ApplicantTeamCardProps {
 }
 
 const ApplicantTeamCard = ({ application, index }: ApplicantTeamCardProps) => {
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push(`/project/${application.recruitingPostId}`);
+  };
+
   return (
-    <button onClick={() => {}} className="flex cursor-pointer border-b border-gray-300 py-6">
+    <button onClick={handleClick} className="flex cursor-pointer border-b border-gray-300 py-6">
       <p className="body-6 flex w-5 w-25 items-center justify-center text-center text-gray-700">
         {index}
       </p>

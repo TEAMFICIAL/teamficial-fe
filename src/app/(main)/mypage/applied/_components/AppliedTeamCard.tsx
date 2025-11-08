@@ -4,6 +4,7 @@ import Tag from '@/components/common/Tag';
 import { Application } from '@/types/applicant';
 import { formatDateDot } from '@/utils/project/formatDate';
 import { getStatusColor } from '@/utils/project/getStatusColor';
+import { useRouter } from 'next/navigation';
 
 interface AppliedTeamCardProps {
   applicant: Application;
@@ -11,8 +12,14 @@ interface AppliedTeamCardProps {
 }
 
 const AppliedTeamCard = ({ applicant, index }: AppliedTeamCardProps) => {
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push(`/project/${applicant.recruitingPostId}`);
+  };
+
   return (
-    <button onClick={() => {}} className="flex cursor-pointer border-b border-gray-300 py-6">
+    <button onClick={handleClick} className="flex cursor-pointer border-b border-gray-300 py-6">
       <p className="body-6 flex w-25 items-center justify-center text-center text-gray-700">
         {index}
       </p>
