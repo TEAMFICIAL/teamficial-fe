@@ -4,13 +4,15 @@ import MessageTextarea from './MessageTextarea';
 import Profile from './profile/Profile';
 import Image from 'next/image';
 import { PartnerModalProps } from '@/constants/ModalList';
-import { useModal } from '@/contexts/ModalContext';
+// import { useModal } from '@/contexts/ModalContext';
 import { useGetApplicantProfile } from '@/hooks/queries/useApplicate';
 import { useUpdateApplicant } from '@/hooks/mutation/useUpdateApplicant';
+import { useQueryClient } from '@tanstack/react-query';
 
 const PartnerModal = ({ isOpen, onClose, applicationId, recruitingPostId }: PartnerModalProps) => {
   const { mutate: updateStatus } = useUpdateApplicant();
-  const { openModal } = useModal();
+  // const { openModal } = useModal();
+  const queryClient = useQueryClient();
 
   const { data: profileData } = useGetApplicantProfile({
     recruitingPostId: recruitingPostId,
@@ -28,8 +30,11 @@ const PartnerModal = ({ isOpen, onClose, applicationId, recruitingPostId }: Part
       },
       {
         onSuccess: () => {
+          // 즉시 쿼리 무효화 및 리패치
+          queryClient.invalidateQueries({
+            queryKey: ['projectApplicants', recruitingPostId],
+          });
           onClose();
-          // 화면 강제 새로고침
         },
         onError: (error) => {
           console.error('Failed to update application status:', error);
@@ -47,9 +52,13 @@ const PartnerModal = ({ isOpen, onClose, applicationId, recruitingPostId }: Part
       },
       {
         onSuccess: () => {
+          // 즉시 쿼리 무효화 및 리패치
+          queryClient.invalidateQueries({
+            queryKey: ['projectApplicants', recruitingPostId],
+          });
           onClose();
-          // 팀원 모집이 완료되었어요 모달
-          openModal('applicantFinish', {});
+          // 논의중: 팀원 모집이 완료되었어요 모달
+          // openModal('applicantFinish', {});
         },
         onError: (error) => {
           console.error('Failed to update application status:', error);
