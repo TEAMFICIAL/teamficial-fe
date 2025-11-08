@@ -4,14 +4,16 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { useUserStore } from '@/store/useUserStore';
+import { usePathname } from 'next/navigation';
+import clsx from 'clsx';
 
 const Header = () => {
   const { userName } = useUserStore();
   const isLoggedIn = !!userName;
+  const pathname = usePathname();
 
   return (
     <header className="mx-auto flex w-full max-w-[1024px] justify-between px-10 pt-5">
-      {/* TODO: 각 이동 링크로 변경 */}
       <div className="flex items-center">
         <Link href="/" className="flex items-center gap-2 pr-5">
           <Image src="/icons/teamficial-symbol.svg" alt="logo" width={40} height={40} />
@@ -23,10 +25,22 @@ const Header = () => {
             className="h-[31.6px]"
           />
         </Link>
-        <Link href="/project" className="body-4 px-3">
+        <Link
+          href="/project"
+          className={clsx(
+            'body-4 hover:text-primary-900 px-3 transition-colors',
+            pathname.startsWith('/project') ? 'text-primary-900' : 'text-gray-900',
+          )}
+        >
           프로젝트
         </Link>
-        <Link href="/" className="body-4 px-3">
+        <Link
+          href="/teampsylog"
+          className={clsx(
+            'body-4 hover:text-primary-900 px-3 transition-colors',
+            pathname.startsWith('/teampsylog') ? 'text-primary-900' : 'text-gray-900',
+          )}
+        >
           팀피셜록
         </Link>
       </div>
