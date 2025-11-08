@@ -24,11 +24,12 @@ const PartnerModal = ({ isOpen, onClose, applicationId, recruitingPostId }: Part
       {
         recruitingPostId: recruitingPostId,
         applicationId: applicationId,
-        applicationStatus: 'MATCHING_FAILED',
+        applicationStatus: 'MATCH_FAILED',
       },
       {
         onSuccess: () => {
           onClose();
+          // 화면 강제 새로고침
         },
         onError: (error) => {
           console.error('Failed to update application status:', error);
