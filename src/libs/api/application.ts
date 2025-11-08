@@ -49,8 +49,11 @@ export async function updateApplicationStatus({
 }: UpdateApplicationStatus) {
   const { data } = await api.patch<CommonResponse<string>>(
     `my-page/${recruitingPostId}/${applicationId}`,
+    {},
     {
-      applicationStatus,
+      params: {
+        applicationStatus,
+      },
     },
   );
 
