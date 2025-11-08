@@ -35,14 +35,6 @@ const ApplyModal = ({ isOpen, onClose, postId, recruitingPositions }: ApplyModal
       content: message,
     };
 
-    // 테스트용 콘솔 출력
-    console.group('프로젝트 지원 데이터');
-    console.log('프로젝트 ID:', applicationData.recruitingPostId);
-    console.log('프로필 ID:', applicationData.profileId);
-    console.log('지원 분야:', applicationData.position);
-    console.log('지원 메시지:', applicationData.content);
-    console.groupEnd();
-
     applicateProject(
       { ...applicationData },
       {
