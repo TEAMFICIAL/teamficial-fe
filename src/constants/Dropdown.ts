@@ -32,3 +32,8 @@ export const RECRUIT_STATUS = [
   { label: '참여확정', value: 'MATCHED' },
   { label: '모집마감', value: 'MATCH_FAILED' },
 ];
+
+export const APPLICATION_STATUS = [
+  { label: '매칭중', value: 'OPEN' },
+  { label: '매칭실패', value: 'CLOSED' },
+];
