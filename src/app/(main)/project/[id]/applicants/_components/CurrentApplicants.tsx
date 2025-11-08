@@ -32,11 +32,16 @@ const CurrentApplicants = ({
 
   // 필터 관리
   const handleChange = (value: string) => {
-    if (!value) {
+    if (!value || value === '' || value === 'ALL') {
       onFilterChange?.(undefined);
     } else {
       onFilterChange?.(value as PositionType);
     }
+  };
+
+  const getDisplayValue = () => {
+    if (!filter) return 'ALL';
+    return filter;
   };
 
   const filteredApplicants = filter
@@ -52,22 +57,24 @@ const CurrentApplicants = ({
         {/* 파트 선택 드롭다운 */}
         <DropdownSmall
           name="recruit"
-          value={filter ?? ''}
+          value={getDisplayValue()}
           placeholder="모집분야"
           onChange={handleChange}
           options={RECRUIT_OPTIONS}
         />
       </div>
       {/* 지원자 현황 그리드 */}
-      <div className="grid grid-cols-3 gap-4">
-        {filteredApplicants.map((item) => (
-          <CurrentApplicantItem
-            key={item.applicationId}
-            item={item}
-            onClick={() => handleApplicantClick(item.applicationId, recruitingPostId!)}
-          />
-        ))}
-      </div>
+      {filteredApplicants.length > 0 && (
+        <div className="grid grid-cols-3 gap-4">
+          {filteredApplicants.map((item) => (
+            <CurrentApplicantItem
+              key={item.applicationId}
+              item={item}
+              onClick={() => handleApplicantClick(item.applicationId, recruitingPostId!)}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
