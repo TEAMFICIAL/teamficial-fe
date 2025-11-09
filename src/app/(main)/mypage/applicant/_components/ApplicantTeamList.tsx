@@ -2,11 +2,19 @@
 
 import Pagination from '@/components/common/Pagination';
 import ApplicantTeamCard from './ApplicantTeamCard';
-import { useState } from 'react';
+import { useCurrentApplicants } from '@/hooks/queries/useApplicant';
 
-const ApplicantTeamList = () => {
-  const [page, setPage] = useState(1);
-  const totalPages = 5;
+interface ApplicantTeamListProps {
+  status: string;
+  page: number;
+  setPage: (page: number) => void;
+}
+
+const ApplicantTeamList = ({ status, page, setPage }: ApplicantTeamListProps) => {
+  const { data } = useCurrentApplicants(status, page - 1, 3);
+
+  const applicants = data?.content ?? [];
+  const totalPages = data?.totalPages ?? 1;
 
   return (
     <>
@@ -16,12 +24,13 @@ const ApplicantTeamList = () => {
         <p className="w-58 text-center">공고 마감일</p>
       </div>
       <div className="mb-5 flex flex-col">
-        <ApplicantTeamCard />
-        <ApplicantTeamCard />
-        <ApplicantTeamCard />
-        <ApplicantTeamCard />
-        <ApplicantTeamCard />
-        <ApplicantTeamCard />
+        {applicants.length > 0 ? (
+          applicants.map((app, idx) => (
+            <ApplicantTeamCard key={app.recruitingPostId} application={app} index={idx + 1} />
+          ))
+        ) : (
+          <p className="py-10 text-center text-gray-500">모집 현황이 없습니다.</p>
+        )}
       </div>
       <Pagination totalPages={totalPages} currentPage={page} onPageChange={setPage} />
     </>

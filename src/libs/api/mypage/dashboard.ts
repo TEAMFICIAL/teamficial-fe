@@ -1,5 +1,5 @@
 import { ResponseDashboard } from '@/types/project';
-import api from './api';
+import api from '../api';
 import { CommonResponse } from '@/types/common';
 
 export async function getDashboard(): Promise<ResponseDashboard> {

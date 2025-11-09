@@ -2,11 +2,19 @@
 
 import Pagination from '@/components/common/Pagination';
 import AppliedTeamCard from './AppliedTeamCard';
-import { useState } from 'react';
+import { useMyApplications } from '@/hooks/queries/useApplicant';
 
-const AppliedTeamList = () => {
-  const [page, setPage] = useState(1);
-  const totalPages = 5;
+interface AppliedTeamListProps {
+  status: string;
+  page: number;
+  setPage: (page: number) => void;
+}
+
+const AppliedTeamList = ({ status, page, setPage }: AppliedTeamListProps) => {
+  const { data } = useMyApplications(status, page - 1, 3);
+
+  const applications = data?.content ?? [];
+  const totalPages = data?.totalPages ?? 1;
 
   return (
     <>
@@ -17,12 +25,13 @@ const AppliedTeamList = () => {
         <p className="w-30.25 text-center">지원날짜</p>
       </div>
       <div className="mb-5 flex flex-col">
-        <AppliedTeamCard />
-        <AppliedTeamCard />
-        <AppliedTeamCard />
-        <AppliedTeamCard />
-        <AppliedTeamCard />
-        <AppliedTeamCard />
+        {applications.length > 0 ? (
+          applications.map((app, idx) => (
+            <AppliedTeamCard key={app.recruitingPostId} applicant={app} index={idx + 1} />
+          ))
+        ) : (
+          <p className="py-10 text-center text-gray-500">지원 내역이 없습니다.</p>
+        )}
       </div>
       <Pagination totalPages={totalPages} currentPage={page} onPageChange={setPage} />
     </>
