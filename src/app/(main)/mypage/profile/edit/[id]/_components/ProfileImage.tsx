@@ -1,0 +1,31 @@
+'use client';
+
+import Button from '@/components/common/button/Button';
+import { useUserStore } from '@/store/useUserStore';
+import Image from 'next/image';
+
+const ProfileImage = () => {
+  const { userName } = useUserStore();
+
+  return (
+    <div className="mb-5 flex justify-between rounded-lg bg-gray-100 py-7 pr-10 pl-8">
+      <div className="flex items-center gap-4">
+        <Image
+          src="/icons/initial-profile.svg"
+          className="self-start"
+          alt="profile"
+          width={100}
+          height={100}
+        />
+        <p className="title-2 text-gray-900">{userName}님</p>
+      </div>
+      <div className="flex items-center justify-center">
+        <Button className="bg-primary-900 text-gray-0 body-3 flex items-center justify-center px-6 py-3">
+          프로필 사진 변경하기
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+export default ProfileImage;
