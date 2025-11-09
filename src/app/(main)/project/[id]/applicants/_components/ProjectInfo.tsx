@@ -40,9 +40,11 @@ const ProjectInfo = ({ id }: { id: string }) => {
 
   const sanitizedContent = DOMPurify.sanitize(data.recruitingPost.recruitingPostContent);
 
-  const hasAnyApplicants = data.applicantList.length > 0;
+  const filteredApplicants = selectedPosition
+    ? data.applicantList.filter((item) => item.profilePosition === POSITION_KR[selectedPosition])
+    : data.applicantList;
+  const hasAnyApplicants = filteredApplicants.length > 0;
   const isFilterApplied = !!selectedPosition; // 필터가 적용되었는지 확인
-  const isFilteredButEmpty = isFilterApplied && !hasAnyApplicants; // 필터 적용했는데 결과가 없음
 
   return (
     <>
@@ -73,14 +75,14 @@ const ProjectInfo = ({ id }: { id: string }) => {
           filter={selectedPosition}
           onFilterChange={handleFilterChange}
         />
-        {!hasAnyApplicants && (
+        {!hasAnyApplicants && !isFilterApplied && (
           <div className="body-3 flex h-143 flex-col items-center justify-center text-gray-600">
             <p>아직 지원자가 없어요</p>
             <p>조금만 더 기다려볼까요?</p>
           </div>
         )}
 
-        {isFilteredButEmpty && (
+        {!hasAnyApplicants && isFilterApplied && (
           <div className="body-3 flex h-143 flex-col items-center justify-center text-gray-600">
             <p>이 파트는 아직 지원자가 없어요</p>
             <p>조금만 더 기다려볼까요?</p>
@@ -88,7 +90,7 @@ const ProjectInfo = ({ id }: { id: string }) => {
         )}
 
         {/* 지원자가 있을 때만 버튼 */}
-        {hasAnyApplicants && (
+        {data.applicantList.length > 0 && (
           <div className="flex justify-end">
             <Button label="팀원 모집 마치기" onClick={() => handleFinishClick(recruitingPostId)} />
           </div>

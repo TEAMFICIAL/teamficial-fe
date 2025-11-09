@@ -15,7 +15,6 @@ const ApplicateFinishModal = ({ isOpen, onClose, recruitingPostId }: ApplicateFi
   const { mutate: closeProject } = useCloseProject();
   if (!recruitingPostId) return null;
 
-  // TODO: api 연결
   const handleFinishClick = () => {
     closeProject(recruitingPostId, {
       onSuccess: () => {

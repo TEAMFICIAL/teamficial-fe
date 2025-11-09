@@ -8,8 +8,6 @@ interface ProfileCardProps {
 }
 
 const Profile = ({ profile }: ProfileCardProps) => {
-  console.log('Profile component - received profile:', profile);
-
   return (
     <div className="mb-10 flex justify-between gap-8 rounded-lg border border-gray-300 p-8">
       <div className="flex items-start gap-4">
