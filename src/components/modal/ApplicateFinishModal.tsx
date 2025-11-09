@@ -5,6 +5,7 @@ import Button from '../common/button/Button';
 import BaseModal from './index';
 import Image from 'next/image';
 import { useCloseProject } from '@/hooks/mutation/useCloseProject';
+import { useModal } from '@/contexts/ModalContext';
 
 // 팀원 모집을 마칠게요 모달1
 const ApplicateFinishModal = ({ isOpen, onClose, recruitingPostId }: ApplicateFinishModalProps) => {
@@ -12,15 +13,16 @@ const ApplicateFinishModal = ({ isOpen, onClose, recruitingPostId }: ApplicateFi
     onClose();
   };
 
+  const { openModal } = useModal();
+
   const { mutate: closeProject } = useCloseProject();
   if (!recruitingPostId) return null;
 
   const handleFinishClick = () => {
     closeProject(recruitingPostId, {
       onSuccess: () => {
-        console.log('Project closed successfully');
-        // TODO: 모달 열기 또는 화면 이동
         onClose();
+        openModal('applicantFinish');
       },
       onError: (error) => {
         console.error('Failed to close project:', error);
