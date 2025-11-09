@@ -67,7 +67,7 @@ const ButtonContainer = ({ onChange }: Props) => {
           />
         </div>
         <Button
-          className="bg-primary-900 text-gray-0 hover:bg-primary-700 px-5 py-3"
+          className="bg-primary-900 body-5 text-gray-0 hover:bg-primary-700 px-5 py-3"
           onClick={handleRecruitClick}
         >
           팀원 모집하기

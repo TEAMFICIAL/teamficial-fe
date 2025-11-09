@@ -39,7 +39,7 @@ const DeleteModal = ({ isOpen, onClose, postId, projectName }: DeleteModalProps)
         <h3 className="title-3 text-gray-800">정말 삭제하시겠어요?</h3>
         <p className="body-6 mb-10 text-gray-700">{projectName} 게시물이 영구적으로 삭제됩니다</p>
         <div className="flex gap-2">
-          <Button className="bg-gray-300 px-8 py-4 text-gray-800" onClick={onClose}>
+          <Button className="body-5 bg-gray-300 px-8 py-4 text-gray-800" onClick={onClose}>
             취소하기
           </Button>
           <Button

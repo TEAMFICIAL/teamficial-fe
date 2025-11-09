@@ -62,7 +62,7 @@ const Profile = ({ profile }: ProfileCardProps) => {
             />
           ))}
         </div>
-        <Button className="bg-primary-900 text-gray-0 px-4 py-2">전체 키워드 보기</Button>
+        <Button className="bg-primary-900 body-5 text-gray-0 px-4 py-2">전체 키워드 보기</Button>
       </div>
     </div>
   );

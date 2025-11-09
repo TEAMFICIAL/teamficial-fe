@@ -33,7 +33,7 @@ const InitialProfile = () => {
               <div className="h-3 w-[1px] bg-gray-700"></div>
               <p className="body-6 text-gray-600">작업시간대를 선택해주세요</p>
             </div>
-            <Button className="bg-primary-50 text-primary-900 border-primary-100 border px-4 py-2">
+            <Button className="bg-primary-50 body-7 text-primary-900 border-primary-100 border px-4 py-2">
               팀피셜록에서 대표 키워드 설정하러가기
             </Button>
           </div>
