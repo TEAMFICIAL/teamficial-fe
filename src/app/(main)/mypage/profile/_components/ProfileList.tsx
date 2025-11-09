@@ -6,10 +6,12 @@ import { useState } from 'react';
 
 const ProfileList = () => {
   const [profiles, setProfiles] = useState<number[]>([1]);
+  const [nextId, setNextId] = useState(2);
 
   const handleAddProfile = () => {
     if (profiles.length < 3) {
-      setProfiles((prev) => [...prev, prev.length + 1]);
+      setProfiles((prev) => [...prev, nextId]);
+      setNextId((prev) => prev + 1);
     }
   };
 

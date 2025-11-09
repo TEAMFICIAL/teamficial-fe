@@ -68,9 +68,7 @@ const ProfileCard = () => {
                 />
               ))}
           </div>
-          <Button className="bg-primary-900 body-3 text-gray-0 body-3 px-6 py-3">
-            전체 키워드보기
-          </Button>
+          <Button className="bg-primary-900 body-3 text-gray-0 px-6 py-3">전체 키워드보기</Button>
         </div>
       </div>
     </div>

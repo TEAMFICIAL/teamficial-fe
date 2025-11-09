@@ -1,13 +1,17 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import Image from 'next/image';
 import clsx from 'clsx';
 import { WORKING_TIME_OPTIONS } from '@/constants/Dropdown';
+import useOutsideClick from '@/hooks/useOutsideClick';
 
 const WorkTimeDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState<string>('');
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useOutsideClick(dropdownRef, () => setIsOpen(false));
 
   const handleSelect = (option: string) => {
     setSelected(option);
@@ -17,7 +21,7 @@ const WorkTimeDropdown = () => {
   const selectedLabel = WORKING_TIME_OPTIONS.find((opt) => opt.value === selected)?.label || '';
 
   return (
-    <div className="relative w-full">
+    <div ref={dropdownRef} className="relative w-full">
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
