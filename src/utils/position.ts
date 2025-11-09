@@ -1,4 +1,5 @@
 export const Position = {
+  ALL: 'ALL',
   FRONTEND: 'FRONTEND',
   BACKEND: 'BACKEND',
   UI_UX: 'UI_UX',
@@ -15,6 +16,7 @@ export const Position = {
 export type PositionType = (typeof Position)[keyof typeof Position];
 
 export const POSITION_VALUES = [
+  Position.ALL,
   Position.FRONTEND,
   Position.BACKEND,
   Position.UI_UX,

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import DropdownSmall from '@/components/common/DropdownSmall';
 import { RECRUIT_OPTIONS } from '@/constants/Dropdown';
 import { PositionType } from '@/utils/position';
@@ -18,6 +18,7 @@ const CurrentApplicants = ({
   onFilterChange?: (value: PositionType | undefined) => void;
 }) => {
   const { openModal } = useModal();
+  const [recruit, setRecruit] = useState<string | undefined>(filter ?? undefined);
 
   const params = useParams();
   const recruitingPostId = params?.id ? Number(params.id) : undefined;
@@ -32,16 +33,16 @@ const CurrentApplicants = ({
 
   // 필터 관리
   const handleChange = (value: string) => {
-    if (!value || value === '' || value === 'ALL') {
+    if (value === 'ALL') {
+      setRecruit('ALL');
+      onFilterChange?.(undefined);
+    } else if (!value) {
+      setRecruit('ALL');
       onFilterChange?.(undefined);
     } else {
-      onFilterChange?.(value as PositionType);
+      setRecruit(value);
+      onFilterChange?.(value as unknown as PositionType);
     }
-  };
-
-  const getDisplayValue = () => {
-    if (!filter) return 'ALL';
-    return filter;
   };
 
   const filteredApplicants = filter
@@ -57,7 +58,7 @@ const CurrentApplicants = ({
         {/* 파트 선택 드롭다운 */}
         <DropdownSmall
           name="recruit"
-          value={getDisplayValue()}
+          value={recruit}
           placeholder="모집분야"
           onChange={handleChange}
           options={RECRUIT_OPTIONS}
