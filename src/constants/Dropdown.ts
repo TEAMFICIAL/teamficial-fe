@@ -37,3 +37,10 @@ export const APPLICATION_STATUS = [
   { label: '매칭중', value: 'OPEN' },
   { label: '매칭실패', value: 'CLOSED' },
 ];
+
+export const WORKING_TIME_OPTIONS = [
+  { label: '아침에 작업하는게 편해요', value: 'MORNING' },
+  { label: '낮에 작업하는게 편해요', value: 'AFTERNOON' },
+  { label: '밤에 작업하는게 편해요', value: 'EVENING' },
+  { label: '새벽에 작업하는게 편해요', value: 'DAWN' },
+];
