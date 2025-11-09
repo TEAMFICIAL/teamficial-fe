@@ -1,4 +1,4 @@
-import Tag from '@/components/common/Tag';
+import { Tag } from '@/components/common/Tag';
 import { CurrentApplicant } from '@/types/application';
 import Image from 'next/image';
 import React from 'react';
