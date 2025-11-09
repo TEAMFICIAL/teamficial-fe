@@ -2,33 +2,70 @@ import Button from '@/components/common/button/Button';
 import BaseModal from '..';
 import MessageTextarea from './MessageTextarea';
 import Profile from './profile/Profile';
-import { useState } from 'react';
 import Image from 'next/image';
 import { PartnerModalProps } from '@/constants/ModalList';
+// import { useModal } from '@/contexts/ModalContext';
+import { useGetApplicantProfile } from '@/hooks/queries/useApplicate';
+import { useUpdateApplicant } from '@/hooks/mutation/useUpdateApplicant';
+import { useQueryClient } from '@tanstack/react-query';
 
-interface ProfileData {
-  id: number;
-  name: string;
-  contact: string;
-  workTime: string;
-  keywords: string[];
-}
+const PartnerModal = ({ isOpen, onClose, applicationId, recruitingPostId }: PartnerModalProps) => {
+  const { mutate: updateStatus } = useUpdateApplicant();
+  // const { openModal } = useModal();
+  const queryClient = useQueryClient();
 
-const profiles: ProfileData[] = [
-  {
-    id: 1,
-    name: '목마른 햄스터님',
-    contact: '팀원이 되면 공개해요',
-    workTime: '새벽에 작업하는게 편해요',
-    keywords: ['피드백장인', '시간잘지킴', '꼼꼼한'],
-  },
-];
+  const { data: profileData } = useGetApplicantProfile({
+    recruitingPostId: recruitingPostId,
+    applicationId: applicationId,
+  });
 
-const PartnerModal = ({ isOpen, onClose }: PartnerModalProps) => {
-  const currentProfile = profiles[0];
-  const [message, setMessage] = useState('');
+  if (!profileData) return null;
 
-  const handleClick = () => {};
+  const handleFailClick = () => {
+    updateStatus(
+      {
+        recruitingPostId: recruitingPostId,
+        applicationId: applicationId,
+        applicationStatus: 'MATCH_FAILED',
+      },
+      {
+        onSuccess: () => {
+          // 즉시 쿼리 무효화 및 리패치
+          queryClient.invalidateQueries({
+            queryKey: ['projectApplicants', recruitingPostId],
+          });
+          onClose();
+        },
+        onError: (error) => {
+          console.error('Failed to update application status:', error);
+        },
+      },
+    );
+  };
+
+  const handleSuccessClick = () => {
+    updateStatus(
+      {
+        recruitingPostId: recruitingPostId,
+        applicationId: applicationId,
+        applicationStatus: 'MATCHED',
+      },
+      {
+        onSuccess: () => {
+          // 즉시 쿼리 무효화 및 리패치
+          queryClient.invalidateQueries({
+            queryKey: ['projectApplicants', recruitingPostId],
+          });
+          onClose();
+          // 논의중: 팀원 모집이 완료되었어요 모달
+          // openModal('applicantFinish', {});
+        },
+        onError: (error) => {
+          console.error('Failed to update application status:', error);
+        },
+      },
+    );
+  };
 
   return (
     <BaseModal isOpen={isOpen} onClose={onClose}>
@@ -49,16 +86,19 @@ const PartnerModal = ({ isOpen, onClose }: PartnerModalProps) => {
             className="cursor-pointer"
           />
         </div>
-        <Profile profile={currentProfile} />
+        <Profile profile={profileData} />
         <div>
-          <MessageTextarea value={message} onChange={setMessage} />
+          <MessageTextarea value={profileData.content} onChange={() => {}} />
           <div className="flex gap-2">
-            <Button className="body-5 bg-gray-300 px-28 py-4 text-gray-800" onClick={handleClick}>
+            <Button
+              className="body-5 bg-gray-300 px-28 py-4 text-gray-800"
+              onClick={handleFailClick}
+            >
               다음에 함께할래요
             </Button>
             <Button
               className="body-5 bg-primary-900 text-gray-0 hover:bg-primary-700 px-30 py-4"
-              onClick={handleClick}
+              onClick={handleSuccessClick}
             >
               함께할래요
             </Button>

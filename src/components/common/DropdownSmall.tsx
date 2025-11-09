@@ -115,20 +115,25 @@ const DropdownSmall = ({
           style={openWidth ? { width: openWidth } : undefined}
           className={`absolute top-full left-0 z-10 max-h-[196px] divide-y divide-gray-300 overflow-y-auto rounded-b-md border border-t-0 border-gray-300 bg-white whitespace-nowrap`}
         >
-          {options.map((opt, idx) => (
-            <li
-              key={opt.value}
-              role="option"
-              aria-selected={opt.value === value}
-              className={`hover:bg-primary-50 flex cursor-pointer items-center justify-center px-4 py-3 ${idx === options.length - 1 ? 'rounded-b-md' : ''}`}
-              onClick={() => {
-                onChange?.(opt.value);
-                setOpen(false);
-              }}
-            >
-              {opt.label}
-            </li>
-          ))}
+          {options.map((opt, idx) => {
+            const isSelected = opt.value === value;
+            return (
+              <li
+                key={opt.value}
+                role="option"
+                aria-selected={isSelected}
+                className={`flex cursor-pointer items-center justify-center px-4 py-3 ${idx === options.length - 1 ? 'rounded-b-md' : ''} ${
+                  isSelected ? 'bg-primary-50' : 'hover:bg-primary-50 text-gray-700'
+                }`}
+                onClick={() => {
+                  onChange?.(opt.value);
+                  setOpen(false);
+                }}
+              >
+                {opt.label}
+              </li>
+            );
+          })}
         </ul>
       )}
 
