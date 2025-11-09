@@ -24,8 +24,17 @@ const ButtonContainer = ({ onChange }: Props) => {
   const [onlyOpen, setOnlyOpen] = useState(false);
 
   const notifyChange = (updates: Partial<Filters>) => {
-    const newFilters = { duration, recruit, onlyOpen, ...updates };
-    onChange?.(newFilters);
+    const processedFilters = {
+      duration,
+      recruit: recruit === 'ALL' ? '' : recruit,
+      onlyOpen,
+      ...updates,
+    };
+
+    if (updates.recruit === 'ALL') {
+      processedFilters.recruit = '';
+    }
+    onChange?.(processedFilters);
   };
 
   const handleChange = (name: string, newValue: string) => {
