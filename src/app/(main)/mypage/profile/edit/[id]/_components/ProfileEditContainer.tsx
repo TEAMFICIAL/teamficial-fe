@@ -9,12 +9,17 @@ const ProfileEditContainer = () => {
   const [formData, setFormData] = useState({
     title: '',
     contact: '',
+    workingTime: '',
     links: ['', '', ''],
   });
 
   const handleChange =
     (key: keyof typeof formData, index?: number) => (e: React.ChangeEvent<HTMLTextAreaElement>) => {
       if (key === 'links' && typeof index === 'number') {
+        if (index < 0 || index >= formData.links.length) {
+          console.error(`Invalid link index: ${index}`);
+          return;
+        }
         const updatedLinks = [...formData.links];
         updatedLinks[index] = e.target.value;
         setFormData({ ...formData, links: updatedLinks });
@@ -49,7 +54,10 @@ const ProfileEditContainer = () => {
 
       <div className="mb-6 flex flex-col gap-4">
         <p className="title-3 text-gray-900">작업시간</p>
-        <WorkTimeDropdown />
+        <WorkTimeDropdown
+          value={formData.workingTime}
+          onChange={(value) => setFormData({ ...formData, workingTime: value })}
+        />
       </div>
 
       <div className="flex flex-col">
