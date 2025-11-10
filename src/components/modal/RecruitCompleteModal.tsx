@@ -36,7 +36,7 @@ const RecruitCompleteModal = ({
           {`작성한 글은 마이페이지 > 지원자 현황에서 확인할 수 있어요`}
         </p>
         <div className="flex gap-2">
-          <Button className="bg-gray-300 px-8 py-4 text-gray-800" onClick={handleListClick}>
+          <Button className="body-5 bg-gray-300 px-8 py-4 text-gray-800" onClick={handleListClick}>
             목록으로
           </Button>
           <Button

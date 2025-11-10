@@ -54,7 +54,7 @@ const ProfileCard = ({ profile }: ProfileCardProps) => {
               profile.links.map((link, index) => <ProfileLinkButton key={index} link={link} />)}
           </div>
         </div>
-        <Button className="bg-primary-900 text-gray-0 px-4 py-2">전체 키워드 보기</Button>
+        <Button className="bg-primary-900 text-gray-0 body-3 px-4 py-2">전체 키워드 보기</Button>
       </div>
     </div>
   );

@@ -21,7 +21,7 @@ const ApplyCompleteModal = ({ isOpen, onClose }: ApplyCompleteModalProps) => {
           지원한 프로젝트는 마이페이지에서 합격여부를 알 수 있어요
         </p>
         <div className="flex gap-2">
-          <Button className="bg-gray-300 px-8 py-4 text-gray-800" onClick={onClose}>
+          <Button className="body-5 bg-gray-300 px-8 py-4 text-gray-800" onClick={onClose}>
             닫기
           </Button>
           <Button

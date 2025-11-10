@@ -1,4 +1,4 @@
-import Tag from '@/components/common/Tag';
+import { Tag } from '@/components/common/Tag';
 import { MyRecruitingPost } from '@/types/project';
 import { formatDday } from '@/utils/project/formatDate';
 import { useRouter } from 'next/navigation';

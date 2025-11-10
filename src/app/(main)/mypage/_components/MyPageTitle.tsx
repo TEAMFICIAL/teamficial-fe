@@ -13,7 +13,7 @@ const MyPageTitle = () => {
           페이지에서 가능합니다
         </p>
       </div>
-      <Link href="/profile" className="body-6 self-end text-gray-700">
+      <Link href="/mypage/profile" className="body-6 self-end text-gray-700">
         프로필 관리하기
       </Link>
     </div>
