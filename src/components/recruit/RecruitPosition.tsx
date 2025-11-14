@@ -27,6 +27,8 @@ const RecruitPosition = ({ control }: Props) => {
 
   const initRef = useRef(false);
 
+  const recruitOptionsWithoutAll = RECRUIT_OPTIONS.filter((opt) => opt.value !== 'ALL');
+
   useEffect(() => {
     if (initRef.current) return;
     initRef.current = true;
@@ -114,10 +116,9 @@ const RecruitPosition = ({ control }: Props) => {
                 {/* 모집분야 드롭다운 */}
                 <PositionDropdown
                   className="flex-none"
-                  options={[...RECRUIT_OPTIONS]}
+                  options={recruitOptionsWithoutAll}
                   placeholder="모집분야"
                   value={item.position ?? ''}
-                  disabled={!!item.position}
                   onSelect={(opt) => handlePositionSelect(index, opt.value as PositionType)}
                 />
                 {/* 인원 증감 및 삭제 */}
