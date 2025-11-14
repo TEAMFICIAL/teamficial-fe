@@ -24,7 +24,8 @@ export type CreateProject = Project & {
 
 export type ResponseProject = Project & {
   postId: number;
-  profileId: number;
+  writerUserId: number;
+  writerProfileId: number;
   userName: string;
   createdAt: string;
   dday: number;
