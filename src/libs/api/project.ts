@@ -3,8 +3,10 @@ import {
   CreateProject,
   DeleteProject,
   PostApplication,
+  Project,
   ResponseApplication,
   ResponseProject,
+  ResponseUpdateProject,
 } from '@/types/project';
 import api from './api';
 
@@ -51,4 +53,21 @@ export async function postApplication(application: PostApplication): Promise<Res
   } catch (error) {
     throw error;
   }
+}
+
+export async function patchProject(
+  project: Project,
+  postId: number,
+): Promise<ResponseUpdateProject> {
+  const { data } = await api.patch<CommonResponse<ResponseUpdateProject>>(
+    `recruiting-posts/${postId}`,
+    {
+      ...project,
+    },
+  );
+
+  if (!data.isSuccess) {
+    throw new Error(data.message || 'Failed to update project');
+  }
+  return data.result;
 }
