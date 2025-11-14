@@ -2,9 +2,9 @@ import React from 'react';
 import FormEditor from './_components/FormEditor';
 
 type Props = {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 };
 
 const page = async ({ params }: Props) => {
