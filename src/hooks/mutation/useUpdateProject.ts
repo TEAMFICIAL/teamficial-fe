@@ -8,9 +8,9 @@ export const useUpdateProject = () => {
   return useMutation({
     mutationFn: ({ postId, project }: { postId: number; project: Project }) =>
       patchProject(project, postId),
-    onSuccess: () => {
+    onSuccess: (_, variables) => {
       queryClient.invalidateQueries({
-        queryKey: ['projects'],
+        queryKey: ['projects', variables.postId],
       });
     },
   });
