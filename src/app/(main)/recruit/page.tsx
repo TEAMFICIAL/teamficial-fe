@@ -1,5 +1,5 @@
 import React from 'react';
-import RecruitForm from './_components/RecruitForm';
+import RecruitForm from '@/components/recruit/RecruitForm';
 
 const page = () => {
   return (
