@@ -19,11 +19,33 @@ const ProjectDate = ({ title, name, control, error }: Props) => {
   const ref = useRef<HTMLDivElement>(null);
 
   const parseDate = (dateString: string) => {
+    if (!dateString) return null;
+
     try {
-      return dateString ? parse(dateString, 'yyyy-MM-dd', new Date()) : null;
+      if (dateString.includes('-')) {
+        return parse(dateString, 'yyyy-MM-dd', new Date());
+      }
+      if (dateString.includes('.')) {
+        return parse(dateString, 'yyyy.MM.dd', new Date());
+      }
+      return null;
     } catch {
       return null;
     }
+  };
+
+  const formatDateForDisplay = (dateString: string) => {
+    if (!dateString) return '';
+
+    if (dateString.match(/^\d{4}-\d{2}-\d{2}$/)) {
+      return dateString;
+    }
+
+    if (dateString.match(/^\d{4}\.\d{2}\.\d{2}$/)) {
+      return dateString.replace(/\./g, '-');
+    }
+
+    return dateString;
   };
 
   useEffect(() => {
@@ -49,7 +71,7 @@ const ProjectDate = ({ title, name, control, error }: Props) => {
               }}
             >
               <span className={value ? 'text-gray-800' : 'text-gray-500'}>
-                {value || '년-월-일을 선택해 주세요'}
+                {formatDateForDisplay(value) || '년-월-일을 선택해 주세요'}
               </span>
               <Image src="/icons/calendar.svg" alt="calendar" width={24} height={24} />
               {open && (
