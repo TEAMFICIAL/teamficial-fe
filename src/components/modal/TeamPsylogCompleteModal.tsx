@@ -27,7 +27,7 @@ const TeamPsylogCompleteModal = ({ isOpen, onClose }: TeamPsylogCompleteModalPro
           팀원들에게 팀피셜록을 요청하고 나의 소프트스킬을 확인하세요
         </p>
         <div className="flex gap-2">
-          <Button className="bg-gray-300 px-8 py-4 text-gray-800" onClick={handleHome}>
+          <Button className="body-5 bg-gray-300 px-8 py-4 text-gray-800" onClick={handleHome}>
             홈으로
           </Button>
           <Button

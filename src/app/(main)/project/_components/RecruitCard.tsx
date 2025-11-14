@@ -1,4 +1,4 @@
-import Tag from '@/components/common/Tag';
+import { Tag } from '@/components/common/Tag';
 import { formatDateDot, formatDday } from '@/utils/project/formatDate';
 import Image from 'next/image';
 

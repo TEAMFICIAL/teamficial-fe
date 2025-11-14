@@ -80,7 +80,7 @@ const ProfileCard = ({ profile, keywords, positions, onPositionSelect }: Profile
             profile.links.length > 0 &&
             profile.links.map((link, index) => <ProfileLinkButton key={index} link={link} />)}
         </div>
-        <Button disabled className="bg-gray-300 px-4 py-2 text-gray-600">
+        <Button disabled className="body-5 bg-gray-300 px-4 py-2 text-gray-600">
           전체 키워드 보기
         </Button>
       </div>

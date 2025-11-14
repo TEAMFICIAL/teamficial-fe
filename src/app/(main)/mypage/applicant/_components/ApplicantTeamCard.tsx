@@ -1,6 +1,6 @@
 'use client';
 
-import Tag from '@/components/common/Tag';
+import { Tag } from '@/components/common/Tag';
 import { CurrentApplicant } from '@/types/applicant';
 import { formatDday } from '@/utils/project/formatDate';
 import { useRouter } from 'next/navigation';

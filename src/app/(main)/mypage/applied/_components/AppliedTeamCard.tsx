@@ -1,6 +1,6 @@
 'use client';
 
-import Tag from '@/components/common/Tag';
+import { Tag } from '@/components/common/Tag';
 import { Application } from '@/types/applicant';
 import { formatDateDot } from '@/utils/project/formatDate';
 import { getStatusColor } from '@/utils/project/getStatusColor';
