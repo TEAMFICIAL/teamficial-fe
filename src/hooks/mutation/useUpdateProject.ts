@@ -10,7 +10,7 @@ export const useUpdateProject = () => {
       patchProject(project, postId),
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({
-        queryKey: ['projects', variables.postId],
+        queryKey: ['project', variables.postId],
       });
     },
   });
