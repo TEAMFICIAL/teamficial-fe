@@ -15,15 +15,8 @@ const Header = () => {
   return (
     <header className="mx-auto flex w-full max-w-[1024px] justify-between px-10 pt-5">
       <div className="flex items-center">
-        <Link href="/" className="flex items-center gap-2 pr-5">
-          <Image src="/icons/teamficial-symbol.svg" alt="logo" width={40} height={40} />
-          <Image
-            src="/icons/teamficial-logo.svg"
-            alt="logo"
-            width={94.688}
-            height={31.574}
-            className="h-[31.6px]"
-          />
+        <Link href="/" className="flex items-center gap-2 pr-4">
+          <Image src="/icons/teamficial-header.svg" alt="header" width={143} height={41} />
         </Link>
         <Link
           href="/project"
