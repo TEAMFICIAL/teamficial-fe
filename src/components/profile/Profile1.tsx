@@ -18,6 +18,7 @@ const Profile1 = ({ profileId }: { profileId: number }) => {
           alt="profile"
           width={100}
           height={100}
+          className="h-25 w-25 rounded-full object-cover"
         />
         <div className="flex flex-col gap-5">
           {/* 이름 및 정보 */}
