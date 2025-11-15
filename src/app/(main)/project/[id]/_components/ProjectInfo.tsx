@@ -20,7 +20,7 @@ const ProjectInfo = ({ id }: { id: string }) => {
         <div className="prose max-w-none rounded-2xl border border-gray-300 p-10 text-gray-700">
           <div dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
         </div>
-        <Profile1 profileId={data.profileId} />
+        <Profile1 profileId={data.writerProfileId} />
       </div>
     </>
   );

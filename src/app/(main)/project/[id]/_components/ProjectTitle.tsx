@@ -6,6 +6,7 @@ import { ResponseProject } from '@/types/project';
 import React from 'react';
 import DDay from './DDayTag';
 import { useIsAuthor } from '@/hooks/useIsAuthor';
+import Link from 'next/link';
 
 const ProjectTitle = ({
   postId,
@@ -14,10 +15,10 @@ const ProjectTitle = ({
   dday,
   createdAt,
   deadline,
-  profileId,
+  writerUserId,
   recruitingPositions,
 }: ResponseProject) => {
-  const isAuthor = useIsAuthor(profileId);
+  const isAuthor = useIsAuthor(writerUserId);
 
   const { openModal } = useModal();
   const handleApplyModal = () => {
@@ -38,9 +39,11 @@ const ProjectTitle = ({
           {createdAt.split(' ')[0]}~{deadline}
         </p>
       </div>
-      {!isAuthor ? (
+      {isAuthor ? (
         <div className="flex w-23.5 items-end gap-0.5">
-          <button className="body-4 flex-1 cursor-pointer">수정</button>
+          <Link href={`/project/${postId}/edit`}>
+            <button className="body-4 flex-1 cursor-pointer">수정</button>
+          </Link>
           <button className="body-4 flex-1 cursor-pointer" onClick={handleDeleteModal}>
             삭제
           </button>

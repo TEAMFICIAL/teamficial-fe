@@ -11,7 +11,6 @@ type InlineDropdownProps = {
   placeholder?: string;
   options: Option[];
   className?: string;
-  disabled?: boolean; // 선택 후 잠금용
 };
 
 export default function PositionDropdown({
@@ -20,7 +19,6 @@ export default function PositionDropdown({
   placeholder = '모집분야 선택',
   options,
   className = '',
-  disabled = false,
 }: InlineDropdownProps) {
   const [open, setOpen] = useState(false);
   const wrapRef = useRef<HTMLDivElement>(null);
@@ -45,27 +43,23 @@ export default function PositionDropdown({
     <div ref={wrapRef} className={`relative inline-block ${className}`}>
       <button
         type="button"
-        disabled={disabled}
-        onClick={() => !disabled && setOpen((p) => !p)}
+        onClick={() => setOpen((p) => !p)}
         className={[
-          'border-gray-0 inline-flex items-center rounded-md border',
+          'border-gray-0 inline-flex cursor-pointer items-center rounded-md border',
           isPlaceholder ? 'text-gray-500' : 'text-gray-800',
-          disabled ? '' : 'cursor-pointer',
         ].join(' ')}
         aria-haspopup="listbox"
         aria-expanded={open}
       >
         <span className="body-5 pl-7">{isPlaceholder ? placeholder : selected?.label}</span>
-        {isPlaceholder ? (
-          <Image
-            src={open ? '/icons/arrow-up-gray.svg' : '/icons/arrow-down-gray.svg'}
-            alt=""
-            width={20}
-            height={20}
-            className="ml-2 h-5 w-5"
-            aria-hidden
-          />
-        ) : null}
+        <Image
+          src={open ? '/icons/arrow-up-gray.svg' : '/icons/arrow-down-gray.svg'}
+          alt=""
+          width={20}
+          height={20}
+          className="ml-2 h-5 w-5"
+          aria-hidden
+        />
       </button>
 
       {open && (
@@ -82,6 +76,7 @@ export default function PositionDropdown({
               className={[
                 'body-5 cursor-pointer border-b border-gray-300 select-none',
                 'hover:bg-primary-50 px-7 py-3 text-gray-800',
+                opt.value === value ? 'bg-primary-50' : '',
                 idx === options.length - 1 ? 'rounded-b-md' : '',
               ].join(' ')}
               onClick={() => {

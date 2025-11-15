@@ -32,7 +32,13 @@ export const recruitFormSchema = z.object({
     .min(1, '마감일을 선택해주세요'),
   contactWay: z.string().min(1, '연락 방법을 입력해주세요'),
   content: z.string().min(50, '최소 50자 이상 작성해주세요.'),
-  profileId: z.number().min(1),
+  profileId: z.number().min(1).optional(),
 });
 
 export type RecruitFormType = z.infer<typeof recruitFormSchema>;
+
+export const createRecruitFormSchema = recruitFormSchema.required({
+  profileId: true,
+});
+
+export type CreateRecruitFormType = z.infer<typeof createRecruitFormSchema>;

@@ -73,7 +73,7 @@ const ProjectDropdown = ({
         )}
         <Image
           src={open ? '/icons/arrow-up-gray.svg' : '/icons/arrow-down-gray.svg'}
-          alt=""
+          alt={open ? '드롭다운 열림' : '드롭다운 닫힘'}
           width={24}
           height={24}
           className="ml-3 h-6 w-6 text-gray-400 transition-transform"
