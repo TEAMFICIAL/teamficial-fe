@@ -22,16 +22,20 @@ export async function getProfileList(): Promise<ResponseProfile[]> {
 export async function updateProfile(
   profileId: number,
   payload: {
-    profileName: string;
-    workingTime: string;
-    links: string[];
-    contactWay: string;
+    profileName: string | null;
+    workingTime: string | null;
+    links: string[] | null;
+    contactWay: string | null;
   },
 ): Promise<ResponseProfile> {
   const convertedPayload = {
     ...payload,
-    workingTime: WORKING_VALUE_MAP[payload.workingTime] || payload.workingTime,
+    workingTime:
+      payload.workingTime === null
+        ? null
+        : (WORKING_VALUE_MAP[payload.workingTime] ?? payload.workingTime),
   };
+
   const { data } = await api.put<CommonResponse<ResponseProfile>>(
     `profile/${profileId}`,
     convertedPayload,
@@ -45,14 +49,17 @@ export async function updateProfile(
 }
 
 export async function createProfile(payload: {
-  profileName: string;
-  workingTime: string;
-  links: string[];
-  contactWay: string;
+  profileName: string | null;
+  workingTime: string | null;
+  links: string[] | null;
+  contactWay: string | null;
 }) {
   const convertedPayload = {
     ...payload,
-    workingTime: WORKING_VALUE_MAP[payload.workingTime] || payload.workingTime,
+    workingTime:
+      payload.workingTime === null
+        ? null
+        : (WORKING_VALUE_MAP[payload.workingTime] ?? payload.workingTime),
   };
 
   const { data } = await api.post<CommonResponse<ResponseProfile>>(`/profile`, convertedPayload);

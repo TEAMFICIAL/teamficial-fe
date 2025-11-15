@@ -10,19 +10,32 @@ export const useUpdateProfile = () => {
   return useMutation({
     mutationFn: (params: {
       profileId: number;
-      profileName: string;
-      workingTime: string;
+      profileName: string | null;
+      workingTime: string | null;
       links: string[];
-      contactWay: string;
+      contactWay: string | null;
     }) => {
-      const { profileId, ...payload } = params;
-      return updateProfile(profileId, payload);
+      const { profileId, profileName, workingTime, contactWay, links } = params;
+
+      const convertedPayload = {
+        profileName: profileName?.trim() === '' ? null : profileName,
+        workingTime: workingTime?.trim() === '' ? null : workingTime,
+        contactWay: contactWay?.trim() === '' ? null : contactWay,
+
+        links:
+          links.length === 0 || links.every((l) => l.trim() === '')
+            ? ['']
+            : links.map((l) => (l.trim() === '' ? '' : l.trim())),
+      };
+
+      return updateProfile(profileId, convertedPayload);
     },
 
     onSuccess: (data: ResponseProfile) => {
       queryClient.invalidateQueries({
         queryKey: ['profile', data.profileId],
       });
+      queryClient.invalidateQueries({ queryKey: ['profile'] });
     },
   });
 };

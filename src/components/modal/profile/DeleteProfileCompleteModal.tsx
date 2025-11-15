@@ -8,7 +8,7 @@ const DeleteProfileCompleteModal = ({
   onClose,
   profileName,
 }: DeleteProfileCompleteModalProps) => {
-  const displayName = profileName?.trim() === '' ? '새 프로필' : profileName;
+  const displayName = profileName ? profileName.trim() || '새 프로필' : '새 프로필';
 
   return (
     <BaseModal isOpen={isOpen} onClose={onClose}>

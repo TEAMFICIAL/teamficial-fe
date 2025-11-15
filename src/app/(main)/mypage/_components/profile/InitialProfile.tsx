@@ -23,26 +23,25 @@ const InitialProfile = () => {
           width={100}
           height={100}
         />
-        <div>
-          <div className="flex flex-col gap-2">
-            <p className="body-1 text-gray-900">{userName}님</p>
-            <div className="flex items-center gap-2">
-              <p className="body-5 text-gray-800">연락수단</p>
-              <div className="h-3 w-[1px] bg-gray-700"></div>
-              <p className="body-6 text-gray-600">연락수단을 등록해주세요</p>
-            </div>
-            <div className="flex items-center gap-2 pb-5">
-              <p className="body-5 text-gray-800">작업시간</p>
-              <div className="h-3 w-[1px] bg-gray-700"></div>
-              <p className="body-6 text-gray-600">작업시간대를 선택해주세요</p>
-            </div>
-            <Button
-              onClick={() => router.push('/teampsylog')}
-              className="bg-primary-50 body-7 text-primary-900 border-primary-100 border px-4 py-2"
-            >
-              팀피셜록에서 대표 키워드 설정하러가기
-            </Button>
+
+        <div className="flex flex-col gap-2">
+          <p className="body-1 text-gray-900">{userName}님</p>
+          <div className="flex items-center gap-2">
+            <p className="body-5 text-gray-800">연락수단</p>
+            <div className="h-3 w-[1px] bg-gray-700"></div>
+            <p className="body-6 text-gray-600">연락수단을 등록해주세요</p>
           </div>
+          <div className="flex items-center gap-2 pb-5">
+            <p className="body-5 text-gray-800">작업시간</p>
+            <div className="h-3 w-[1px] bg-gray-700"></div>
+            <p className="body-6 text-gray-600">작업시간대를 선택해주세요</p>
+          </div>
+          <Button
+            onClick={() => router.push('/teampsylog')}
+            className="border-primary-100 bg-primary-50 body-7 text-primary-900 mt-2 w-[243px] border px-4 py-2 whitespace-nowrap"
+          >
+            팀피셜록에서 대표 키워드 설정하러가기
+          </Button>
         </div>
       </div>
       <div className="flex gap-4">

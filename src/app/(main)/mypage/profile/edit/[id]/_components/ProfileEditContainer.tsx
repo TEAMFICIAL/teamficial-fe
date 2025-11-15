@@ -51,13 +51,20 @@ const ProfileEditContainer = ({ profile }: ProfileEditContainerProps) => {
   const { mutate: updateProfile } = useUpdateProfile();
 
   const handleSubmit = () => {
+    const cleanedLinks =
+      formData.links.length > 0
+        ? formData.links.map((l) => (l.trim() === '' ? '' : l.trim()))
+        : [''];
+
+    const finalLinks = cleanedLinks.every((l) => l === '') ? [''] : cleanedLinks;
+
     updateProfile(
       {
         profileId: profile.profileId,
-        profileName: formData.title,
-        workingTime: formData.workingTime,
-        links: formData.links.filter((l) => l.trim() !== ''),
-        contactWay: formData.contact,
+        profileName: formData.title.trim() === '' ? null : formData.title,
+        workingTime: formData.workingTime.trim() === '' ? null : formData.workingTime,
+        contactWay: formData.contact.trim() === '' ? null : formData.contact,
+        links: finalLinks,
       },
       {
         onSuccess: () => {

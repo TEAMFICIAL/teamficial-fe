@@ -14,10 +14,10 @@ const ProfileList = () => {
     if ((profiles?.length ?? 0) >= 3) return;
 
     createProfile({
-      profileName: '',
-      workingTime: '',
-      links: [],
-      contactWay: '',
+      profileName: null,
+      workingTime: null,
+      links: [''],
+      contactWay: null,
     });
   };
 
