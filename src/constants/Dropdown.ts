@@ -45,3 +45,10 @@ export const WORKING_TIME_OPTIONS = [
   { label: '밤에 작업하는게 편해요', value: 'EVENING' },
   { label: '새벽에 작업하는게 편해요', value: 'DAWN' },
 ];
+
+export const WORKING_VALUE_MAP: Record<string, string> = {
+  아침: 'MORNING',
+  낮: 'AFTERNOON',
+  밤: 'EVENING',
+  새벽: 'DAWN',
+};
