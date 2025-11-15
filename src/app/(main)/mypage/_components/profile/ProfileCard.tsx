@@ -19,7 +19,7 @@ const ProfileCard = ({ profile }: ProfileCardProps) => {
           alt="profile"
           width={100}
           height={100}
-          className="h-[100px] w-[100px] self-start rounded-full"
+          className="h-25 w-25 self-start rounded-full object-cover"
         />
         <div className="flex flex-col">
           <p className="body-1 mb-2 text-gray-900">{profile.userName}님</p>

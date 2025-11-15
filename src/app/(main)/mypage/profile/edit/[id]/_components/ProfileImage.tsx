@@ -45,7 +45,7 @@ const ProfileImage = ({ profile }: ProfileImageProps) => {
       <div className="flex items-center gap-4">
         <Image
           src={profile.profileImageUrl || '/icons/initial-profile.svg'}
-          className="h-[100px] w-[100px] self-start rounded-full"
+          className="h-25 w-25 self-start rounded-full object-cover"
           alt="profile"
           width={100}
           height={100}
