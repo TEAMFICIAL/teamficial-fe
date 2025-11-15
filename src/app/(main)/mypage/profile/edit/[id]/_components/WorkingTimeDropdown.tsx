@@ -1,9 +1,9 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import Image from 'next/image';
 import clsx from 'clsx';
-import { WORKING_TIME_OPTIONS } from '@/constants/Dropdown';
+import { WORKING_TIME_OPTIONS, WORKING_VALUE_MAP } from '@/constants/Dropdown';
 import useOutsideClick from '@/hooks/useOutsideClick';
 
 interface WorkTimeDropdownProps {
@@ -17,12 +17,19 @@ const WorkTimeDropdown = ({ value, onChange }: WorkTimeDropdownProps) => {
 
   useOutsideClick(dropdownRef, () => setIsOpen(false));
 
+  const normalizedValue = useMemo(() => {
+    if (!value) return '';
+    if (Object.values(WORKING_VALUE_MAP).includes(value)) return value;
+    return WORKING_VALUE_MAP[value] || '';
+  }, [value]);
+
   const handleSelect = (option: string) => {
     onChange(option);
     setIsOpen(false);
   };
 
-  const selectedLabel = WORKING_TIME_OPTIONS.find((opt) => opt.value === value)?.label || '';
+  const selectedOption = WORKING_TIME_OPTIONS.find((opt) => opt.value === normalizedValue);
+  const selectedLabel = selectedOption ? selectedOption.label : '';
 
   return (
     <div ref={dropdownRef} className="relative w-full">
@@ -31,7 +38,7 @@ const WorkTimeDropdown = ({ value, onChange }: WorkTimeDropdownProps) => {
         onClick={() => setIsOpen(!isOpen)}
         className={clsx(
           'body-6 flex w-full items-center justify-between rounded-lg border border-gray-300 px-7 py-3 text-left focus:outline-none',
-          value ? 'text-gray-800' : 'text-gray-500',
+          selectedLabel ? 'text-gray-800' : 'text-gray-500',
           isOpen && 'rounded-b-none border-b-0',
         )}
       >
