@@ -52,7 +52,13 @@ const RecruitCard = ({
       </div>
       <div className="flex items-center justify-between border-t border-gray-200 pt-2">
         <div className="flex items-center gap-2">
-          <Image src={profileImage} alt="profile" width={32} height={32} />
+          <Image
+            src={profileImage}
+            alt="profile"
+            width={32}
+            height={32}
+            className="h-8 w-8 rounded-full object-cover"
+          />
           <span className="body-8 text-gray-700">{author}</span>
         </div>
         <span className="body-8 text-gray-700">{formatDateDot(date)}</span>
