@@ -3,7 +3,7 @@ import Image from 'next/image';
 const Loading = () => {
   return (
     <div className="bg-gray-0/40 fixed inset-0 z-[9999] flex items-center justify-center">
-      <div className="bg-gray-0 flex h-[202px] w-[576px] flex-col items-center justify-center gap-3 rounded-2xl p-10 text-center shadow-sm">
+      <div className="bg-gray-0 flex h-[202px] max-w-[576px] flex-col items-center justify-center gap-3 rounded-2xl p-10 text-center shadow-sm">
         <Image
           src={`/icons/gray_teamficial_symbol.svg`}
           alt="symbol"

@@ -4,7 +4,7 @@ interface ErrorProps {
   message?: string;
 }
 
-const Error = ({ message = '앗! 에러가 발생했어요' }: ErrorProps) => {
+const ErrorDisplay = ({ message = '앗! 에러가 발생했어요' }: ErrorProps) => {
   return (
     <div className="flex flex-col items-center justify-center gap-3 p-10">
       <Image
@@ -19,4 +19,4 @@ const Error = ({ message = '앗! 에러가 발생했어요' }: ErrorProps) => {
   );
 };
 
-export default Error;
+export default ErrorDisplay;
