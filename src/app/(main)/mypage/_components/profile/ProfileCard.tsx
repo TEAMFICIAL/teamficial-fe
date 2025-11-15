@@ -15,7 +15,7 @@ const ProfileCard = ({ profile }: ProfileCardProps) => {
     <div className="flex w-full justify-between px-8">
       <div className="flex gap-7">
         <Image
-          src={profile.profileImageUrl || '/icons/initial-profile.svg'}
+          src={profile.profileImageUrl || '/icons/profile.svg'}
           alt="profile"
           width={100}
           height={100}

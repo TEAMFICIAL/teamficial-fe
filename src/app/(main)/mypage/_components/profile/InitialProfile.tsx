@@ -17,7 +17,7 @@ const InitialProfile = () => {
     <div className="bg-gray-0 mb-4 flex justify-between rounded-2xl border border-gray-300 px-14 py-8">
       <div className="flex gap-7">
         <Image
-          src="/icons/initial-profile.svg"
+          src="/icons/profile.svg"
           className="self-start"
           alt="profile"
           width={100}
