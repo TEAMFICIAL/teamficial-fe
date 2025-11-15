@@ -1,7 +1,9 @@
+import KeywordPage from './_components/KeywordPage';
+
 const Page = () => {
   return (
     <>
-      <div>dd</div>
+      <KeywordPage />
     </>
   );
 };
