@@ -7,7 +7,7 @@ const MyPageTitle = () => {
         <p className="title-2 text-gray-900">마이페이지</p>
         <p className="body-4 text-gray-700">
           대표 키워드 수정은{' '}
-          <Link href="/" className="underline">
+          <Link href="/teampsylog" className="underline">
             팀피셜록
           </Link>{' '}
           페이지에서 가능합니다
