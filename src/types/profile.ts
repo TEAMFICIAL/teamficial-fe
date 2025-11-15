@@ -20,6 +20,7 @@ export type ResponseProfile = {
   workingTime: string;
   links: string[];
   contactWay: string;
+  headKeywords: string[];
   createdAt: string;
   modifiedAt: string;
 };
