@@ -15,6 +15,7 @@ const ProfileCard = ({ profile }: ProfileCardProps) => {
   const { openModal } = useModal();
 
   const handleEdit = () => {
+    if (!profile) return;
     router.push(`/mypage/profile/edit/${profile?.profileId}`);
   };
 

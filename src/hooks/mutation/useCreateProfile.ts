@@ -1,5 +1,4 @@
 import { createProfile } from '@/libs/api/profile';
-import { ResponseProfile } from '@/types/profile';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export const useCreateProfile = () => {
@@ -7,13 +6,11 @@ export const useCreateProfile = () => {
 
   return useMutation({
     mutationFn: createProfile,
-    onSuccess: (newProfile) => {
-      queryClient.setQueryData(['profile'], (old: ResponseProfile[] | undefined) => {
-        if (!old) return [newProfile];
-        return [...old, newProfile];
-      });
-
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['profile'] });
+    },
+    onError: (error) => {
+      console.error('프로필 생성 중 오류 발생:', error);
     },
   });
 };

@@ -8,9 +8,11 @@ import { useGetProfile } from '@/hooks/queries/useProfile';
 
 const Page = () => {
   const { id } = useParams();
-  const profileId = Number(id);
+  const profileId = Array.isArray(id) ? Number(id[0]) : Number(id);
   const { data: profile } = useGetProfile({ profileId });
-
+  if (isNaN(profileId)) {
+    return <p className="text-red-500">유효하지 않은 프로필 ID입니다.</p>;
+  }
   if (!profile) {
     return <p className="text-gray-500">프로필 정보를 불러오는 중...</p>;
   }

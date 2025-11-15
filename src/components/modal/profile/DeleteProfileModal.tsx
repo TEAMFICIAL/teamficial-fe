@@ -36,6 +36,7 @@ const DeleteProfileModal = ({
           }
         }
         console.error('Failed to delete profile:', error);
+        alert('프로필 삭제 중 오류가 발생했습니다. 다시 시도해주세요.');
       },
     });
   };
