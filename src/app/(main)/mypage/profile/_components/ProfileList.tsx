@@ -2,34 +2,42 @@
 
 import Image from 'next/image';
 import ProfileCard from './ProfileCard';
-import { useState } from 'react';
+import { useGetProfileList } from '@/hooks/queries/useProfile';
+import { useCreateProfile } from '@/hooks/mutation/useCreateProfile';
 
 const ProfileList = () => {
-  const [profiles, setProfiles] = useState<number[]>([1]);
-  const [nextId, setNextId] = useState(2);
+  const { data: profiles } = useGetProfileList();
+  const { mutate: createProfile } = useCreateProfile();
+  const hasProfiles = profiles && profiles.length > 0;
 
   const handleAddProfile = () => {
-    if (profiles.length < 3) {
-      setProfiles((prev) => [...prev, nextId]);
-      setNextId((prev) => prev + 1);
-    }
+    if ((profiles?.length ?? 0) >= 3) return;
+
+    createProfile({
+      profileName: '',
+      workingTime: '',
+      links: [],
+      contactWay: '',
+    });
   };
 
   return (
     <main className="flex flex-col items-center justify-center pb-14">
       <div className="flex w-full flex-col gap-4">
-        {profiles.map((id) => (
-          <ProfileCard key={id} />
-        ))}
+        {hasProfiles ? (
+          profiles.map((profile) => <ProfileCard key={profile.profileId} profile={profile} />)
+        ) : (
+          <p className="text-gray-500">아직 등록된 프로필이 없습니다.</p>
+        )}
       </div>
-      {profiles.length < 3 && (
+      {(!hasProfiles || profiles.length < 3) && (
         <Image
           src="/icons/profile-add.svg"
+          onClick={handleAddProfile}
           alt="add"
           width={24}
           height={24}
           className="mt-4 cursor-pointer"
-          onClick={handleAddProfile}
         />
       )}
     </main>
