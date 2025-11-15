@@ -1,16 +1,30 @@
 import { useState, useEffect } from 'react';
 
-export const useIsAuthor = (profileId: number | undefined) => {
+export const useIsAuthor = (writerUserId: number) => {
   const [isAuthor, setIsAuthor] = useState(false);
 
   useEffect(() => {
-    const userId = localStorage.getItem('userId');
-    if (!userId || profileId === undefined) {
+    try {
+      const userString = localStorage.getItem('user');
+      if (!userString) {
+        setIsAuthor(false);
+        return;
+      }
+
+      const userData = JSON.parse(userString);
+      const currentUserId = userData?.state?.userId;
+
+      if (!currentUserId) {
+        setIsAuthor(false);
+        return;
+      }
+
+      setIsAuthor(Number(currentUserId) === Number(writerUserId));
+    } catch (error) {
+      console.error('localStorage 파싱 에러:', error);
       setIsAuthor(false);
-      return;
     }
-    setIsAuthor(Number(userId) === profileId);
-  }, [profileId]);
+  }, [writerUserId]);
 
   return isAuthor;
 };
