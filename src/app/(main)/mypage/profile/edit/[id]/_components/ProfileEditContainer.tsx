@@ -3,23 +3,43 @@
 import WorkTimeDropdown from './WorkingTimeDropdown';
 import Button from '@/components/common/button/Button';
 import LabeledTextarea from './LabeledTextarea';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { ResponseProfile } from '@/types/profile';
+import { useUpdateProfile } from '@/hooks/mutation/useUpdateProfile';
+import { useModal } from '@/contexts/ModalContext';
 
-const ProfileEditContainer = () => {
+interface ProfileEditContainerProps {
+  profile: ResponseProfile;
+}
+
+const MAX_LINKS = 3;
+
+const ProfileEditContainer = ({ profile }: ProfileEditContainerProps) => {
+  const { openModal } = useModal();
+
   const [formData, setFormData] = useState({
     title: '',
     contact: '',
     workingTime: '',
-    links: ['', '', ''],
+    links: Array(MAX_LINKS).fill(''),
   });
+
+  useEffect(() => {
+    if (profile) {
+      const links = [...(profile.links || [])];
+      while (links.length < MAX_LINKS) links.push('');
+      setFormData({
+        title: profile.profileName || '',
+        contact: profile.contactWay || '',
+        workingTime: profile.workingTime || '',
+        links,
+      });
+    }
+  }, [profile]);
 
   const handleChange =
     (key: keyof typeof formData, index?: number) => (e: React.ChangeEvent<HTMLTextAreaElement>) => {
       if (key === 'links' && typeof index === 'number') {
-        if (index < 0 || index >= formData.links.length) {
-          console.error(`Invalid link index: ${index}`);
-          return;
-        }
         const updatedLinks = [...formData.links];
         updatedLinks[index] = e.target.value;
         setFormData({ ...formData, links: updatedLinks });
@@ -28,9 +48,26 @@ const ProfileEditContainer = () => {
       }
     };
 
+  const { mutate: updateProfile } = useUpdateProfile();
+
   const handleSubmit = () => {
-    console.log('Form data:', formData);
-    // API 호출 로직 추가 예정
+    updateProfile(
+      {
+        profileId: profile.profileId,
+        profileName: formData.title,
+        workingTime: formData.workingTime,
+        links: formData.links.filter((l) => l.trim() !== ''),
+        contactWay: formData.contact,
+      },
+      {
+        onSuccess: () => {
+          openModal('profileEditComplete');
+        },
+        onError: () => {
+          alert('수정 중 오류가 발생했습니다.');
+        },
+      },
+    );
   };
 
   return (

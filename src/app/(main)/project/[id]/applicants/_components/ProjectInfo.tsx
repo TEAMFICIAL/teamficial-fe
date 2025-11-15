@@ -44,7 +44,7 @@ const ProjectInfo = ({ id }: { id: string }) => {
     ? data.applicantList.filter((item) => item.profilePosition === POSITION_KR[selectedPosition])
     : data.applicantList;
   const hasAnyApplicants = filteredApplicants.length > 0;
-  const isFilterApplied = !!selectedPosition; // 필터가 적용되었는지 확인
+  const isFilterApplied = !!selectedPosition;
 
   return (
     <>

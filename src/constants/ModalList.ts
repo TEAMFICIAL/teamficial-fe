@@ -7,6 +7,10 @@ import RecruitCompleteModal from '@/components/modal/RecruitCompleteModal';
 import { RecruitingPosition } from '@/types/project';
 import ApplicantFinishModal from '@/components/modal/ApplicantFinishModal';
 import ApplicateFinishModal from '@/components/modal/ApplicateFinishModal';
+import DeleteProfileModal from '@/components/modal/profile/DeleteProfileModal';
+import DeleteProfileCompleteModal from '@/components/modal/profile/DeleteProfileCompleteModal';
+import DeleteProfileError from '@/components/modal/profile/DeleteProfileError';
+import EditProfileCompleteModal from '@/components/modal/profile/EditProfileCompleteModal';
 
 export interface RecruitCompleteModalProps {
   isOpen: boolean;
@@ -61,6 +65,29 @@ export interface ApplicantFinishModalProps {
   onClose: () => void;
 }
 
+export interface DeleteProfileModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  profileId: number;
+  profileName: string;
+}
+
+export interface DeleteProfileCompleteModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  profileName: string;
+}
+
+export interface DeleteProfileErrorModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export interface EditProfileCompleteModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
 export const MODAL_COMPONENTS = {
   apply: ApplyModal,
   applyComplete: ApplyCompleteModal,
@@ -70,6 +97,10 @@ export const MODAL_COMPONENTS = {
   recruitComplete: RecruitCompleteModal,
   applicateFinish: ApplicateFinishModal,
   applicantFinish: ApplicantFinishModal,
+  profileDelete: DeleteProfileModal,
+  profileDeleteComplete: DeleteProfileCompleteModal,
+  profileDeleteError: DeleteProfileError,
+  profileEditComplete: EditProfileCompleteModal,
 };
 
 export type ModalType = keyof typeof MODAL_COMPONENTS;
@@ -83,4 +114,8 @@ export interface ModalPropsMap {
   recruitComplete: RecruitCompleteModalProps;
   applicateFinish: ApplicateFinishModalProps;
   applicantFinish: ApplicantFinishModalProps;
+  profileDelete: DeleteProfileModalProps;
+  profileDeleteComplete: DeleteProfileCompleteModalProps;
+  profileDeleteError: DeleteProfileErrorModalProps;
+  profileEditComplete: EditProfileCompleteModalProps;
 }
