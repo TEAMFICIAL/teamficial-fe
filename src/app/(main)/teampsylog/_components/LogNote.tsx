@@ -1,7 +1,36 @@
+import { useGetKeywordList } from '@/hooks/queries/useKeyword';
 import Image from 'next/image';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 const LogNote = () => {
+  const [currentUserId, setCurrentUserId] = useState<number | null>(null);
+
+  useEffect(() => {
+    try {
+      const userString = localStorage.getItem('user');
+      if (!userString) {
+        console.log('No user in localStorage');
+        return;
+      }
+
+      const userData = JSON.parse(userString);
+      const userId = userData?.state?.userId;
+
+      if (userId) {
+        setCurrentUserId(userId);
+      }
+    } catch (error) {
+      console.error('localStorage 파싱 에러:', error);
+      setCurrentUserId(null);
+    }
+  }, []);
+
+  const { data } = useGetKeywordList({
+    userId: currentUserId ?? 0,
+    page: 0,
+    size: 3,
+  });
+
   return (
     <>
       <section className="flex">

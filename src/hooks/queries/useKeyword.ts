@@ -6,6 +6,7 @@ export const useGetKeyword = ({ profileId }: { profileId: number }) => {
   return useQuery<ResponseKeyword>({
     queryKey: ['keyword', profileId],
     queryFn: () => getKeywords(profileId),
+    enabled: !!profileId,
   });
 };
 
@@ -13,5 +14,6 @@ export const useGetKeywordList = ({ userId, page = 0, size = 3 }: RequestKeyword
   return useQuery<ResponseKeywordList>({
     queryKey: ['keywordList', userId, page, size],
     queryFn: () => getKeywordList({ userId, page, size }),
+    enabled: !!userId,
   });
 };
