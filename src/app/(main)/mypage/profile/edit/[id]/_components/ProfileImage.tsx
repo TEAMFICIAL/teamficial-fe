@@ -44,8 +44,8 @@ const ProfileImage = ({ profile }: ProfileImageProps) => {
     <div className="mb-5 flex justify-between rounded-lg bg-gray-100 py-7 pr-10 pl-8">
       <div className="flex items-center gap-4">
         <Image
-          src={profile.profileImageUrl || '/icons/initial-profile.svg'}
-          className="h-[100px] w-[100px] self-start rounded-full"
+          src={profile.profileImageUrl || '/icons/profile.svg'}
+          className="h-25 w-25 self-start rounded-full object-cover"
           alt="profile"
           width={100}
           height={100}

@@ -1,4 +1,4 @@
-import axios, { AxiosHeaders, type InternalAxiosRequestConfig } from 'axios';
+import axios from 'axios';
 import qs from 'qs';
 
 const api = axios.create({
@@ -7,74 +7,58 @@ const api = axios.create({
   headers: { 'Content-Type': 'application/json' },
 });
 
-const getRefreshToken = async () => {
-  try {
-    const refreshToken = localStorage.getItem('refreshToken');
+const requestNewTokens = async () => {
+  const refreshToken = localStorage.getItem('refreshToken');
+  if (!refreshToken) throw new Error('No refresh token');
 
-    const response = await api.post(
-      `/auth/refresh-token`,
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${refreshToken}`,
-        },
-      },
-    );
-    if (response.data.code === '200') {
-      const newAccessToken = response.data.result.accessToken;
-      const newRefreshToken = response.data.result.refreshToken;
-      localStorage.setItem('accessToken', newAccessToken);
-      localStorage.setItem('refreshToken', newRefreshToken);
-      return { newAccessToken, newRefreshToken };
-    }
-    throw new Error('리프레시 토큰 재발급 실패');
-  } catch (error) {
-    console.error('리프레시 토큰 오류', error);
-    throw error;
+  const res = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/refresh-token`, {
+    headers: {
+      Authorization: `Bearer ${refreshToken}`,
+    },
+  });
+
+  if (!res.data?.isSuccess) {
+    throw new Error('Refresh failed');
   }
+
+  const { accessToken, refreshToken: newRefresh } = res.data.result;
+
+  localStorage.setItem('accessToken', accessToken);
+  localStorage.setItem('refreshToken', newRefresh);
+
+  return accessToken;
 };
 
 api.interceptors.request.use(
-  (config: InternalAxiosRequestConfig) => {
+  (config) => {
     const accessToken = localStorage.getItem('accessToken');
-    const refreshToken = localStorage.getItem('refreshToken');
-
-    const newHeaders = new AxiosHeaders(config.headers || {});
-
     if (accessToken) {
-      newHeaders.set('Authorization', `Bearer ${accessToken}`);
+      config.headers.Authorization = `Bearer ${accessToken}`;
     }
-    if (refreshToken) {
-      newHeaders.set('Authorization', `Bearer ${refreshToken}`);
-    }
-
-    const modifiedConfig = { ...config, headers: newHeaders };
-
-    return modifiedConfig;
+    return config;
   },
   (error) => Promise.reject(error),
 );
 
-// Response 인터셉터: 401 Unauthorized 에러 처리
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
 
-    if (error.response?.code === '401' && !originalRequest._retry) {
+    if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 
       try {
-        const { newAccessToken, newRefreshToken } = await getRefreshToken();
+        const newAccessToken = await requestNewTokens();
 
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-        originalRequest.headers.Authorization_refresh = `Bearer ${newRefreshToken}`;
+
         return api(originalRequest);
-      } catch (err) {
+      } catch (refreshError) {
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
-        window.location.href = '/';
-        return Promise.reject(err);
+        window.location.href = '/login';
+        return Promise.reject(refreshError);
       }
     }
 

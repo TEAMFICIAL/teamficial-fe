@@ -19,7 +19,7 @@ const ProfileCard = ({ profile }: ProfileCardProps) => {
           alt="profile"
           width={100}
           height={100}
-          className="h-[100px] w-[100px] self-start rounded-full"
+          className="h-25 w-25 self-start rounded-full object-cover"
         />
         <div className="flex flex-col">
           <p className="body-1 mb-2 text-gray-900">{profile.userName}님</p>
@@ -47,7 +47,7 @@ const ProfileCard = ({ profile }: ProfileCardProps) => {
           ) : (
             <Button
               onClick={() => router.push('/teampsylog')}
-              className="border-primary-100 bg-primary-50 body-7 text-primary-900 mt-2 border px-4 py-2"
+              className="border-primary-100 bg-primary-50 body-7 text-primary-900 mt-2 w-[243px] border px-4 py-2 whitespace-nowrap"
             >
               팀피셜록에서 대표 키워드 설정하러가기
             </Button>
