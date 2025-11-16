@@ -13,20 +13,28 @@ const iconMap = {
   other: '/icons/empty-link.svg',
 } as const;
 
-const ProfileLinks = ({ links }: ProfileLinksProps) => (
-  <div className="flex justify-end gap-4">
-    {(links?.length ? links : [null, null, null]).map((link, i) => {
-      if (link) {
-        const type = getLinkType(link);
+const ProfileLinks = ({ links }: ProfileLinksProps) => {
+  const validLinks = (links || []).filter((l) => l && l.trim() !== '');
+
+  const displayLinks = validLinks.length > 0 ? validLinks : ['', '', ''];
+
+  return (
+    <div className="flex justify-end gap-4">
+      {displayLinks.map((link, i) => {
+        if (link) {
+          const type = getLinkType(link);
+          return (
+            <a key={i} href={link} target="_blank" rel="noopener noreferrer">
+              <Image src={iconMap[type]} alt={type} width={28} height={28} />
+            </a>
+          );
+        }
         return (
-          <a key={i} href={link} target="_blank" rel="noopener noreferrer">
-            <Image src={iconMap[type]} alt={type} width={28} height={28} />
-          </a>
+          <Image key={i} src="/icons/empty-link.svg" alt="empty-link" width={28} height={28} />
         );
-      }
-      return <Image key={i} src="/icons/empty-link.svg" alt="empty-link" width={28} height={28} />;
-    })}
-  </div>
-);
+      })}
+    </div>
+  );
+};
 
 export default ProfileLinks;
