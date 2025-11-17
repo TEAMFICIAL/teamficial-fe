@@ -4,8 +4,15 @@ import { ApplyCompleteModalProps } from '@/constants/ModalList';
 import Button from '../common/button/Button';
 import BaseModal from './index';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 const ApplyCompleteModal = ({ isOpen, onClose }: ApplyCompleteModalProps) => {
+  const navigate = useRouter();
+  const handleClick = () => {
+    onClose();
+    navigate.push('/mypage');
+  };
+
   return (
     <BaseModal isOpen={isOpen} onClose={onClose}>
       <div className="flex flex-col items-center">
@@ -26,7 +33,7 @@ const ApplyCompleteModal = ({ isOpen, onClose }: ApplyCompleteModalProps) => {
           </Button>
           <Button
             className="bg-primary-900 text-gray-0 body-5 hover:bg-primary-700 px-30 py-4"
-            onClick={() => {}}
+            onClick={handleClick}
           >
             지원한 프로젝트 보러가기
           </Button>
