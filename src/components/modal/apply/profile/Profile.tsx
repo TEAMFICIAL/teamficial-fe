@@ -38,14 +38,14 @@ const Profile = ({ profile }: ProfileCardProps) => {
           </div>
           <div className="flex flex-wrap gap-2">
             {/* 백엔드 수정 후 반영 예정 */}
-            {/* {profile.keywords.map((keyword) => (
+            {profile.profile.headKeywords.map((keyword) => (
               <span
                 key={keyword}
                 className="body-7 rounded-lg border border-gray-300 bg-gray-100 px-4 py-2 text-gray-600"
               >
                 #{keyword}
               </span>
-            ))} */}
+            ))}
           </div>
         </div>
       </div>

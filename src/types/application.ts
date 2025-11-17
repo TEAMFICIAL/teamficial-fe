@@ -41,6 +41,7 @@ export type ResponseProfile = {
   contactWay: string;
   createdAt: string;
   modifiedAt: string;
+  headKeywords: string[];
 };
 
 export type ApplicationResponse = {
