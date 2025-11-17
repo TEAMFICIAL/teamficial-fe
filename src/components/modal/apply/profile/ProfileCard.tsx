@@ -31,6 +31,7 @@ const ProfileCard = ({ profile, keywords, positions, onPositionSelect }: Profile
       <div className="flex items-start gap-4">
         <Image
           src={profile.profileImageUrl || '/icons/profile.svg'}
+          className="h-[90px] w-[90px] rounded-full object-cover"
           alt="profile"
           width={90}
           height={90}
