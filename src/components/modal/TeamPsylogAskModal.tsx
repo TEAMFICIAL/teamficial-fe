@@ -13,9 +13,11 @@ const TeamPsylogAskModal = ({
   formData,
 }: TeamPsylogAskModalProps) => {
   const { openModal } = useModal();
-  const { mutate: submitLog } = useTeamficialLog();
+  const { mutate: submitLog, isPending } = useTeamficialLog();
 
   const handleClick = () => {
+    if (isPending) return;
+
     const body = {
       userUuid: uuid,
       content1: formData.set1.answer,
