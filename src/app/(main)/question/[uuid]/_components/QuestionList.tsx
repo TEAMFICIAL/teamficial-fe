@@ -3,16 +3,28 @@
 import { FieldErrors, UseFormSetValue, UseFormWatch } from 'react-hook-form';
 import { QuestionFormValues } from '@/libs/schemas/questionFormSchema';
 import QuestionDropdown from './QuestionDropdown';
-import { QUESTION_SECTIONS } from '@/constants/Questions';
+import { QUESTION_SETS } from '@/constants/Questions';
 import Image from 'next/image';
 import QuestionAnswer from './QuestionAnswer';
+
 interface QuestionListProps {
   setValue: UseFormSetValue<QuestionFormValues>;
   watch: UseFormWatch<QuestionFormValues>;
   errors: FieldErrors<QuestionFormValues>;
+  userName: string;
 }
 
-const QuestionList = ({ setValue, watch, errors }: QuestionListProps) => {
+const QuestionList = ({ setValue, watch, errors, userName }: QuestionListProps) => {
+  const QUESTION_SECTIONS = [
+    {
+      key: 'set1',
+      title: `${userName}님과 함께하며 느낀 ${userName}님의 강점`,
+      set: QUESTION_SETS.set1,
+    },
+    { key: 'set2', title: `${userName}님과 함께하며 이런 점이 좋았어요`, set: QUESTION_SETS.set2 },
+    { key: 'set3', title: `${userName}님과 성장을 위해서 해주고 싶은 말`, set: QUESTION_SETS.set3 },
+  ] as const;
+
   return (
     <div className="flex flex-col gap-6 py-4">
       {QUESTION_SECTIONS.map(({ key, title, set }) => (
