@@ -26,7 +26,7 @@ const CurrentApplicantItem = ({
           alt="지원자 사진"
           width={120}
           height={120}
-          className="rounded-full"
+          className="h-30 w-30 rounded-full object-cover"
         />
         <span className="flex flex-col items-center justify-center gap-[2px]">
           <Tag className={tagStyle}>{item.profilePosition}</Tag>

@@ -14,7 +14,7 @@ const ApplicantTeamCard = ({ application, index }: ApplicantTeamCardProps) => {
   const router = useRouter();
 
   const handleClick = () => {
-    router.push(`/project/${application.recruitingPostId}`);
+    router.push(`/project/${application.recruitingPostId}/applicants`);
   };
 
   return (
