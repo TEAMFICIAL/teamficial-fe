@@ -1,8 +1,9 @@
 'use client';
 
+import useOutsideClick from '@/hooks/useOutsideClick';
 import { ResponseProfile } from '@/types/profile';
 import Image from 'next/image';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 type LogTitleProps = {
   profiles: ResponseProfile[];
@@ -17,16 +18,7 @@ const LogTitle = ({ profiles, selectedProfileId, onSelectProfile }: LogTitleProp
   const selectedProfile = profiles.find((p) => p.profileId === selectedProfileId);
 
   // TODO: 드롭다운 컴포넌트 분리
-  // 외부 클릭 시 드롭다운 닫기
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-        setIsOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+  useOutsideClick(dropdownRef, () => setIsOpen(false));
 
   const userName = profiles[0]?.userName || '사용자';
 
