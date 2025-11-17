@@ -8,6 +8,7 @@ import { PartnerModalProps } from '@/constants/ModalList';
 import { useGetApplicantProfile } from '@/hooks/queries/useApplicate';
 import { useUpdateApplicant } from '@/hooks/mutation/useUpdateApplicant';
 import { useQueryClient } from '@tanstack/react-query';
+import { ApplicationStatus } from '@/utils/applicate';
 
 const PartnerModal = ({ isOpen, onClose, applicationId, recruitingPostId }: PartnerModalProps) => {
   const { mutate: updateStatus } = useUpdateApplicant();
@@ -26,7 +27,7 @@ const PartnerModal = ({ isOpen, onClose, applicationId, recruitingPostId }: Part
       {
         recruitingPostId: recruitingPostId,
         applicationId: applicationId,
-        applicationStatus: 'MATCH_FAILED',
+        applicationStatus: ApplicationStatus.MATCH_FAILED,
       },
       {
         onSuccess: () => {
@@ -48,7 +49,7 @@ const PartnerModal = ({ isOpen, onClose, applicationId, recruitingPostId }: Part
       {
         recruitingPostId: recruitingPostId,
         applicationId: applicationId,
-        applicationStatus: 'MATCHED',
+        applicationStatus: ApplicationStatus.TEMP_SAVED,
       },
       {
         onSuccess: () => {
