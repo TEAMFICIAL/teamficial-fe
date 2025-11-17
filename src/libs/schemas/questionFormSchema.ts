@@ -9,7 +9,6 @@ export const questionFormSchema = z.object({
   set1: questionSetSchema,
   set2: questionSetSchema,
   set3: questionSetSchema,
-  set4: questionSetSchema,
 });
 
 export type QuestionFormValues = z.infer<typeof questionFormSchema>;
