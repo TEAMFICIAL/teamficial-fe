@@ -4,7 +4,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
   return (
     <>
       <Header />
-      <main className="mx-auto min-h-[calc(100vh-65px)] w-full max-w-[1024px] px-10">
+      <main className="desktop:max-w-[1024px] desktop:px-10 desktop:min-h-[calc(100vh-65px)] mx-auto w-full max-w-[640px] px-4">
         {children}
       </main>
       <Footer />
