@@ -7,10 +7,13 @@ import { questionFormSchema, QuestionFormValues } from '@/libs/schemas/questionF
 import QuestionFooter from './QuestionFooter';
 import QuestionList from './QuestionList';
 import QuestionTitle from './QuestionTitle';
+import { useRequesterInfo } from '@/hooks/queries/useRequesterInfo';
+import Loading from '@/components/common/Loading';
+import ErrorDisplay from '@/components/common/Error';
 
 const QuestionTemplate = ({ uuid }: { uuid: string }) => {
   const { openModal } = useModal();
-  console.log(uuid);
+  const { data, isLoading, error } = useRequesterInfo(uuid);
 
   const {
     handleSubmit,
@@ -23,19 +26,27 @@ const QuestionTemplate = ({ uuid }: { uuid: string }) => {
       set1: { question: '', answer: '' },
       set2: { question: '', answer: '' },
       set3: { question: '', answer: '' },
-      set4: { question: '', answer: '' },
     },
   });
 
+  if (isLoading) return <Loading />;
+  if (error) return <ErrorDisplay message="요청자 정보를 불러오지 못했어요." />;
+  if (!data) return null;
+
+  const { requesterName } = data;
+
   const onSubmit = (data: QuestionFormValues) => {
-    console.log('폼 제출됨', data);
-    openModal('teamPsylogComplete');
+    openModal('teamPsylogAsk', {
+      userName: requesterName,
+      uuid: uuid,
+      formData: data,
+    });
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="mx-10 pb-14">
-      <QuestionTitle />
-      <QuestionList setValue={setValue} watch={watch} errors={errors} />
+      <QuestionTitle userName={requesterName} />
+      <QuestionList setValue={setValue} watch={watch} errors={errors} userName={requesterName} />
       <QuestionFooter />
     </form>
   );

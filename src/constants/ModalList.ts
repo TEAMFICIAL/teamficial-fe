@@ -11,6 +11,8 @@ import DeleteProfileModal from '@/components/modal/profile/DeleteProfileModal';
 import DeleteProfileCompleteModal from '@/components/modal/profile/DeleteProfileCompleteModal';
 import DeleteProfileError from '@/components/modal/profile/DeleteProfileError';
 import EditProfileCompleteModal from '@/components/modal/profile/EditProfileCompleteModal';
+import TeamPsylogAskModal from '@/components/modal/TeamPsylogAskModal';
+import { QuestionFormValues } from '@/libs/schemas/questionFormSchema';
 
 export interface RecruitCompleteModalProps {
   isOpen: boolean;
@@ -48,10 +50,20 @@ export interface PartnerModalProps {
 }
 
 export interface TeamPsylogCompleteModalProps {
+  userName: string;
   isOpen: boolean;
+  uuid: string;
   onClose: () => void;
   onConfirm?: () => void;
 }
+
+export type TeamPsylogAskModalProps = {
+  isOpen: boolean;
+  onClose: () => void;
+  userName: string;
+  uuid: string;
+  formData: QuestionFormValues;
+};
 
 export interface ApplicateFinishModalProps {
   isOpen: boolean;
@@ -94,6 +106,7 @@ export const MODAL_COMPONENTS = {
   delete: DeleteModal,
   partner: PartnerModal,
   teamPsylogComplete: TeamPsylogCompleteModal,
+  teamPsylogAsk: TeamPsylogAskModal,
   recruitComplete: RecruitCompleteModal,
   applicateFinish: ApplicateFinishModal,
   applicantFinish: ApplicantFinishModal,
@@ -111,6 +124,7 @@ export interface ModalPropsMap {
   delete: DeleteModalProps;
   partner: PartnerModalProps;
   teamPsylogComplete: TeamPsylogCompleteModalProps;
+  teamPsylogAsk: TeamPsylogAskModalProps;
   recruitComplete: RecruitCompleteModalProps;
   applicateFinish: ApplicateFinishModalProps;
   applicantFinish: ApplicantFinishModalProps;

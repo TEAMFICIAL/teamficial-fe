@@ -1,5 +1,5 @@
 import React from 'react';
-import QuestionTemplate from './components/QuestionTemplate';
+import QuestionTemplate from './_components/QuestionTemplate';
 
 type Props = {
   params: Promise<{ uuid: string }>;
