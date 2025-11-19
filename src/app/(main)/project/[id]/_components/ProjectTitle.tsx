@@ -5,7 +5,6 @@ import { useModal } from '@/contexts/ModalContext';
 import { ResponseProject } from '@/types/project';
 import React from 'react';
 import DDay from './DDayTag';
-import { useIsAuthor } from '@/hooks/useIsAuthor';
 import Link from 'next/link';
 
 const ProjectTitle = ({
@@ -15,11 +14,10 @@ const ProjectTitle = ({
   dday,
   createdAt,
   deadline,
-  writerUserId,
   recruitingPositions,
+  alreadyApplied,
+  writer,
 }: ResponseProject) => {
-  const isAuthor = useIsAuthor(writerUserId);
-
   const { openModal } = useModal();
   const handleApplyModal = () => {
     openModal('apply', { postId, recruitingPositions });
@@ -39,7 +37,7 @@ const ProjectTitle = ({
           {createdAt.split(' ')[0]}~{deadline}
         </p>
       </div>
-      {isAuthor ? (
+      {writer ? (
         <div className="flex w-23.5 items-end gap-0.5">
           <Link href={`/project/${postId}/edit`}>
             <button className="body-4 flex-1 cursor-pointer">수정</button>
@@ -49,7 +47,7 @@ const ProjectTitle = ({
           </button>
         </div>
       ) : (
-        <Button label="지원하기" size="large" onClick={handleApplyModal} />
+        !alreadyApplied && <Button label="지원하기" size="large" onClick={handleApplyModal} />
       )}
     </div>
   );
