@@ -101,10 +101,10 @@ const RecruitPage = () => {
           initialFormData={formData}
         />
       ) : (
-        <form onSubmit={handleProfileSubmit(onProfileSubmit)} className="flex flex-col gap-4">
+        <form onSubmit={handleProfileSubmit(onProfileSubmit)} className="flex flex-col">
           <ProfileSelect control={profileControl} />
 
-          <div className="mt-6 mb-10 flex justify-end gap-3">
+          <div className="my-14 flex justify-end gap-3">
             <Button variant="gray" type="button" label="이전으로" onClick={handleBack} />
             <Button type="submit" label="업로드하기" disabled={!selectedProfileId} />
           </div>
