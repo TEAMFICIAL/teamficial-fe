@@ -9,6 +9,8 @@ const Profile1 = ({ profileId }: { profileId: number }) => {
   const { data } = useGetProfile({ profileId });
   if (!data) return null;
 
+  const isUrl = /^(https?:\/\/|www\.)/i.test(data.contactWay);
+
   return (
     <div className="flex justify-between rounded-2xl border border-gray-400 px-14 py-8">
       <div className="flex items-start gap-7">
@@ -24,11 +26,25 @@ const Profile1 = ({ profileId }: { profileId: number }) => {
           {/* 이름 및 정보 */}
           <div className="flex flex-col">
             <p className="body-1 mb-2">{data.userName}</p>
-            <div className="flex items-center gap-2">
-              <p className="body-5 text-gray-800">연락 수단</p>
+            <div className="flex min-w-0 items-center gap-2">
+              <p className="body-5 flex-shrink-0 text-gray-800">연락 수단</p>
               <div className="h-3 w-[1px] bg-gray-700"></div>
               {/* TODO: 팀원이 되면 공개해요 처리 */}
-              <p className="body-6 text-gray-700">{data.contactWay}</p>
+              {isUrl ? (
+                <a
+                  href={data.contactWay}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="body-4 text-primary-900 max-w-[420px] truncate underline"
+                  title={data.contactWay}
+                >
+                  {data.contactWay}
+                </a>
+              ) : (
+                <p className="body-4 max-w-[180px] truncate text-gray-700" title={data.contactWay}>
+                  {data.contactWay}
+                </p>
+              )}
             </div>
             <div className="flex items-center gap-2">
               <p className="body-5 text-gray-800">작업시간</p>
@@ -37,11 +53,10 @@ const Profile1 = ({ profileId }: { profileId: number }) => {
             </div>
           </div>
           {/* 태그 */}
-          {/* TODO: 프로필 키워드 적용 */}
           <div className="flex gap-2">
-            <ProfileTag>피드백장인</ProfileTag>
-            <ProfileTag>시간잘지킴</ProfileTag>
-            <ProfileTag>꼼꼼한</ProfileTag>
+            {data.headKeywords.map((keyword, index) => (
+              <ProfileTag key={index}>{keyword}</ProfileTag>
+            ))}
           </div>
         </div>
       </div>
