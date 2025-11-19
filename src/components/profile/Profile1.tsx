@@ -27,7 +27,7 @@ const Profile1 = ({ profileId }: { profileId: number }) => {
           <div className="flex flex-col">
             <p className="body-1 mb-2">{data.userName}</p>
             <div className="flex min-w-0 items-center gap-2">
-              <p className="body-5 flex-shrink-0 text-gray-800">연락 수단</p>
+              <p className="body-5 flex-shrink-0 text-gray-800">연락수단</p>
               <div className="h-3 w-[1px] bg-gray-700"></div>
               {/* TODO: 팀원이 되면 공개해요 처리 */}
               {isUrl ? (

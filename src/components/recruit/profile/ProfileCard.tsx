@@ -37,7 +37,7 @@ const ProfileCard = ({ profile, isSelected = false, onClick }: ProfileCardProps)
               <div className="flex flex-col">
                 <p className="body-1 mb-2">{profile.userName}</p>
                 <div className="flex items-center gap-2">
-                  <p className="body-5 text-gray-800">연락 수단</p>
+                  <p className="body-5 text-gray-800">연락수단</p>
                   <div className="h-3 w-[1px] bg-gray-700"></div>
                   <p className="body-6 text-gray-700">{profile.contactWay}</p>
                 </div>
