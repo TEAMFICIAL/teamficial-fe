@@ -6,6 +6,8 @@ import { ResponseProject } from '@/types/project';
 import React from 'react';
 import DDay from './DDayTag';
 import Link from 'next/link';
+import { useUserStore } from '@/store/useUserStore';
+import { useRouter } from 'next/navigation';
 
 const ProjectTitle = ({
   postId,
@@ -19,8 +21,16 @@ const ProjectTitle = ({
   writer,
 }: ResponseProject) => {
   const { openModal } = useModal();
+  const { userName } = useUserStore();
+  const isLoggedIn = !!userName;
+  const navigate = useRouter();
   const handleApplyModal = () => {
-    openModal('apply', { postId, recruitingPositions });
+    if (!isLoggedIn) {
+      window.alert('로그인이 필요합니다.');
+      navigate.push('/login');
+    } else {
+      openModal('apply', { postId, recruitingPositions });
+    }
   };
   const handleDeleteModal = () => {
     openModal('delete', { postId: postId, projectName: title });
