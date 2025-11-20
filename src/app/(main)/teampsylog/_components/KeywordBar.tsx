@@ -1,7 +1,6 @@
 import { useGetKeyword } from '@/hooks/queries/useKeyword';
 import React from 'react';
 import KeywordItem from './KeywordItem';
-import Button from '@/components/common/button/Button';
 import Image from 'next/image';
 import ProfileDropdown from './ProfileDropdown';
 import { ResponseProfile } from '@/types/profile';
@@ -25,8 +24,22 @@ const KeywordBar = ({
     data?.headKeywords && data.headKeywords.length > 0 ? data.headKeywords : DEFAULT_KEYWORDS;
 
   const handleShare = async () => {
-    // TODO: uuid 동적으로 받기
-    const url = `${window.location.origin}/teampsylog/:uuid`;
+    let uuid: string | undefined;
+    if (typeof window !== 'undefined') {
+      const userString = localStorage.getItem('user');
+      if (userString) {
+        try {
+          const userObj = JSON.parse(userString);
+          uuid = userObj?.state?.uuid;
+        } catch (e) {
+          console.log('Error parsing user from localStorage:', e);
+          uuid = undefined;
+        }
+      }
+    }
+    const url = uuid
+      ? `${window.location.origin}/teampsylog/${uuid}`
+      : `${window.location.origin}/teampsylog`;
     await navigator.clipboard.writeText(url);
     alert('링크가 복사되었습니다!');
   };
@@ -45,10 +58,10 @@ const KeywordBar = ({
         ))}
       </div>
       <div className="flex gap-4">
-        <button>
+        <button className="cursor-pointer">
           <Image src="/icons/edit.svg" alt="수정하기" width={28} height={28} />
         </button>
-        <button onClick={handleShare}>
+        <button onClick={handleShare} className="cursor-pointer">
           <Image src="/icons/share.svg" alt="공유하기" width={28} height={28} />
         </button>
       </div>
