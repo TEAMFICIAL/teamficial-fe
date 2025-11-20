@@ -40,3 +40,18 @@ export interface ResponseTeamficialLog {
 export interface RequesterInfo {
   requesterName: string;
 }
+
+export interface RequestKeywordComment {
+  keywordId: number;
+  page?: number;
+  size?: number;
+}
+
+export interface ResponseKeywordComment {
+  data: {
+    comment: string;
+    createdAt: string;
+  }[];
+  hasNext: boolean;
+  nextPage: number;
+}
