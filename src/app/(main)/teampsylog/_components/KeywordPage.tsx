@@ -6,6 +6,7 @@ import { useGetProfileList } from '@/hooks/queries/useProfile';
 import KeywordBar from './KeywordBar';
 import LogNote from './LogNote';
 import { useRequesterInfo } from '@/hooks/queries/useRequesterInfo';
+import { useUpdateHeadKeywords } from '@/hooks/mutation/useUpdateHeadKeywords';
 
 interface Props {
   share?: boolean;
@@ -23,6 +24,12 @@ const KeywordPage = ({ share = false, uuid }: Props) => {
   const profiles = useMemo(() => myProfiles || [], [myProfiles]);
   const [selectedProfileId, setSelectedProfileId] = useState<number | null>(null);
   const [localUserId, setLocalUserId] = useState<number | null>(null);
+
+  // 편집 모드 상태
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [selectedSlot, setSelectedSlot] = useState<number | null>(null);
+
+  const { mutate: updateHeadKeywords } = useUpdateHeadKeywords();
 
   useEffect(() => {
     if (!share) {
@@ -44,6 +51,39 @@ const KeywordPage = ({ share = false, uuid }: Props) => {
     }
   }, [profiles, selectedProfileId]);
 
+  const handleToggleEditMode = () => {
+    setIsEditMode(!isEditMode);
+    if (isEditMode) {
+      setSelectedSlot(null);
+    }
+  };
+
+  const handleSelectSlot = (index: number) => {
+    if (!isEditMode) return;
+    setSelectedSlot(index);
+  };
+
+  const handleSelectKeyword = (keywordId: number, allKeywordIds: number[]) => {
+    if (!isEditMode || selectedSlot === null || !selectedProfileId) return;
+
+    const newKeywordIds = [...allKeywordIds];
+    newKeywordIds[selectedSlot] = keywordId;
+
+    updateHeadKeywords(
+      { profileId: selectedProfileId, keywordIds: newKeywordIds },
+      {
+        onSuccess: () => {
+          setSelectedSlot(null);
+          setIsEditMode(false);
+        },
+        onError: (error) => {
+          alert('대표키워드 업데이트에 실패했습니다.');
+          console.error(error);
+        },
+      },
+    );
+  };
+
   return (
     <div className="flex flex-col gap-5 pb-14">
       {/* 제목  */}
@@ -55,10 +95,19 @@ const KeywordPage = ({ share = false, uuid }: Props) => {
           profiles={profiles}
           selectedProfileId={selectedProfileId}
           onSelectProfile={setSelectedProfileId}
+          isEditMode={isEditMode}
+          onToggleEditMode={handleToggleEditMode}
+          selectedSlot={selectedSlot}
+          onSelectSlot={handleSelectSlot}
         />
       )}
       {/* 팀피셜록 노트 */}
-      <LogNote userId={share && uuid ? (shareUserId ?? undefined) : (localUserId ?? undefined)} />
+      <LogNote
+        userId={share && uuid ? (shareUserId ?? undefined) : (localUserId ?? undefined)}
+        isEditMode={isEditMode}
+        selectedSlot={selectedSlot}
+        onSelectKeyword={handleSelectKeyword}
+      />
     </div>
   );
 };

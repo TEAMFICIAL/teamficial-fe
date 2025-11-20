@@ -5,7 +5,17 @@ import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import CommentPage from './CommentPage';
 
-const LogNote = ({ userId }: { userId?: number }) => {
+const LogNote = ({
+  userId,
+  isEditMode = false,
+  selectedSlot = null,
+  onSelectKeyword,
+}: {
+  userId?: number;
+  isEditMode?: boolean;
+  selectedSlot?: number | null;
+  onSelectKeyword?: (keywordId: number, allKeywordIds: number[]) => void;
+}) => {
   const [page, setPage] = useState(0);
 
   const { data } = useGetKeywordList({
@@ -17,12 +27,25 @@ const LogNote = ({ userId }: { userId?: number }) => {
   // 키워드 목록
   const keywords = data?.content?.map((item) => item.keywordName) || [];
   const keywordIds = data?.content?.map((item) => item.keywordId) || [];
+  const headKeywordIds =
+    data?.content?.filter((item) => item.head).map((item) => item.keywordId) || [];
   const totalPages = Math.ceil((data?.totalElements || 1) / 6);
 
   const [selectedKeywordId, setSelectedKeywordId] = useState<number | null>(null);
+
   useEffect(() => {
     setSelectedKeywordId(null);
   }, [page]);
+
+  const handleKeywordClick = (keywordId: number) => {
+    if (isEditMode && selectedSlot !== null) {
+      // 편집 모드: 키워드 선택
+      onSelectKeyword?.(keywordId, headKeywordIds);
+    } else if (!isEditMode) {
+      // 일반 모드: 댓글 보기
+      setSelectedKeywordId(keywordId);
+    }
+  };
 
   return (
     <section className="relative flex">
@@ -50,15 +73,18 @@ const LogNote = ({ userId }: { userId?: number }) => {
         ) : (
           <>
             <div className="flex w-full flex-col items-center gap-2">
-              {keywords.map((keyword: string, idx: number) => (
-                <div
-                  key={idx}
-                  className="body-3 w-full cursor-pointer py-1 text-center text-gray-700"
-                  onClick={() => setSelectedKeywordId(keywordIds[idx])}
-                >
-                  {keyword}
-                </div>
-              ))}
+              {keywords.map((keyword: string, idx: number) => {
+                const keywordId = keywordIds[idx];
+                return (
+                  <div
+                    key={idx}
+                    className={`body-3 w-full cursor-pointer py-1 text-center`}
+                    onClick={() => handleKeywordClick(keywordId)}
+                  >
+                    {keyword}
+                  </div>
+                );
+              })}
             </div>
           </>
         )}
@@ -67,7 +93,7 @@ const LogNote = ({ userId }: { userId?: number }) => {
       {data?.totalElements === 0 ? null : (
         <div
           className={`relative flex h-162 w-118 flex-col gap-[13px] rounded-r-[16px] bg-gray-200 shadow-[0_4px_4px_0_#E1E1E1] ${
-            !selectedKeywordId ? 'items-center justify-center' : ''
+            !selectedKeywordId || isEditMode ? 'items-center justify-center' : ''
           }`}
         >
           <button
@@ -77,7 +103,21 @@ const LogNote = ({ userId }: { userId?: number }) => {
           >
             <Image src="/icons/page-after.svg" alt="다음 페이지" width={32} height={32} />
           </button>
-          {!selectedKeywordId ? (
+          {isEditMode ? (
+            <>
+              <Image
+                src="/icons/gray_teamficial_symbol.svg"
+                alt="teamficial_symbol"
+                width={66}
+                height={67}
+              />
+              <p className="body-3 text-center whitespace-pre-line text-gray-500">
+                {selectedSlot !== null
+                  ? `변경할 키워드를 선택하세요`
+                  : '변경할 대표키워드를\n먼저 선택하세요'}
+              </p>
+            </>
+          ) : !selectedKeywordId ? (
             <>
               <Image
                 src="/icons/gray_teamficial_symbol.svg"

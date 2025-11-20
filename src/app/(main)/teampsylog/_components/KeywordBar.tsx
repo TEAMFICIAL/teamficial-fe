@@ -5,23 +5,32 @@ import Image from 'next/image';
 import ProfileDropdown from './ProfileDropdown';
 import { ResponseProfile } from '@/types/profile';
 
-const DEFAULT_KEYWORDS = ['대표키워드1', '대표키워드2', '대표키워드3'];
-
 const KeywordBar = ({
   profileId,
   profiles,
   selectedProfileId,
   onSelectProfile,
+  isEditMode,
+  onToggleEditMode,
+  selectedSlot,
+  onSelectSlot,
 }: {
   profileId: number;
   profiles: ResponseProfile[];
   selectedProfileId: number | null;
   onSelectProfile: (profileId: number) => void;
+  isEditMode: boolean;
+  onToggleEditMode: () => void;
+  selectedSlot: number | null;
+  onSelectSlot: (index: number) => void;
 }) => {
   const { data } = useGetKeyword({ profileId });
 
-  const keywords =
-    data?.headKeywords && data.headKeywords.length > 0 ? data.headKeywords : DEFAULT_KEYWORDS;
+  const keywords = data?.headKeywords || [];
+  const displayKeywords = [
+    ...keywords,
+    ...Array(Math.max(0, 3 - keywords.length)).fill('키워드를 선택하세요'),
+  ];
 
   const handleShare = async () => {
     let uuid: string | undefined;
@@ -53,12 +62,19 @@ const KeywordBar = ({
           selectedProfileId={selectedProfileId}
           onSelectProfile={onSelectProfile}
         />
-        {keywords.map((keyword, index) => (
-          <KeywordItem key={`${keyword}-${index}`} keyword={keyword} />
+        {displayKeywords.map((keyword, index) => (
+          <KeywordItem
+            key={`${keyword}-${index}`}
+            keyword={keyword}
+            isEditMode={isEditMode}
+            isSelected={selectedSlot === index}
+            isPlaceholder={index >= keywords.length}
+            onClick={() => isEditMode && onSelectSlot(index)}
+          />
         ))}
       </div>
       <div className="flex gap-4">
-        <button className="cursor-pointer">
+        <button onClick={onToggleEditMode} className="cursor-pointer">
           <Image src="/icons/edit.svg" alt="수정하기" width={28} height={28} />
         </button>
         <button onClick={handleShare} className="cursor-pointer">

@@ -9,7 +9,7 @@ export const useUpdateHeadKeywords = () => {
       putHeadKeywords({ profileId, keywordIds }),
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({
-        queryKey: ['project', variables.profileId],
+        queryKey: ['keyword', variables.profileId],
       });
     },
   });
