@@ -78,7 +78,7 @@ const DropdownSmall = ({
         ref={buttonRef}
         type="button"
         style={open && openWidth ? { width: openWidth } : undefined}
-        className={`body-6 inline-flex items-center justify-between border px-4 py-3 transition-[width] duration-150 ${open ? 'rounded-t-md rounded-b-none' : 'rounded-md'} ${isPlaceholder ? 'border-gray-300 text-gray-500' : 'text-primary-900 bg-primary-50 border-primary-900'} `}
+        className={`body-5 inline-flex cursor-pointer items-center justify-between border px-4 py-3 transition-[width] duration-150 ${open ? 'rounded-t-md rounded-b-none' : 'rounded-md'} ${isPlaceholder ? 'border-gray-300 text-gray-500' : 'text-primary-900 bg-primary-50 border-primary-900'} `}
         onClick={() => setOpen((p) => !p)}
         onKeyDown={(e) => {
           if (e.key === 'Enter' || e.key === ' ') {
@@ -88,7 +88,7 @@ const DropdownSmall = ({
           if (e.key === 'Escape') setOpen(false);
         }}
       >
-        <span className="body-6">{isPlaceholder ? placeholder : selectedLabel}</span>
+        <span className="body-5">{isPlaceholder ? placeholder : selectedLabel}</span>
         <Image
           src={
             isPlaceholder
@@ -113,7 +113,7 @@ const DropdownSmall = ({
           id={name ? `${name}-listbox` : undefined}
           role="listbox"
           style={openWidth ? { width: openWidth } : undefined}
-          className={`absolute top-full left-0 z-10 max-h-[196px] divide-y divide-gray-300 overflow-y-auto rounded-b-md border border-t-0 border-gray-300 bg-white whitespace-nowrap`}
+          className={`absolute top-full left-0 z-10 max-h-[196px] cursor-pointer divide-y divide-gray-300 overflow-y-auto rounded-b-md border border-t-0 border-gray-300 bg-white whitespace-nowrap`}
         >
           {options.map((opt, idx) => {
             const isSelected = opt.value === value;
@@ -122,8 +122,8 @@ const DropdownSmall = ({
                 key={opt.value}
                 role="option"
                 aria-selected={isSelected}
-                className={`flex cursor-pointer items-center justify-center px-4 py-3 ${idx === options.length - 1 ? 'rounded-b-md' : ''} ${
-                  isSelected ? 'bg-primary-50' : 'hover:bg-primary-50 text-gray-700'
+                className={`body-5 flex items-center justify-center px-4 py-3 ${idx === options.length - 1 ? 'rounded-b-md' : ''} ${
+                  isSelected ? 'bg-primary-50' : 'hover:bg-primary-50 text-gray-800'
                 }`}
                 onClick={() => {
                   onChange?.(opt.value);
@@ -140,7 +140,7 @@ const DropdownSmall = ({
       {/* 최대 너비 측정용 */}
       <div className="fixed top-0 -left-[9999px] inline-block">
         <div ref={measureRef} className="inline-flex items-center border px-4 py-3">
-          <span className="body-6">{isPlaceholder ? placeholder : selectedLabel}</span>
+          <span className="body-5">{isPlaceholder ? placeholder : selectedLabel}</span>
           {/* 아이콘 공간(24px + margin-left 1.25) 반영 */}
           <span className="inline-block" style={{ width: 24, marginLeft: '0.3125rem' }} />
         </div>

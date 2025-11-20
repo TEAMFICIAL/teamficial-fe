@@ -29,6 +29,8 @@ export type ResponseProject = Project & {
   userName: string;
   createdAt: string;
   dday: number;
+  alreadyApplied: boolean;
+  writer: boolean;
 };
 
 export type DeleteProject = {

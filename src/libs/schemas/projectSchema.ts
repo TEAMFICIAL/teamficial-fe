@@ -37,8 +37,23 @@ export const recruitFormSchema = z.object({
 
 export type RecruitFormType = z.infer<typeof recruitFormSchema>;
 
+// create 모드 전용 스키마 (profileId 필수)
 export const createRecruitFormSchema = recruitFormSchema.required({
   profileId: true,
 });
-
 export type CreateRecruitFormType = z.infer<typeof createRecruitFormSchema>;
+
+// profileId 제외 스키마 (1단계 폼 검증용)
+export const recruitFormWithoutProfileSchema = recruitFormSchema.omit({ profileId: true });
+export type RecruitFormWithoutProfileType = z.infer<typeof recruitFormWithoutProfileSchema>;
+
+// 프로필 선택 전용 스키마 (2단계 프로필 선택용)
+export const profileSelectSchema = z.object({
+  profileId: z
+    .number({
+      error: '프로필을 선택해주세요',
+    })
+    .min(1, '프로필을 선택해주세요'),
+});
+
+export type ProfileSelectType = z.infer<typeof profileSelectSchema>;

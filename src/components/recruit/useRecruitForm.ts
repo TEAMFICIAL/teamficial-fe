@@ -6,7 +6,7 @@ import { useCreateProject } from '@/hooks/mutation/useCreateProject';
 import { useUpdateProject } from '@/hooks/mutation/useUpdateProject';
 import {
   createRecruitFormSchema,
-  recruitFormSchema,
+  recruitFormWithoutProfileSchema,
   RecruitFormType,
 } from '@/libs/schemas/projectSchema';
 import { CreateProject, Project } from '@/types/project';
@@ -16,6 +16,9 @@ type UseRecruitFormProps = {
   mode: 'create' | 'edit';
   initialData?: Project;
   postId?: number;
+  showProfileList?: boolean;
+  onNext?: (data: Partial<RecruitFormType>) => void;
+  initialFormData?: Partial<RecruitFormType> | null;
 };
 
 const convertDateFormat = (dateString: string) => {
@@ -23,16 +26,33 @@ const convertDateFormat = (dateString: string) => {
   return dateString.replace(/\./g, '-');
 };
 
-export const useRecruitForm = ({ mode, initialData, postId }: UseRecruitFormProps) => {
+export const useRecruitForm = ({
+  mode,
+  initialData,
+  postId,
+  showProfileList = true,
+  onNext,
+  initialFormData,
+}: UseRecruitFormProps) => {
   const router = useRouter();
   const { openModal } = useModal();
   const { mutate: createProject } = useCreateProject();
   const { mutate: updateProject } = useUpdateProject();
 
+  const getSchema = () => {
+    if (mode === 'edit') {
+      return recruitFormWithoutProfileSchema;
+    }
+    if (!showProfileList) {
+      return recruitFormWithoutProfileSchema;
+    }
+    return createRecruitFormSchema;
+  };
+
   const formMethods = useForm<RecruitFormType>({
     mode: 'onChange',
     reValidateMode: 'onChange',
-    resolver: zodResolver(mode === 'edit' ? recruitFormSchema : createRecruitFormSchema),
+    resolver: zodResolver(getSchema()),
     defaultValues:
       mode === 'edit' && initialData
         ? {
@@ -44,9 +64,8 @@ export const useRecruitForm = ({ mode, initialData, postId }: UseRecruitFormProp
             deadline: convertDateFormat(initialData.deadline),
             contactWay: initialData.contactWay,
             content: initialData.content,
-            profileId: undefined,
           }
-        : {
+        : initialFormData || {
             title: '',
             recruitingPositions: [{ position: '' as PositionType, count: 1 }],
             progressWay: undefined,
@@ -111,6 +130,10 @@ export const useRecruitForm = ({ mode, initialData, postId }: UseRecruitFormProp
       if (mode === 'edit') {
         handleEdit(formData);
       } else {
+        if (!showProfileList && onNext) {
+          onNext(formData);
+          return;
+        }
         handleCreate(formData);
       }
     } catch (error) {

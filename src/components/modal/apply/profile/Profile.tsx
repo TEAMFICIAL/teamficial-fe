@@ -23,7 +23,7 @@ const Profile = ({ profile }: ProfileCardProps) => {
             <p className="body-1">{profile.profile.userName}</p>
             <div className="flex flex-col gap-1">
               <div className="flex items-center gap-2">
-                <p className="body-5 text-gray-800">연락 수단</p>
+                <p className="body-5 text-gray-800">연락수단</p>
                 <div className="h-3 w-[1px] bg-gray-700" />
                 <p className="body-6 text-gray-700">{profile.profile.contactWay}</p>
               </div>

@@ -9,8 +9,14 @@ import { useState } from 'react';
 import { ApplyModalProps } from '@/constants/ModalList';
 import { useApplicateProject } from '@/hooks/mutation/useApplicateProject';
 import { PositionType } from '@/utils/position';
+import PartDropdown from './PartDropdown';
 
-const ApplyModal = ({ isOpen, onClose, postId, recruitingPositions }: ApplyModalProps) => {
+interface Props {
+  onPositionSelect: (position: PositionType | null) => void;
+  positions: PositionType[];
+}
+
+const ApplyModal = ({ isOpen, onClose, postId, recruitingPositions }: ApplyModalProps & Props) => {
   const { mutate: applicateProject } = useApplicateProject();
   const positions = recruitingPositions?.map((pos) => pos.position) || [];
 
@@ -60,13 +66,10 @@ const ApplyModal = ({ isOpen, onClose, postId, recruitingPositions }: ApplyModal
           <p className="body-6 mb-4 text-gray-700">
             마이페이지에서 설정한 프로필 중 한 가지를 선택해주세요
           </p>
-          <ProfileSlider
-            onProfileSelect={handleProfileSelect}
-            onPositionSelect={setSelectedPosition}
-            positions={positions}
-          />
+          <ProfileSlider onProfileSelect={handleProfileSelect} />
         </div>
         <div>
+          <PartDropdown onPositionSelect={setSelectedPosition} positions={positions} />
           <MessageTextarea value={message} onChange={setMessage} />
           <div className="flex justify-end gap-2">
             <Button
@@ -76,7 +79,11 @@ const ApplyModal = ({ isOpen, onClose, postId, recruitingPositions }: ApplyModal
               취소하기
             </Button>
             <Button
-              className="body-5 bg-primary-900 text-gray-0 hover:bg-primary-700 px-8 py-4"
+              className={`body-5 px-8 py-4 ${
+                message.length > 250 || selectedPosition === null
+                  ? 'cursor-not-allowed bg-gray-300 text-gray-600'
+                  : 'bg-primary-900 text-gray-0 hover:bg-primary-700'
+              } `}
               onClick={handleSubmit}
               disabled={message.length > 250 || selectedPosition === null}
             >
