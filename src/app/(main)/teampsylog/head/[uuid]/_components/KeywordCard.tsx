@@ -1,7 +1,17 @@
+'use client';
+
+import { useRequesterInfo } from '@/hooks/queries/useRequesterInfo';
 import Image from 'next/image';
+import { useParams } from 'next/navigation';
 import React from 'react';
 
 const KeywordCard = () => {
+  const params = useParams();
+  const uuid = String(params.uuid);
+
+  const requesterInfoResult = useRequesterInfo(uuid);
+  const requesterInfo = requesterInfoResult.data;
+
   return (
     <section className="relative my-2.5 flex flex-col gap-10 overflow-hidden rounded-2xl bg-gray-100 px-2.5 py-8">
       <Image
@@ -34,7 +44,7 @@ const KeywordCard = () => {
       />
 
       <div className="relative z-10 flex flex-col justify-center gap-2 text-center">
-        <p className="body-3">김선화님의 팀피셜록</p>
+        <p className="body-3">{requesterInfo?.requesterName}님의 팀피셜록</p>
         <p className="body-9 whitespace-pre-line text-gray-700">{`팀피셜록은 다른 동료들이\n소프트스킬 기반으로 작성해준 키워드입니다`}</p>
       </div>
       <div className="flex flex-col items-center gap-2">
