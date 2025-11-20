@@ -9,7 +9,7 @@ const EmptyAppliedTeam = () => {
           전체보기
         </Link>
       </div>
-      <div className="flex h-[220px] w-full max-w-[944px] items-center justify-center rounded-2xl bg-gray-200 p-2.5 text-center text-gray-600">
+      <div className="body-3 flex h-[220px] w-full max-w-[944px] items-center justify-center rounded-2xl bg-gray-200 p-2.5 text-center text-gray-600">
         <span>
           <Link href="/project" className="text-gray-700 underline">
             프로젝트
