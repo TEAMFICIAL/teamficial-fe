@@ -11,7 +11,7 @@ const ApplicantStatusCard = ({ recruiting }: ApplicantStatusCardProps) => {
   const router = useRouter();
 
   const handleClick = () => {
-    router.push(`/project/${recruiting.recruitingPostId}`);
+    router.push(`/project/${recruiting.recruitingPostId}/applicants`);
   };
 
   return (
