@@ -7,10 +7,10 @@ import KeywordBar from './KeywordBar';
 import LogNote from './LogNote';
 
 interface Props {
-  share?: boolean;
+  share: boolean;
 }
 
-const KeywordPage = ({ share = false }: Props) => {
+const KeywordPage = ({ share }: Props) => {
   const { data } = useGetProfileList();
   const [selectedProfileId, setSelectedProfileId] = useState<number | null>(null);
 
@@ -24,14 +24,17 @@ const KeywordPage = ({ share = false }: Props) => {
 
   return (
     <div className="flex flex-col gap-5 pb-14">
-      {/* 제목 및 프로필 드롭다운 */}
-      <LogTitle
-        profiles={profiles}
-        selectedProfileId={selectedProfileId}
-        onSelectProfile={setSelectedProfileId}
-      />
+      {/* 제목  */}
+      <LogTitle profiles={profiles} />
       {/* 키워드 별 대표키워드, 수정하기, 공유하기 */}
-      {selectedProfileId !== null && <KeywordBar profileId={selectedProfileId} share={share} />}
+      {selectedProfileId !== null && !share && (
+        <KeywordBar
+          profileId={selectedProfileId}
+          profiles={profiles}
+          selectedProfileId={selectedProfileId}
+          onSelectProfile={setSelectedProfileId}
+        />
+      )}
       {/* 팀피셜록 노트 */}
       <LogNote />
     </div>

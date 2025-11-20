@@ -3,10 +3,22 @@ import React from 'react';
 import KeywordItem from './KeywordItem';
 import Button from '@/components/common/button/Button';
 import Image from 'next/image';
+import ProfileDropdown from './ProfileDropdown';
+import { ResponseProfile } from '@/types/profile';
 
 const DEFAULT_KEYWORDS = ['대표키워드1', '대표키워드2', '대표키워드3'];
 
-const KeywordBar = ({ profileId, share }: { profileId: number; share: boolean }) => {
+const KeywordBar = ({
+  profileId,
+  profiles,
+  selectedProfileId,
+  onSelectProfile,
+}: {
+  profileId: number;
+  profiles: ResponseProfile[];
+  selectedProfileId: number | null;
+  onSelectProfile: (profileId: number) => void;
+}) => {
   const { data } = useGetKeyword({ profileId });
 
   const keywords =
@@ -21,26 +33,31 @@ const KeywordBar = ({ profileId, share }: { profileId: number; share: boolean })
 
   return (
     <div className="flex items-center justify-between bg-gray-100 px-4 py-3">
+      {/* 드롭다운 */}
+      <ProfileDropdown
+        profiles={profiles}
+        selectedProfileId={selectedProfileId}
+        onSelectProfile={onSelectProfile}
+      />
+      {/* 대표키워드 */}
       <div className="flex gap-2">
         {keywords.map((keyword, index) => (
           <KeywordItem key={`${keyword}-${index}`} keyword={keyword} />
         ))}
       </div>
-      {!share && (
-        <div className="flex gap-2">
-          <Button className="text-primary-900 border-primary-900 bg-gray-0 body-5 flex items-center gap-[5px] border px-5 py-3">
-            <Image src="/icons/edit.svg" alt="수정하기" width={24} height={24} />
-            <p>수정하기</p>
-          </Button>
-          <Button
-            className="text-gray-0 bg-primary-900 body-5 flex items-center gap-[5px] px-5 py-3"
-            onClick={handleShare}
-          >
-            <Image src="/icons/share.svg" alt="공유하기" width={24} height={24} />
-            <p>공유하기</p>
-          </Button>
-        </div>
-      )}
+      <div className="flex gap-2">
+        <Button className="text-primary-900 border-primary-900 bg-gray-0 body-5 flex items-center gap-[5px] border px-5 py-3">
+          <Image src="/icons/edit.svg" alt="수정하기" width={24} height={24} />
+          <p>수정하기</p>
+        </Button>
+        <Button
+          className="text-gray-0 bg-primary-900 body-5 flex items-center gap-[5px] px-5 py-3"
+          onClick={handleShare}
+        >
+          <Image src="/icons/share.svg" alt="공유하기" width={24} height={24} />
+          <p>공유하기</p>
+        </Button>
+      </div>
     </div>
   );
 };
