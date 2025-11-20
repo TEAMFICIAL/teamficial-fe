@@ -21,6 +21,7 @@ const Pagination: React.FC<PaginationProps> = ({ totalPages, currentPage, onPage
   const startPage = (currentGroup - 1) * groupSize + 1;
   const endPage = Math.min(startPage + groupSize - 1, totalPages);
   const visiblePages = Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i);
+  const pagesToRender = visiblePages.length > 0 ? visiblePages : [1];
 
   return (
     <div className="flex items-center justify-center gap-5 pb-14">
@@ -44,7 +45,7 @@ const Pagination: React.FC<PaginationProps> = ({ totalPages, currentPage, onPage
       </div>
 
       <div className="body-6 flex gap-3">
-        {visiblePages.map((num) => (
+        {pagesToRender.map((num) => (
           <button
             key={num}
             onClick={() => handleChange(num)}
