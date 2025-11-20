@@ -75,37 +75,39 @@ const LogNote = () => {
         )}
       </div>
       {/* 오른쪽 페이지 */}
-      <div
-        className={`relative flex h-162 w-118 flex-col gap-[13px] rounded-r-[16px] bg-gray-200 shadow-[0_4px_4px_0_#E1E1E1] ${
-          !selectedKeywordId ? 'items-center justify-center' : ''
-        }`}
-      >
-        <button
-          onClick={() => setPage((p) => (p + 1 < totalPages ? p + 1 : p))}
-          disabled={page + 1 >= totalPages}
-          className="absolute top-1/2 right-[-16px] flex -translate-y-1/2 cursor-pointer items-center justify-center disabled:opacity-50"
+      {data?.totalElements === 0 ? null : (
+        <div
+          className={`relative flex h-162 w-118 flex-col gap-[13px] rounded-r-[16px] bg-gray-200 shadow-[0_4px_4px_0_#E1E1E1] ${
+            !selectedKeywordId ? 'items-center justify-center' : ''
+          }`}
         >
-          <Image src="/icons/page-after.svg" alt="다음 페이지" width={32} height={32} />
-        </button>
-        {!selectedKeywordId ? (
-          <>
-            <Image
-              src="/icons/gray_teamficial_symbol.svg"
-              alt="teamficial_symbol"
-              width={66}
-              height={67}
+          <button
+            onClick={() => setPage((p) => (p + 1 < totalPages ? p + 1 : p))}
+            disabled={page + 1 >= totalPages}
+            className="absolute top-1/2 right-[-16px] flex -translate-y-1/2 cursor-pointer items-center justify-center disabled:opacity-50"
+          >
+            <Image src="/icons/page-after.svg" alt="다음 페이지" width={32} height={32} />
+          </button>
+          {!selectedKeywordId ? (
+            <>
+              <Image
+                src="/icons/gray_teamficial_symbol.svg"
+                alt="teamficial_symbol"
+                width={66}
+                height={67}
+              />
+              <p className="body-3 text-center whitespace-pre-line text-gray-500">
+                키워드를 선택해 자세한 내용을 확인하세요
+              </p>
+            </>
+          ) : (
+            <CommentPage
+              keywordName={keywords[keywordIds.findIndex((id) => id === selectedKeywordId)] ?? ''}
+              keywordId={selectedKeywordId}
             />
-            <p className="body-3 text-center whitespace-pre-line text-gray-500">
-              키워드를 선택해 자세한 내용을 확인하세요
-            </p>
-          </>
-        ) : (
-          <CommentPage
-            keywordName={keywords[keywordIds.findIndex((id) => id === selectedKeywordId)] ?? ''}
-            keywordId={selectedKeywordId}
-          />
-        )}
-      </div>
+          )}
+        </div>
+      )}
     </section>
   );
 };
