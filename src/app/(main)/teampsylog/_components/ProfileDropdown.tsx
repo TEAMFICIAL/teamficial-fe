@@ -22,7 +22,7 @@ const ProfileDropdown = ({
   return (
     <div ref={dropdownRef} className="relative">
       <div
-        className="title-3 flex cursor-pointer gap-1 border-b-2 pb-0.5"
+        className="body-5 bg-gray-0 flex gap-1 rounded-lg border border-gray-300 px-5 py-3 text-gray-800"
         onClick={() => setIsOpen(!isOpen)}
       >
         <p>{selectedProfile?.profileName || '프로필 선택'}</p>

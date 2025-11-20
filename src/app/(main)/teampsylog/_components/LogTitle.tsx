@@ -8,8 +8,6 @@ type LogTitleProps = {
 };
 
 const LogTitle = ({ profiles }: LogTitleProps) => {
-  // TODO: 드롭다운 컴포넌트 분리
-
   const userName = profiles[0]?.userName || '사용자';
 
   return (
