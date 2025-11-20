@@ -38,6 +38,7 @@ export interface ResponseTeamficialLog {
 }
 
 export interface RequesterInfo {
+  userId: number;
   requesterName: string;
 }
 

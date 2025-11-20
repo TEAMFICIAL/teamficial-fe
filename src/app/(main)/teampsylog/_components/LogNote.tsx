@@ -3,24 +3,11 @@ import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import CommentPage from './CommentPage';
 
-const LogNote = () => {
-  const [currentUserId, setCurrentUserId] = useState<number | null>(null);
+const LogNote = ({ userId }: { userId?: number }) => {
   const [page, setPage] = useState(0);
 
-  useEffect(() => {
-    try {
-      const userString = localStorage.getItem('user');
-      if (!userString) return;
-      const userData = JSON.parse(userString);
-      const userId = userData?.state?.userId;
-      if (userId) setCurrentUserId(userId);
-    } catch {
-      setCurrentUserId(null);
-    }
-  }, []);
-
   const { data } = useGetKeywordList({
-    userId: currentUserId ?? 0,
+    userId: userId ?? 0,
     page,
     size: 6,
   });

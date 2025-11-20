@@ -1,10 +1,10 @@
 import React from 'react';
-import KeywordPage from '../_components/KeywordPage';
+import KeywordListPage from './_components/KeywordListPage';
 
 const page = () => {
   return (
     <>
-      <KeywordPage share={true} />
+      <KeywordListPage />
     </>
   );
 };
