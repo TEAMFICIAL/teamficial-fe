@@ -1,7 +1,7 @@
 'use client';
 
 import DropdownSmall from '@/components/common/DropdownSmall';
-import { RECRUIT_STATUS } from '@/constants/Dropdown';
+import { APPLIED_TEAMS } from '@/constants/Dropdown';
 
 interface AppliedTitleProps {
   applicantStatus: string;
@@ -17,7 +17,7 @@ const AppliedTitle = ({ applicantStatus, setApplicantStatus }: AppliedTitleProps
         value={applicantStatus}
         placeholder="지원현황"
         onChange={(v) => setApplicantStatus(v)}
-        options={RECRUIT_STATUS}
+        options={APPLIED_TEAMS}
       />
     </div>
   );

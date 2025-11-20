@@ -14,6 +14,7 @@ export const RECRUIT_OPTIONS = [
 ];
 
 export const DURATION_OPTIONS = [
+  { label: '전체', value: '' },
   { label: '온라인', value: 'ONLINE' },
   { label: '오프라인', value: 'OFFLINE' },
   { label: '온/오프라인', value: 'HYBRID' },
@@ -52,3 +53,16 @@ export const WORKING_VALUE_MAP: Record<string, string> = {
   밤: 'EVENING',
   새벽: 'DAWN',
 };
+
+export const APPLIED_TEAMS = [
+  { label: '전체', value: '' },
+  { label: '매칭중', value: 'MATCHING' },
+  { label: '매칭성공', value: 'MATCHED' },
+  { label: '매칭실패', value: 'MATCH_FAILED' },
+];
+
+export const APPLICANT_STATUS = [
+  { label: '전체', value: '' },
+  { label: '마감된 공고', value: 'CLOSED' },
+  { label: '진행중인 공고', value: 'OPEN' },
+];
