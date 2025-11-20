@@ -2,10 +2,10 @@
 
 import { useRouter } from 'next/navigation';
 import Button from '@/components/common/button/Button';
-import DropdownSmall from '@/components/common/DropdownSmall';
 import Toggle from '@/components/common/Toggle';
 import { DURATION_OPTIONS, RECRUIT_OPTIONS } from '@/constants/Dropdown';
 import { useState } from 'react';
+import DropdownSmall from './Dropdown';
 
 type Filters = {
   duration: string;
