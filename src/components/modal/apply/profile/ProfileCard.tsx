@@ -7,17 +7,15 @@ import ProfileLinkButton from '@/components/profile/ProfileLinkButton';
 interface ProfileCardProps {
   profile: ResponseProfile;
   keywords?: string[];
-  onClick?: () => void;
   isSelected?: boolean;
 }
 
-const ProfileCard = ({ profile, keywords, onClick, isSelected }: ProfileCardProps) => {
+const ProfileCard = ({ profile, keywords, isSelected }: ProfileCardProps) => {
   const isUrl = /^(https?:\/\/|www\.)/i.test(profile.contactWay);
 
   return (
     <div
       className={`flex w-full cursor-pointer ${profile.links && profile.links.length > 0 ? 'justify-between' : 'flex-1 justify-start'}`}
-      onClick={onClick}
       tabIndex={0}
       role="button"
       aria-pressed={isSelected}
