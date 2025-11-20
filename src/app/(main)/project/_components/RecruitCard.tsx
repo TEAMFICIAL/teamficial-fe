@@ -11,6 +11,7 @@ interface RecruitCardProps {
   mode: string;
   dday: number;
   profileImage?: string;
+  status: string;
   onClick?: () => void;
 }
 
@@ -22,15 +23,23 @@ const RecruitCard = ({
   duration,
   mode,
   dday,
+  status,
   profileImage = '/icons/profile.svg',
   onClick,
 }: RecruitCardProps) => {
+  const isClosed = status === 'CLOSED';
+
   return (
     <article
-      className="bg-gray-0 flex max-w-[304px] cursor-pointer flex-col justify-center gap-6 rounded-lg border-1 border-gray-300 p-5"
+      className="bg-gray-0 relative flex max-w-[304px] cursor-pointer flex-col justify-center gap-6 rounded-lg border-1 border-gray-300 p-5"
       onClick={onClick}
       onKeyDown={(e) => e.key === 'Enter' && onClick?.()}
     >
+      {isClosed && (
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center rounded-lg bg-black/80">
+          <span className="title-2 text-gray-0">모집 마감</span>
+        </div>
+      )}
       <div className="flex flex-col gap-2.5">
         <div className="flex w-full justify-between">
           <div className="flex gap-1">

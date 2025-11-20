@@ -23,9 +23,11 @@ const ProfileInfo = ({ profile }: ProfileInfoProps) => {
         <p className="body-1 mb-2 text-gray-900">{profile?.userName || userName}</p>
 
         <div className="flex items-center gap-2">
-          <p className="body-5 text-gray-800">연락수단</p>
+          <p className="body-5 flex-shrink-0 whitespace-nowrap text-gray-800">연락수단</p>
           <div className="h-3 w-[1px] bg-gray-700"></div>
-          <p className="body-6 text-gray-600">{profile?.contactWay || '연락수단을 등록해주세요'}</p>
+          <p className="body-6 max-w-[316px] truncate text-gray-600">
+            {profile?.contactWay || '연락수단을 등록해주세요'}
+          </p>
         </div>
 
         <div className="flex items-center gap-2 pb-5">

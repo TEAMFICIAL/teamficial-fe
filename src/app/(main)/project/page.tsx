@@ -9,6 +9,8 @@ import { useRouter } from 'next/navigation';
 import { ResponseProject } from '@/types/project';
 import { PERIOD_KR, POSITION_KR, PROGRESS_WAY_KR } from '@/constants/Translate';
 import { Filters, useRecruitingPosts } from '@/hooks/queries/useRecruitingPosts';
+import Loading from '@/components/common/Loading';
+import ErrorDisplay from '@/components/common/Error';
 
 const Page = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -35,9 +37,9 @@ const Page = () => {
         <ButtonContainer onChange={setFilters} />
       </div>
       {isLoading ? (
-        <p className="py-10 text-center text-gray-500">불러오는 중...</p>
+        <Loading />
       ) : isError ? (
-        <p className="py-10 text-center text-red-500">데이터를 불러오는 중 오류가 발생했습니다.</p>
+        <ErrorDisplay message="데이터를 불러오는 중 오류가 발생했습니다." />
       ) : (
         <div className="grid grid-cols-3 gap-4 py-5">
           {currentCards.map((card: ResponseProject) => (
@@ -52,6 +54,7 @@ const Page = () => {
               duration={PERIOD_KR[card.period] || card.period}
               mode={PROGRESS_WAY_KR[card.progressWay] || card.progressWay}
               dday={card.dday}
+              status={card.status}
               onClick={() => handleCardClick(card.postId)}
             />
           ))}

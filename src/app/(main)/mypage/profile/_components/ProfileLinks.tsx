@@ -10,7 +10,7 @@ const iconMap = {
   github: '/icons/github.svg',
   notion: '/icons/notion.svg',
   linkedin: '/icons/linkedin.svg',
-  other: '/icons/empty-link.svg',
+  other: '/icons/etclink.svg',
 } as const;
 
 const ProfileLinks = ({ links }: ProfileLinksProps) => {

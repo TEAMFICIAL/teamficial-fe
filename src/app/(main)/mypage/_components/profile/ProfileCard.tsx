@@ -24,14 +24,20 @@ const ProfileCard = ({ profile }: ProfileCardProps) => {
         <div className="flex flex-col">
           <p className="body-1 mb-2 text-gray-900">{profile.userName}님</p>
           <div className="flex items-center gap-2">
-            <p className="body-5 text-gray-800">연락수단</p>
+            <p className="body-5 flex-shrink-0 whitespace-nowrap text-gray-800">연락수단</p>
             <div className="h-3 w-[1px] bg-gray-700"></div>
-            <p className="body-6 text-gray-600">{profile.contactWay}</p>
+            <p className="body-6 max-w-[316px] truncate text-gray-600">
+              {profile.contactWay ?? '연락수단을 등록해주세요'}
+            </p>
           </div>
           <div className="mb-5 flex items-center gap-2">
             <p className="body-5 text-gray-800">작업시간</p>
             <div className="h-3 w-[1px] bg-gray-700"></div>
-            <p className="body-6 text-gray-600">{profile.workingTime}에 작업하는게 편해요</p>
+            <p className="body-6 text-gray-600">
+              {profile.workingTime
+                ? `${profile.workingTime}에 작업하는게 편해요`
+                : '작업시간대를 선택해주세요'}
+            </p>
           </div>
           {profile.headKeywords.length > 0 ? (
             <div className="flex flex-wrap gap-2">
