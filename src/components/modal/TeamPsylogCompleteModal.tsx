@@ -13,7 +13,7 @@ const TeamPsylogCompleteModal = ({
   const router = useRouter();
 
   const handleHome = () => {
-    router.push('/home');
+    router.push('/project');
     onClose();
   };
 

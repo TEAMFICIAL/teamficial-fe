@@ -57,8 +57,8 @@ export const WORKING_VALUE_MAP: Record<string, string> = {
 export const APPLIED_TEAMS = [
   { label: '전체', value: '' },
   { label: '매칭중', value: 'MATCHING' },
-  { label: '매칭성공', value: 'MATCHED' },
-  { label: '매칭실패', value: 'MATCH_FAILED' },
+  { label: '매칭 성공', value: 'MATCHED' },
+  { label: '매칭 실패', value: 'MATCH_FAILED' },
 ];
 
 export const APPLICANT_STATUS = [
