@@ -135,3 +135,13 @@
   background-position: center;
   background-size: 16px 16px;
 }
+
+/* 선택 불가(비활성화) 날짜 색상 연하게 */
+.react-datepicker__day--disabled,
+.react-datepicker__month-text--disabled,
+.react-datepicker__quarter-text--disabled,
+.react-datepicker__year-text--disabled {
+  color: #d1d5db !important; /* 연한 회색 (Tailwind gray-300) */
+  pointer-events: none;
+  opacity: 1;
+}

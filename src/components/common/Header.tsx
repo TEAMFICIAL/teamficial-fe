@@ -28,8 +28,8 @@ const Header = () => {
           <Link
             href="/project"
             className={clsx(
-              'body-4 hover:text-primary-900 px-3 transition-colors',
-              pathname.startsWith('/project') ? 'text-primary-900' : 'text-gray-900',
+              'hover:text-primary-900 px-3 transition-colors',
+              pathname.startsWith('/project') ? 'text-primary-900 body-3' : 'body-4 text-gray-900',
             )}
           >
             프로젝트
@@ -37,8 +37,10 @@ const Header = () => {
           <Link
             href="/teampsylog"
             className={clsx(
-              'body-4 hover:text-primary-900 px-3 transition-colors',
-              pathname.startsWith('/teampsylog') ? 'text-primary-900' : 'text-gray-900',
+              'hover:text-primary-900 px-3 transition-colors',
+              pathname.startsWith('/teampsylog')
+                ? 'text-primary-900 body-3'
+                : 'body-4 text-gray-900',
             )}
           >
             팀피셜록

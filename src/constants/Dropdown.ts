@@ -22,10 +22,9 @@ export const DURATION_OPTIONS = [
 
 export const PERIOD_OPTIONS = [
   { label: '1개월 이내', value: 'WITHIN_1_MONTH' },
-  { label: '1~2개월', value: 'ONE_TO_TWO_MONTHS' },
-  { label: '약 3개월', value: 'AROUND_3_MONTHS' },
+  { label: '1~3개월', value: 'ONE_TO_THREE_MONTHS' },
   { label: '3~6개월', value: 'THREE_TO_SIX_MONTHS' },
-  { label: '6개월 이상(장기)', value: 'OVER_6_MONTHS' },
+  { label: '6개월 이상', value: 'OVER_6_MONTHS' },
   { label: '미정/협의예정', value: 'FLEXIBLE' },
 ];
 

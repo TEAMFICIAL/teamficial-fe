@@ -9,7 +9,11 @@ interface DropdownSelectProps {
   onSelect?: (value: string) => void;
 }
 
-const DropdownSelect = ({ options, defaultLabel = '지원분야', onSelect }: DropdownSelectProps) => {
+const DropdownSelect = ({
+  options,
+  defaultLabel = '지원분야를 선택해주세요',
+  onSelect,
+}: DropdownSelectProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState<{ label: string; value: string } | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -34,9 +38,9 @@ const DropdownSelect = ({ options, defaultLabel = '지원분야', onSelect }: Dr
     <div ref={dropdownRef} className="relative inline-block">
       <button
         onClick={() => setIsOpen((prev) => !prev)}
-        className={`body-7 flex w-[100px] items-center justify-between rounded-md bg-gray-200 pl-3 text-gray-700 transition-colors`}
+        className={`body-6 flex w-full items-center justify-between border border-gray-300 bg-white px-7 py-3 focus:border-gray-500 ${isOpen ? 'rounded-t-md rounded-b-none' : 'rounded-md'} `}
       >
-        <span>{selected?.label || defaultLabel}</span>
+        <span className={selected ? '' : 'text-gray-500'}>{selected?.label || defaultLabel}</span>
         <Image
           src={`/icons/profile_dropdown_${isOpen ? 'up' : 'down'}.svg`}
           alt="arrow"
@@ -47,18 +51,30 @@ const DropdownSelect = ({ options, defaultLabel = '지원분야', onSelect }: Dr
       </button>
 
       {isOpen && (
-        <ul className="absolute z-10 rounded-md bg-gray-200 text-gray-700">
-          {options.map((option, index) => (
-            <li
-              key={option.value}
-              onClick={() => handleSelect(option)}
-              className={`body-7 w-[100px] cursor-pointer pr-6 pl-3 ${
-                index === 0 ? '' : 'border-t border-gray-300'
-              } ${selected?.value === option?.value ? 'bg-gray-300' : ''}`}
-            >
-              {option.label}
-            </li>
-          ))}
+        <ul
+          className={[
+            'absolute top-full right-0 left-0 z-10',
+            'border border-t-0 border-gray-300 bg-white',
+            'divide-y divide-gray-300 rounded-b-md',
+          ].join(' ')}
+        >
+          {options.map((option, idx) => {
+            const isLast = idx === options.length - 1;
+
+            return (
+              <li
+                key={option.value}
+                onClick={() => handleSelect(option)}
+                className={[
+                  'cursor-pointer px-7 py-3',
+                  'hover:bg-primary-50 body-6',
+                  isLast ? 'rounded-b-md' : '',
+                ].join(' ')}
+              >
+                {option.label}
+              </li>
+            );
+          })}
         </ul>
       )}
     </div>
