@@ -42,14 +42,14 @@ const ProfileCard = ({ profile, keywords, isSelected }: ProfileCardProps) => {
                     href={profile.contactWay}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="body-4 text-primary-900 max-w-[180px] truncate underline"
+                    className="body-6 text-primary-900 max-w-[180px] truncate underline"
                     title={profile.contactWay}
                   >
                     {profile.contactWay}
                   </a>
                 ) : (
                   <p
-                    className="body-4 max-w-[180px] truncate text-gray-700"
+                    className="body-6 max-w-[180px] truncate text-gray-700"
                     title={profile.contactWay}
                   >
                     {profile.contactWay}
