@@ -13,7 +13,7 @@ export default function LoginSocial({ type, onClick }: LoginSocialProps) {
 
   return (
     <div
-      className={`title-2 flex h-[76px] w-full cursor-pointer flex-row items-center justify-center rounded-lg px-[40px] py-[20px] ${config.bgColor}`}
+      className={`title-3 flex w-full cursor-pointer flex-row items-center justify-center rounded-lg px-10 py-5 ${config.bgColor}`}
       onClick={onClick}
     >
       <div className="mr-[10px] h-6 w-6">
