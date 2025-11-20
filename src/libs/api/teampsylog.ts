@@ -1,8 +1,10 @@
 import {
   RequesterInfo,
   RequestKeyword,
+  RequestKeywordComment,
   RequestTeamficialLog,
   ResponseKeyword,
+  ResponseKeywordComment,
   ResponseKeywordList,
   ResponseTeamficialLog,
 } from '@/types/teampsylog';
@@ -22,7 +24,7 @@ export async function getKeywords(profileId: number): Promise<ResponseKeyword> {
 export async function getKeywordList({
   userId,
   page = 0,
-  size = 3,
+  size = 6,
 }: RequestKeyword): Promise<ResponseKeywordList> {
   const { data } = await api.get<CommonResponse<ResponseKeywordList>>(`teamficial-log/${userId}`, {
     params: {
@@ -56,6 +58,27 @@ export const getRequesterInfo = async (uuid: string): Promise<RequesterInfo> => 
 
   if (!data.isSuccess) {
     throw new Error(data.message);
+  }
+
+  return data.result;
+};
+
+export const getKeywordComments = async ({
+  keywordId,
+  page = 0,
+  size = 4,
+}: RequestKeywordComment): Promise<ResponseKeywordComment> => {
+  const { data } = await api.get<CommonResponse<ResponseKeywordComment>>(
+    `teamficial-log/users/${keywordId}`,
+    {
+      params: {
+        page,
+        size,
+      },
+    },
+  );
+  if (!data.isSuccess) {
+    throw new Error(data.message || 'Failed to fetch keyword comments');
   }
 
   return data.result;
