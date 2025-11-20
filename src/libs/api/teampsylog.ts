@@ -7,6 +7,8 @@ import {
   ResponseKeywordComment,
   ResponseKeywordList,
   ResponseTeamficialLog,
+  RequsetHeadKeyword,
+  ResponseHeadKeyword,
 } from '@/types/teampsylog';
 import api from './api';
 import { CommonResponse } from '@/types/common';
@@ -79,6 +81,23 @@ export const getKeywordComments = async ({
   );
   if (!data.isSuccess) {
     throw new Error(data.message || 'Failed to fetch keyword comments');
+  }
+
+  return data.result;
+};
+
+export const putHeadKeywords = async ({
+  profileId,
+  keywordIds,
+}: RequsetHeadKeyword): Promise<ResponseHeadKeyword> => {
+  const { data } = await api.put<CommonResponse<ResponseHeadKeyword>>(
+    `/teamficial-log/head-keyword/${profileId}`,
+    {
+      keywordIds,
+    },
+  );
+  if (!data.isSuccess) {
+    throw new Error(data.message || 'Failed to update head keywords');
   }
 
   return data.result;

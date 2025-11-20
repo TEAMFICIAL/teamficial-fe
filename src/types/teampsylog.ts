@@ -56,3 +56,14 @@ export interface ResponseKeywordComment {
   hasNext: boolean;
   nextPage: number;
 }
+
+export interface RequsetHeadKeyword {
+  profileId: number;
+  keywordIds: number[];
+}
+
+export interface ResponseHeadKeyword {
+  profileId: number;
+  profileName: string;
+  headKeywords: string[];
+}
