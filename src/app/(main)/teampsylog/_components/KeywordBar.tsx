@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 const DEFAULT_KEYWORDS = ['대표키워드1', '대표키워드2', '대표키워드3'];
 
-const KeywordBar = ({ profileId }: { profileId: number }) => {
+const KeywordBar = ({ profileId, share }: { profileId: number; share: boolean }) => {
   const { data } = useGetKeyword({ profileId });
 
   const keywords =
@@ -26,19 +26,21 @@ const KeywordBar = ({ profileId }: { profileId: number }) => {
           <KeywordItem key={`${keyword}-${index}`} keyword={keyword} />
         ))}
       </div>
-      <div className="flex gap-2">
-        <Button className="text-primary-900 border-primary-900 bg-gray-0 body-5 flex items-center gap-[5px] border px-5 py-3">
-          <Image src="/icons/edit.svg" alt="수정하기" width={24} height={24} />
-          <p>수정하기</p>
-        </Button>
-        <Button
-          className="text-gray-0 bg-primary-900 body-5 flex items-center gap-[5px] px-5 py-3"
-          onClick={handleShare}
-        >
-          <Image src="/icons/share.svg" alt="공유하기" width={24} height={24} />
-          <p>공유하기</p>
-        </Button>
-      </div>
+      {!share && (
+        <div className="flex gap-2">
+          <Button className="text-primary-900 border-primary-900 bg-gray-0 body-5 flex items-center gap-[5px] border px-5 py-3">
+            <Image src="/icons/edit.svg" alt="수정하기" width={24} height={24} />
+            <p>수정하기</p>
+          </Button>
+          <Button
+            className="text-gray-0 bg-primary-900 body-5 flex items-center gap-[5px] px-5 py-3"
+            onClick={handleShare}
+          >
+            <Image src="/icons/share.svg" alt="공유하기" width={24} height={24} />
+            <p>공유하기</p>
+          </Button>
+        </div>
+      )}
     </div>
   );
 };

@@ -6,7 +6,11 @@ import { useGetProfileList } from '@/hooks/queries/useProfile';
 import KeywordBar from './KeywordBar';
 import LogNote from './LogNote';
 
-const KeywordPage = () => {
+interface Props {
+  share?: boolean;
+}
+
+const KeywordPage = ({ share = false }: Props) => {
   const { data } = useGetProfileList();
   const [selectedProfileId, setSelectedProfileId] = useState<number | null>(null);
 
@@ -27,7 +31,7 @@ const KeywordPage = () => {
         onSelectProfile={setSelectedProfileId}
       />
       {/* 키워드 별 대표키워드, 수정하기, 공유하기 */}
-      {selectedProfileId !== null && <KeywordBar profileId={selectedProfileId} />}
+      {selectedProfileId !== null && <KeywordBar profileId={selectedProfileId} share={share} />}
       {/* 팀피셜록 노트 */}
       <LogNote />
     </div>
