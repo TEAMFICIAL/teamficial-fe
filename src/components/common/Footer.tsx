@@ -14,7 +14,7 @@ const Footer = () => {
             <Image src="/icons/mail.svg" alt="mail" width={24} height={24} />
           </a>
           <a
-            href="https://instagram.com/teamficial"
+            href="https://www.instagram.com/teamficial.official/"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="인스타그램"
