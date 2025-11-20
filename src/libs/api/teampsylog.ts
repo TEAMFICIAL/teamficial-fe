@@ -22,7 +22,7 @@ export async function getKeywords(profileId: number): Promise<ResponseKeyword> {
 export async function getKeywordList({
   userId,
   page = 0,
-  size = 3,
+  size = 6,
 }: RequestKeyword): Promise<ResponseKeywordList> {
   const { data } = await api.get<CommonResponse<ResponseKeywordList>>(`teamficial-log/${userId}`, {
     params: {
