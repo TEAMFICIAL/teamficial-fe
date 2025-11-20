@@ -104,6 +104,7 @@ export type MyApplication = {
 
 export type MyRecruitingPost = {
   recruitingPostId: number;
+  recruitingPostStatus: string;
   writerName: string;
   profileImage: string;
   title: string;
