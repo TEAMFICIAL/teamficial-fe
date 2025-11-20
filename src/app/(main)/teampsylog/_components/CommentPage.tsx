@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect } from 'react';
 import { useInfiniteKeywordComment } from '@/hooks/queries/useKeyword';
 import { useInView } from 'react-intersection-observer';

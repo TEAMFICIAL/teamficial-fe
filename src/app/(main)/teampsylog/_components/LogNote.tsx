@@ -1,3 +1,5 @@
+'use client';
+
 import { useGetKeywordList } from '@/hooks/queries/useKeyword';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
