@@ -19,7 +19,9 @@ const Banner = () => {
         프로젝트를 함께 할 동료를 찾아보세요
       </p>
 
-      <LineButton onClick={() => router.push(`/question/${uuid}`)}>팀피셜록 요청하기 →</LineButton>
+      <LineButton onClick={() => router.push(`/teampsylog/head/${uuid}`)}>
+        팀피셜록 요청하기 →
+      </LineButton>
     </section>
   );
 };
