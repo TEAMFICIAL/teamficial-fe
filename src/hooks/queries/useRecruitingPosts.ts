@@ -10,16 +10,19 @@ export interface Filters {
   onlyOpen: boolean;
 }
 
-export const useRecruitingPosts = (filters: Filters, page: number, pageSize = 9) => {
+export const useRecruitingPosts = (filters: Filters, pageNumber: number, pageSize = 9) => {
   return useQuery<PagedProjects>({
-    queryKey: ['recruitingPosts', filters, page],
+    queryKey: ['recruitingPosts', JSON.stringify(filters), pageNumber, pageSize],
     queryFn: async () => {
       const result = await getRecruitingPosts({
         status: filters.onlyOpen ? 'OPEN' : undefined,
         position: filters.recruit || undefined,
         progressWay: filters.duration || undefined,
-        pageable: { page: page - 1, size: pageSize, sort: ['createdAt,desc'] },
+        page: pageNumber - 1,
+        size: pageSize,
+        sort: [''],
       });
+      console.log(result);
       return result;
     },
   });
