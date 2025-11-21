@@ -14,8 +14,8 @@ interface AllKeywordProps {
 const KEYWORD_ICON_STYLES = [
   { top: 49.8, left: 224, rotate: '14.781deg' },
   { top: 166.8, left: 43, rotate: '0deg' },
-  { top: 277.5, left: 257, rotate: '6.665deg' },
-  { top: 381, left: 54, rotate: '14.074deg' },
+  { top: 277.5, left: 227, rotate: '6.665deg' },
+  { top: 381, left: 34, rotate: '14.074deg' },
   { top: 540, left: 226, rotate: '-3.128deg' },
 ];
 
