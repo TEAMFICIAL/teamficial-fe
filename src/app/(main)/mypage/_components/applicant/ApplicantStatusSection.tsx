@@ -16,7 +16,7 @@ const ApplicantStatusSection = ({ recruitings }: ApplicantStatusSectionProps) =>
   };
 
   return (
-    <div className="mb-14">
+    <>
       <div className="flex w-full justify-between py-5">
         <p className="title-2 text-gray-900">지원자 현황</p>
         <button
@@ -32,7 +32,7 @@ const ApplicantStatusSection = ({ recruitings }: ApplicantStatusSectionProps) =>
           <ApplicantStatusCard key={post.recruitingPostId} recruiting={post} />
         ))}
       </div>
-    </div>
+    </>
   );
 };
 

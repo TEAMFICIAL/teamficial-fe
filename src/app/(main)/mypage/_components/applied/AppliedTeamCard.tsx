@@ -30,7 +30,7 @@ const AppliedTeamCard = ({ application }: AppliedTeamCardProps) => {
         </div>
         <Tag className={getStatusColor(application.status)}>{application.status}</Tag>
       </div>
-      <p className="title-3 text-gray-900">{application.title}</p>
+      <p className="title-3 truncate text-gray-900">{application.title}</p>
       <div className="body-8 mb-5 flex gap-1 text-gray-600">
         {application.tags.map((tag) => (
           <p key={tag}>#{tag}</p>

@@ -2,7 +2,7 @@ export const RECRUIT_OPTIONS = [
   { label: '모든 파트', value: 'ALL' },
   { label: '프론트엔드', value: 'FRONTEND' },
   { label: '백엔드', value: 'BACKEND' },
-  { label: 'UXUI디자인', value: 'UI_UX' },
+  { label: 'UX/UI 디자인', value: 'UI_UX' },
   { label: 'AI', value: 'AI' },
   { label: '안드로이드', value: 'ANDROID' },
   { label: 'iOS', value: 'IOS' },

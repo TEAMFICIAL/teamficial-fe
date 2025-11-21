@@ -11,7 +11,7 @@ const ProfileKeywords = ({ keywords }: ProfileKeywordsProps) => {
   return (
     <div className="body-7 flex flex-wrap gap-2">
       {displayKeywords.map((k, i) => (
-        <Keyword key={i} className="border border-gray-300 bg-gray-200 px-4 py-2 text-gray-600">
+        <Keyword key={i} className="bg-gray-0 border border-gray-300 px-4 py-2 text-gray-600">
           {k}
         </Keyword>
       ))}

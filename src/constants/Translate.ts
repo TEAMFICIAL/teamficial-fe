@@ -15,7 +15,7 @@ export const PERIOD_KR: Record<string, string> = {
 export const POSITION_KR: Record<string, string> = {
   FRONTEND: '프론트엔드',
   BACKEND: '백엔드',
-  UI_UX: 'UI/UX 디자인',
+  UI_UX: 'UX/UI 디자인',
   AI: 'AI',
   ANDROID: '안드로이드',
   IOS: 'iOS',

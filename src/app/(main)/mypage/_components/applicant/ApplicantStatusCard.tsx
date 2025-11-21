@@ -27,7 +27,7 @@ const ApplicantStatusCard = ({ recruiting }: ApplicantStatusCardProps) => {
           {recruiting.recruitingPostStatus === '모집 마감' ? '마감' : formatDday(recruiting.dday)}
         </Tag>
       </div>
-      <p className="title-3 text-gray-900">{recruiting.title}</p>
+      <p className="title-3 truncate text-gray-900">{recruiting.title}</p>
       <div className="body-8 flex gap-1 text-gray-600">
         {recruiting.tags.map((tag) => (
           <p key={tag}>#{tag}</p>
