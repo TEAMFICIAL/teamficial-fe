@@ -36,7 +36,7 @@ export default function KakaoCallbackClient() {
             localStorage.setItem('accessToken', accessToken);
             localStorage.setItem('refreshToken', refreshToken);
             if (first) {
-              router.replace('/signup');
+              router.replace('/');
             } else {
               router.replace('/');
             }
