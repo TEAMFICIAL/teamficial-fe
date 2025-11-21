@@ -6,24 +6,33 @@ import ProfileDropdown from './ProfileDropdown';
 import { ResponseProfile } from '@/types/profile';
 import { useToast } from '@/contexts/ToastContext';
 
-const DEFAULT_KEYWORDS = ['대표키워드1', '대표키워드2', '대표키워드3'];
-
 const KeywordBar = ({
   profileId,
   profiles,
   selectedProfileId,
   onSelectProfile,
+  isEditMode,
+  onToggleEditMode,
+  selectedSlot,
+  onSelectSlot,
 }: {
   profileId: number;
   profiles: ResponseProfile[];
   selectedProfileId: number | null;
   onSelectProfile: (profileId: number) => void;
+  isEditMode: boolean;
+  onToggleEditMode: () => void;
+  selectedSlot: number | null;
+  onSelectSlot: (index: number) => void;
 }) => {
   const { data } = useGetKeyword({ profileId });
   const { addToast } = useToast();
 
-  const keywords =
-    data?.headKeywords && data.headKeywords.length > 0 ? data.headKeywords : DEFAULT_KEYWORDS;
+  const headKeywords = data?.headKeywords || [];
+  const displayKeywords = [
+    ...headKeywords.map((kw) => kw.headKeywordName),
+    ...Array(Math.max(0, 3 - headKeywords.length)).fill('키워드를 선택하세요'),
+  ];
 
   const handleShare = async () => {
     let uuid: string | undefined;
@@ -40,7 +49,7 @@ const KeywordBar = ({
       }
     }
     const url = uuid
-      ? `${window.location.origin}/teampsylog/${uuid}`
+      ? `${window.location.origin}/question/${uuid}`
       : `${window.location.origin}/teampsylog`;
     await navigator.clipboard.writeText(url);
     addToast({ message: '링크가 복사되었어요' });
@@ -55,12 +64,19 @@ const KeywordBar = ({
           selectedProfileId={selectedProfileId}
           onSelectProfile={onSelectProfile}
         />
-        {keywords.map((keyword, index) => (
-          <KeywordItem key={`${keyword}-${index}`} keyword={keyword} />
+        {displayKeywords.map((keyword, index) => (
+          <KeywordItem
+            key={`${keyword}-${index}`}
+            keyword={keyword}
+            isEditMode={isEditMode}
+            isSelected={selectedSlot === index}
+            isPlaceholder={index >= headKeywords.length}
+            onClick={() => isEditMode && onSelectSlot(index)}
+          />
         ))}
       </div>
       <div className="flex gap-4">
-        <button className="cursor-pointer">
+        <button onClick={onToggleEditMode} className="cursor-pointer">
           <Image src="/icons/edit.svg" alt="수정하기" width={28} height={28} />
         </button>
         <button onClick={handleShare} className="cursor-pointer">
