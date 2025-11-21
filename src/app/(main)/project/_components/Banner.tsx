@@ -12,10 +12,7 @@ const Banner = () => {
 
   const handleClick = async () => {
     router.push(`/teampsylog/${uuid}`);
-    const url = uuid
-      ? `${window.location.origin}/teampsylog/${uuid}`
-      : `${window.location.origin}/teampsylog`;
-
+    const url = `${window.location.origin}/teampsylog/${uuid}`;
     await navigator.clipboard.writeText(url);
     addToast({ message: '링크가 복사되었어요' });
   };
