@@ -2,7 +2,6 @@ import React from 'react';
 import QuestionTemplate from './_components/QuestionTemplate';
 import { Metadata } from 'next';
 import axios from 'axios';
-import { cookies } from 'next/headers';
 
 type Props = {
   params: Promise<{ uuid: string }>;
@@ -11,13 +10,7 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { uuid } = await params;
 
-  const cookieStore = await cookies();
-  const accessToken = cookieStore.get('accessToken')?.value;
-
   const res = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/teamficial-log/requester`, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
     params: {
       requesterUuid: uuid,
     },
@@ -25,11 +18,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const data = res.data;
   const userName = data?.result?.requesterName ?? '사용자';
+  console.log(userName);
 
   return {
     title: `${userName}님의 팀피셜록을 작성해볼까요?`,
+    description: `${userName}님에 대해 자유롭게 작성해보세요!`,
     openGraph: {
       title: `${userName}님의 팀피셜록을 작성해볼까요?`,
+      description: `${userName}님에 대해 자유롭게 작성해보세요!`,
       images: [
         {
           url: '/og/Teamficial-metatag_Image.jpg',
