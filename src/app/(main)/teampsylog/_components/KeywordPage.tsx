@@ -91,8 +91,11 @@ const KeywordPage = ({ share = false, uuid }: Props) => {
           setIsEditMode(false);
         },
         onError: () => {
-          // TODO: 에러처리 분기
-          addToast({ message: '이미 등록된 대표키워드입니다.' });
+          addToast({
+            type: 'error',
+            title: '이미 등록된 대표키워드입니다.',
+            message: '등록하지 않은 키워드를 선택해주세요.',
+          });
         },
       },
     );
