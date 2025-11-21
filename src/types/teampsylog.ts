@@ -1,7 +1,10 @@
 export type ResponseKeyword = {
   profileId: number;
   profileName: string;
-  headKeywords: string[];
+  headKeywords: {
+    headKeywordId: number;
+    headKeywordName: string;
+  }[];
 };
 
 export type RequestKeyword = {
@@ -59,13 +62,13 @@ export interface ResponseKeywordComment {
 
 export interface RequsetHeadKeyword {
   profileId: number;
-  keywordIds: number[];
+  oldHeadKeywordId: number;
+  keywordId: number;
 }
 
 export interface ResponseHeadKeyword {
   profileId: number;
-  profileName: string;
-  headKeywords: string[];
+  headKeyword: string;
 }
 
 export interface ResponseRandomKeywords {

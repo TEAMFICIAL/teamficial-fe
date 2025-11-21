@@ -89,13 +89,21 @@ export const getKeywordComments = async ({
 
 export const putHeadKeywords = async ({
   profileId,
-  keywordIds,
+  oldHeadKeywordId,
+  keywordId,
 }: RequsetHeadKeyword): Promise<ResponseHeadKeyword> => {
+  const params: { keywordId: number; oldHeadKeywordId?: number } = {
+    keywordId,
+  };
+
+  if (oldHeadKeywordId !== 0) {
+    params.oldHeadKeywordId = oldHeadKeywordId;
+  }
+
   const { data } = await api.put<CommonResponse<ResponseHeadKeyword>>(
     `/teamficial-log/head-keyword/${profileId}`,
-    {
-      keywordIds,
-    },
+    null,
+    { params },
   );
   if (!data.isSuccess) {
     throw new Error(data.message || 'Failed to update head keywords');

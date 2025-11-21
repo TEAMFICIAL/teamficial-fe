@@ -5,8 +5,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 export const useUpdateHeadKeywords = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ profileId, keywordIds }: RequsetHeadKeyword) =>
-      putHeadKeywords({ profileId, keywordIds }),
+    mutationFn: ({ profileId, keywordId, oldHeadKeywordId }: RequsetHeadKeyword) =>
+      putHeadKeywords({ profileId, keywordId, oldHeadKeywordId }),
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({
         queryKey: ['keyword', variables.profileId],
