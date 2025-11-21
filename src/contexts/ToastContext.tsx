@@ -20,11 +20,17 @@ export const ToastProvider = ({ children }: { children: React.ReactNode }) => {
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
 
   const addToast = useCallback((toast: Omit<ToastMessage, 'id'>) => {
-    const id = crypto.randomUUID();
+    const id = (() => {
+      try {
+        return crypto.randomUUID();
+      } catch {
+        return `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+      }
+    })();
 
     const newToast: ToastMessage = {
       id,
-      duration: 1000,
+      duration: 2000,
       type: 'default',
       ...toast,
     };

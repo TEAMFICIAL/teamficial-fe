@@ -11,8 +11,6 @@ export default function ToastContainer({ toast }: { toast: ToastMessage }) {
         : 'bg-gray-0 text-gray-700';
 
   return (
-    <div className={`${base} animate-fadeInUp w-[383px] rounded-[58px] px-8 py-4 text-center`}>
-      {toast.message}
-    </div>
+    <div className={`${base} w-[383px] rounded-[58px] px-8 py-4 text-center`}>{toast.message}</div>
   );
 }
