@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 const EmptyApplicantStatus = () => {
   return (
-    <div className="mb-14">
+    <>
       <div className="flex w-full justify-between py-5">
         <p className="title-2 text-gray-900">지원자 현황</p>
         <Link href="/" className="body-6 self-end text-gray-700">
@@ -19,7 +19,7 @@ const EmptyApplicantStatus = () => {
           함께할 프로젝트 팀원을 모집해보세요!
         </span>
       </div>
-    </div>
+    </>
   );
 };
 
