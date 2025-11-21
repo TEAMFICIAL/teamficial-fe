@@ -52,7 +52,14 @@ const Profile = ({ profile }: ProfileCardProps) => {
               <ProfileLinkButton key={index} link={link} />
             ))}
         </div>
-        <Button className="bg-primary-900 body-5 text-gray-0 px-4 py-2">전체 키워드 보기</Button>
+        <Button
+          className="bg-primary-900 body-5 text-gray-0 px-4 py-2"
+          onClick={() => {
+            window.open(`/teampsylog/${profile.profile.uuid}`, '_blank');
+          }}
+        >
+          전체 키워드 보기
+        </Button>
       </div>
     </div>
   );

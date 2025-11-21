@@ -42,6 +42,7 @@ export type ResponseProfile = {
   createdAt: string;
   modifiedAt: string;
   headKeywords: string[];
+  uuid: string;
 };
 
 export type ApplicationResponse = {
