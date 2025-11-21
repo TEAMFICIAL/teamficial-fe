@@ -57,7 +57,11 @@ const DeleteProfileModal = ({
             break;
 
           default:
-            alert('수정 중 알 수 없는 오류가 발생했습니다.');
+            addToast({
+              type: 'error',
+              title: '프로필 삭제 실패',
+              message: '삭제 중 알 수 없는 오류가 발생했습니다.',
+            });
         }
       },
     });

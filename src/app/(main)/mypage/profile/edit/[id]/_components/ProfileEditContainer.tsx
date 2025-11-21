@@ -75,7 +75,6 @@ const ProfileEditContainer = ({ profile }: ProfileEditContainerProps) => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         onError: (error: any) => {
           const code = error.response?.data?.code;
-          console.log(code);
 
           switch (code) {
             case 'PROFILE4008':
@@ -103,7 +102,11 @@ const ProfileEditContainer = ({ profile }: ProfileEditContainerProps) => {
               break;
 
             default:
-              alert('수정 중 알 수 없는 오류가 발생했습니다.');
+              addToast({
+                type: 'error',
+                title: '프로필 수정 실패',
+                message: '수정 중 알 수 없는 오류가 발생했습니다.',
+              });
           }
         },
       },
