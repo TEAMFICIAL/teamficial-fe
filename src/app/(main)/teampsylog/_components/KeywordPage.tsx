@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import LogTitle from './LogTitle';
 import { useGetProfileList } from '@/hooks/queries/useProfile';
+import { useGetKeyword } from '@/hooks/queries/useKeyword';
 import KeywordBar from './KeywordBar';
 import LogNote from './LogNote';
 import { useRequesterInfo } from '@/hooks/queries/useRequesterInfo';
@@ -30,6 +31,10 @@ const KeywordPage = ({ share = false, uuid }: Props) => {
   const [selectedSlot, setSelectedSlot] = useState<number | null>(null);
 
   const { mutate: updateHeadKeywords } = useUpdateHeadKeywords();
+
+  const { data: keywordData } = useGetKeyword({
+    profileId: selectedProfileId ?? 0,
+  });
 
   useEffect(() => {
     if (!share) {
@@ -63,14 +68,19 @@ const KeywordPage = ({ share = false, uuid }: Props) => {
     setSelectedSlot(index);
   };
 
-  const handleSelectKeyword = (keywordId: number, allKeywordIds: number[]) => {
+  const handleSelectKeyword = (keywordId: number) => {
     if (!isEditMode || selectedSlot === null || !selectedProfileId) return;
 
-    const newKeywordIds = [...allKeywordIds];
-    newKeywordIds[selectedSlot] = keywordId;
+    const headKeywords = keywordData?.headKeywords || [];
+    const oldHeadKeywordId =
+      selectedSlot < headKeywords.length ? headKeywords[selectedSlot].headKeywordId : undefined;
 
     updateHeadKeywords(
-      { profileId: selectedProfileId, keywordIds: newKeywordIds },
+      {
+        profileId: selectedProfileId,
+        keywordId,
+        oldHeadKeywordId: oldHeadKeywordId ?? 0,
+      },
       {
         onSuccess: () => {
           setSelectedSlot(null);

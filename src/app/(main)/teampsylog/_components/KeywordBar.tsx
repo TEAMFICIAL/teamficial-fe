@@ -26,10 +26,10 @@ const KeywordBar = ({
 }) => {
   const { data } = useGetKeyword({ profileId });
 
-  const keywords = data?.headKeywords || [];
+  const headKeywords = data?.headKeywords || [];
   const displayKeywords = [
-    ...keywords,
-    ...Array(Math.max(0, 3 - keywords.length)).fill('키워드를 선택하세요'),
+    ...headKeywords.map((kw) => kw.headKeywordName),
+    ...Array(Math.max(0, 3 - headKeywords.length)).fill('키워드를 선택하세요'),
   ];
 
   const handleShare = async () => {
@@ -68,7 +68,7 @@ const KeywordBar = ({
             keyword={keyword}
             isEditMode={isEditMode}
             isSelected={selectedSlot === index}
-            isPlaceholder={index >= keywords.length}
+            isPlaceholder={index >= headKeywords.length}
             onClick={() => isEditMode && onSelectSlot(index)}
           />
         ))}
