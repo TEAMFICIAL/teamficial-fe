@@ -12,10 +12,10 @@ interface AllKeywordProps {
 
 // 키워드 아이콘 위치/회전 정보 상수
 const KEYWORD_ICON_STYLES = [
-  { top: 29.8, left: 264, rotate: '14.781deg' },
+  { top: 49.8, left: 224, rotate: '14.781deg' },
   { top: 166.8, left: 43, rotate: '0deg' },
-  { top: 277.5, left: 267, rotate: '6.665deg' },
-  { top: 381, left: 74, rotate: '14.074deg' },
+  { top: 277.5, left: 257, rotate: '6.665deg' },
+  { top: 381, left: 54, rotate: '14.074deg' },
   { top: 540, left: 226, rotate: '-3.128deg' },
 ];
 
@@ -59,8 +59,8 @@ const AllKeyword = ({
         height={68}
         className="absolute"
         style={{
-          top: 518,
-          right: 118,
+          top: 418,
+          right: 78,
           transform: 'rotate(149.933deg)',
           zIndex: 0,
         }}
