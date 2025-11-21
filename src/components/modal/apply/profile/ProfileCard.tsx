@@ -6,11 +6,10 @@ import ProfileLinkButton from '@/components/profile/ProfileLinkButton';
 
 interface ProfileCardProps {
   profile: ResponseProfile;
-  keywords?: string[];
   isSelected?: boolean;
 }
 
-const ProfileCard = ({ profile, keywords, isSelected }: ProfileCardProps) => {
+const ProfileCard = ({ profile, isSelected }: ProfileCardProps) => {
   const isUrl = /^(https?:\/\/|www\.)/i.test(profile.contactWay);
 
   return (
@@ -65,7 +64,7 @@ const ProfileCard = ({ profile, keywords, isSelected }: ProfileCardProps) => {
           </div>
           {/* 태그 */}
           <div className="flex gap-2">
-            {keywords?.map((keyword) => (
+            {profile.headKeywords?.map((keyword) => (
               <ProfileTag key={keyword}>{keyword}</ProfileTag>
             ))}
           </div>

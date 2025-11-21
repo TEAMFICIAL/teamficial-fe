@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import ProfileCard from './ProfileCard';
 import { useGetProfileList } from '@/hooks/queries/useProfile';
@@ -10,19 +10,28 @@ interface Props {
 }
 
 const ProfileSlider = ({ onProfileSelect }: Props) => {
-  const [selectedIndex, setSelectedIndex] = useState<number>(0);
   const [index, setIndex] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const { data: profiles } = useGetProfileList();
 
   const currentProfile = profiles?.[index];
 
+  // 초기 렌더링 시 첫 번째 프로필 자동 선택
+  useEffect(() => {
+    if (profiles && profiles.length > 0 && profiles[0].profileId !== undefined) {
+      onProfileSelect(profiles[0].profileId);
+    }
+  }, [profiles]);
+
   if (!profiles) return null;
 
-  const handlePrev = () => {
+  const handlePrev = (e: React.MouseEvent) => {
+    e.stopPropagation();
     if (index > 0) setIndex(index - 1);
   };
 
-  const handleNext = () => {
+  const handleNext = (e: React.MouseEvent) => {
+    e.stopPropagation();
     if (index < profiles.length - 1) setIndex(index + 1);
   };
 
@@ -34,11 +43,17 @@ const ProfileSlider = ({ onProfileSelect }: Props) => {
     }
   };
 
+  const isSelected = selectedIndex === index;
+
   return (
     <>
       <div
         onClick={handleCardClick}
-        className={`flex w-172 items-center justify-between gap-2 rounded-2xl border px-5 py-8 ${selectedIndex === index ? 'border-primary-900 bg-primary-50 border-[2px]' : 'border-gray-300 bg-white'} `}
+        className={`flex w-172 cursor-pointer items-center justify-between gap-2 rounded-2xl border px-5 py-8 transition-all ${
+          isSelected
+            ? 'border-primary-900 bg-primary-50 border-[2px]'
+            : 'border border-gray-300 bg-white'
+        }`}
       >
         {index > 0 ? (
           <button onClick={handlePrev} className="cursor-pointer" aria-label="prev">
@@ -54,9 +69,7 @@ const ProfileSlider = ({ onProfileSelect }: Props) => {
             />
           </button>
         )}
-        {currentProfile && (
-          <ProfileCard profile={currentProfile} isSelected={selectedIndex === index} />
-        )}
+        {currentProfile && <ProfileCard profile={currentProfile} isSelected={isSelected} />}
         {index < profiles.length - 1 ? (
           <button onClick={handleNext} className="cursor-pointer" aria-label="next">
             <Image
