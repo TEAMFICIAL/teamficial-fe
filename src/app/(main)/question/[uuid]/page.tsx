@@ -28,10 +28,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     title: `${userName}님의 팀피셜록을 작성해볼까요?`,
-    description: `${userName}님에 대해 자유롭게 작성해보세요!`,
+    description: `소프트스킬 팀빌딩 서비스, 팀피셜`,
     openGraph: {
       title: `${userName}님의 팀피셜록을 작성해볼까요?`,
-      description: `${userName}님에 대해 자유롭게 작성해보세요!`,
+      description: `소프트스킬 팀빌딩 서비스, 팀피셜`,
       images: [
         {
           url: '/og/Teamficial_metatag_Image.jpg',
