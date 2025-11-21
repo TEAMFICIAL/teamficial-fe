@@ -10,7 +10,7 @@ const CurrentApplicantItem = ({
   item: CurrentApplicant;
   onClick: () => void;
 }) => {
-  const isSelected = item.applicationStatus === '매칭 성공';
+  const isSelected = item.applicationStatus === '매칭성공';
 
   const cardStyle = isSelected
     ? 'flex flex-col items-center gap-4 rounded-2xl border-[2px] border-primary-900 bg-primary-50 p-10'
