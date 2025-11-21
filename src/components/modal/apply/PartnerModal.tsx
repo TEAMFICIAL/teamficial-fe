@@ -27,7 +27,7 @@ const PartnerModal = ({ isOpen, onClose, applicationId, recruitingPostId }: Part
       {
         recruitingPostId: recruitingPostId,
         applicationId: applicationId,
-        applicationStatus: ApplicationStatus.MATCH_FAILED,
+        applicationStatus: ApplicationStatus.MATCHING,
       },
       {
         onSuccess: () => {
