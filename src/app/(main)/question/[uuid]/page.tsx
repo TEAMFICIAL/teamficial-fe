@@ -9,16 +9,22 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { uuid } = await params;
+  let userName = '사용자';
 
-  const res = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/teamficial-log/requester`, {
-    params: {
-      requesterUuid: uuid,
-    },
-  });
+  try {
+    const res = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/teamficial-log/requester`,
+      {
+        params: {
+          requesterUuid: uuid,
+        },
+      },
+    );
 
-  const data = res.data;
-  const userName = data?.result?.requesterName ?? '사용자';
-  console.log(userName);
+    userName = res.data?.result?.requesterName ?? '사용자';
+  } catch (error) {
+    console.error('Failed to fetch requester data:', error);
+  }
 
   return {
     title: `${userName}님의 팀피셜록을 작성해볼까요?`,
@@ -28,7 +34,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: `${userName}님에 대해 자유롭게 작성해보세요!`,
       images: [
         {
-          url: '/og/Teamficial-metatag_Image.jpg',
+          url: '/og/Teamficial_metatag_Image.jpg',
           width: 1200,
           height: 630,
         },
