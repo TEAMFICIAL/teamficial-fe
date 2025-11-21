@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { ResponseProfile } from '@/types/profile';
 import { useUpdateProfile } from '@/hooks/mutation/useUpdateProfile';
 import { useModal } from '@/contexts/ModalContext';
+import { useToast } from '@/contexts/ToastContext';
 
 interface ProfileEditContainerProps {
   profile: ResponseProfile;
@@ -16,6 +17,7 @@ const MAX_LINKS = 3;
 
 const ProfileEditContainer = ({ profile }: ProfileEditContainerProps) => {
   const { openModal } = useModal();
+  const { addToast } = useToast();
 
   const [formData, setFormData] = useState({
     title: '',
@@ -70,8 +72,39 @@ const ProfileEditContainer = ({ profile }: ProfileEditContainerProps) => {
         onSuccess: () => {
           openModal('profileEditComplete');
         },
-        onError: () => {
-          alert('수정 중 오류가 발생했습니다.');
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        onError: (error: any) => {
+          const code = error.response?.data?.code;
+          console.log(code);
+
+          switch (code) {
+            case 'PROFILE4008':
+              addToast({
+                type: 'error',
+                title: '해당 프로필로 지원 중인 공고가 있어 수정할 수 없어요',
+                message: '모집 기한동안은 프로필 수정이 제한돼요',
+              });
+              break;
+
+            case 'PROFILE4009':
+              addToast({
+                type: 'error',
+                title: '해당 프로필로 모집 중인 작성글이 있어 수정할 수 없어요',
+                message: '모집 기한동안은 프로필 수정이 제한돼요',
+              });
+              break;
+
+            case 'PROFILE4010':
+              addToast({
+                type: 'error',
+                title: '해당 프로필로 지원중인 공고나 모집 중인 작성글이 있어 수정할 수 없어요',
+                message: '모집 기한동안은 프로필 수정이 제한돼요',
+              });
+              break;
+
+            default:
+              alert('수정 중 알 수 없는 오류가 발생했습니다.');
+          }
         },
       },
     );
