@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import ProfileCard from './ProfileCard';
 import { useGetProfileList } from '@/hooks/queries/useProfile';
+import Link from 'next/link';
 
 interface Props {
   onProfileSelect: (profileId: number) => void;
@@ -12,7 +13,12 @@ interface Props {
 const ProfileSlider = ({ onProfileSelect }: Props) => {
   const [index, setIndex] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const { data: profiles } = useGetProfileList();
+  const { data: allProfiles } = useGetProfileList();
+
+  // 키워드 존재 프로필만 필터링
+  const profiles = allProfiles?.filter(
+    (profile) => profile.headKeywords && profile.headKeywords.length > 0,
+  );
 
   const currentProfile = profiles?.[index];
 
@@ -23,7 +29,19 @@ const ProfileSlider = ({ onProfileSelect }: Props) => {
     }
   }, [profiles]);
 
-  if (!profiles) return null;
+  if (!profiles || profiles.length === 0) {
+    return (
+      <div className="flex h-53 w-172 items-center justify-center rounded-2xl border border-gray-300 bg-gray-50 px-5 py-12">
+        <p className="body-4 text-gray-600">
+          대표키워드가 설정된 프로필이 없습니다.
+          <Link href="/teampsylog" className="text-primary-900 mx-1 underline">
+            팀피셜록
+          </Link>
+          에서 대표키워드를 설정해주세요.
+        </p>
+      </div>
+    );
+  }
 
   const handlePrev = (e: React.MouseEvent) => {
     e.stopPropagation();
