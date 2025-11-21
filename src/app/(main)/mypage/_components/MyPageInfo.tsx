@@ -22,7 +22,7 @@ const MyPageInfo = () => {
   const hasRecruitingPosts = myRecruitingPost.length > 0;
 
   return (
-    <>
+    <div className="pb-14">
       <MyPageTitle />
       {hasProfileData ? <ProfileSlider /> : <InitialProfile />}
       {hasApplications ? (
@@ -36,7 +36,7 @@ const MyPageInfo = () => {
       ) : (
         <EmptyApplicantStatus />
       )}
-    </>
+    </div>
   );
 };
 

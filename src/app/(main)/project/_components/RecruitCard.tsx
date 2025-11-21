@@ -55,7 +55,7 @@ const RecruitCard = ({
           </Tag>
         </div>
         <div className="flex flex-col">
-          <span className="title-3 text-gray-900">{title}</span>
+          <span className="title-3 truncate text-gray-900">{title}</span>
           <span className="body-8 text-gray-600">{hashtag}</span>
         </div>
       </div>
