@@ -1,12 +1,21 @@
 'use client';
 
 import LineButton from '@/components/common/button/LineButton';
+import { useToast } from '@/contexts/ToastContext';
 import { useUserStore } from '@/store/useUserStore';
 import { useRouter } from 'next/navigation';
 
 const Banner = () => {
   const router = useRouter();
   const { uuid } = useUserStore();
+  const { addToast } = useToast();
+
+  const handleClick = async () => {
+    router.push(`/teampsylog/${uuid}`);
+    const url = `${window.location.origin}/question/${uuid}`;
+    await navigator.clipboard.writeText(url);
+    addToast({ message: '링크가 복사되었어요' });
+  };
 
   return (
     <section
@@ -19,9 +28,7 @@ const Banner = () => {
         프로젝트를 함께 할 동료를 찾아보세요
       </p>
 
-      <LineButton onClick={() => router.push(`/teampsylog/head/${uuid}`)}>
-        팀피셜록 요청하기 →
-      </LineButton>
+      <LineButton onClick={handleClick}>팀피셜록 공유하기 →</LineButton>
     </section>
   );
 };
