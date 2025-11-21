@@ -67,3 +67,11 @@ export interface ResponseHeadKeyword {
   profileName: string;
   headKeywords: string[];
 }
+
+export interface ResponseRandomKeywords {
+  requesterUuid: string;
+  keywords: {
+    keywordName: string;
+    count: number;
+  }[];
+}

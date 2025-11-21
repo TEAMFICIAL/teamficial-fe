@@ -9,6 +9,7 @@ import {
   ResponseTeamficialLog,
   RequsetHeadKeyword,
   ResponseHeadKeyword,
+  ResponseRandomKeywords,
 } from '@/types/teampsylog';
 import api from './api';
 import { CommonResponse } from '@/types/common';
@@ -98,6 +99,19 @@ export const putHeadKeywords = async ({
   );
   if (!data.isSuccess) {
     throw new Error(data.message || 'Failed to update head keywords');
+  }
+
+  return data.result;
+};
+
+export const getRandomKeywords = async (requesterUuid: string): Promise<ResponseRandomKeywords> => {
+  const { data } = await api.get<CommonResponse<ResponseRandomKeywords>>(`/teamficial-log/rand`, {
+    params: {
+      requesterUuid,
+    },
+  });
+  if (!data.isSuccess) {
+    throw new Error(data.message || 'Failed to fetch random keywords');
   }
 
   return data.result;

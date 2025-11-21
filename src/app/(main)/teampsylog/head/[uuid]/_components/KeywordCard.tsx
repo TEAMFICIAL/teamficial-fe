@@ -1,5 +1,6 @@
 'use client';
 
+import { useGetRandomKeywords } from '@/hooks/queries/useKeyword';
 import { useRequesterInfo } from '@/hooks/queries/useRequesterInfo';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
@@ -9,11 +10,11 @@ const KeywordCard = () => {
   const params = useParams();
   const uuid = String(params.uuid);
 
-  const requesterInfoResult = useRequesterInfo(uuid);
-  const requesterInfo = requesterInfoResult.data;
+  const { data: requesterInfo } = useRequesterInfo(uuid);
+  const { data: randomKeywords } = useGetRandomKeywords(uuid);
 
   return (
-    <section className="relative my-2.5 flex flex-col gap-10 overflow-hidden rounded-2xl bg-gray-100 px-2.5 py-8">
+    <section className="relative my-2.5 flex flex-col gap-10 overflow-hidden rounded-2xl bg-gray-100 px-2.5 py-9.5">
       <Image
         src="/icons/question_gray.svg"
         alt=""
@@ -48,30 +49,24 @@ const KeywordCard = () => {
         <p className="body-9 whitespace-pre-line text-gray-700">{`팀피셜록은 다른 동료들이\n소프트스킬 기반으로 작성해준 키워드입니다`}</p>
       </div>
       <div className="flex flex-col items-center gap-2">
-        <Image
-          src="/images/keywords/일처리가 빠른.svg"
-          alt="일처리가 빠른"
-          className="h-13.5"
-          width={200}
-          height={54}
-          style={{ transform: 'rotate(-5.078deg)' }}
-        />
-        <Image
-          src="/images/keywords/꼼꼼한.svg"
-          alt="꼼꼼한"
-          className="h-13.5"
-          width={200}
-          height={54}
-          style={{ transform: 'rotate(4.223deg)' }}
-        />
-        <Image
-          src="/images/keywords/책임감 있는.svg"
-          alt="책임감 있는"
-          className="h-13.5"
-          width={200}
-          height={54}
-          style={{ transform: 'rotate(-3.057deg)' }}
-        />
+        {randomKeywords?.keywords?.map((item, idx) => (
+          <Image
+            key={idx}
+            src={`/images/keywords/${item.keywordName}.svg`}
+            alt={item.keywordName}
+            className="h-13.5"
+            width={200}
+            height={54}
+            style={{
+              transform:
+                idx === 0
+                  ? 'rotate(-5.078deg)'
+                  : idx === 1
+                    ? 'rotate(4.223deg)'
+                    : 'rotate(-3.057deg)',
+            }}
+          />
+        ))}
       </div>
     </section>
   );
