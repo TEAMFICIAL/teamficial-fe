@@ -7,7 +7,7 @@ import {
   ResponseKeywordComment,
   ResponseKeywordList,
   ResponseTeamficialLog,
-  RequsetHeadKeyword,
+  RequestHeadKeyword,
   ResponseHeadKeyword,
   ResponseRandomKeywords,
 } from '@/types/teampsylog';
@@ -91,7 +91,7 @@ export const putHeadKeywords = async ({
   profileId,
   oldHeadKeywordId,
   keywordId,
-}: RequsetHeadKeyword): Promise<ResponseHeadKeyword> => {
+}: RequestHeadKeyword): Promise<ResponseHeadKeyword> => {
   const params: { keywordId: number; oldHeadKeywordId?: number } = {
     keywordId,
   };

@@ -1,11 +1,11 @@
 import { putHeadKeywords } from '@/libs/api/teampsylog';
-import { RequsetHeadKeyword } from '@/types/teampsylog';
+import { RequestHeadKeyword } from '@/types/teampsylog';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export const useUpdateHeadKeywords = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ profileId, keywordId, oldHeadKeywordId }: RequsetHeadKeyword) =>
+    mutationFn: ({ profileId, keywordId, oldHeadKeywordId }: RequestHeadKeyword) =>
       putHeadKeywords({ profileId, keywordId, oldHeadKeywordId }),
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({
