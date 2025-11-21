@@ -28,18 +28,14 @@ export default function KakaoCallbackClient() {
             return;
           }
 
-          const { userId, accessToken, refreshToken, first, uuid, userName } = result;
+          const { userId, accessToken, refreshToken, uuid, userName } = result;
 
           if (res.data.code === '200') {
             setUser({ uuid, userId, userName });
 
             localStorage.setItem('accessToken', accessToken);
             localStorage.setItem('refreshToken', refreshToken);
-            if (first) {
-              router.replace('/');
-            } else {
-              router.replace('/');
-            }
+            router.replace('/');
           } else {
             router.replace('/login');
           }
