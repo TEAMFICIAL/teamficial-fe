@@ -4,6 +4,7 @@ import KeywordItem from './KeywordItem';
 import Image from 'next/image';
 import ProfileDropdown from './ProfileDropdown';
 import { ResponseProfile } from '@/types/profile';
+import { useToast } from '@/contexts/ToastContext';
 
 const DEFAULT_KEYWORDS = ['대표키워드1', '대표키워드2', '대표키워드3'];
 
@@ -19,6 +20,7 @@ const KeywordBar = ({
   onSelectProfile: (profileId: number) => void;
 }) => {
   const { data } = useGetKeyword({ profileId });
+  const { addToast } = useToast();
 
   const keywords =
     data?.headKeywords && data.headKeywords.length > 0 ? data.headKeywords : DEFAULT_KEYWORDS;
@@ -41,7 +43,7 @@ const KeywordBar = ({
       ? `${window.location.origin}/teampsylog/${uuid}`
       : `${window.location.origin}/teampsylog`;
     await navigator.clipboard.writeText(url);
-    alert('링크가 복사되었습니다!');
+    addToast({ message: '링크가 복사되었어요' });
   };
 
   return (
