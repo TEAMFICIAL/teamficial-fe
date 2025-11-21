@@ -6,7 +6,7 @@ import { DeleteProfileModalProps } from '@/constants/ModalList';
 import { useModal } from '@/contexts/ModalContext';
 import BaseModal from '..';
 import Button from '@/components/common/button/Button';
-import { isAxiosError } from 'axios';
+import { useToast } from '@/contexts/ToastContext';
 
 const DeleteProfileModal = ({
   isOpen,
@@ -16,6 +16,7 @@ const DeleteProfileModal = ({
 }: DeleteProfileModalProps) => {
   const { mutate: deleteProfile } = useDeleteProfile();
   const { openModal } = useModal();
+  const { addToast } = useToast();
 
   const handleDelete = () => {
     deleteProfile(profileId, {
@@ -25,18 +26,39 @@ const DeleteProfileModal = ({
           profileName: profileName,
         });
       },
-      onError: (error: unknown) => {
-        if (isAxiosError<{ code: string; message: string }>(error)) {
-          const errorCode = error.response?.data?.code;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      onError: (error: any) => {
+        const code = error.response?.data?.code;
+        onClose();
 
-          if (errorCode === 'PROFILE4004') {
-            onClose();
-            openModal('profileDeleteError');
-            return;
-          }
+        switch (code) {
+          case 'PROFILE4004':
+            addToast({
+              type: 'error',
+              title: '해당 프로필로 지원 중인 공고가 있어 삭제할 수 없어요',
+              message: '모집 기한동안은 프로필 삭제가 제한돼요',
+            });
+            break;
+
+          case 'PROFILE4005':
+            addToast({
+              type: 'error',
+              title: '해당 프로필로 모집 중인 작성글이 있어 삭제할 수 없어요',
+              message: '모집 기한동안은 프로필 삭제가 제한돼요',
+            });
+            break;
+
+          case 'PROFILE4007':
+            addToast({
+              type: 'error',
+              title: '해당 프로필로 지원중인 공고나 모집 중인 작성글이 있어 삭제할 수 없어요',
+              message: '모집 기한동안은 프로필 삭제가 제한돼요',
+            });
+            break;
+
+          default:
+            alert('수정 중 알 수 없는 오류가 발생했습니다.');
         }
-        console.error('Failed to delete profile:', error);
-        alert('프로필 삭제 중 오류가 발생했습니다. 다시 시도해주세요.');
       },
     });
   };
