@@ -47,7 +47,7 @@ const KeywordBar = ({
       }
     }
     const url = uuid
-      ? `${window.location.origin}/teampsylog/${uuid}`
+      ? `${window.location.origin}/question/${uuid}`
       : `${window.location.origin}/teampsylog`;
     await navigator.clipboard.writeText(url);
     alert('링크가 복사되었습니다!');
