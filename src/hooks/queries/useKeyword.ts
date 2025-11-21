@@ -1,10 +1,16 @@
-import { getKeywordComments, getKeywordList, getKeywords } from '@/libs/api/teampsylog';
+import {
+  getKeywordComments,
+  getKeywordList,
+  getKeywords,
+  getRandomKeywords,
+} from '@/libs/api/teampsylog';
 import {
   RequestKeyword,
   RequestKeywordComment,
   ResponseKeyword,
   ResponseKeywordComment,
   ResponseKeywordList,
+  ResponseRandomKeywords,
 } from '@/types/teampsylog';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 
@@ -61,5 +67,13 @@ export const useInfiniteKeywordComment = ({
       return undefined;
     },
     enabled: !!keywordId,
+  });
+};
+
+export const useGetRandomKeywords = (requesterUuid: string) => {
+  return useQuery<ResponseRandomKeywords>({
+    queryKey: ['randomKeywords', requesterUuid],
+    queryFn: () => getRandomKeywords(requesterUuid),
+    enabled: !!requesterUuid,
   });
 };
