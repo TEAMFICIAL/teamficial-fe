@@ -1,5 +1,6 @@
 import ProfileLinkButton from '@/app/(main)/mypage/_components/profile/ProfileLinkButton';
 import Button from '@/components/common/button/Button';
+import ProfileTag from '@/components/profile/ProfileTag';
 import { ApplicationResponse } from '@/types/application';
 import Image from 'next/image';
 
@@ -9,7 +10,7 @@ interface ProfileCardProps {
 
 const Profile = ({ profile }: ProfileCardProps) => {
   return (
-    <div className="mb-10 flex justify-between gap-8 rounded-lg border border-gray-300 p-8">
+    <div className="mb-10 flex justify-between gap-1 rounded-lg border border-gray-300 p-8">
       <div className="flex items-start gap-4">
         <Image
           src={profile.profile.profileImageUrl || '/icons/profile.svg'}
@@ -37,14 +38,8 @@ const Profile = ({ profile }: ProfileCardProps) => {
             </div>
           </div>
           <div className="flex flex-wrap gap-2">
-            {/* 백엔드 수정 후 반영 예정 */}
             {profile.profile.headKeywords.map((keyword) => (
-              <span
-                key={keyword}
-                className="body-7 rounded-lg border border-gray-300 bg-gray-100 px-4 py-2 text-gray-600"
-              >
-                #{keyword}
-              </span>
+              <ProfileTag key={keyword}>{keyword}</ProfileTag>
             ))}
           </div>
         </div>
