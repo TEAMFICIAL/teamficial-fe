@@ -1,5 +1,4 @@
 import React from 'react';
-import Button from '../common/Button';
 import ProfileTag from './ProfileTag';
 import ProfileLinkButton from './ProfileLinkButton';
 import Image from 'next/image';
@@ -29,22 +28,25 @@ const Profile1 = ({ profileId }: { profileId: number }) => {
             <div className="flex min-w-0 items-center gap-2">
               <p className="body-5 flex-shrink-0 text-gray-800">연락수단</p>
               <div className="h-3 w-[1px] bg-gray-700"></div>
-              {/* TODO: 팀원이 되면 공개해요 처리 */}
-              {isUrl ? (
+              {/* TODO: 팀원이 되면 공개해요 처리 -> 서버 로직 전달 필요 */}
+              <p className="body-6 max-w-[300px] truncate text-gray-700" title={data.contactWay}>
+                팀원이 되면 공개해요
+              </p>
+              {/* {isUrl ? (
                 <a
                   href={data.contactWay}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="body-4 text-primary-900 max-w-[420px] truncate underline"
+                  className="body-6 text-primary-900 max-w-[420px] truncate underline"
                   title={data.contactWay}
                 >
                   {data.contactWay}
                 </a>
               ) : (
-                <p className="body-4 max-w-[180px] truncate text-gray-700" title={data.contactWay}>
+                <p className="body-6 max-w-[300px] truncate text-gray-700" title={data.contactWay}>
                   {data.contactWay}
                 </p>
-              )}
+              )} */}
             </div>
             <div className="flex items-center gap-2">
               <p className="body-5 text-gray-800">작업시간</p>
@@ -67,7 +69,9 @@ const Profile1 = ({ profileId }: { profileId: number }) => {
             data.links.length > 0 &&
             data.links.map((link, index) => <ProfileLinkButton key={index} link={link} />)}
         </div>
-        <Button label="전체 키워드보기" />
+        <button className="body-5 text-gray-0 bg-primary-900 rounded-lg px-6 py-3">
+          전체 키워드 보기
+        </button>
       </div>
     </div>
   );
