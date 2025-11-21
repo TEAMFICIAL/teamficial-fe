@@ -19,6 +19,7 @@ const KeywordPage = ({ share = false, uuid }: Props) => {
   const requesterInfoResult = useRequesterInfo(uuid ?? '', { enabled: share && !!uuid });
   const requesterInfo = requesterInfoResult.data;
   const shareUserId = share && requesterInfo ? requesterInfo.userId : null;
+  const requesterName = requesterInfo?.requesterName;
 
   // 일반 모드
   const { data: myProfiles } = useGetProfileList();
@@ -97,7 +98,28 @@ const KeywordPage = ({ share = false, uuid }: Props) => {
   return (
     <div className="flex flex-col gap-5 pb-14">
       {/* 제목  */}
-      <LogTitle profiles={profiles} />
+      <LogTitle
+        profiles={
+          share
+            ? [
+                {
+                  profileId: shareUserId ?? 0,
+                  userId: shareUserId ?? 0,
+                  userName: requesterName ?? '',
+                  profileImageUrl: '',
+                  profileName: requesterName ?? '',
+                  position: '',
+                  workingTime: '',
+                  links: [],
+                  contactWay: '',
+                  headKeywords: [],
+                  createdAt: '',
+                  modifiedAt: '',
+                },
+              ]
+            : profiles
+        }
+      />
       {/* 키워드 별 대표키워드, 수정하기, 공유하기 */}
       {selectedProfileId !== null && !share && (
         <KeywordBar

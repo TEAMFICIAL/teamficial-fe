@@ -60,7 +60,7 @@ export interface ResponseKeywordComment {
   nextPage: number;
 }
 
-export interface RequsetHeadKeyword {
+export interface RequestHeadKeyword {
   profileId: number;
   oldHeadKeywordId: number;
   keywordId: number;
