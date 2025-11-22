@@ -121,6 +121,7 @@ const KeywordPage = ({ share = false, uuid }: Props) => {
                   headKeywords: [],
                   createdAt: '',
                   modifiedAt: '',
+                  uuid: '',
                 },
               ]
             : profiles
