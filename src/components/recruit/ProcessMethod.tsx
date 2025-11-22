@@ -20,7 +20,7 @@ const ProcessMethod = ({ control }: Props) => {
         render={({ field: { value, onChange } }) => (
           <div className="flex flex-col gap-2">
             <div className="flex gap-6">
-              {DURATION_OPTIONS.map((option) => (
+              {DURATION_OPTIONS.slice(1).map((option) => (
                 <RadioButton
                   key={option.value}
                   id={option.value}

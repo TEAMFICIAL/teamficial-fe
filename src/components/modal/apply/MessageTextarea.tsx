@@ -5,6 +5,7 @@ interface ApplyMessageFieldProps {
   onChange: (value: string) => void;
   placeholder?: string;
   maxLength?: number;
+  readOnly?: boolean;
 }
 
 const MessageTextarea = ({
@@ -12,6 +13,7 @@ const MessageTextarea = ({
   onChange,
   placeholder = '기술보다 중요한 건 함께하는 태도예요.\n어떤 마음으로 이 프로젝트에 참여하고 싶은지 적어주세요. (250자 내외, 선택사항)',
   maxLength = 250,
+  readOnly = false,
 }: ApplyMessageFieldProps) => {
   const [isFocused, setIsFocused] = useState(false);
 
@@ -20,6 +22,7 @@ const MessageTextarea = ({
   };
 
   const isOverLimit = value.length > maxLength;
+  const isActive = readOnly ? true : isFocused;
 
   return (
     <main className="flex flex-col gap-4">
@@ -31,11 +34,12 @@ const MessageTextarea = ({
           placeholder={placeholder}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
+          readOnly={readOnly}
           className={`body-6 bg-gray-0 resize-none rounded-lg border px-8 pt-5 pb-7.5 transition-colors ${
             isOverLimit
               ? 'border-red-100 text-gray-800'
-              : isFocused
-                ? 'border-gray-600 text-gray-800'
+              : isActive
+                ? 'border-gray-600 text-gray-700'
                 : 'border-gray-400 text-gray-500'
           } placeholder-gray-400 focus:outline-none ${!isOverLimit ? 'mb-4' : ''}`}
         />

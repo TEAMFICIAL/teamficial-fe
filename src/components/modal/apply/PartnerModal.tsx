@@ -27,7 +27,7 @@ const PartnerModal = ({ isOpen, onClose, applicationId, recruitingPostId }: Part
       {
         recruitingPostId: recruitingPostId,
         applicationId: applicationId,
-        applicationStatus: ApplicationStatus.MATCH_FAILED,
+        applicationStatus: ApplicationStatus.MATCHING,
       },
       {
         onSuccess: () => {
@@ -89,16 +89,16 @@ const PartnerModal = ({ isOpen, onClose, applicationId, recruitingPostId }: Part
         </div>
         <Profile profile={profileData} />
         <div>
-          <MessageTextarea value={profileData.content} onChange={() => {}} />
-          <div className="flex gap-2">
+          <MessageTextarea value={profileData.content} onChange={() => {}} readOnly />
+          <div className="flex w-full gap-2">
             <Button
-              className="body-5 bg-gray-300 px-28 py-4 text-gray-800"
+              className="body-5 flex-1 bg-gray-300 py-4 text-gray-800"
               onClick={handleFailClick}
             >
               다음에 함께할래요
             </Button>
             <Button
-              className="body-5 bg-primary-900 text-gray-0 hover:bg-primary-700 px-30 py-4"
+              className="body-5 bg-primary-900 text-gray-0 hover:bg-primary-700 flex-1 py-4"
               onClick={handleSuccessClick}
             >
               함께할래요

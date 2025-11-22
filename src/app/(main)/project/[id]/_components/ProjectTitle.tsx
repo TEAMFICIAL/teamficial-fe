@@ -52,7 +52,7 @@ const ProjectTitle = ({
           <Link href={`/project/${postId}/edit`}>
             <button className="body-4 flex-1 cursor-pointer">수정</button>
           </Link>
-          <button className="body-4 flex-1 cursor-pointer" onClick={handleDeleteModal}>
+          <button className="body-4 flex-1 cursor-pointer text-red-100" onClick={handleDeleteModal}>
             삭제
           </button>
         </div>

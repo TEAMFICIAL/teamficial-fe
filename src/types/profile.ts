@@ -23,6 +23,7 @@ export type ResponseProfile = {
   headKeywords: string[];
   createdAt: string;
   modifiedAt: string;
+  uuid: string;
 };
 
 // /my-page 관련 API

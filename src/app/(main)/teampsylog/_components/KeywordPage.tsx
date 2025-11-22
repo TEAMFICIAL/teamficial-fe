@@ -8,6 +8,7 @@ import KeywordBar from './KeywordBar';
 import LogNote from './LogNote';
 import { useRequesterInfo } from '@/hooks/queries/useRequesterInfo';
 import { useUpdateHeadKeywords } from '@/hooks/mutation/useUpdateHeadKeywords';
+import { useToast } from '@/contexts/ToastContext';
 
 interface Props {
   share?: boolean;
@@ -69,6 +70,8 @@ const KeywordPage = ({ share = false, uuid }: Props) => {
     setSelectedSlot(index);
   };
 
+  const { addToast } = useToast();
+
   const handleSelectKeyword = (keywordId: number) => {
     if (!isEditMode || selectedSlot === null || !selectedProfileId) return;
 
@@ -87,9 +90,12 @@ const KeywordPage = ({ share = false, uuid }: Props) => {
           setSelectedSlot(null);
           setIsEditMode(false);
         },
-        onError: (error) => {
-          alert('대표키워드 업데이트에 실패했습니다.');
-          console.error(error);
+        onError: () => {
+          addToast({
+            type: 'error',
+            title: '이미 등록된 대표키워드입니다.',
+            message: '등록하지 않은 키워드를 선택해주세요.',
+          });
         },
       },
     );
@@ -115,6 +121,7 @@ const KeywordPage = ({ share = false, uuid }: Props) => {
                   headKeywords: [],
                   createdAt: '',
                   modifiedAt: '',
+                  uuid: '',
                 },
               ]
             : profiles
