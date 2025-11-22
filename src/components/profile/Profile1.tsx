@@ -69,7 +69,10 @@ const Profile1 = ({ profileId }: { profileId: number }) => {
             data.links.length > 0 &&
             data.links.map((link, index) => <ProfileLinkButton key={index} link={link} />)}
         </div>
-        <button className="body-5 text-gray-0 bg-primary-900 rounded-lg px-6 py-3">
+        <button
+          className="body-5 text-gray-0 bg-primary-900 cursor-pointer rounded-lg px-6 py-3"
+          onClick={() => window.open(`/teampsylog/${data.uuid}`, '_blank')}
+        >
           전체 키워드 보기
         </button>
       </div>

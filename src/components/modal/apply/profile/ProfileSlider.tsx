@@ -27,7 +27,7 @@ const ProfileSlider = ({ onProfileSelect }: Props) => {
     if (profiles && profiles.length > 0 && profiles[0].profileId !== undefined) {
       onProfileSelect(profiles[0].profileId);
     }
-  }, [profiles]);
+  }, [profiles, onProfileSelect]);
 
   if (!profiles || profiles.length === 0) {
     return (
