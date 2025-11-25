@@ -49,12 +49,19 @@ const ProjectTitle = ({
       </div>
       {writer ? (
         <div className="flex w-23.5 items-end gap-0.5">
-          <Link href={`/project/${postId}/edit`}>
-            <button className="body-4 flex-1 cursor-pointer">수정</button>
-          </Link>
-          <button className="body-4 flex-1 cursor-pointer text-red-100" onClick={handleDeleteModal}>
-            삭제
-          </button>
+          {status == 'OPEN' && (
+            <>
+              <Link href={`/project/${postId}/edit`}>
+                <button className="body-4 flex-1 cursor-pointer">수정</button>
+              </Link>
+              <button
+                className="body-4 flex-1 cursor-pointer text-red-100"
+                onClick={handleDeleteModal}
+              >
+                삭제
+              </button>
+            </>
+          )}
         </div>
       ) : (
         <>
