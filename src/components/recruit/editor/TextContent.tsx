@@ -73,7 +73,7 @@ const TextContent = ({ control, name = 'content' }: Props) => {
 
   if (!editor) return <div>Loading...</div>;
 
-  const textLength = editor.getText().length;
+  const textLength = editor.getText().replace(/\r?\n/g, '').length;
 
   return (
     <div className="flex flex-col gap-2">

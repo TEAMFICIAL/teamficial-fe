@@ -3,7 +3,13 @@ import { Period, PeriodType, ProgressWay } from '@/utils/project';
 import { z } from 'zod';
 
 const extractTextFromHTML = (html: string): string => {
-  return html.replace(/<[^>]*>/g, '').trim();
+  const text = html
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<\/(div|p|li|h[1-6])>/gi, '\n')
+    .replace(/<[^>]*>/g, '')
+    .replace(/\r?\n/g, '')
+    .trim();
+  return text;
 };
 
 export const recruitFormSchema = z.object({
