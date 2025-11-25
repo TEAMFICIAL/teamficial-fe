@@ -51,7 +51,11 @@ const Profile1 = ({ profileId }: { profileId: number }) => {
             <div className="flex items-center gap-2">
               <p className="body-5 text-gray-800">작업시간</p>
               <div className="h-3 w-[1px] bg-gray-700"></div>
-              <p className="body-6 text-gray-700">{data.workingTime}에 작업하는 게 편해요</p>
+              <p className="body-6 text-gray-700">
+                {data.workingTime
+                  ? `${data.workingTime}에 작업하는 게 편해요`
+                  : '작업시간대를 등록하지 않았어요'}
+              </p>
             </div>
           </div>
           {/* 태그 */}
