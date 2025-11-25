@@ -101,12 +101,7 @@ const RecruitPosition = ({ control }: Props) => {
             count: field.count ?? 1,
           };
           const isError = !!localError && index === fields.length - 1;
-          const isFilled = !!item.position && item.count > 0;
-          const borderColor = isError
-            ? 'border-red-100'
-            : isFilled
-              ? 'border-gray-600'
-              : 'border-gray-300';
+          const borderColor = isError ? 'border-red-100' : 'border-gray-300';
 
           return (
             <div key={field.id} className="flex flex-col">
