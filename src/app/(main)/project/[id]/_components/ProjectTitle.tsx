@@ -57,7 +57,13 @@ const ProjectTitle = ({
           </button>
         </div>
       ) : (
-        !alreadyApplied && <Button label="지원하기" size="large" onClick={handleApplyModal} />
+        <>
+          {alreadyApplied ? (
+            <Button label="지원완료" variant="gray" disabled size="large" />
+          ) : (
+            <Button label="지원하기" size="large" onClick={handleApplyModal} />
+          )}
+        </>
       )}
     </div>
   );
