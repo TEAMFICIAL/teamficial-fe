@@ -46,7 +46,7 @@ const ProfileDropdown = ({
                 setIsOpen(false);
               }}
             >
-              {profile.profileName}
+              {profile.profileName || '새 프로필'}
             </div>
           ))}
         </div>

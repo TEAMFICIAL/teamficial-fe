@@ -14,7 +14,7 @@ interface ProfileCardProps {
 const ProfileCard = ({ profile, isSelected = false, onClick }: ProfileCardProps) => {
   return (
     <section>
-      <p className="body-3 pb-3 text-gray-700">{profile.profileName}</p>
+      <p className="body-3 pb-3 text-gray-700">{profile.profileName || '새 프로필'}</p>
       <div
         className={`flex w-full cursor-pointer justify-between rounded-2xl px-14 py-8 transition-all ${
           isSelected
