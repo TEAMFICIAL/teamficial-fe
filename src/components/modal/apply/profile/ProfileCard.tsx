@@ -48,7 +48,7 @@ const ProfileCard = ({ profile, isSelected }: ProfileCardProps) => {
                   </a>
                 ) : (
                   <p
-                    className="body-6 max-w-[180px] truncate text-gray-700"
+                    className="body-6 max-w-[300px] truncate text-gray-700"
                     title={profile.contactWay}
                   >
                     {profile.contactWay || '연락수단을 등록하지 않았어요'}
