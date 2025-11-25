@@ -12,6 +12,7 @@ import { useModal } from '@/contexts/ModalContext';
 import { useParams } from 'next/dist/client/components/navigation';
 import { POSITION_KR } from '@/constants/Translate';
 import { useRouter } from 'next/navigation';
+import ErrorDisplay from '@/components/common/Error';
 
 const ProjectInfo = ({ id }: { id: string }) => {
   const { openModal } = useModal();
@@ -28,7 +29,7 @@ const ProjectInfo = ({ id }: { id: string }) => {
   const [isContentOpen, setIsContentOpen] = useState(false);
   const [selectedPosition, setSelectedPosition] = useState<PositionType | undefined>(undefined);
 
-  const { data } = useGetProjectApplicants({
+  const { data, isError } = useGetProjectApplicants({
     postId: Number(id),
     position: selectedPosition,
   });
@@ -45,6 +46,12 @@ const ProjectInfo = ({ id }: { id: string }) => {
     setSelectedPosition(position);
   };
 
+  if (isError)
+    return (
+      <div className="my-40">
+        <ErrorDisplay />
+      </div>
+    );
   if (!data) return null;
 
   const sanitizedContent = DOMPurify.sanitize(data.recruitingPost.recruitingPostContent);

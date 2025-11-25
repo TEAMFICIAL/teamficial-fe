@@ -22,5 +22,6 @@ export const useGetProjectApplicants = ({
   return useQuery<ResponseApplicantsDetail>({
     queryKey: ['projectApplicants', postId, position],
     queryFn: () => getCurrentApplicants(postId, position),
+    retry: 0,
   });
 };
