@@ -25,7 +25,7 @@ const ProfileDropdown = ({
         className="body-5 bg-gray-0 flex cursor-pointer gap-1 rounded-lg border border-gray-300 px-5 py-3 text-gray-800"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <p>{selectedProfile?.profileName || '프로필 선택'}</p>
+        <p>{selectedProfile?.profileName || '새 프로필'}</p>
         <Image
           src={isOpen ? '/icons/question_up.svg' : '/icons/question_down.svg'}
           alt="dropdown icon"
