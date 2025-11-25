@@ -1,6 +1,6 @@
 'use client';
 import DOMPurify from 'isomorphic-dompurify';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ProjectTitle from './ProjectTitle';
 import { useGetProjectApplicants } from '@/hooks/queries/useProject';
 import Image from 'next/image';
@@ -11,6 +11,7 @@ import Button from '@/components/common/Button';
 import { useModal } from '@/contexts/ModalContext';
 import { useParams } from 'next/dist/client/components/navigation';
 import { POSITION_KR } from '@/constants/Translate';
+import { useRouter } from 'next/navigation';
 
 const ProjectInfo = ({ id }: { id: string }) => {
   const { openModal } = useModal();
@@ -31,6 +32,14 @@ const ProjectInfo = ({ id }: { id: string }) => {
     postId: Number(id),
     position: selectedPosition,
   });
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (data?.recruitingPost.status === '모집 마감') {
+      router.replace(`/project/${id}`);
+    }
+  }, [data?.recruitingPost.status, id, router]);
 
   const handleFilterChange = (position?: PositionType) => {
     setSelectedPosition(position);

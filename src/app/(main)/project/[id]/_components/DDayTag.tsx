@@ -3,13 +3,26 @@
 import { Status, StatusType } from '@/utils/project';
 
 type DDayProps = {
-  status: StatusType;
+  status: StatusType | string;
   dday: number;
 };
 
+const mapStatusToEng = (status: string) => {
+  switch (status) {
+    case '모집중':
+      return 'OPEN';
+    case '모집 마감':
+      return 'CLOSED';
+    default:
+      return status;
+  }
+};
+
 const DDay = ({ status, dday }: DDayProps) => {
+  const engStatus = mapStatusToEng(status);
+
   const getText = () => {
-    if (status === Status.OPEN) {
+    if (engStatus === Status.OPEN) {
       return dday > 0 ? `D-${dday}` : 'D-DAY';
     }
     return '마감';

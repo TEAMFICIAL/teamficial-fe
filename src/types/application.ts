@@ -13,6 +13,7 @@ export type CurrentRecruitingPost = {
   recruitingDetails: string[];
   createdAt: string;
   dday: number;
+  status: string;
 };
 
 export type CurrentApplicant = {
