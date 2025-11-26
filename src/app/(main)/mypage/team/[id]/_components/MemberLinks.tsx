@@ -27,7 +27,7 @@ const MemberLinks = ({ links }: { links: string[] }) => {
               rel="noopener noreferrer"
               aria-label={`${type} 링크`}
             >
-              <Image src={iconMap[type]} alt={`${type} icon`} width={28} height={28} />
+              <Image src={iconMap[type]} alt="" width={28} height={28} />
             </a>
           );
         }
