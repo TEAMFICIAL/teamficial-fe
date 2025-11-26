@@ -78,7 +78,7 @@ const DropdownSmall = ({
         ref={buttonRef}
         type="button"
         style={open && openWidth ? { width: openWidth } : undefined}
-        className={`body-5 inline-flex cursor-pointer items-center justify-between border px-4 py-3 transition-[width] duration-150 ${open ? 'rounded-t-md rounded-b-none' : 'rounded-md'} ${isPlaceholder ? 'border-gray-300 text-gray-500' : 'text-primary-900 bg-primary-50 border-primary-900'} `}
+        className={`body-6 inline-flex cursor-pointer items-center justify-between border px-4 py-3 transition-[width] duration-150 ${open ? 'rounded-t-md rounded-b-none' : 'rounded-md'} ${isPlaceholder ? 'border-gray-300 text-gray-800' : 'text-primary-900 bg-primary-50 border-primary-900'} `}
         onClick={() => setOpen((p) => !p)}
         onKeyDown={(e) => {
           if (e.key === 'Enter' || e.key === ' ') {

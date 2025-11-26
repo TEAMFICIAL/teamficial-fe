@@ -1,6 +1,7 @@
 import { ResponseApplications, ResponseCurrentApplicants } from '@/types/applicant';
 import { CommonResponse } from '@/types/common';
 import api from '../api';
+import { ResponseConfirmedProfiles } from '@/types/myteam';
 
 export async function getMyApplications(
   applicationStatus: string = '',
@@ -36,3 +37,13 @@ export async function getCurrentApplicants(
 
   return data.result;
 }
+
+export const getConfirmedProfile = async (postId: number, position?: string) => {
+  const { data } = await api.get<ResponseConfirmedProfiles>(`/confirmed-profile/${postId}`, {
+    params: {
+      position: position || undefined,
+    },
+  });
+
+  return data;
+};
