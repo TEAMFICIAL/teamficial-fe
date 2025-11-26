@@ -9,13 +9,14 @@ const ProjectTitle = ({
   createdAt,
   deadline,
   dday,
+  status,
 }: CurrentRecruitingPost) => {
   return (
     <div className="flex items-center justify-between py-7">
       <div className="flex flex-col">
         <div className="flex items-center gap-2.5">
           <p className="title-1 text-gray-900">{recruitingPostTitle}</p>
-          <DDay status={'OPEN'} dday={dday} />
+          <DDay status={status} dday={dday} />
         </div>
         <p className="body-2 text-gray-700">
           {createdAt.split('T')[0]}~{deadline}

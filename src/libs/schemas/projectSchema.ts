@@ -2,6 +2,16 @@ import { POSITION_VALUES } from '@/utils/position';
 import { Period, PeriodType, ProgressWay } from '@/utils/project';
 import { z } from 'zod';
 
+const extractTextFromHTML = (html: string): string => {
+  const text = html
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<\/(div|p|li|h[1-6])>/gi, '\n')
+    .replace(/<[^>]*>/g, '')
+    .replace(/\r?\n/g, '')
+    .trim();
+  return text;
+};
+
 export const recruitFormSchema = z.object({
   title: z.string().min(1, '제목을 입력해주세요').max(30),
   recruitingPositions: z
@@ -31,7 +41,13 @@ export const recruitFormSchema = z.object({
     })
     .min(1, '마감일을 선택해주세요'),
   contactWay: z.string().min(1, '연락 방법을 입력해주세요'),
-  content: z.string().min(50, '최소 50자 이상 작성해주세요.'),
+  content: z.string().refine(
+    (html) => {
+      const text = extractTextFromHTML(html);
+      return text.length >= 50;
+    },
+    { message: '최소 50자 이상 작성해주세요.' },
+  ),
   profileId: z.number().min(1).optional(),
 });
 

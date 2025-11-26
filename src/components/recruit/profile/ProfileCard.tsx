@@ -14,7 +14,7 @@ interface ProfileCardProps {
 const ProfileCard = ({ profile, isSelected = false, onClick }: ProfileCardProps) => {
   return (
     <section>
-      <p className="body-3 pb-3 text-gray-700">{profile.profileName}</p>
+      <p className="body-3 pb-3 text-gray-700">{profile.profileName || '새 프로필'}</p>
       <div
         className={`flex w-full cursor-pointer justify-between rounded-2xl px-14 py-8 transition-all ${
           isSelected
@@ -39,12 +39,18 @@ const ProfileCard = ({ profile, isSelected = false, onClick }: ProfileCardProps)
                 <div className="flex items-center gap-2">
                   <p className="body-5 text-gray-800">연락수단</p>
                   <div className="h-3 w-[1px] bg-gray-700"></div>
-                  <p className="body-6 text-gray-700">{profile.contactWay}</p>
+                  <p className="body-6 text-gray-700">
+                    {profile.contactWay || '연락수단을 등록하지 않았어요'}
+                  </p>
                 </div>
                 <div className="flex items-center gap-2">
                   <p className="body-5 text-gray-800">작업시간</p>
                   <div className="h-3 w-[1px] bg-gray-700"></div>
-                  <p className="body-6 text-gray-700">{profile.workingTime}에 작업하는 게 편해요</p>
+                  <p className="body-6 text-gray-700">
+                    {profile.workingTime
+                      ? `${profile.workingTime}에 작업하는 게 편해요`
+                      : '작업시간대를 선택해주세요'}
+                  </p>
                 </div>
               </div>
             </div>

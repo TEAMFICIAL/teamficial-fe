@@ -33,14 +33,14 @@ const Button = ({
     large: 'body-3',
   };
 
-  const disabledStyle = 'opacity-50 cursor-not-allowed';
+  const disabledStyle = 'opacity-50';
 
   return (
     <button
       type={type}
       disabled={disabled}
       onClick={onClick}
-      className={`inline-flex cursor-pointer items-center justify-center rounded-lg px-8 py-4 ${sizeStyles[size]} ${disabled ? disabledStyle : ''} ${variantStyles[variant]} ${className}`}
+      className={`inline-flex items-center justify-center rounded-lg px-8 py-4 ${sizeStyles[size]} ${disabled ? disabledStyle : 'cursor-pointer'} ${variantStyles[variant]} ${className}`}
     >
       {label}
     </button>

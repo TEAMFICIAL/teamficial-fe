@@ -34,7 +34,12 @@ const ProfileSlider = ({ onProfileSelect }: Props) => {
       <div className="flex h-53 w-172 items-center justify-center rounded-2xl border border-gray-300 bg-gray-50 px-5 py-12">
         <p className="body-4 text-gray-600">
           대표키워드가 설정된 프로필이 없습니다.
-          <Link href="/teampsylog" className="text-primary-900 mx-1 underline">
+          <Link
+            href="/teampsylog"
+            className="text-primary-900 mx-1 underline"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             팀피셜록
           </Link>
           에서 대표키워드를 설정해주세요.

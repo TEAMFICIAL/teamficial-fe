@@ -26,13 +26,15 @@ const Profile = ({ profile }: ProfileCardProps) => {
               <div className="flex items-center gap-2">
                 <p className="body-5 text-gray-800">연락수단</p>
                 <div className="h-3 w-[1px] bg-gray-700" />
-                <p className="body-6 text-gray-700">{profile.profile.contactWay}</p>
+                <p className="body-6 text-gray-700">팀원이 되면 공개해요</p>
               </div>
               <div className="flex items-center gap-2">
                 <p className="body-5 text-gray-800">작업시간</p>
                 <div className="h-3 w-[1px] bg-gray-700" />
                 <p className="body-6 text-gray-700">
-                  {profile.profile.workingTime}에 작업하는 게 편해요
+                  {profile.profile.workingTime
+                    ? `${profile.profile.workingTime}에 작업하는 게 편해요`
+                    : '작업시간을 등록하지 않았어요'}
                 </p>
               </div>
             </div>

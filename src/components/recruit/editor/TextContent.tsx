@@ -38,8 +38,8 @@ const TextContent = ({ control, name = 'content' }: Props) => {
     onUpdate: ({ editor }) => {
       try {
         const html = editor.getHTML();
-        const plainText = editor.getText();
-        onChangeRef.current?.(plainText.length >= 50 ? html : '');
+        // 항상 html을 전달 (50자 미만이어도 컨텐츠 유지)
+        onChangeRef.current?.(html);
       } catch {
         // silent
       }
@@ -73,11 +73,16 @@ const TextContent = ({ control, name = 'content' }: Props) => {
 
   if (!editor) return <div>Loading...</div>;
 
+  const textLength = editor.getText().replace(/\r?\n/g, '').length;
+
   return (
     <div className="flex flex-col gap-2">
       <div className={`flex flex-col rounded-2xl border-1 border-gray-300 px-8 pt-4 pb-9`}>
         <Toolbar editor={editor} onLinkButtonClick={() => handleLink(editor)} />
         <EditorContent editor={editor} className="mt-7" />
+        <p className={`body-8 self-end ${textLength < 50 ? 'text-red-100' : 'text-gray-600'}`}>
+          {textLength}
+        </p>
       </div>
     </div>
   );

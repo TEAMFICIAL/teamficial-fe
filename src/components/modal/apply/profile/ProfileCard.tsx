@@ -48,17 +48,21 @@ const ProfileCard = ({ profile, isSelected }: ProfileCardProps) => {
                   </a>
                 ) : (
                   <p
-                    className="body-6 max-w-[180px] truncate text-gray-700"
+                    className="body-6 max-w-[300px] truncate text-gray-700"
                     title={profile.contactWay}
                   >
-                    {profile.contactWay}
+                    {profile.contactWay || '연락수단을 등록하지 않았어요'}
                   </p>
                 )}
               </div>
               <div className="flex items-center gap-2">
                 <p className="body-5 text-gray-800">작업시간</p>
                 <div className="h-3 w-[1px] bg-gray-700" />
-                <p className="body-6 text-gray-700">{profile.workingTime}에 작업하는 게 편해요</p>
+                <p className="body-6 text-gray-700">
+                  {profile.workingTime
+                    ? `${profile.workingTime}에 작업하는 게 편해요`
+                    : '작업시간대를 선택해주세요'}
+                </p>
               </div>
             </div>
           </div>

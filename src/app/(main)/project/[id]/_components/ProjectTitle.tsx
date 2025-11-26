@@ -47,18 +47,29 @@ const ProjectTitle = ({
           {createdAt.split(' ')[0]}~{deadline}
         </p>
       </div>
-      {writer ? (
-        <div className="flex w-23.5 items-end gap-0.5">
-          <Link href={`/project/${postId}/edit`}>
-            <button className="body-4 flex-1 cursor-pointer">수정</button>
-          </Link>
-          <button className="body-4 flex-1 cursor-pointer text-red-100" onClick={handleDeleteModal}>
-            삭제
-          </button>
-        </div>
-      ) : (
-        !alreadyApplied && <Button label="지원하기" size="large" onClick={handleApplyModal} />
-      )}
+      {status === 'OPEN' ? (
+        writer ? (
+          <div className="flex w-23.5 items-end gap-0.5">
+            <Link href={`/project/${postId}/edit`}>
+              <button className="body-4 flex-1 cursor-pointer">수정</button>
+            </Link>
+            <button
+              className="body-4 flex-1 cursor-pointer text-red-100"
+              onClick={handleDeleteModal}
+            >
+              삭제
+            </button>
+          </div>
+        ) : (
+          <>
+            {alreadyApplied ? (
+              <Button label="지원완료" variant="gray" disabled size="large" />
+            ) : (
+              <Button label="지원하기" size="large" onClick={handleApplyModal} />
+            )}
+          </>
+        )
+      ) : null}
     </div>
   );
 };

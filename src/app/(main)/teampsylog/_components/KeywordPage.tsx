@@ -9,6 +9,7 @@ import LogNote from './LogNote';
 import { useRequesterInfo } from '@/hooks/queries/useRequesterInfo';
 import { useUpdateHeadKeywords } from '@/hooks/mutation/useUpdateHeadKeywords';
 import { useToast } from '@/contexts/ToastContext';
+import Loading from '@/components/common/Loading';
 
 interface Props {
   share?: boolean;
@@ -34,7 +35,7 @@ const KeywordPage = ({ share = false, uuid }: Props) => {
 
   const { mutate: updateHeadKeywords } = useUpdateHeadKeywords();
 
-  const { data: keywordData } = useGetKeyword({
+  const { data: keywordData, isLoading } = useGetKeyword({
     profileId: selectedProfileId ?? 0,
   });
 
@@ -100,6 +101,10 @@ const KeywordPage = ({ share = false, uuid }: Props) => {
       },
     );
   };
+
+  if (isLoading && !keywordData) {
+    return <Loading />;
+  }
 
   return (
     <div className="flex flex-col gap-5 pb-14">

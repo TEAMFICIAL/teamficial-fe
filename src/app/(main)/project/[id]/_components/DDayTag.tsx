@@ -1,15 +1,18 @@
 'use client';
 
 import { Status, StatusType } from '@/utils/project';
+import mapStatusToEng from '@/utils/project/mapStatustoEng';
 
 type DDayProps = {
-  status: StatusType;
+  status: StatusType | string;
   dday: number;
 };
 
 const DDay = ({ status, dday }: DDayProps) => {
+  const engStatus = mapStatusToEng(status);
+
   const getText = () => {
-    if (status === Status.OPEN) {
+    if (engStatus === Status.OPEN) {
       return dday > 0 ? `D-${dday}` : 'D-DAY';
     }
     return '마감';
