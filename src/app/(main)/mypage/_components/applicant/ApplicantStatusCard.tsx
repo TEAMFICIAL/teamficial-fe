@@ -11,7 +11,11 @@ const ApplicantStatusCard = ({ recruiting }: ApplicantStatusCardProps) => {
   const router = useRouter();
 
   const handleClick = () => {
-    router.push(`/project/${recruiting.recruitingPostId}/applicants`);
+    if (recruiting.recruitingPostStatus === '모집 마감') {
+      router.push(`/project/${recruiting.recruitingPostId}`);
+    } else {
+      router.push(`/project/${recruiting.recruitingPostId}/applicants`);
+    }
   };
 
   return (

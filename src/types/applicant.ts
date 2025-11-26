@@ -21,6 +21,7 @@ export interface ResponseApplications {
 
 export interface CurrentApplicant {
   recruitingPostId: number;
+  recruitingPostStatus: string;
   writerName: string;
   profileImage: string | null;
   title: string;
