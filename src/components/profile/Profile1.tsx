@@ -26,8 +26,8 @@ const Profile1 = ({ profileId }: { profileId: number }) => {
             <div className="flex min-w-0 items-center gap-2">
               <p className="body-5 flex-shrink-0 text-gray-800">연락수단</p>
               <div className="h-3 w-[1px] bg-gray-700"></div>
-              <p className="body-6 max-w-[300px] truncate text-gray-700" title={data.contactWay}>
-                팀원이 되면 공개해요
+              <p className="body-6 max-w-[300px] truncate text-gray-700">
+                {data.contactWay || '연락수단을 등록하지 않았어요'}
               </p>
             </div>
             <div className="flex items-center gap-2">
