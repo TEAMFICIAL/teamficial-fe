@@ -14,7 +14,11 @@ const ApplicantTeamCard = ({ application, index }: ApplicantTeamCardProps) => {
   const router = useRouter();
 
   const handleClick = () => {
-    router.push(`/project/${application.recruitingPostId}/applicants`);
+    if (application.recruitingPostStatus === '모집 마감') {
+      router.push(`/project/${application.recruitingPostId}`);
+    } else {
+      router.push(`/project/${application.recruitingPostId}/applicants`);
+    }
   };
 
   return (
@@ -32,7 +36,9 @@ const ApplicantTeamCard = ({ application, index }: ApplicantTeamCardProps) => {
         <p className="body-8 text-gray-600">#{application.tags.join(' #')}</p>
       </div>
       <div className="flex w-58 items-center justify-center">
-        <Tag className="bg-red-10 text-red-100">{formatDday(application.dday)}</Tag>
+        <Tag className="bg-red-10 text-red-100">
+          {application.recruitingPostStatus === '모집 마감' ? '마감' : formatDday(application.dday)}
+        </Tag>
       </div>
     </button>
   );

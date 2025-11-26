@@ -21,7 +21,7 @@ const ButtonContainer = ({ onChange }: Props) => {
   const router = useRouter();
   const [duration, setDuration] = useState('');
   const [recruit, setRecruit] = useState('');
-  const [onlyOpen, setOnlyOpen] = useState(false);
+  const [onlyOpen, setOnlyOpen] = useState(true);
 
   const notifyChange = (updates: Partial<Filters>) => {
     const processedFilters = {
