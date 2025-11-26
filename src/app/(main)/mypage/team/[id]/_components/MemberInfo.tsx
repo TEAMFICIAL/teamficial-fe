@@ -1,12 +1,16 @@
 import { Keyword } from '@/components/common/Tag';
+import { WORKING_TIME_KR } from '@/constants/Translate';
 import { ResponseConfirmedProfile } from '@/types/myteam';
+import { getPositionLabel } from '@/utils/project/positionLabel';
 
 const MemberInfo = ({ member }: { member: ResponseConfirmedProfile }) => {
   return (
     <div className="flex flex-col">
       <div className="mb-2 flex items-center gap-2">
         <p className="body-1 text-gray-900">{member.userName}</p>
-        <div className="body-7 rounded bg-gray-200 px-3 text-gray-700">{member.position}</div>
+        <div className="body-7 rounded bg-gray-200 px-3 text-gray-700">
+          {getPositionLabel(member.position)}
+        </div>
       </div>
 
       <div className="flex items-center gap-2">
@@ -22,14 +26,17 @@ const MemberInfo = ({ member }: { member: ResponseConfirmedProfile }) => {
         <div className="h-3 w-[1px] bg-gray-700"></div>
         <p className="body-6 text-gray-600">
           {member.workingTime
-            ? `${member.workingTime}에 작업하는게 편해요`
+            ? `${WORKING_TIME_KR[member.workingTime]}에 작업하는게 편해요`
             : '작업시간대를 선택해주세요'}
         </p>
       </div>
 
       <div className="body-7 flex flex-wrap gap-2">
         {member.keywords.map((k, i) => (
-          <Keyword key={i} className="bg-gray-0 border border-gray-300 px-4 py-2 text-gray-600">
+          <Keyword
+            key={`${k}-${i}`}
+            className="bg-gray-0 border border-gray-300 px-4 py-2 text-gray-600"
+          >
             #{k}
           </Keyword>
         ))}

@@ -25,3 +25,10 @@ export const POSITION_KR: Record<string, string> = {
   CLOUD_INFRA: '클라우드/인프라',
   DEV_OPS: '데브옵스',
 };
+
+export const WORKING_TIME_KR: Record<string, string> = {
+  MORNING: '아침',
+  AFTERNOON: '낮',
+  EVENING: '밤',
+  DAWN: '새벽',
+};

@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { getLinkType } from '@/utils/project/linkType';
+import { isValidUrl } from '@/utils/project/validateUrl';
 
 const iconMap = {
   behance: '/icons/behance.svg',
@@ -16,11 +17,17 @@ const MemberLinks = ({ links }: { links: string[] }) => {
         const linkIndex = links.length - 3 + i;
         const link = links[linkIndex];
 
-        if (link) {
+        if (link && isValidUrl(link)) {
           const type = getLinkType(link);
           return (
-            <a key={i} href={link} target="_blank" rel="noopener noreferrer">
-              <Image src={iconMap[type]} alt={type} width={28} height={28} />
+            <a
+              key={i}
+              href={link}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${type} 링크`}
+            >
+              <Image src={iconMap[type]} alt={`${type} icon`} width={28} height={28} />
             </a>
           );
         }

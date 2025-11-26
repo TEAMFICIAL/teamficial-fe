@@ -1,3 +1,5 @@
+'use client';
+
 import { useRouter } from 'next/navigation';
 import MyTeamCard from './MyTeamCard';
 import { MyTeamResponses } from '@/types/project';

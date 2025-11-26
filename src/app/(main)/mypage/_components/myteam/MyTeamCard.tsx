@@ -1,3 +1,5 @@
+'use client';
+
 import { Tag } from '@/components/common/Tag';
 import { MyTeamResponses } from '@/types/project';
 import { useRouter } from 'next/navigation';
