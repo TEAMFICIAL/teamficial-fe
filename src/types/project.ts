@@ -117,7 +117,17 @@ export type MyRecruitingPost = {
   dday: number;
 };
 
+export type MyTeamResponses = {
+  postId: number;
+  period: string;
+  title: string;
+  progressWay: string;
+  tags: string[];
+  totalMembers: number;
+};
+
 export type ResponseDashboard = {
   myApplications: MyApplication[];
   myRecruitingPost: MyRecruitingPost[];
+  myTeamResponses: MyTeamResponses[];
 };
