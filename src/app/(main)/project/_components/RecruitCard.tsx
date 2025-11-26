@@ -56,7 +56,7 @@ const RecruitCard = ({
         </div>
         <div className="flex flex-col">
           <span className="title-3 truncate text-gray-900">{title}</span>
-          <span className="body-8 text-gray-600">{hashtag}</span>
+          <span className="body-8 truncate text-gray-600">{hashtag}</span>
         </div>
       </div>
       <div className="flex items-center justify-between border-t border-gray-200 pt-2">
