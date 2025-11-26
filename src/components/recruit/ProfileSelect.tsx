@@ -17,7 +17,7 @@ const ProfileSelect = ({ control }: Props) => {
     (profile) => profile.headKeywords && profile.headKeywords.length > 0,
   );
 
-  if (!profiles || profiles.length === 0) {
+  if (!filteredProfiles || filteredProfiles.length === 0) {
     return (
       <div className="flex h-53 w-full items-center justify-center rounded-2xl border border-gray-300 px-5 py-12">
         <p className="body-4 text-gray-600">
