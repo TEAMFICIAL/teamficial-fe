@@ -9,6 +9,8 @@ import AppliedTeamSection from './applied/AppliedTeamsSection';
 import ApplicantStatusSection from './applicant/ApplicantStatusSection';
 import { useGetProfileList } from '@/hooks/queries/useProfile';
 import { useDashboard } from '@/hooks/queries/useDashboard';
+import EmptyMyTeam from './myteam/EmptyMyTeam';
+import MyTeamSection from './myteam/MyTeamSection';
 
 const MyPageInfo = () => {
   const { data: profiles } = useGetProfileList();
@@ -17,9 +19,11 @@ const MyPageInfo = () => {
   const { data: dashboard } = useDashboard();
   const myApplications = dashboard?.myApplications ?? [];
   const myRecruitingPost = dashboard?.myRecruitingPost ?? [];
+  const myTeamResponses = dashboard?.myTeamResponses ?? [];
 
   const hasApplications = myApplications.length > 0;
   const hasRecruitingPosts = myRecruitingPost.length > 0;
+  const hasMyTeamResponses = myTeamResponses.length > 0;
 
   return (
     <div className="pb-14">
@@ -36,6 +40,8 @@ const MyPageInfo = () => {
       ) : (
         <EmptyApplicantStatus />
       )}
+
+      {hasMyTeamResponses ? <MyTeamSection teams={myTeamResponses} /> : <EmptyMyTeam />}
     </div>
   );
 };
