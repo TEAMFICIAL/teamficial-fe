@@ -17,7 +17,7 @@ const Page = () => {
   const [filters, setFilters] = useState<Filters>({
     duration: '',
     recruit: '',
-    onlyOpen: false,
+    onlyOpen: true,
   });
 
   const { data, isLoading, isError } = useRecruitingPosts(filters, currentPage, 9);
