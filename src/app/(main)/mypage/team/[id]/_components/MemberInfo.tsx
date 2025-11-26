@@ -17,7 +17,7 @@ const MemberInfo = ({ member }: { member: ResponseConfirmedProfile }) => {
         <p className="body-5 whitespace-nowrap text-gray-800">연락수단</p>
         <div className="h-3 w-[1px] bg-gray-700"></div>
         <p className="body-6 max-w-[316px] truncate text-gray-600">
-          {member.contactWay || '연락수단을 등록해주세요'}
+          {member.contactWay || '연락수단을 등록하지 않았습니다'}
         </p>
       </div>
 
@@ -27,7 +27,7 @@ const MemberInfo = ({ member }: { member: ResponseConfirmedProfile }) => {
         <p className="body-6 text-gray-600">
           {member.workingTime
             ? `${WORKING_TIME_KR[member.workingTime]}에 작업하는게 편해요`
-            : '작업시간대를 선택해주세요'}
+            : '작업시간대를 선택하지 않았습니다'}
         </p>
       </div>
 
