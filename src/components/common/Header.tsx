@@ -13,8 +13,15 @@ const Header = () => {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+
+  const handleProfileClick = () => {
+    setIsProfileDropdownOpen((prev) => !prev);
+  };
+
   const handleLogout = () => {
     useUserStore.getState().clearUser();
+    setIsProfileDropdownOpen(false);
   };
 
   return (
@@ -52,10 +59,33 @@ const Header = () => {
           </Link>
         </div>
         {isLoggedIn ? (
-          <Link href="/mypage" className="flex items-center gap-3">
-            <span className="body-6 font-semibold">{userName}님</span>
-            <Image src="/icons/profile.svg" alt="profile" width={44} height={44} />
-          </Link>
+          <div className="relative">
+            <button
+              className="flex cursor-pointer items-center gap-3"
+              onClick={handleProfileClick}
+              type="button"
+            >
+              <span className="body-6 font-semibold">{userName}님</span>
+              <Image src="/icons/profile.svg" alt="profile" width={44} height={44} />
+            </button>
+            {isProfileDropdownOpen && (
+              <div className="body-5 absolute right-0 z-20 mt-2 w-34 rounded-b-lg border-x border-b border-gray-300 bg-white text-gray-800">
+                <Link
+                  href="/mypage"
+                  className="block border-b border-gray-300 py-3 pl-7 hover:bg-gray-100"
+                  onClick={() => setIsProfileDropdownOpen(false)}
+                >
+                  마이페이지
+                </Link>
+                <button
+                  className="block w-full py-3 pl-7 text-left hover:bg-gray-100"
+                  onClick={handleLogout}
+                >
+                  로그아웃
+                </button>
+              </div>
+            )}
+          </div>
         ) : (
           <Link href="/login" className="flex items-center gap-3">
             <span className="body-6">로그인/회원가입</span>
