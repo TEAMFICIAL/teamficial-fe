@@ -10,6 +10,7 @@ import { useRequesterInfo } from '@/hooks/queries/useRequesterInfo';
 import { useUpdateHeadKeywords } from '@/hooks/mutation/useUpdateHeadKeywords';
 import { useToast } from '@/contexts/ToastContext';
 import Loading from '@/components/common/Loading';
+import KeywordGuideOverlay from './KeywordGuideOverlay';
 
 interface Props {
   share?: boolean;
@@ -32,6 +33,15 @@ const KeywordPage = ({ share = false, uuid }: Props) => {
   // 편집 모드 상태
   const [isEditMode, setIsEditMode] = useState(false);
   const [selectedSlot, setSelectedSlot] = useState<number | null>(null);
+
+  const [showGuide, setShowGuide] = useState(false);
+
+  useEffect(() => {
+    if (!share) {
+      const hide = localStorage.getItem('hideKeywordGuide');
+      if (!hide) setShowGuide(true);
+    }
+  }, [share]);
 
   const { mutate: updateHeadKeywords } = useUpdateHeadKeywords();
 
@@ -108,6 +118,7 @@ const KeywordPage = ({ share = false, uuid }: Props) => {
 
   return (
     <div className="flex flex-col gap-5 pb-14">
+      {!share && showGuide && <KeywordGuideOverlay onClose={() => setShowGuide(false)} />}
       {/* 제목  */}
       <LogTitle
         profiles={
