@@ -25,7 +25,7 @@ const MyTeamCard = ({ myteam }: MyTeamCardProps) => {
           <Tag className="body-9 bg-gray-200 text-gray-700">{myteam.period}</Tag>
           <Tag className="body-9 bg-gray-200 text-gray-700">{myteam.progressWay}</Tag>
         </div>
-        <Tag className="body-9 bg-red-10 text-red-100">{myteam.totalMembers}명 참여중</Tag>
+        <Tag className="body-9 bg-blue-50 text-blue-200">{myteam.totalMembers}명 참여</Tag>
       </div>
       <p className="title-3 truncate text-gray-900">{myteam.title}</p>
       <div className="body-8 flex gap-1 truncate text-gray-600">
