@@ -21,7 +21,7 @@ const KeywordGuideOverlay = ({ onClose }: Props) => {
   };
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-[9999] flex justify-center bg-black/70">
+    <div className="fixed inset-0 z-[9999] flex justify-center bg-black/70">
       <div className="relative mx-auto w-[1024px]">
         <div className="mt-[25px] flex justify-center">
           <Image
