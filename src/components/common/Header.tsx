@@ -6,12 +6,14 @@ import React, { useEffect, useState } from 'react';
 import { useUserStore } from '@/store/useUserStore';
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
+import { useToast } from '@/contexts/ToastContext';
 
 const Header = () => {
   const { userName } = useUserStore();
   const isLoggedIn = !!userName;
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { addToast } = useToast();
 
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
 
@@ -26,6 +28,7 @@ const Header = () => {
   const handleLogout = () => {
     useUserStore.getState().clearUser();
     setIsProfileDropdownOpen(false);
+    addToast({ message: '로그아웃 완료되었습니다.' });
   };
 
   return (
@@ -82,7 +85,7 @@ const Header = () => {
                   마이페이지
                 </Link>
                 <button
-                  className="block w-full cursor-pointer py-3 pl-7 text-left hover:bg-gray-100"
+                  className="block w-full cursor-pointer rounded-b-lg py-3 pl-7 text-left hover:bg-gray-100"
                   onClick={handleLogout}
                 >
                   로그아웃
