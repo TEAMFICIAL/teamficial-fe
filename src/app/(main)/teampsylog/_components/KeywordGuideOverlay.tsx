@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface Props {
   onClose: () => void;
@@ -15,10 +15,27 @@ const KeywordGuideOverlay = ({ onClose }: Props) => {
     setChecked(newValue);
 
     if (newValue) {
-      localStorage.setItem('hideKeywordGuide', 'true');
+      try {
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('hideKeywordGuide', 'true');
+        }
+      } catch (error) {
+        console.error('Failed to save guide preference:', error);
+      }
       onClose();
     }
   };
+
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
+  }, [onClose]);
 
   return (
     <div className="fixed inset-0 z-[9999] flex justify-center bg-black/70">
@@ -33,18 +50,22 @@ const KeywordGuideOverlay = ({ onClose }: Props) => {
           />
         </div>
 
-        <div
-          className="pointer-events-auto absolute right-[55px] bottom-[80px] flex cursor-pointer items-center gap-2"
-          onClick={handleClick}
-        >
+        <label className="pointer-events-auto absolute right-[55px] bottom-[80px] flex cursor-pointer items-center gap-2">
+          <input
+            type="checkbox"
+            checked={checked}
+            onChange={handleClick}
+            className="sr-only"
+            aria-label="튜토리얼 다시 보지 않기"
+          />
           <div
             className={`h-4 w-4 border border-white transition-colors ${
               checked ? 'bg-white' : 'bg-transparent'
             }`}
+            aria-hidden="true"
           />
-
           <span className="body-5 text-gray-0">다시보지않기</span>
-        </div>
+        </label>
       </div>
     </div>
   );
