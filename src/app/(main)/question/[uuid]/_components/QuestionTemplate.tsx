@@ -20,6 +20,8 @@ const QuestionTemplate = ({ uuid }: { uuid: string }) => {
 
   useEffect(() => {
     if (!myUuid) {
+      const currentPath = window.location.pathname;
+      localStorage.setItem('redirectAfterLogin', currentPath);
       router.replace('/login');
     }
   }, [myUuid, router]);
