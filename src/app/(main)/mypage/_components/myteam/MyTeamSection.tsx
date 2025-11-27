@@ -12,7 +12,7 @@ const MyTeamSection = ({ teams }: MyTeamSectionProps) => {
   const router = useRouter();
 
   const handleClick = () => {
-    router.push('/mypage/applicant');
+    router.push('/mypage/team');
   };
 
   return (
