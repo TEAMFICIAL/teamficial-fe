@@ -4,6 +4,7 @@ import Button from '../common/button/Button';
 import { TeamPsylogAskModalProps } from '@/constants/ModalList';
 import { useModal } from '@/contexts/ModalContext';
 import { useTeamficialLog } from '@/hooks/mutation/useTeamficialLog';
+import { useToast } from '@/contexts/ToastContext';
 
 const TeamPsylogAskModal = ({
   isOpen,
@@ -13,6 +14,7 @@ const TeamPsylogAskModal = ({
   formData,
 }: TeamPsylogAskModalProps) => {
   const { openModal } = useModal();
+  const { addToast } = useToast();
   const { mutate: submitLog, isPending } = useTeamficialLog();
 
   const handleClick = () => {
@@ -29,6 +31,22 @@ const TeamPsylogAskModal = ({
       onSuccess: () => {
         onClose();
         openModal('teamPsylogComplete', { userName, uuid });
+      },
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      onError: (error: any) => {
+        const code = error?.response?.data?.code;
+
+        if (code === 'KEYWORD_COMMENT5001') {
+          onClose();
+          addToast({
+            type: 'error',
+            title: '이미 작성된 팀피셜록이 있어요!',
+            message: '한 사람에게는 하나의 팀피셜록만 전달할 수 있어요',
+          });
+          return;
+        }
+        onClose();
+        addToast({ message: '팀피셜록 작성 중 문제가 발생했습니다.' });
       },
     });
   };
@@ -49,10 +67,14 @@ const TeamPsylogAskModal = ({
             이전으로
           </Button>
           <Button
-            className="bg-primary-900 text-gray-0 body-5 hover:bg-primary-700 px-30 py-4"
+            className="bg-primary-900 text-gray-0 body-5 hover:bg-primary-700 w-[369px] px-30 py-4"
             onClick={handleClick}
           >
-            이대로 완료하기
+            {isPending ? (
+              <span className="border-gray-0 inline-block h-5 w-5 animate-spin rounded-full border-2 border-t-transparent" />
+            ) : (
+              '이대로 완료하기'
+            )}
           </Button>
         </div>
       </div>
