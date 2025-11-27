@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useUserStore } from '@/store/useUserStore';
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
@@ -14,6 +14,10 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+
+  useEffect(() => {
+    setIsProfileDropdownOpen(false);
+  }, [pathname]);
 
   const handleProfileClick = () => {
     setIsProfileDropdownOpen((prev) => !prev);
@@ -69,7 +73,7 @@ const Header = () => {
               <Image src="/icons/profile.svg" alt="profile" width={44} height={44} />
             </button>
             {isProfileDropdownOpen && (
-              <div className="body-5 absolute right-0 z-20 mt-2 w-34 rounded-b-lg border-x border-b border-gray-300 bg-white text-gray-800">
+              <div className="body-5 absolute right-0 z-20 mt-2 w-34 cursor-pointer rounded-b-lg border-x border-b border-gray-300 bg-white text-gray-800">
                 <Link
                   href="/mypage"
                   className="block border-b border-gray-300 py-3 pl-7 hover:bg-gray-100"
@@ -78,7 +82,7 @@ const Header = () => {
                   마이페이지
                 </Link>
                 <button
-                  className="block w-full py-3 pl-7 text-left hover:bg-gray-100"
+                  className="block w-full cursor-pointer py-3 pl-7 text-left hover:bg-gray-100"
                   onClick={handleLogout}
                 >
                   로그아웃
