@@ -1,3 +1,5 @@
+'use client';
+
 import { Tag } from '@/components/common/Tag';
 import { MyTeamItem } from '@/types/myteam';
 import { useRouter } from 'next/navigation';
@@ -25,7 +27,7 @@ const MyTeamCard = ({ team, index }: MyTeamCardProps) => {
           <Tag className="bg-gray-200 text-gray-700">{team.progressWay}</Tag>
         </div>
         <p className="title-3 flex w-144.75 items-start text-gray-900">{team.title}</p>
-        <p className="body-8 text-gray-600">#{team.tags.join(' #')}</p>
+        {team.tags.length > 0 && <p className="body-8 text-gray-600">#{team.tags.join(' #')}</p>}
       </div>
       <div className="flex w-58 items-center justify-center">
         <Tag className="bg-blue-50 text-blue-200">{team.totalMembers}명 참여</Tag>
