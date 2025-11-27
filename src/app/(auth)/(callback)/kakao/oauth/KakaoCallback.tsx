@@ -35,7 +35,10 @@ export default function KakaoCallbackClient() {
 
             localStorage.setItem('accessToken', accessToken);
             localStorage.setItem('refreshToken', refreshToken);
-            router.replace('/');
+            const redirectPath = localStorage.getItem('redirectAfterLogin');
+            localStorage.removeItem('redirectAfterLogin');
+
+            router.replace(redirectPath || '/');
           } else {
             router.replace('/login');
           }

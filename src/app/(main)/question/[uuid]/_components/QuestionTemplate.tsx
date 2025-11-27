@@ -10,8 +10,24 @@ import QuestionTitle from './QuestionTitle';
 import { useRequesterInfo } from '@/hooks/queries/useRequesterInfo';
 import Loading from '@/components/common/Loading';
 import ErrorDisplay from '@/components/common/Error';
+import { useRouter } from 'next/navigation';
+import { useUserStore } from '@/store/useUserStore';
+import { useEffect } from 'react';
 
 const QuestionTemplate = ({ uuid }: { uuid: string }) => {
+  const router = useRouter();
+  const { uuid: myUuid, _hasHydrated } = useUserStore();
+
+  useEffect(() => {
+    if (!_hasHydrated) return;
+
+    if (!myUuid) {
+      const currentPath = window.location.pathname;
+      localStorage.setItem('redirectAfterLogin', currentPath);
+      router.replace('/login');
+    }
+  }, [myUuid, _hasHydrated, router]);
+
   const { openModal } = useModal();
   const { data, isLoading, error } = useRequesterInfo(uuid);
 
