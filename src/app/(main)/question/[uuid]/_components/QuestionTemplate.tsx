@@ -10,8 +10,20 @@ import QuestionTitle from './QuestionTitle';
 import { useRequesterInfo } from '@/hooks/queries/useRequesterInfo';
 import Loading from '@/components/common/Loading';
 import ErrorDisplay from '@/components/common/Error';
+import { useRouter } from 'next/navigation';
+import { useUserStore } from '@/store/useUserStore';
+import { useEffect } from 'react';
 
 const QuestionTemplate = ({ uuid }: { uuid: string }) => {
+  const router = useRouter();
+  const { uuid: myUuid } = useUserStore();
+
+  useEffect(() => {
+    if (!myUuid) {
+      router.replace('/login');
+    }
+  }, [myUuid, router]);
+
   const { openModal } = useModal();
   const { data, isLoading, error } = useRequesterInfo(uuid);
 
