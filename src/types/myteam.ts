@@ -10,3 +10,21 @@ export interface ResponseConfirmedProfile {
 }
 
 export type ResponseConfirmedProfiles = ResponseConfirmedProfile[];
+
+export interface MyTeamItem {
+  postId: number;
+  period: string;
+  title: string;
+  progressWay: string;
+  tags: string[];
+  totalMembers: number;
+  createAt: string;
+}
+
+export interface MyTeamsResponse {
+  content: MyTeamItem[];
+  currentPage: number;
+  totalPages: number;
+  totalElements: number;
+  hasNext: boolean;
+}
