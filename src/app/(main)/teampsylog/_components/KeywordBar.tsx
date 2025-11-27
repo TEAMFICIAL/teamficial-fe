@@ -58,7 +58,7 @@ const KeywordBar = ({
   return (
     <div className="flex items-center justify-between rounded-lg bg-gray-100 px-5 py-4">
       {/* 대표키워드 및 프로필 드롭다운 */}
-      <div className="flex gap-2">
+      <div className="flex items-center gap-2">
         <ProfileDropdown
           profiles={profiles}
           selectedProfileId={selectedProfileId}
@@ -77,7 +77,12 @@ const KeywordBar = ({
       </div>
       <div className="flex gap-4">
         <button onClick={onToggleEditMode} className="cursor-pointer">
-          <Image src="/icons/edit.svg" alt="수정하기" width={28} height={28} />
+          <Image
+            src={isEditMode ? '/icons/edit-selected.svg' : '/icons/edit.svg'}
+            alt="수정하기"
+            width={28}
+            height={28}
+          />
         </button>
         <button onClick={handleShare} className="cursor-pointer">
           <Image src="/icons/share.svg" alt="공유하기" width={28} height={28} />
