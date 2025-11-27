@@ -8,7 +8,7 @@ interface MyTeamListProps {
 }
 
 const MyTeamList = ({ page, setPage }: MyTeamListProps) => {
-  const { data } = useMyTeams(page - 1, 3);
+  const { data } = useMyTeams(page - 1, 6);
 
   const teams = data?.content ?? [];
   const totalPages = data?.totalPages ?? 1;
@@ -23,7 +23,7 @@ const MyTeamList = ({ page, setPage }: MyTeamListProps) => {
       <div className="mb-5 flex flex-col">
         {teams.length > 0 ? (
           teams.map((item, idx) => (
-            <MyTeamCard key={item.postId} team={item} index={(page - 1) * 3 + idx + 1} />
+            <MyTeamCard key={item.postId} team={item} index={(page - 1) * 6 + idx + 1} />
           ))
         ) : (
           <p className="py-10 text-center text-gray-500">참여중인 팀이 없습니다.</p>

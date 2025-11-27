@@ -11,7 +11,7 @@ interface ApplicantTeamListProps {
 }
 
 const ApplicantTeamList = ({ status, page, setPage }: ApplicantTeamListProps) => {
-  const { data } = useCurrentApplicants(status, page - 1, 3);
+  const { data } = useCurrentApplicants(status, page - 1, 6);
 
   const applicants = data?.content ?? [];
   const totalPages = data?.totalPages ?? 1;
@@ -26,7 +26,11 @@ const ApplicantTeamList = ({ status, page, setPage }: ApplicantTeamListProps) =>
       <div className="mb-5 flex flex-col">
         {applicants.length > 0 ? (
           applicants.map((app, idx) => (
-            <ApplicantTeamCard key={app.recruitingPostId} application={app} index={idx + 1} />
+            <ApplicantTeamCard
+              key={app.recruitingPostId}
+              application={app}
+              index={(page - 1) * 6 + idx + 1}
+            />
           ))
         ) : (
           <p className="py-10 text-center text-gray-500">모집 현황이 없습니다.</p>
