@@ -11,7 +11,7 @@ interface AppliedTeamListProps {
 }
 
 const AppliedTeamList = ({ status, page, setPage }: AppliedTeamListProps) => {
-  const { data } = useMyApplications(status, page - 1, 3);
+  const { data } = useMyApplications(status, page - 1, 6);
 
   const applications = data?.content ?? [];
   const totalPages = data?.totalPages ?? 1;
@@ -27,7 +27,11 @@ const AppliedTeamList = ({ status, page, setPage }: AppliedTeamListProps) => {
       <div className="mb-5 flex flex-col">
         {applications.length > 0 ? (
           applications.map((app, idx) => (
-            <AppliedTeamCard key={app.recruitingPostId} applicant={app} index={idx + 1} />
+            <AppliedTeamCard
+              key={app.recruitingPostId}
+              applicant={app}
+              index={(page - 1) * 6 + idx + 1}
+            />
           ))
         ) : (
           <p className="py-10 text-center text-gray-500">지원 내역이 없습니다.</p>

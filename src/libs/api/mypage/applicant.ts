@@ -1,12 +1,12 @@
 import { ResponseApplications, ResponseCurrentApplicants } from '@/types/applicant';
 import { CommonResponse } from '@/types/common';
 import api from '../api';
-import { ResponseConfirmedProfiles } from '@/types/myteam';
+import { MyTeamsResponse, ResponseConfirmedProfiles } from '@/types/myteam';
 
 export async function getMyApplications(
   applicationStatus: string = '',
   page: number = 0,
-  size: number = 3,
+  size: number = 6,
 ): Promise<ResponseApplications> {
   const { data } = await api.get<CommonResponse<ResponseApplications>>('/my-page/applications', {
     params: { applicationStatus, page, size },
@@ -22,7 +22,7 @@ export async function getMyApplications(
 export async function getCurrentApplicants(
   recruitingStatus: string = '',
   page: number = 0,
-  size: number = 3,
+  size: number = 6,
 ): Promise<ResponseCurrentApplicants> {
   const { data } = await api.get<CommonResponse<ResponseCurrentApplicants>>(
     '/my-page/current-applicants',
@@ -47,3 +47,15 @@ export const getConfirmedProfile = async (postId: number, position?: string) => 
 
   return data;
 };
+
+export async function getMyTeams(page: number = 0, size: number = 6): Promise<MyTeamsResponse> {
+  const { data } = await api.get<CommonResponse<MyTeamsResponse>>('/my-page/my-teams', {
+    params: { page, size },
+  });
+
+  if (!data.isSuccess) {
+    throw new Error(data.message || 'Failed to fetch my teams');
+  }
+
+  return data.result;
+}
