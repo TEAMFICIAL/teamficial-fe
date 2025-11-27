@@ -16,15 +16,17 @@ import { useEffect } from 'react';
 
 const QuestionTemplate = ({ uuid }: { uuid: string }) => {
   const router = useRouter();
-  const { uuid: myUuid } = useUserStore();
+  const { uuid: myUuid, _hasHydrated } = useUserStore();
 
   useEffect(() => {
+    if (!_hasHydrated) return;
+
     if (!myUuid) {
       const currentPath = window.location.pathname;
       localStorage.setItem('redirectAfterLogin', currentPath);
       router.replace('/login');
     }
-  }, [myUuid, router]);
+  }, [myUuid, _hasHydrated, router]);
 
   const { openModal } = useModal();
   const { data, isLoading, error } = useRequesterInfo(uuid);
