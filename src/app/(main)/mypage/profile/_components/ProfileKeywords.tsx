@@ -5,7 +5,7 @@ interface ProfileKeywordsProps {
 }
 
 const ProfileKeywords = ({ keywords }: ProfileKeywordsProps) => {
-  const defaultKeywords = ['#대표키워드1', '#대표키워드2', '#대표키워드3'];
+  const defaultKeywords = ['대표키워드1', '대표키워드2', '대표키워드3'];
   const displayKeywords = keywords && keywords.length > 0 ? keywords : defaultKeywords;
 
   return (
