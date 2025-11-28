@@ -7,6 +7,7 @@ interface RecruitCardProps {
   hashtag: string;
   author: string;
   date: string;
+  profileImageUrl: string;
   duration: string;
   mode: string;
   dday: number;
@@ -21,13 +22,15 @@ const RecruitCard = ({
   author,
   date,
   duration,
+  profileImageUrl,
+  profileImage = '/icons/profile.svg',
   mode,
   dday,
   status,
-  profileImage = '/icons/profile.svg',
   onClick,
 }: RecruitCardProps) => {
   const isClosed = status === 'CLOSED';
+  const finalProfileImage = profileImageUrl || profileImage;
 
   return (
     <article
@@ -62,7 +65,7 @@ const RecruitCard = ({
       <div className="flex items-center justify-between border-t border-gray-200 pt-2">
         <div className="flex items-center gap-2">
           <Image
-            src={profileImage}
+            src={finalProfileImage}
             alt="profile"
             width={32}
             height={32}

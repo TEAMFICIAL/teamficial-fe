@@ -31,6 +31,7 @@ export type ResponseProject = Project & {
   dday: number;
   alreadyApplied: boolean;
   writer: boolean;
+  profileImageUrl: string;
 };
 
 export type DeleteProject = {

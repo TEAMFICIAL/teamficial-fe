@@ -46,6 +46,7 @@ const Page = () => {
             <RecruitCard
               key={card.postId}
               title={card.title}
+              profileImageUrl={card.profileImageUrl}
               hashtag={card.recruitingPositions
                 .map((r) => `#${POSITION_KR[r.position] || r.position}`)
                 .join(' ')}
