@@ -76,7 +76,7 @@ const Header = () => {
               <Image src="/icons/profile.svg" alt="profile" width={44} height={44} />
             </button>
             {isProfileDropdownOpen && (
-              <div className="body-5 absolute right-0 z-20 mt-2 w-34 cursor-pointer rounded-b-lg border-x border-b border-gray-300 bg-white text-gray-800">
+              <div className="body-5 absolute right-0 z-20 mt-2 w-34 cursor-pointer rounded-lg border border-gray-300 bg-white text-gray-800 shadow-lg">
                 <Link
                   href="/mypage"
                   className="block border-b border-gray-300 py-3 pl-7 hover:bg-gray-100"
