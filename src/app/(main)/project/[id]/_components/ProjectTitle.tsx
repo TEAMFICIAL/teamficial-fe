@@ -8,6 +8,7 @@ import DDay from './DDayTag';
 import Link from 'next/link';
 import { useUserStore } from '@/store/useUserStore';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 const ProjectTitle = ({
   postId,
@@ -37,37 +38,42 @@ const ProjectTitle = ({
   };
 
   return (
-    <div className="flex items-center justify-between py-7">
+    <div className="desktop:py-7 flex items-center justify-between py-3">
       <div className="flex flex-col">
-        <div className="flex items-center gap-2.5">
-          <p className="title-1 text-gray-900">{title}</p>
+        <div className="desktop:gap-2.5 flex items-center gap-2">
+          <p className="desktop:title-1 title-3 text-gray-900">{title}</p>
           <DDay status={status} dday={dday} />
         </div>
-        <p className="body-2 text-gray-700">
+        <p className="desktop:body-2 body-8 text-gray-700">
           {createdAt.split(' ')[0]}~{deadline}
         </p>
       </div>
       {status === 'OPEN' ? (
         writer ? (
-          <div className="flex w-23.5 items-end gap-0.5">
-            <Link href={`/project/${postId}/edit`}>
-              <button className="body-4 flex-1 cursor-pointer">수정</button>
-            </Link>
-            <button
-              className="body-4 flex-1 cursor-pointer text-red-100"
-              onClick={handleDeleteModal}
-            >
-              삭제
-            </button>
-          </div>
-        ) : (
           <>
+            <div className="desktop:flex hidden w-23.5 items-end gap-0.5">
+              <Link href={`/project/${postId}/edit`}>
+                <button className="body-4 flex-1 cursor-pointer">수정</button>
+              </Link>
+              <button
+                className="body-4 flex-1 cursor-pointer text-red-100"
+                onClick={handleDeleteModal}
+              >
+                삭제
+              </button>
+            </div>
+            <button className="desktop:hidden block">
+              <Image src="/icons/more.svg" alt="more vertical icon" width={24} height={24} />
+            </button>
+          </>
+        ) : (
+          <div className="desktop:flex hidden">
             {alreadyApplied ? (
               <Button label="지원완료" variant="gray" disabled size="large" />
             ) : (
               <Button label="지원하기" size="large" onClick={handleApplyModal} />
             )}
-          </>
+          </div>
         )
       ) : null}
     </div>
