@@ -13,16 +13,16 @@ const ProjectInfo = ({ id }: { id: string }) => {
   const sanitizedContent = DOMPurify.sanitize(data.content);
 
   return (
-    <>
+    <div className="desktop:bg-gray-0 desktop:pb-14 mx-[-16px] bg-gray-100 px-4 pb-5">
       <ProjectTitle {...data} />
-      <div className="mb-14 flex flex-col gap-4">
+      <div className="desktop:gap-4 flex flex-col gap-3">
         <InfoCard {...data} />
-        <div className="prose max-w-none rounded-2xl border border-gray-300 p-10 text-gray-700">
+        <div className="prose desktop:bg-none bg-gray-0 desktop:p-10 max-w-none rounded-2xl border border-gray-300 px-5 py-6 text-gray-700">
           <div dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
         </div>
         <Profile1 profileId={data.writerProfileId} />
       </div>
-    </>
+    </div>
   );
 };
 
