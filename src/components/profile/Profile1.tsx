@@ -3,10 +3,16 @@ import ProfileTag from './ProfileTag';
 import ProfileLinkButton from './ProfileLinkButton';
 import Image from 'next/image';
 import { useGetProfile } from '@/hooks/queries/useProfile';
+import { useModal } from '@/contexts/ModalContext';
 
 const Profile1 = ({ profileId }: { profileId: number }) => {
+  const { openModal } = useModal();
   const { data } = useGetProfile({ profileId });
   if (!data) return null;
+
+  const handleOpenDetailModal = () => {
+    openModal('profileDetail', { profile: data });
+  };
 
   return (
     <>
@@ -78,16 +84,23 @@ const Profile1 = ({ profileId }: { profileId: number }) => {
             />
             <span className="body-7 text-gray-900">{data.userName}님</span>
           </p>
-          <div className="flex gap-1">
+          <div className="flex flex-wrap gap-1">
             {data.headKeywords.map((keyword, index) => (
               <ProfileTag key={index}>{keyword}</ProfileTag>
             ))}
           </div>
         </div>
         <div className="body-7 flex border-t border-gray-300 text-gray-800">
-          <button className="flex-1 py-3">상세보기</button>
+          <button className="flex-1 py-3" onClick={handleOpenDetailModal}>
+            상세보기
+          </button>
           <div className="w-[1px] bg-gray-300"></div>
-          <button className="flex-1 py-3">전체 키워드 보기</button>
+          <button
+            className="flex-1 py-3"
+            onClick={() => window.open(`/teampsylog/${data.uuid}`, '_blank')}
+          >
+            전체 키워드 보기
+          </button>
         </div>
       </div>
     </>
