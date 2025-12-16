@@ -34,7 +34,7 @@ const Header = () => {
   return (
     <>
       {/* PC */}
-      <header className="tablet:flex mx-auto hidden w-full max-w-[1024px] justify-between px-10 pt-5">
+      <header className="desktop:flex mx-auto hidden w-full max-w-[1024px] justify-between px-10 pt-5">
         <div className="flex items-center">
           <Link href="/" className="flex items-center gap-2 pr-4">
             <Image
@@ -101,7 +101,7 @@ const Header = () => {
         )}
       </header>
       {/* mobile */}
-      <header className="tablet:hidden mx-auto flex w-full max-w-[1024px] justify-between px-4 py-5">
+      <header className="desktop:hidden mx-auto flex w-full max-w-[640px] justify-between px-4 py-5">
         <Link href="/" className="flex items-center gap-2 pr-4">
           <Image src="/icons/teamficial-header.svg" alt="teamficial-logo" width={100} height={29} />
         </Link>
