@@ -19,7 +19,11 @@ export const useUserStore = create<UserState>()(
       userName: null,
       _hasHydrated: false,
       setUser: (data) => set(data),
-      clearUser: () => set({ uuid: null, userId: null, userName: null }),
+      clearUser: () => {
+        set({ uuid: null, userId: null, userName: null });
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+      },
       setHasHydrated: (value) => set({ _hasHydrated: value }),
     }),
     {

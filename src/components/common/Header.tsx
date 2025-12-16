@@ -27,8 +27,6 @@ const Header = () => {
 
   const handleLogout = () => {
     useUserStore.getState().clearUser();
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
     setIsProfileDropdownOpen(false);
     addToast({ message: '로그아웃 완료되었습니다.' });
   };

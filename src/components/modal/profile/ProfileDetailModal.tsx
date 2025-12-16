@@ -6,6 +6,7 @@ import Image from 'next/image';
 import BaseModal from '..';
 import ProfileTag from '@/components/profile/ProfileTag';
 import ProfileLinkButton from '@/components/profile/ProfileLinkButton';
+import { cn } from '@/utils/cn';
 
 const ProfileDetailModal = ({ isOpen, onClose, profile }: ProfileDetailModalProps) => {
   return (
@@ -30,7 +31,10 @@ const ProfileDetailModal = ({ isOpen, onClose, profile }: ProfileDetailModalProp
             </div>
           </div>
           <div
-            className={`flex flex-col rounded-lg bg-gray-100 px-6 pt-3 pb-5${profile.links && profile.links.length > 0 ? 'gap-[21px]' : ''}`}
+            className={cn(
+              'flex flex-col rounded-lg bg-gray-100 px-6 pt-3 pb-5',
+              profile.links && profile.links.length > 0 && 'gap-[21px]',
+            )}
           >
             <div className="body-10 flex flex-col gap-1 text-gray-700">
               <div className="flex gap-2">
