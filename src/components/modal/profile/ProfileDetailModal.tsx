@@ -29,7 +29,9 @@ const ProfileDetailModal = ({ isOpen, onClose, profile }: ProfileDetailModalProp
               ))}
             </div>
           </div>
-          <div className="flex flex-col gap-[21px] rounded-lg bg-gray-100 px-6 pt-3 pb-5">
+          <div
+            className={`flex flex-col rounded-lg bg-gray-100 px-6 pt-3 pb-5${profile.links && profile.links.length > 0 ? 'gap-[21px]' : ''}`}
+          >
             <div className="body-10 flex flex-col gap-1 text-gray-700">
               <div className="flex gap-2">
                 <p className="text-gray-600">연락수단</p>
@@ -48,9 +50,6 @@ const ProfileDetailModal = ({ isOpen, onClose, profile }: ProfileDetailModalProp
               {profile.links &&
                 profile.links.length > 0 &&
                 profile.links.map((link, index) => <ProfileLinkButton key={index} link={link} />)}
-              <ProfileLinkButton link="https://www.linkedin.com/in/sunnyshkim/" />
-              <ProfileLinkButton link="https://www.linkedin.com/in/sunnyshkim/" />
-              <ProfileLinkButton link="https://www.linkedin.com/in/sunnyshkim/" />
             </div>
           </div>
         </div>
