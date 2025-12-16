@@ -27,6 +27,8 @@ const Header = () => {
 
   const handleLogout = () => {
     useUserStore.getState().clearUser();
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
     setIsProfileDropdownOpen(false);
     addToast({ message: '로그아웃 완료되었습니다.' });
   };
@@ -111,7 +113,7 @@ const Header = () => {
       </header>
       {/* 모바일 메뉴 오버레이 */}
       {isMenuOpen && (
-        <div className="fixed inset-0 z-50">
+        <div className="fixed inset-0 z-999">
           {/* 배경 오버레이 */}
           <div className="absolute inset-0 bg-black/70" onClick={() => setIsMenuOpen(false)} />
           {/* 메뉴 패널*/}
