@@ -34,16 +34,27 @@ const DeleteModal = ({ isOpen, onClose, postId, projectName }: DeleteModalProps)
           alt="symbol"
           width={55}
           height={55}
-          className="mb-3 flex flex-col"
+          className="desktop:mb-3 desktop:w-14 desktop:h-14 mb-1 flex h-10 w-10 flex-col"
         />
-        <h3 className="title-3 text-gray-800">정말 삭제하시겠어요?</h3>
-        <p className="body-6 mb-10 text-gray-700">{projectName} 게시물이 영구적으로 삭제됩니다</p>
-        <div className="flex gap-2">
-          <Button className="body-5 bg-gray-300 px-8 py-4 text-gray-800" onClick={onClose}>
+        <h3 className="desktop:title-3 body-7 text-gray-800">정말 삭제하시겠어요?</h3>
+        <p className="desktop:body-6 body-10 desktop:mb-10 mb-4 text-gray-700">
+          {`'${projectName}' 게시물이 영구적으로 삭제됩니다`}
+        </p>
+        <div className="desktop:gap-2 flex w-full gap-1">
+          <Button
+            className="desktop:block body-5 hidden bg-gray-300 px-8 py-4 text-gray-800"
+            onClick={onClose}
+          >
             취소하기
           </Button>
           <Button
-            className="text-gray-0 body-5 bg-red-100 px-40 py-4 hover:bg-red-200"
+            className="desktop:hidden body-7 bg-gray-300 px-4 py-3 text-gray-800"
+            onClick={onClose}
+          >
+            취소
+          </Button>
+          <Button
+            className="text-gray-0 desktop:body-5 body-7 desktop:px-40 desktop:py-4 flex-1 bg-red-100 py-3 hover:bg-red-200"
             onClick={handleDelete}
           >
             삭제하기
