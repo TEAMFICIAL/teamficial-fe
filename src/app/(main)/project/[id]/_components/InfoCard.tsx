@@ -16,13 +16,13 @@ const InfoCard = ({
   const formatStartDate = formatDate(startDate);
 
   return (
-    <div className="flex flex-col gap-4 rounded-2xl bg-gray-100 p-10">
+    <div className="desktop:gap-4 desktop:p-10 desktop:bg-gray-100 bg-gray-0 desktop:border-none flex flex-col gap-3 rounded-2xl border border-gray-300 p-5">
       <InfoItem label="모집 분야/인원" value={formatPosition} />
-      <div className="flex">
+      <div className="desktop:flex">
         <InfoItem label="시작 예정일" value={formatStartDate} className="flex-2" />
         <InfoItem label="진행 기간" value={PERIOD_KR[period]} className="flex-1" />
       </div>
-      <div className="flex">
+      <div className="desktop:flex">
         <InfoItem label="진행방식" value={PROGRESS_WAY_KR[progressWay]} className="flex-2" />
         <InfoItem label="연락방법" value={contactWay} className="flex-1" />
       </div>

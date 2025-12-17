@@ -25,7 +25,7 @@ const BaseModal = ({ isOpen, onClose, children }: BaseModalProps) => {
           exit={{ opacity: 0 }}
         >
           <motion.div
-            className="bg-gray-0 rounded-xl p-10"
+            className="bg-gray-0 desktop:mx-0 desktop:w-auto desktop:max-w-none desktop:p-10 mx-5 w-full max-w-[400px] rounded-xl px-4 py-5"
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}

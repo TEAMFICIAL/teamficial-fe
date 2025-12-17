@@ -244,11 +244,14 @@ body {
   white-space: pre-wrap;
 }
 .prose h1 {
-  @apply my-2 text-3xl font-bold;
+  @apply desktop:text-3xl desktop:my-2 my-1 text-2xl font-bold;
 }
 .prose h2 {
-  @apply my-2 text-2xl font-bold;
+  @apply desktop:text-2xl desktop:my-2 my-1 text-xl font-bold;
 }
 .prose h3 {
-  @apply my-1 text-xl font-bold;
+  @apply desktop:text-xl desktop:my-1 my-0.5 text-lg font-bold;
+}
+.prose p {
+  @apply desktop:body-4 body-6;
 }
