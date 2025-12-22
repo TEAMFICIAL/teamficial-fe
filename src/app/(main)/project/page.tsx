@@ -11,8 +11,10 @@ import { PERIOD_KR, POSITION_KR, PROGRESS_WAY_KR } from '@/constants/Translate';
 import { Filters, useRecruitingPosts } from '@/hooks/queries/useRecruitingPosts';
 import Loading from '@/components/common/Loading';
 import ErrorDisplay from '@/components/common/Error';
+import Button from '@/components/common/button/Button';
 
 const Page = () => {
+  const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
   const [filters, setFilters] = useState<Filters>({
     duration: '',
@@ -21,51 +23,59 @@ const Page = () => {
   });
 
   const { data, isLoading, isError } = useRecruitingPosts(filters, currentPage, 9);
+  if (isLoading) return <Loading />;
+  if (isError) return <ErrorDisplay />;
+
   const currentCards = data?.content ?? [];
   const totalPages = data?.totalPages ?? 1;
-  const router = useRouter();
   const handleCardClick = (id: number) => {
     router.push(`/project/${id}`);
   };
 
   return (
     <main className="flex flex-col">
-      <div className="py-5">
+      <div className="tablet:py-5">
         <Banner />
       </div>
-      <div className="w-full pt-5">
+      <div className="tablet:pt-5 w-full pt-5 pb-3">
         <ButtonContainer onChange={setFilters} />
       </div>
-      {isLoading ? (
-        <Loading />
-      ) : isError ? (
-        <ErrorDisplay message="데이터를 불러오는 중 오류가 발생했습니다." />
-      ) : (
-        <div className="grid grid-cols-3 gap-4 py-5">
-          {currentCards.map((card: ResponseProject) => (
-            <RecruitCard
-              key={card.postId}
-              title={card.title}
-              profileImageUrl={card.profileImageUrl}
-              hashtag={card.recruitingPositions
-                .map((r) => `#${POSITION_KR[r.position] || r.position}`)
-                .join(' ')}
-              author={card.userName}
-              date={card.createdAt.split('T')[0]}
-              duration={PERIOD_KR[card.period] || card.period}
-              mode={PROGRESS_WAY_KR[card.progressWay] || card.progressWay}
-              dday={card.dday}
-              status={card.status}
-              onClick={() => handleCardClick(card.postId)}
-            />
-          ))}
-        </div>
-      )}
-      <Pagination
-        totalPages={totalPages}
-        currentPage={currentPage}
-        onPageChange={(page) => setCurrentPage(page)}
-      />
+      <div className="tablet:grid tablet:py-5 tablet:gap-4 tablet:grid-cols-3 flex flex-col gap-2">
+        {currentCards.map((card: ResponseProject) => (
+          <RecruitCard
+            key={card.postId}
+            title={card.title}
+            profileImageUrl={card.profileImageUrl}
+            hashtag={card.recruitingPositions
+              .map((r) => `#${POSITION_KR[r.position] || r.position}`)
+              .join(' ')}
+            author={card.userName}
+            date={card.createdAt.split('T')[0]}
+            duration={PERIOD_KR[card.period] || card.period}
+            mode={PROGRESS_WAY_KR[card.progressWay] || card.progressWay}
+            dday={card.dday}
+            status={card.status}
+            onClick={() => handleCardClick(card.postId)}
+          />
+        ))}
+      </div>
+
+      <div className="tablet:hidden flex justify-center py-3">
+        <Button
+          className="body-5 w-full cursor-pointer border border-gray-300 bg-gray-50 px-5 py-3 text-gray-800"
+          onClick={() => router.push('/project/mobile/all')}
+        >
+          공고 전체보기
+        </Button>
+      </div>
+
+      <div className="tablet:block hidden">
+        <Pagination
+          totalPages={totalPages}
+          currentPage={currentPage}
+          onPageChange={(page) => setCurrentPage(page)}
+        />
+      </div>
     </main>
   );
 };
