@@ -59,7 +59,7 @@ const ButtonContainer = ({ onChange }: Props) => {
   return (
     <main className="flex w-full flex-col justify-between gap-5">
       <div className="flex w-full justify-between">
-        <div className="flex gap-2">
+        <div className="tablet:gap-2 flex gap-1">
           <DropdownSmall
             name="duration"
             value={duration}
@@ -76,7 +76,7 @@ const ButtonContainer = ({ onChange }: Props) => {
           />
         </div>
         <Button
-          className="bg-primary-900 body-5 text-gray-0 hover:bg-primary-700 px-5 py-3"
+          className="tablet:flex bg-primary-900 body-5 text-gray-0 hover:bg-primary-700 hidden px-5 py-3"
           onClick={handleRecruitClick}
         >
           팀원 모집하기
