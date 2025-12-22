@@ -14,90 +14,60 @@ import EditProfileCompleteModal from '@/components/modal/profile/EditProfileComp
 import TeamPsylogAskModal from '@/components/modal/TeamPsylogAskModal';
 import { QuestionFormValues } from '@/libs/schemas/questionFormSchema';
 
-export interface RecruitCompleteModalProps {
+export interface BaseModalProps {
   isOpen: boolean;
   onClose: () => void;
+}
+
+export interface RecruitCompleteModalProps extends BaseModalProps {
   onListClick?: () => void;
   onDetailClick?: () => void;
 }
 
-export interface ApplyModalProps {
-  isOpen: boolean;
-  onClose: () => void;
+export interface ApplyModalProps extends BaseModalProps {
   postId?: number;
   recruitingPositions?: RecruitingPosition[];
 }
 
-export interface ApplyCompleteModalProps {
-  isOpen: boolean;
-  onClose: () => void;
+export interface ApplyCompleteModalProps extends BaseModalProps {
   projectName?: string;
 }
 
-export interface DeleteModalProps {
-  isOpen: boolean;
-  onClose: () => void;
+export interface DeleteModalProps extends BaseModalProps {
   postId?: number;
   projectName?: string;
   onConfirm?: () => void;
 }
 
-export interface PartnerModalProps {
-  isOpen: boolean;
-  onClose: () => void;
+export interface PartnerModalProps extends BaseModalProps {
   recruitingPostId: number;
   applicationId: number;
 }
 
-export interface TeamPsylogCompleteModalProps {
+export interface TeamPsylogCompleteModalProps extends BaseModalProps {
   userName: string;
-  isOpen: boolean;
   uuid: string;
-  onClose: () => void;
   onConfirm?: () => void;
 }
 
-export type TeamPsylogAskModalProps = {
-  isOpen: boolean;
-  onClose: () => void;
+export interface TeamPsylogAskModalProps extends BaseModalProps {
   userName: string;
   uuid: string;
   formData: QuestionFormValues;
-};
+}
 
-export interface ApplicateFinishModalProps {
-  isOpen: boolean;
-  onClose: () => void;
+export interface ApplicateFinishModalProps extends BaseModalProps {
   onConfirm?: () => void;
   recruitingPostId?: number;
 }
 
-export interface ApplicantFinishModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-export interface DeleteProfileModalProps {
-  isOpen: boolean;
-  onClose: () => void;
+export interface DeleteProfileModalProps extends BaseModalProps {
   profileId: number;
   profileName: string;
 }
 
-export interface DeleteProfileCompleteModalProps {
-  isOpen: boolean;
-  onClose: () => void;
+export interface DeleteProfileCompleteModalProps extends BaseModalProps {
   profileName: string;
-}
-
-export interface DeleteProfileErrorModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-export interface EditProfileCompleteModalProps {
-  isOpen: boolean;
-  onClose: () => void;
 }
 
 export const MODAL_COMPONENTS = {
@@ -127,9 +97,9 @@ export interface ModalPropsMap {
   teamPsylogAsk: TeamPsylogAskModalProps;
   recruitComplete: RecruitCompleteModalProps;
   applicateFinish: ApplicateFinishModalProps;
-  applicantFinish: ApplicantFinishModalProps;
+  applicantFinish: BaseModalProps;
   profileDelete: DeleteProfileModalProps;
   profileDeleteComplete: DeleteProfileCompleteModalProps;
-  profileDeleteError: DeleteProfileErrorModalProps;
-  profileEditComplete: EditProfileCompleteModalProps;
+  profileDeleteError: BaseModalProps;
+  profileEditComplete: BaseModalProps;
 }
