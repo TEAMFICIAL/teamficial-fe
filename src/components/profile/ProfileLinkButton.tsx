@@ -35,6 +35,7 @@ const ProfileLinkButton = ({ link }: { link: string }) => {
         alt={type}
         width={28}
         height={28}
+        className="desktop:h-7 desktop:w-7 h-6 w-6"
       />
     </button>
   );

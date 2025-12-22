@@ -13,6 +13,8 @@ import DeleteProfileError from '@/components/modal/profile/DeleteProfileError';
 import EditProfileCompleteModal from '@/components/modal/profile/EditProfileCompleteModal';
 import TeamPsylogAskModal from '@/components/modal/TeamPsylogAskModal';
 import { QuestionFormValues } from '@/libs/schemas/questionFormSchema';
+import ProfileDetailModal from '@/components/modal/profile/ProfileDetailModal';
+import { ResponseProfile } from '@/types/profile';
 
 export interface BaseModalProps {
   isOpen: boolean;
@@ -70,6 +72,22 @@ export interface DeleteProfileCompleteModalProps extends BaseModalProps {
   profileName: string;
 }
 
+export interface DeleteProfileErrorModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export interface EditProfileCompleteModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export interface ProfileDetailModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  profile: ResponseProfile;
+}
+
 export const MODAL_COMPONENTS = {
   apply: ApplyModal,
   applyComplete: ApplyCompleteModal,
@@ -84,6 +102,7 @@ export const MODAL_COMPONENTS = {
   profileDeleteComplete: DeleteProfileCompleteModal,
   profileDeleteError: DeleteProfileError,
   profileEditComplete: EditProfileCompleteModal,
+  profileDetail: ProfileDetailModal,
 };
 
 export type ModalType = keyof typeof MODAL_COMPONENTS;
@@ -100,6 +119,7 @@ export interface ModalPropsMap {
   applicantFinish: BaseModalProps;
   profileDelete: DeleteProfileModalProps;
   profileDeleteComplete: DeleteProfileCompleteModalProps;
-  profileDeleteError: BaseModalProps;
-  profileEditComplete: BaseModalProps;
+  profileDeleteError: DeleteProfileErrorModalProps;
+  profileEditComplete: EditProfileCompleteModalProps;
+  profileDetail: ProfileDetailModalProps;
 }

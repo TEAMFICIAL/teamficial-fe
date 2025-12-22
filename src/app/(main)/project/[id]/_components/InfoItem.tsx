@@ -10,8 +10,8 @@ const InfoItem = ({ label, value, className = '' }: InfoItemProps) => {
   const isUrl = /^(https?:\/\/|www\.)/i.test(value);
 
   return (
-    <div className={`flex items-center ${className}`}>
-      <p className="body-3 w-30 flex-shrink-0">{label}</p>
+    <div className={`flex items-start ${className}`}>
+      <p className="desktop:body-3 body-7 w-30 flex-shrink-0">{label}</p>
       <div className="min-w-0 flex-1">
         {isUrl ? (
           <a
@@ -24,7 +24,7 @@ const InfoItem = ({ label, value, className = '' }: InfoItemProps) => {
             {value}
           </a>
         ) : (
-          <p className="body-4 line-clamp-2 break-all text-gray-700" title={value}>
+          <p className="desktop:body-4 body-8 line-clamp-2 break-all text-gray-700" title={value}>
             {value}
           </p>
         )}
