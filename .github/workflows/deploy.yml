@@ -54,9 +54,9 @@ jobs:
       - uses: actions/setup-node@v4
         if: ${{ steps.promote.outputs.changed == 'true' }}
         with:
-            node-version: 20
-            registry-url: 'https://registry.npmjs.org'
-      
+          node-version: 20
+          registry-url: 'https://registry.npmjs.org'
+
       - name: Force npmjs registry
         if: ${{ steps.promote.outputs.changed == 'true' }}
         run: |
@@ -65,11 +65,7 @@ jobs:
 
       - uses: pnpm/action-setup@v4
         if: ${{ steps.promote.outputs.changed == 'true' }}
-        with:
-          version: 10
-          standalone: true
 
-          
       - run: pnpm -v
         if: ${{ steps.promote.outputs.changed == 'true' }}
 
@@ -80,7 +76,6 @@ jobs:
           cache: 'pnpm'
           cache-dependency-path: 'pnpm-lock.yaml'
 
-
       - name: Install Vercel CLI
         if: ${{ steps.promote.outputs.changed == 'true' }}
         run: npm i -g vercel@latest
@@ -88,7 +83,7 @@ jobs:
       - name: Pull Vercel Env (production)
         if: ${{ steps.promote.outputs.changed == 'true' }}
         env:
-          VERCEL_ORG_ID:     ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
         run: vercel pull --yes --environment=production --token='${{ secrets.VERCEL_TOKEN }}'
 
@@ -102,7 +97,6 @@ jobs:
         run: |
           url="$(vercel deploy --prebuilt --prod --token='${{ secrets.VERCEL_TOKEN }}')"
           echo "::notice::Deployed $url"
-
 
   deploy-on-main:
     if: ${{ github.ref == 'refs/heads/main' }}
@@ -119,11 +113,7 @@ jobs:
           npm config set registry https://registry.npmjs.org/
           echo "registry=https://registry.npmjs.org/" > ~/.npmrc
 
-
       - uses: pnpm/action-setup@v4
-        with:
-          version: 10
-          standalone: true
       - run: pnpm -v
 
       - uses: actions/setup-node@v4
@@ -135,7 +125,7 @@ jobs:
       - run: npm i -g vercel@latest
       - name: Pull Vercel Env (production)
         env:
-          VERCEL_ORG_ID:     ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
         run: vercel pull --yes --environment=production --token='${{ secrets.VERCEL_TOKEN }}'
       - name: Build (prebuilt, prod)
