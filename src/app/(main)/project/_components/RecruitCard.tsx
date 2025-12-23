@@ -34,7 +34,7 @@ const RecruitCard = ({
 
   return (
     <article
-      className="bg-gray-0 relative flex max-w-[304px] cursor-pointer flex-col justify-center gap-6 rounded-lg border-1 border-gray-300 p-5"
+      className="bg-gray-0 tablet:max-w-[304px] tablet:gap-6 tablet:p-5 relative flex max-w-[288px] cursor-pointer flex-col justify-center gap-3 rounded-lg border-1 border-gray-300 px-5 py-4"
       onClick={onClick}
       onKeyDown={(e) => e.key === 'Enter' && onClick?.()}
     >
@@ -43,7 +43,7 @@ const RecruitCard = ({
           <span className="title-2 text-gray-0">모집 마감</span>
         </div>
       )}
-      <div className="flex flex-col gap-2.5">
+      <div className="tablet:gap-2.5 flex flex-col gap-2">
         <div className="flex w-full justify-between">
           <div className="flex gap-1">
             <Tag className="bg-gray-200 text-gray-700 disabled:bg-gray-400 disabled:text-gray-50">
@@ -58,8 +58,8 @@ const RecruitCard = ({
           </Tag>
         </div>
         <div className="flex flex-col">
-          <span className="title-3 truncate text-gray-900">{title}</span>
-          <span className="body-8 truncate text-gray-600">{hashtag}</span>
+          <span className="tablet:title-3 body-5 truncate text-gray-900">{title}</span>
+          <span className="tablet:body-8 body-9 truncate text-gray-600">{hashtag}</span>
         </div>
       </div>
       <div className="flex items-center justify-between border-t border-gray-200 pt-2">
@@ -71,9 +71,9 @@ const RecruitCard = ({
             height={32}
             className="h-8 w-8 rounded-full object-cover"
           />
-          <span className="body-8 text-gray-700">{author}</span>
+          <span className="tablet:body-8 body-10 text-gray-700">{author}</span>
         </div>
-        <span className="body-8 text-gray-700">{formatDateDot(date)}</span>
+        <span className="tablet:body-8 body-10 text-gray-700">{formatDateDot(date)}</span>
       </div>
     </article>
   );
