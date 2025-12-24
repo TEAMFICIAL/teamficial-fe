@@ -38,8 +38,8 @@ const ProfileDetailModal = ({ isOpen, onClose, profile }: ProfileDetailModalProp
           >
             <div className="body-10 flex flex-col gap-1 text-gray-700">
               <div className="flex gap-2">
-                <p className="text-gray-600">연락수단</p>
-                <p>{profile.contactWay || '연락수단을 등록하지 않았어요'}</p>
+                <p className="flex-shrink-0 text-gray-600">연락수단</p>
+                <p className="truncate">{profile.contactWay || '연락수단을 등록하지 않았어요'}</p>
               </div>
               <div className="flex gap-2">
                 <p className="text-gray-600">작업시간</p>
