@@ -1,26 +1,38 @@
 'use client';
 
+import { usePathname } from 'next/navigation';
 import Footer from '@/components/common/Footer';
 import Header from '@/components/common/Header';
-import { usePathname } from 'next/navigation';
+import { useIsMobile } from '@/hooks/useIsMobile';
+
+// 오버레이 경로 패턴 정의
+// 필요 시 패턴 추가
+const OVERLAY_ROUTES = [
+  /^\/teampsylog\/head\/[^/]+$/, // /teampsylog/head/:uuid
+  /^\/question\/[^/]+$/, // /question/:uuid
+];
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {
-  // 'use client' 삭제하고 헤더에서 사용할 수 있도록 수정
   const pathname = usePathname();
-  const shouldHideHeader = pathname.includes('/mobile');
+  const isMobile = useIsMobile();
 
+  const shouldShowOverlay = isMobile && OVERLAY_ROUTES.some((pattern) => pattern.test(pathname));
+
+  if (shouldShowOverlay) {
+    return (
+      <main className="fixed inset-0 z-50 flex">
+        <div className="w-full overflow-y-auto bg-white px-4">{children}</div>
+      </main>
+    );
+  }
+
+  // 기본 레이아웃
   return (
     <>
-      {shouldHideHeader ? (
-        <>{children}</>
-      ) : (
-        <>
-          <Header />
-          <main className="desktop:max-w-[1024px] desktop:px-10 desktop:min-h-[calc(100vh-65px)] mx-auto w-full max-w-[640px] px-4">
-            {children}
-          </main>
-        </>
-      )}
+      <Header />
+      <main className="desktop:max-w-[1024px] desktop:px-10 desktop:min-h-[calc(100vh-65px)] mx-auto w-full max-w-[640px] px-4">
+        {children}
+      </main>
       <Footer />
     </>
   );
