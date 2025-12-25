@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 
 export function useIsMobile(breakpoint: number = 640) {
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState<boolean | undefined>(undefined);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -15,5 +15,5 @@ export function useIsMobile(breakpoint: number = 640) {
     return () => window.removeEventListener('resize', checkMobile);
   }, [breakpoint]);
 
-  return isMobile;
+  return isMobile ?? false;
 }
