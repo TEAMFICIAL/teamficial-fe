@@ -11,7 +11,7 @@ const LogTitle = ({ profiles }: LogTitleProps) => {
   const userName = profiles[0]?.userName || '사용자';
 
   return (
-    <div className="flex items-center gap-4 pt-7">
+    <div className="desktop:flex hidden items-center gap-4 pt-7">
       <p className="title-2">{userName}님의 팀피셜록</p>
     </div>
   );

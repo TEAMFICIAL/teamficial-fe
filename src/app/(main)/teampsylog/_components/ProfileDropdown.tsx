@@ -1,3 +1,4 @@
+import { useIsMobile } from '@/hooks/useIsMobile';
 import useOutsideClick from '@/hooks/useOutsideClick';
 import { ResponseProfile } from '@/types/profile';
 import Image from 'next/image';
@@ -19,10 +20,16 @@ const ProfileDropdown = ({
 
   useOutsideClick(dropdownRef, () => setIsOpen(false));
 
+  const isMobile = useIsMobile();
+
   return (
     <div ref={dropdownRef} className="relative">
       <div
-        className="body-5 bg-gray-0 flex cursor-pointer gap-1 rounded-lg border border-gray-300 px-5 py-3 text-gray-800"
+        className={
+          !isMobile
+            ? 'body-5 bg-gray-0 flex cursor-pointer gap-1 rounded-lg border border-gray-300 px-5 py-3 text-gray-800'
+            : 'body-5 flex min-w-24 justify-between gap-2 border-b-2 border-gray-800 px-1 pb-2'
+        }
         onClick={() => setIsOpen(!isOpen)}
       >
         <p>{selectedProfile?.profileName || '새 프로필'}</p>
@@ -34,7 +41,7 @@ const ProfileDropdown = ({
         />
       </div>
       {isOpen && profiles.length > 0 && (
-        <div className="absolute top-full left-0 z-10 mt-2 min-w-full rounded-md border border-gray-300 bg-white shadow-lg">
+        <div className="desktop:rounded-md absolute top-full left-0 z-10 mt-2 min-w-full border border-gray-300 bg-white shadow-lg">
           {profiles.map((profile) => (
             <div
               key={profile.profileId}

@@ -31,9 +31,13 @@ const KeywordBar = ({
   const { addToast } = useToast();
 
   const headKeywords = data?.headKeywords || [];
-  const displayKeywords = [
+  const desktopDisplayKeywords = [
     ...headKeywords.map((kw) => kw.headKeywordName),
     ...Array(Math.max(0, 3 - headKeywords.length)).fill('키워드를 선택하세요'),
+  ];
+  const mobileDisplayKeywords = [
+    ...headKeywords.map((kw) => kw.headKeywordName),
+    ...Array(Math.max(0, 3 - headKeywords.length)).fill('키워드 선택'),
   ];
 
   const handleShare = async () => {
@@ -58,41 +62,82 @@ const KeywordBar = ({
   };
 
   return (
-    <div className="flex items-center justify-between rounded-lg bg-gray-100 px-5 py-4">
-      {/* 대표키워드 및 프로필 드롭다운 */}
-      <div className="flex items-center gap-2">
-        <ProfileDropdown
-          profiles={profiles}
-          selectedProfileId={selectedProfileId}
-          onSelectProfile={onSelectProfile}
-        />
-        {displayKeywords.map((keyword, index) => (
-          <KeywordItem
-            key={`${keyword}-${index}`}
-            keyword={keyword}
-            isEditMode={isEditMode}
-            isSelected={selectedSlot === index}
-            isPlaceholder={index >= headKeywords.length}
-            onClick={() => isEditMode && onSelectSlot(index)}
+    <>
+      {/* desktop */}
+      <div className="desktop:flex hidden items-center justify-between rounded-lg bg-gray-100 px-5 py-4">
+        {/* 대표키워드 및 프로필 드롭다운 */}
+        <div className="flex items-center gap-2">
+          <ProfileDropdown
+            profiles={profiles}
+            selectedProfileId={selectedProfileId}
+            onSelectProfile={onSelectProfile}
           />
-        ))}
-      </div>
-      {isShareMode && (
-        <div className="flex gap-4">
-          <button onClick={onToggleEditMode} className="cursor-pointer">
-            <Image
-              src={isEditMode ? '/icons/edit-selected.svg' : '/icons/edit.svg'}
-              alt="수정하기"
-              width={28}
-              height={28}
+          {desktopDisplayKeywords.map((keyword, index) => (
+            <KeywordItem
+              key={`${keyword}-${index}`}
+              keyword={keyword}
+              isEditMode={isEditMode}
+              isSelected={selectedSlot === index}
+              isPlaceholder={index >= headKeywords.length}
+              onClick={() => isEditMode && onSelectSlot(index)}
             />
-          </button>
-          <button onClick={handleShare} className="cursor-pointer">
-            <Image src="/icons/share.svg" alt="공유하기" width={28} height={28} />
-          </button>
+          ))}
         </div>
-      )}
-    </div>
+        {isShareMode && (
+          <div className="flex gap-4">
+            <button onClick={onToggleEditMode} className="cursor-pointer">
+              <Image
+                src={isEditMode ? '/icons/edit-selected.svg' : '/icons/edit.svg'}
+                alt="수정하기"
+                width={28}
+                height={28}
+              />
+            </button>
+            <button onClick={handleShare} className="cursor-pointer">
+              <Image src="/icons/share.svg" alt="공유하기" width={28} height={28} />
+            </button>
+          </div>
+        )}
+      </div>
+      {/* mobile */}
+      <div className="desktop:hidden flex flex-col gap-4 py-5">
+        {/* 수정 버튼 및 프로필 드롭다운 */}
+        <div className="flex justify-between">
+          <ProfileDropdown
+            profiles={profiles}
+            selectedProfileId={selectedProfileId}
+            onSelectProfile={onSelectProfile}
+          />
+          {isShareMode && (
+            <div className="flex gap-4">
+              <button onClick={onToggleEditMode} className="cursor-pointer">
+                <Image
+                  src={isEditMode ? '/icons/edit-selected.svg' : '/icons/edit.svg'}
+                  alt="수정하기"
+                  width={28}
+                  height={28}
+                />
+              </button>
+              <button onClick={handleShare} className="cursor-pointer">
+                <Image src="/icons/share.svg" alt="공유하기" width={28} height={28} />
+              </button>
+            </div>
+          )}
+        </div>
+        <div className="flex items-center gap-1">
+          {mobileDisplayKeywords.map((keyword, index) => (
+            <KeywordItem
+              key={`${keyword}-${index}`}
+              keyword={keyword}
+              isEditMode={isEditMode}
+              isSelected={selectedSlot === index}
+              isPlaceholder={index >= headKeywords.length}
+              onClick={() => isEditMode && onSelectSlot(index)}
+            />
+          ))}
+        </div>
+      </div>
+    </>
   );
 };
 

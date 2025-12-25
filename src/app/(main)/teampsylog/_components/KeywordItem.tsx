@@ -16,7 +16,7 @@ const KeywordItem = ({
   return (
     <div
       onClick={onClick}
-      className={`body-5 box-border rounded-lg px-5 py-3 transition-all ${
+      className={`desktop:body-5 body-9 desktop:px-5 desktop:py-3 box-border rounded-lg px-3 py-2 transition-all ${
         isEditMode && isSelected && isPlaceholder
           ? 'border-primary-900 bg-primary-50 text-primary-900 cursor-pointer border-2 border-dashed'
           : isEditMode && isSelected
