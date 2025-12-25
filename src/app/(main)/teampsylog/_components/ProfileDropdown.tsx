@@ -20,7 +20,7 @@ const ProfileDropdown = ({
 
   useOutsideClick(dropdownRef, () => setIsOpen(false));
 
-  const isMobile = useIsMobile();
+  const isMobile = useIsMobile(1024);
 
   return (
     <div ref={dropdownRef} className="relative">
