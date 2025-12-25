@@ -112,14 +112,14 @@ const KeywordBar = ({
             <div className="flex gap-4">
               <button onClick={onToggleEditMode} className="cursor-pointer">
                 <Image
-                  src={isEditMode ? '/icons/edit-selected.svg' : '/icons/edit.svg'}
+                  src={isEditMode ? '/icons/edit-selected.svg' : '/icons/edit-black.svg'}
                   alt="수정하기"
                   width={28}
                   height={28}
                 />
               </button>
               <button onClick={handleShare} className="cursor-pointer">
-                <Image src="/icons/share.svg" alt="공유하기" width={28} height={28} />
+                <Image src="/icons/share-black.svg" alt="공유하기" width={28} height={28} />
               </button>
             </div>
           )}
