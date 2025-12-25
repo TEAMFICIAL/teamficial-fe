@@ -30,7 +30,7 @@ const KEYWORD_ICON_STYLES: KeywordIconStyle[] = [
 const MOBILE_KEYWORD_ICON_STYLES: KeywordIconStyle[] = [
   { top: 166.8, right: 43, rotate: '-5.078deg' },
   { top: 220, left: 23, rotate: '8.756deg' },
-  { top: 290, right: 30, rotate: '-10.873deg' },
+  { top: 280, right: 30, rotate: '-10.873deg' },
   { top: 361, left: 14, rotate: '0.803deg' },
   { top: 420, right: 50, rotate: '4.223deg' },
 ];
