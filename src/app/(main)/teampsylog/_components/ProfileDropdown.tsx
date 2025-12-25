@@ -28,7 +28,7 @@ const ProfileDropdown = ({
         className={
           !isMobile
             ? 'body-5 bg-gray-0 flex cursor-pointer gap-1 rounded-lg border border-gray-300 px-5 py-3 text-gray-800'
-            : 'body-5 flex min-w-24 justify-between gap-2 border-b-2 border-gray-800 px-1 pb-2'
+            : 'body-5 flex min-w-24 cursor-pointer justify-between gap-2 border-b-2 border-gray-800 px-1 pb-2'
         }
         onClick={() => setIsOpen(!isOpen)}
       >

@@ -100,7 +100,7 @@ const KeywordBar = ({
         )}
       </div>
       {/* mobile */}
-      <div className="desktop:hidden flex flex-col gap-4 py-5">
+      <div className="desktop:hidden z-5 flex flex-col gap-4 py-5">
         {/* 수정 버튼 및 프로필 드롭다운 */}
         <div className="flex justify-between">
           <ProfileDropdown

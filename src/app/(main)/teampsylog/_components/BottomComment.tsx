@@ -114,6 +114,7 @@ const BottomComment = ({ isOpen, onClose, children }: BottomSheetProps) => {
         style={{
           opacity: isDragging ? Math.max(0, 1 - dragCurrentY / 300) : isOpen && !isClosing ? 1 : 0,
           visibility: shouldShow ? 'visible' : 'hidden',
+          pointerEvents: shouldShow ? 'auto' : 'none',
           transition: isDragging ? 'none' : 'opacity 0.3s, visibility 0.3s',
         }}
       />
@@ -131,6 +132,7 @@ const BottomComment = ({ isOpen, onClose, children }: BottomSheetProps) => {
               : 'translateY(100%)',
           transition: isDragging ? 'none' : 'transform 0.3s ease-out',
           visibility: shouldShow ? 'visible' : 'hidden',
+          pointerEvents: shouldShow ? 'auto' : 'none',
         }}
       >
         <div
