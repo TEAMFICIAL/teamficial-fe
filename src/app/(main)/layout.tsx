@@ -10,6 +10,8 @@ import { useIsMobile } from '@/hooks/useIsMobile';
 const OVERLAY_ROUTES = [
   /^\/teampsylog\/head\/[^/]+$/, // /teampsylog/head/:uuid
   /^\/question\/[^/]+$/, // /question/:uuid
+  /^\/teampsylog\/[^/]+$/, // /teampsylog/:uuid
+  /^\/teampsylog$/, // /teampsylog
 ];
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {
