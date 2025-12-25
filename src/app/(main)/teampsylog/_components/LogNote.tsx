@@ -7,6 +7,7 @@ import CommentPage from './CommentPage';
 import AllKeyword from './AllKeyword';
 import Loading from '@/components/common/Loading';
 import ErrorDisplay from '@/components/common/Error';
+import BottomComment from './BottomComment';
 
 const LogNote = ({
   userId,
@@ -20,6 +21,7 @@ const LogNote = ({
   onSelectKeyword?: (keywordId: number) => void;
 }) => {
   const [page, setPage] = useState(0);
+  const [isMobileSheetOpen, setIsMobileSheetOpen] = useState(false);
 
   const { data, isLoading, isError } = useGetKeywordList({
     userId: userId ?? 0,
@@ -45,7 +47,12 @@ const LogNote = ({
     } else if (!isEditMode) {
       // 일반 모드: 댓글 보기
       setSelectedKeywordId(keywordId);
+      setIsMobileSheetOpen(true);
     }
+  };
+
+  const closeMobileSheet = () => {
+    setIsMobileSheetOpen(false);
   };
 
   return (
@@ -124,7 +131,7 @@ const LogNote = ({
               <Image src="/icons/page-after.svg" alt="다음 페이지" width={32} height={32} />
             </button>
           </div>
-          {/* 오른쪽 페이지 */}
+          {/* 오른쪽 페이지 (데스크톱만) */}
           <div
             className={`desktop:flex relative hidden h-162 w-118 flex-col gap-[13px] rounded-r-[16px] bg-gray-200 shadow-[0_4px_4px_0_#E1E1E1] ${
               !selectedKeywordId || isEditMode ? 'items-center justify-center' : ''
@@ -170,6 +177,15 @@ const LogNote = ({
               />
             )}
           </div>
+          {/* 모바일 바텀 시트 */}
+          <BottomComment isOpen={isMobileSheetOpen} onClose={closeMobileSheet}>
+            {selectedKeywordId && (
+              <CommentPage
+                keywordName={keywords[keywordIds.findIndex((id) => id === selectedKeywordId)] ?? ''}
+                keywordId={selectedKeywordId}
+              />
+            )}
+          </BottomComment>
         </section>
       )}
     </>
