@@ -24,6 +24,8 @@ const KeywordPage = ({ share = false, uuid }: Props) => {
   const shareUserId = share && requesterInfo ? requesterInfo.userId : null;
   const requesterName = requesterInfo?.requesterName;
 
+  // TODO: 공유 모드에서 프로필 선택 기능 추가 필요. api 요청.
+
   // 일반 모드
   const { data: myProfiles } = useGetProfileList();
   const profiles = useMemo(() => myProfiles || [], [myProfiles]);
@@ -144,7 +146,7 @@ const KeywordPage = ({ share = false, uuid }: Props) => {
         }
       />
       {/* 키워드 별 대표키워드, 수정하기, 공유하기 */}
-      {selectedProfileId !== null && !share && (
+      {selectedProfileId !== null && (
         <KeywordBar
           profileId={selectedProfileId}
           profiles={profiles}
@@ -154,6 +156,7 @@ const KeywordPage = ({ share = false, uuid }: Props) => {
           onToggleEditMode={handleToggleEditMode}
           selectedSlot={selectedSlot}
           onSelectSlot={handleSelectSlot}
+          isShareMode={!share}
         />
       )}
       {/* 팀피셜록 노트 */}

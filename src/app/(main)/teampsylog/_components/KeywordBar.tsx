@@ -15,6 +15,7 @@ const KeywordBar = ({
   onToggleEditMode,
   selectedSlot,
   onSelectSlot,
+  isShareMode = false,
 }: {
   profileId: number;
   profiles: ResponseProfile[];
@@ -24,6 +25,7 @@ const KeywordBar = ({
   onToggleEditMode: () => void;
   selectedSlot: number | null;
   onSelectSlot: (index: number) => void;
+  isShareMode?: boolean;
 }) => {
   const { data } = useGetKeyword({ profileId });
   const { addToast } = useToast();
@@ -75,19 +77,21 @@ const KeywordBar = ({
           />
         ))}
       </div>
-      <div className="flex gap-4">
-        <button onClick={onToggleEditMode} className="cursor-pointer">
-          <Image
-            src={isEditMode ? '/icons/edit-selected.svg' : '/icons/edit.svg'}
-            alt="수정하기"
-            width={28}
-            height={28}
-          />
-        </button>
-        <button onClick={handleShare} className="cursor-pointer">
-          <Image src="/icons/share.svg" alt="공유하기" width={28} height={28} />
-        </button>
-      </div>
+      {isShareMode && (
+        <div className="flex gap-4">
+          <button onClick={onToggleEditMode} className="cursor-pointer">
+            <Image
+              src={isEditMode ? '/icons/edit-selected.svg' : '/icons/edit.svg'}
+              alt="수정하기"
+              width={28}
+              height={28}
+            />
+          </button>
+          <button onClick={handleShare} className="cursor-pointer">
+            <Image src="/icons/share.svg" alt="공유하기" width={28} height={28} />
+          </button>
+        </div>
+      )}
     </div>
   );
 };
