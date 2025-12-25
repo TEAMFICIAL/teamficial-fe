@@ -55,9 +55,9 @@ const LogNote = ({
       ) : isError ? (
         <ErrorDisplay message="데이터를 불러오는 중 오류가 발생했습니다." />
       ) : (
-        <section className="relative flex">
+        <section className="relative flex justify-center">
           {/* 왼쪽 페이지 */}
-          <div className="relative flex h-162 w-118 flex-col items-center justify-center gap-[13px] rounded-l-[16px] bg-gray-100 shadow-[0_4px_7.1px_0_#E1E1E1]">
+          <div className="desktop:h-162 desktop:rounded-l-2xl desktop:gap-[13px] relative flex h-100 w-118 flex-col items-center justify-center gap-2 rounded-2xl bg-gray-100 shadow-[0_4px_7.1px_0_#E1E1E1]">
             <button
               onClick={() => setPage((p) => Math.max(0, p - 1))}
               disabled={page === 0}
@@ -65,15 +65,44 @@ const LogNote = ({
             >
               <Image src="/icons/page-before.svg" alt="이전 페이지" width={32} height={32} />
             </button>
+            <Image
+              src="/icons/question_gray.svg"
+              alt=""
+              width={159}
+              height={121}
+              className="desktop:hidden absolute z-0"
+              style={{
+                top: '28px',
+                left: '50%',
+                transform: 'translateX(-180px)',
+                position: 'absolute',
+              }}
+              aria-hidden="true"
+            />
+            <Image
+              src="/icons/question_gray.svg"
+              alt=""
+              width={159}
+              height={121}
+              className="desktop:hidden absolute z-0"
+              style={{
+                bottom: '28px',
+                left: '50%',
+                transform: 'translateX(10px) rotate(180deg)',
+                position: 'absolute',
+              }}
+              aria-hidden="true"
+            />
             {data?.totalElements === 0 ? (
               <>
                 <Image
                   src="/icons/gray_teamficial_symbol.svg"
                   alt="teamficial_symbol"
+                  className="desktop:w-[66px] w-12"
                   width={66}
                   height={67}
                 />
-                <p className="body-3 text-center whitespace-pre-line text-gray-500">
+                <p className="desktop:body-3 body-7 z-1 text-center whitespace-pre-line text-gray-500">
                   {`나의 팀피셜록 링크를 공유하고\n키워드를 받아보세요`}
                 </p>
               </>
@@ -87,10 +116,17 @@ const LogNote = ({
                 onKeywordClick={handleKeywordClick}
               />
             )}
+            <button
+              onClick={() => setPage((p) => (p + 1 < totalPages ? p + 1 : p))}
+              disabled={page + 1 >= totalPages}
+              className="desktop:hidden absolute top-1/2 right-[-16px] flex -translate-y-1/2 cursor-pointer items-center justify-center disabled:opacity-50"
+            >
+              <Image src="/icons/page-after.svg" alt="다음 페이지" width={32} height={32} />
+            </button>
           </div>
           {/* 오른쪽 페이지 */}
           <div
-            className={`relative flex h-162 w-118 flex-col gap-[13px] rounded-r-[16px] bg-gray-200 shadow-[0_4px_4px_0_#E1E1E1] ${
+            className={`desktop:flex relative hidden h-162 w-118 flex-col gap-[13px] rounded-r-[16px] bg-gray-200 shadow-[0_4px_4px_0_#E1E1E1] ${
               !selectedKeywordId || isEditMode ? 'items-center justify-center' : ''
             }`}
           >
