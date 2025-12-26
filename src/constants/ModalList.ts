@@ -119,7 +119,7 @@ export interface ModalPropsMap {
   applicantFinish: BaseModalProps;
   profileDelete: DeleteProfileModalProps;
   profileDeleteComplete: DeleteProfileCompleteModalProps;
-  profileDeleteError: DeleteProfileErrorModalProps;
-  profileEditComplete: EditProfileCompleteModalProps;
+  profileDeleteError: BaseModalProps;
+  profileEditComplete: BaseModalProps;
   profileDetail: ProfileDetailModalProps;
 }
