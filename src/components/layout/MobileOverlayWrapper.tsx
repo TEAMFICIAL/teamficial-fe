@@ -1,5 +1,6 @@
 'use client';
 
+import { Suspense } from 'react';
 import { usePathname } from 'next/navigation';
 import { useIsMobile } from '@/hooks/useIsMobile';
 import { ReactNode } from 'react';
@@ -14,7 +15,7 @@ interface MobileOverlayWrapperProps {
   children: ReactNode;
 }
 
-export default function MobileOverlayWrapper({ children }: MobileOverlayWrapperProps) {
+function MobileOverlayWrapperContent({ children }: MobileOverlayWrapperProps) {
   const pathname = usePathname();
   const isMobile = useIsMobile();
 
@@ -22,11 +23,19 @@ export default function MobileOverlayWrapper({ children }: MobileOverlayWrapperP
 
   if (shouldShowOverlay) {
     return (
-      <main className="fixed inset-0 z-50 flex">
+      <div className="fixed inset-0 z-50 flex">
         <div className="w-full overflow-y-auto bg-white px-4">{children}</div>
-      </main>
+      </div>
     );
   }
 
   return <>{children}</>;
+}
+
+export default function MobileOverlayWrapper({ children }: MobileOverlayWrapperProps) {
+  return (
+    <Suspense fallback={null}>
+      <MobileOverlayWrapperContent>{children}</MobileOverlayWrapperContent>
+    </Suspense>
+  );
 }
