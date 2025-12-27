@@ -23,7 +23,7 @@ function MobileOverlayWrapperContent({ children }: MobileOverlayWrapperProps) {
 
   if (shouldShowOverlay) {
     return (
-      <div className="fixed inset-0 z-50 flex">
+      <div className="max-desktop:flex fixed inset-0 z-50 hidden">
         <div className="w-full overflow-y-auto bg-white px-4">{children}</div>
       </div>
     );
