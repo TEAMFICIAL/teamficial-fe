@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import LogTitle from './LogTitle';
-import { useGetProfileList } from '@/hooks/queries/useProfile';
+import { useGetProfileList, useGetUuidProfileList } from '@/hooks/queries/useProfile';
 import { useGetKeyword } from '@/hooks/queries/useKeyword';
 import KeywordBar from './KeywordBar';
 import LogNote from './LogNote';
@@ -24,11 +24,21 @@ const KeywordPage = ({ share = false, uuid }: Props) => {
   const shareUserId = share && requesterInfo ? requesterInfo.userId : null;
   const requesterName = requesterInfo?.requesterName;
 
+  // 공유모드 getProfileList 가져오기
+  const { data: sharedProfiles } = useGetUuidProfileList(uuid ?? '');
+
   // TODO: 공유 모드에서 프로필 선택 기능 추가 필요. api 요청.
 
   // 일반 모드
   const { data: myProfiles } = useGetProfileList();
-  const profiles = useMemo(() => myProfiles || [], [myProfiles]);
+  // share 모드에 따라 프로필 결정
+  const profiles = useMemo(() => {
+    if (share) {
+      return sharedProfiles || [];
+    }
+    return myProfiles || [];
+  }, [share, sharedProfiles, myProfiles]);
+
   const [selectedProfileId, setSelectedProfileId] = useState<number | null>(null);
   const [localUserId, setLocalUserId] = useState<number | null>(null);
 
