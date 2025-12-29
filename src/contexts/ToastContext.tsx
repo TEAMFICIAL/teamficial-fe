@@ -49,7 +49,9 @@ export const ToastProvider = ({ children }: { children: React.ReactNode }) => {
     <ToastContext.Provider value={{ addToast }}>
       {children}
 
-      {isVisible && <div className="pointer-events-none fixed inset-0 z-[9997]" />}
+      {isVisible && (
+        <div className="desktop:hidden pointer-events-none fixed inset-0 z-[9997] bg-black/70" />
+      )}
 
       <div className="fixed bottom-[56px] left-1/2 z-[9999] flex -translate-x-1/2 flex-col items-center">
         {toasts.map((t) => (
