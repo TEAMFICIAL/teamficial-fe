@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 interface UseBottomSheetDragProps {
   isOpen: boolean;
@@ -6,18 +6,31 @@ interface UseBottomSheetDragProps {
 }
 
 const useBottomSheetDrag = ({ isOpen, onClose }: UseBottomSheetDragProps) => {
+  const closeTimerRef = useRef<NodeJS.Timeout | null>(null);
+
   const [dragStartY, setDragStartY] = useState(0);
   const [dragCurrentY, setDragCurrentY] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
 
   const handleClose = useCallback(() => {
+    if (closeTimerRef.current) {
+      clearTimeout(closeTimerRef.current);
+    }
     setIsClosing(true);
-    setTimeout(() => {
+    closeTimerRef.current = setTimeout(() => {
       onClose();
       setIsClosing(false);
     }, 300);
   }, [onClose]);
+
+  useEffect(() => {
+    return () => {
+      if (closeTimerRef.current) {
+        clearTimeout(closeTimerRef.current);
+      }
+    };
+  }, []);
 
   const handleMouseMove = useCallback(
     (e: MouseEvent) => {

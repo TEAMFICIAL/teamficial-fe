@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React from 'react';
 import useBottomSheetDrag from './useBottomSheetDrag';
 
 interface BottomSheetProps {
@@ -10,7 +10,6 @@ interface BottomSheetProps {
 }
 
 const BottomComment = ({ isOpen, onClose, children }: BottomSheetProps) => {
-  const sheetRef = useRef<HTMLDivElement>(null);
   const {
     dragCurrentY,
     isDragging,
@@ -37,7 +36,6 @@ const BottomComment = ({ isOpen, onClose, children }: BottomSheetProps) => {
       />
       {/* 바텀 시트 */}
       <div
-        ref={sheetRef}
         className="desktop:hidden fixed inset-x-0 bottom-0 z-50 rounded-t-2xl bg-gray-200"
         style={{
           height: 'calc(100vh - 60px)',
