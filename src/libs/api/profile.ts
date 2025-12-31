@@ -19,6 +19,14 @@ export async function getProfileList(): Promise<ResponseProfile[]> {
   return data.result;
 }
 
+export async function getUuidProfileList(userUuid: string): Promise<ResponseProfile[]> {
+  const { data } = await api.get<CommonResponse<ResponseProfile[]>>(`${userUuid}/profile`);
+  if (!data.isSuccess) {
+    throw new Error(data.message || 'Failed to fetch uuid profile list');
+  }
+  return data.result;
+}
+
 export async function updateProfile(
   profileId: number,
   payload: {

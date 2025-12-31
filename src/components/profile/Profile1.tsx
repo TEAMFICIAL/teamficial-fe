@@ -4,6 +4,7 @@ import ProfileLinkButton from './ProfileLinkButton';
 import Image from 'next/image';
 import { useGetProfile } from '@/hooks/queries/useProfile';
 import { useModal } from '@/contexts/ModalContext';
+import Link from 'next/link';
 
 const Profile1 = ({ profileId }: { profileId: number }) => {
   const { openModal } = useModal();
@@ -95,12 +96,9 @@ const Profile1 = ({ profileId }: { profileId: number }) => {
             상세보기
           </button>
           <div className="w-[1px] bg-gray-300"></div>
-          <button
-            className="flex-1 py-3"
-            onClick={() => window.open(`/teampsylog/${data.uuid}`, '_blank')}
-          >
+          <Link href={`/teampsylog/${data.uuid}`} className="flex-1 py-3 text-center">
             전체 키워드 보기
-          </button>
+          </Link>
         </div>
       </div>
     </>

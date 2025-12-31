@@ -9,6 +9,8 @@ import { ReactNode } from 'react';
 const OVERLAY_ROUTES = [
   /^\/teampsylog\/head\/[^/]+$/, // /teampsylog/head/:uuid
   /^\/question\/[^/]+$/, // /question/:uuid
+  /^\/teampsylog\/[^/]+$/, // /teampsylog/:uuid
+  /^\/teampsylog$/, // /teampsylog
 ];
 
 interface MobileOverlayWrapperProps {
