@@ -29,8 +29,8 @@ const Button = ({
   };
 
   const sizeStyles: Record<ButtonSize, string> = {
-    small: 'body-5',
-    large: 'body-3',
+    small: 'body-7 desktop:body-5',
+    large: 'body-5 desktop:body-3',
   };
 
   const disabledStyle = 'opacity-50';
