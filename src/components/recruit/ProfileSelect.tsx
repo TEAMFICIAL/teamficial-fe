@@ -21,12 +21,13 @@ const ProfileSelect = ({ control }: Props) => {
   const profileId = watch('profileId');
 
   React.useEffect(() => {
-    if (
-      filteredProfiles &&
-      filteredProfiles.length > 0 &&
-      (profileId === undefined || profileId === null || profileId === 0)
-    ) {
-      setValue('profileId', filteredProfiles[0].profileId);
+    if (filteredProfiles && filteredProfiles.length > 0) {
+      const currentProfileExists =
+        profileId && filteredProfiles.some((p) => p.profileId === profileId);
+
+      if (!currentProfileExists) {
+        setValue('profileId', filteredProfiles[0].profileId);
+      }
     }
   }, [filteredProfiles, profileId, setValue]);
 
