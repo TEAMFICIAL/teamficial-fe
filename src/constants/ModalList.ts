@@ -15,6 +15,7 @@ import TeamPsylogAskModal from '@/components/modal/TeamPsylogAskModal';
 import { QuestionFormValues } from '@/libs/schemas/questionFormSchema';
 import ProfileDetailModal from '@/components/modal/profile/ProfileDetailModal';
 import { ResponseProfile } from '@/types/profile';
+import NotFinishModal from '@/components/modal/NotFinishModal';
 
 export interface BaseModalProps {
   isOpen: boolean;
@@ -103,6 +104,7 @@ export const MODAL_COMPONENTS = {
   profileDeleteError: DeleteProfileError,
   profileEditComplete: EditProfileCompleteModal,
   profileDetail: ProfileDetailModal,
+  notFinish: NotFinishModal,
 };
 
 export type ModalType = keyof typeof MODAL_COMPONENTS;
@@ -122,4 +124,5 @@ export interface ModalPropsMap {
   profileDeleteError: BaseModalProps;
   profileEditComplete: BaseModalProps;
   profileDetail: ProfileDetailModalProps;
+  notFinish: BaseModalProps;
 }

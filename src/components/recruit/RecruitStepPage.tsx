@@ -17,12 +17,14 @@ import { CreateProject } from '@/types/project';
 import ProfileSelect from './ProfileSelect';
 import Image from 'next/image';
 import MobileHeader from '../common/MobileHeader';
+import { useRecruitNavigationGuard } from '@/hooks/useRecruitNavigationGuard';
 
 type Step = 'form' | 'profile';
 
 const RecruitPage = () => {
   const [step, setStep] = useState<Step>('form');
   const [formData, setFormData] = useState<Partial<RecruitFormType> | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
   const { openModal } = useModal();
   const { mutate: createProject } = useCreateProject();
@@ -38,6 +40,8 @@ const RecruitPage = () => {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [step]);
+
+  useRecruitNavigationGuard(!isSubmitting, setIsSubmitting);
 
   const handleNext = (data: Partial<RecruitFormType>) => {
     setFormData(data);
@@ -57,6 +61,8 @@ const RecruitPage = () => {
       status: 'OPEN',
     } as CreateProject;
 
+    setIsSubmitting(true);
+
     createProject(finalData, {
       onSuccess: (response) => {
         openModal('recruitComplete', {
@@ -66,6 +72,7 @@ const RecruitPage = () => {
       },
       onError: (error) => {
         console.error('프로젝트 생성 실패:', error);
+        setIsSubmitting(false);
       },
     });
   };
