@@ -16,6 +16,7 @@ import { useModal } from '@/contexts/ModalContext';
 import { CreateProject } from '@/types/project';
 import ProfileSelect from './ProfileSelect';
 import Image from 'next/image';
+import MobileHeader from '../common/MobileHeader';
 
 type Step = 'form' | 'profile';
 
@@ -74,42 +75,49 @@ const RecruitPage = () => {
 
   return (
     <>
-      <div className="flex items-center justify-between pt-7 pb-5">
-        <div className="flex flex-col">
-          <p className="title-2 text-gray-900">
-            {step === 'form' ? '팀원 모집하기' : '작성자 프로필 선택하기'}
-          </p>
-          <p className="body-6 text-gray-700">
-            {step === 'form'
-              ? '게시글을 작성하여 원하는 분야의 팀원을 모집해보세요'
-              : '공개할 프로필을 한 가지 선택해주세요'}
-          </p>
-        </div>
-        <Image
-          src={step === 'form' ? 'icons/first.svg' : 'icons/second.svg'}
-          alt=""
-          width={96}
-          height={40}
-        />
-      </div>
-
       {step === 'form' ? (
-        <RecruitForm
-          mode="create"
-          onNext={handleNext}
-          showProfileList={false}
-          initialFormData={formData}
-        />
+        <MobileHeader title="팀원 모집하기" progress={0.5} />
       ) : (
-        <form onSubmit={handleProfileSubmit(onProfileSubmit)} className="flex flex-col">
-          <ProfileSelect control={profileControl} />
-
-          <div className="my-14 flex justify-end gap-3">
-            <Button variant="gray" type="button" label="이전으로" onClick={handleBack} />
-            <Button type="submit" label="업로드하기" disabled={!selectedProfileId} />
-          </div>
-        </form>
+        <MobileHeader title="팀원 모집하기" progress={1} />
       )}
+      <div className="desktop:bg-gray-0 -mx-4 bg-gray-100 px-4">
+        <div className="flex items-center justify-between pt-7 pb-5">
+          <div className="flex flex-col">
+            <p className="desktop:title-2 title-4 text-gray-900">
+              {step === 'form' ? '팀원 모집하기' : '작성자 프로필 선택하기'}
+            </p>
+            <p className="desktop:body-6 body-10 text-gray-700">
+              {step === 'form'
+                ? '게시글을 작성하여 원하는 분야의 팀원을 모집해보세요'
+                : '공개할 프로필을 한 가지 선택해주세요'}
+            </p>
+          </div>
+          <Image
+            src={step === 'form' ? 'icons/first.svg' : 'icons/second.svg'}
+            alt=""
+            width={96}
+            height={40}
+            className="desktop:block hidden"
+          />
+        </div>
+        {step === 'form' ? (
+          <RecruitForm
+            mode="create"
+            onNext={handleNext}
+            showProfileList={false}
+            initialFormData={formData}
+          />
+        ) : (
+          <form onSubmit={handleProfileSubmit(onProfileSubmit)} className="flex flex-col">
+            <ProfileSelect control={profileControl} />
+
+            <div className="my-14 flex justify-end gap-3">
+              <Button variant="gray" type="button" label="이전으로" onClick={handleBack} />
+              <Button type="submit" label="업로드하기" disabled={!selectedProfileId} />
+            </div>
+          </form>
+        )}
+      </div>
     </>
   );
 };

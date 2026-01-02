@@ -13,7 +13,7 @@ const MobileHeader = ({ title, progress }: MobileHeaderProps) => {
 
   return (
     <>
-      <header className="tablet:hidden w-full">
+      <header className="tablet:hidden bg-gray-0 w-full">
         <div className="mx-auto max-w-[1024px]">
           <div className="-mx-4 flex items-center px-4 py-3">
             <div className="flex flex-1">
