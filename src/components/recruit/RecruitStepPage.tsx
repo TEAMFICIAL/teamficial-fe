@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import RecruitForm from '@/components/recruit/RecruitForm';
 import Button from '@/components/common/Button';
-import { useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   RecruitFormType,
@@ -27,16 +27,13 @@ const RecruitPage = () => {
   const { openModal } = useModal();
   const { mutate: createProject } = useCreateProject();
 
-  const {
-    control: profileControl,
-    handleSubmit: handleProfileSubmit,
-    watch,
-  } = useForm<ProfileSelectType>({
+  const methods = useForm<ProfileSelectType>({
     mode: 'onChange',
     resolver: zodResolver(profileSelectSchema),
   });
-
-  const selectedProfileId = watch('profileId');
+  const profileControl = methods.control;
+  const handleProfileSubmit = methods.handleSubmit;
+  const selectedProfileId = methods.watch('profileId');
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -80,7 +77,7 @@ const RecruitPage = () => {
       ) : (
         <MobileHeader title="팀원 모집하기" progress={1} />
       )}
-      <div className="desktop:bg-gray-0 -mx-4 bg-gray-100 px-4">
+      <div className="desktop:bg-gray-0 -mx-4 min-h-[calc(100vh-7rem)] bg-gray-100 px-4">
         <div className="flex items-center justify-between pt-7 pb-5">
           <div className="flex flex-col">
             <p className="desktop:title-2 title-4 text-gray-900">
@@ -108,14 +105,30 @@ const RecruitPage = () => {
             initialFormData={formData}
           />
         ) : (
-          <form onSubmit={handleProfileSubmit(onProfileSubmit)} className="flex flex-col">
-            <ProfileSelect control={profileControl} />
-
-            <div className="my-14 flex justify-end gap-3">
-              <Button variant="gray" type="button" label="이전으로" onClick={handleBack} />
-              <Button type="submit" label="업로드하기" disabled={!selectedProfileId} />
-            </div>
-          </form>
+          <FormProvider {...methods}>
+            <form onSubmit={handleProfileSubmit(onProfileSubmit)} className="flex flex-col">
+              <ProfileSelect control={profileControl} />
+              <div className="tablet:flex my-14 hidden justify-end gap-3">
+                <Button variant="gray" type="button" label="이전으로" onClick={handleBack} />
+                <Button type="submit" label="업로드하기" disabled={!selectedProfileId} />
+              </div>
+              <div className="tablet:hidden bg-gray-0 fixed bottom-0 left-0 flex w-full justify-end gap-2 border-t border-gray-300 px-4 py-5">
+                <Button
+                  variant="gray"
+                  type="button"
+                  label="이전으로"
+                  onClick={handleBack}
+                  className="w-full"
+                />
+                <Button
+                  type="submit"
+                  label="업로드하기"
+                  disabled={!selectedProfileId}
+                  className="w-full"
+                />
+              </div>
+            </form>
+          </FormProvider>
         )}
       </div>
     </>

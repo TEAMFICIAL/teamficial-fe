@@ -1,7 +1,7 @@
 import { useGetProfileList } from '@/hooks/queries/useProfile';
 import { ProfileSelectType } from '@/libs/schemas/projectSchema';
 import React from 'react';
-import { Control, Controller } from 'react-hook-form';
+import { Control, Controller, useFormContext } from 'react-hook-form';
 import ProfileCard from './profile/ProfileCard';
 import Link from 'next/link';
 
@@ -11,11 +11,24 @@ type Props = {
 
 const ProfileSelect = ({ control }: Props) => {
   const { data: profiles } = useGetProfileList();
-
   // 키워드 존재 프로필만 필터링
   const filteredProfiles = profiles?.filter(
     (profile) => profile.headKeywords && profile.headKeywords.length > 0,
   );
+
+  // useFormContext로 setValue, watch 사용
+  const { setValue, watch } = useFormContext<ProfileSelectType>();
+  const profileId = watch('profileId');
+
+  React.useEffect(() => {
+    if (
+      filteredProfiles &&
+      filteredProfiles.length > 0 &&
+      (profileId === undefined || profileId === null || profileId === 0)
+    ) {
+      setValue('profileId', filteredProfiles[0].profileId);
+    }
+  }, [filteredProfiles, profileId, setValue]);
 
   if (!filteredProfiles || filteredProfiles.length === 0) {
     return (
