@@ -51,7 +51,9 @@ export default function PositionDropdown({
         aria-haspopup="listbox"
         aria-expanded={open}
       >
-        <span className="body-5 pl-7">{isPlaceholder ? placeholder : selected?.label}</span>
+        <span className="desktop:body-5 body-7 desktop:pl-7 pl-4">
+          {isPlaceholder ? placeholder : selected?.label}
+        </span>
         <Image
           src={open ? '/icons/arrow-up-gray.svg' : '/icons/arrow-down-gray.svg'}
           alt=""

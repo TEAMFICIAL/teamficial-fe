@@ -93,8 +93,8 @@ const RecruitPosition = ({ control }: Props) => {
 
   return (
     <div className="flex flex-col gap-4">
-      <p className="title-3">모집분야/인원</p>
-      <div className="flex flex-col gap-2">
+      <p className="body-5 desktop:title-3">모집분야/인원</p>
+      <div className="desktop:gap-2 flex flex-col gap-1.5">
         {fields.map((field, index) => {
           const item = (watched && watched[index]) ?? {
             position: field.position as PositionType,
@@ -106,7 +106,7 @@ const RecruitPosition = ({ control }: Props) => {
           return (
             <div key={field.id} className="flex flex-col">
               <div
-                className={`flex items-center justify-between rounded-lg border py-3 pr-7 ${borderColor}`}
+                className={`desktop:pr-7 flex items-center justify-between rounded-lg border py-3 pr-4 ${borderColor}`}
               >
                 {/* 모집분야 드롭다운 */}
                 <PositionDropdown
@@ -123,7 +123,7 @@ const RecruitPosition = ({ control }: Props) => {
                       type="button"
                       onClick={() => handleCount(index, -1)}
                       disabled={item.count === 1}
-                      className={`rounded-l-sm p-1 ${item.count === 1 ? 'cursor-not-allowed bg-gray-100 opacity-50' : 'cursor-pointer bg-gray-200 hover:bg-gray-300'}`}
+                      className={`desktop:p-1 desktop:w-8 desktop:h-8 h-6.5 w-7 rounded-l-sm p-0.5 ${item.count === 1 ? 'cursor-not-allowed bg-gray-100 opacity-50' : 'cursor-pointer bg-gray-200 hover:bg-gray-300'}`}
                     >
                       <Image
                         src={item.count === 1 ? '/icons/minus-disabled.svg' : '/icons/minus.svg'}
@@ -133,12 +133,14 @@ const RecruitPosition = ({ control }: Props) => {
                       />
                     </button>
 
-                    <span className="body-6 bg-gray-100 px-4 py-1 text-gray-800">{item.count}</span>
+                    <span className="body-9 desktop:body-6 desktop:px-4 bg-gray-100 px-2 py-1 text-gray-800">
+                      {item.count}명
+                    </span>
 
                     <button
                       type="button"
                       onClick={() => handleCount(index, 1)}
-                      className="cursor-pointer rounded-r-sm bg-gray-200 p-1 hover:bg-gray-300"
+                      className="desktop:p-1 desktop:w-8 desktop:h-8 h-6.5 w-7 cursor-pointer rounded-r-sm bg-gray-200 p-0.5 hover:bg-gray-300"
                     >
                       <Image src="/icons/plus.svg" alt="plus" width={24} height={24} />
                     </button>
@@ -147,14 +149,14 @@ const RecruitPosition = ({ control }: Props) => {
                   <button
                     type="button"
                     onClick={() => handleRemove(index)}
-                    className="cursor-pointer hover:opacity-70"
+                    className="desktop:block hidden cursor-pointer hover:opacity-70"
                   >
                     <Image src="/icons/x-button.svg" alt="close" width={24} height={24} />
                   </button>
                 </div>
               </div>
 
-              {isError && <span className="body-8 text-red-100">{localError}</span>}
+              {isError && <span className="desktop:body-8 body-10 text-red-100">{localError}</span>}
             </div>
           );
         })}
@@ -165,7 +167,7 @@ const RecruitPosition = ({ control }: Props) => {
           className="flex cursor-pointer items-center justify-center rounded-lg border border-gray-300 px-7 py-3 text-gray-700 hover:bg-gray-50"
         >
           <Image src="/icons/plus.svg" alt="plus" width={24} height={24} />
-          <span className="body-5 text-gray-700">항목 추가</span>
+          <span className="body-7 desktop:body-5 text-gray-700">항목 추가</span>
         </button>
       </div>
     </div>

@@ -58,14 +58,14 @@ const ProjectDate = ({ title, name, control, error }: Props) => {
 
   return (
     <div className="flex flex-col gap-4" ref={ref}>
-      <p className="title-3">{title}</p>
+      <p className="desktop:title-3 body-5">{title}</p>
       <Controller
         name={name}
         control={control}
         render={({ field: { value, onChange } }) => (
           <div className="flex flex-col gap-2">
             <div
-              className={`body-6 relative flex cursor-pointer items-center justify-between gap-2 rounded-md border-1 border-gray-300 px-7 py-3 focus:border-gray-500`}
+              className={`desktop:body-6 body-8 relative flex cursor-pointer items-center justify-between gap-2 rounded-md border-1 border-gray-300 px-7 py-3 focus:border-gray-500`}
               onClick={() => {
                 if (!open) setOpen(true);
               }}

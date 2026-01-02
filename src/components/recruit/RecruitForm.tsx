@@ -71,15 +71,15 @@ const RecruitForm = ({
 
   return (
     <form onSubmit={handleSubmit(onSubmit, onError)} className="flex flex-col gap-4">
-      <div className="flex flex-col gap-4">
+      <div className="desktop:gap-4 flex flex-col gap-3">
         <TitleInput control={control} name="title" />
-        <div className="flex flex-col gap-8 rounded-2xl border-1 border-gray-300 p-8">
+        <div className="bg-gray-0 desktop:p-8 flex flex-col gap-8 rounded-2xl border-1 border-gray-300 p-6">
           {/* 모집분야/인원 */}
           <RecruitPosition control={control} />
           {/* 진행방법 */}
           <ProcessMethod control={control} />
           {/* 프로젝트 기간 및 연락처 */}
-          <div className="flex flex-col gap-6">
+          <div className="desktop:gap-6 flex flex-col gap-8">
             <ProjectDate title="프로젝트 시작 예정일" name="startDate" control={control} />
             <ProjectDuration control={control} />
             <ProjectDate
