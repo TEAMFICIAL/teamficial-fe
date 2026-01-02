@@ -106,8 +106,16 @@ const RecruitPosition = ({ control }: Props) => {
           return (
             <div key={field.id} className="flex flex-col">
               <div
-                className={`desktop:pr-7 flex items-center justify-between rounded-lg border py-3 pr-4 ${borderColor}`}
+                className={`desktop:pr-7 flex items-center justify-between rounded-lg border py-3 pr-4 ${borderColor} relative`}
               >
+                <button
+                  type="button"
+                  onClick={() => handleRemove(index)}
+                  className="desktop:hidden absolute -top-2 -right-2 z-10 block"
+                  style={{ padding: 0, background: 'none', border: 'none' }}
+                >
+                  <Image src="/icons/x-small-button.svg" alt="close" width={18} height={18} />
+                </button>
                 {/* 모집분야 드롭다운 */}
                 <PositionDropdown
                   className="flex-none"
