@@ -76,7 +76,7 @@ export default function PositionDropdown({
               role="option"
               aria-selected={opt.value === value}
               className={[
-                'body-5 cursor-pointer border-b border-gray-300 select-none',
+                'desktop:body-5 body-7 cursor-pointer border-b border-gray-300 select-none',
                 'hover:bg-primary-50 px-7 py-3 text-gray-800',
                 opt.value === value ? 'bg-primary-50' : '',
                 idx === options.length - 1 ? 'rounded-b-md' : '',
