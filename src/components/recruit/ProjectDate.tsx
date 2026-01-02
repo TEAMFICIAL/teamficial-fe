@@ -91,7 +91,7 @@ const ProjectDate = ({ title, name, control, error }: Props) => {
                 </div>
               )}
             </div>
-            {error && <span className="body-8 text-red-100">{error}</span>}
+            {error && <span className="desktop:body-8 body-10 text-red-100">{error}</span>}
           </div>
         )}
       />
