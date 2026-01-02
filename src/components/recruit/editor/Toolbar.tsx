@@ -10,7 +10,7 @@ const Toolbar = ({ editor, onLinkButtonClick }: ToolbarProps) => {
   if (!editor) return null;
 
   return (
-    <div className="flex w-full gap-6 border-b-1 border-gray-300 px-5 pt-2.5 pb-5">
+    <div className="desktop:px-5 flex w-full flex-wrap gap-x-6 gap-y-4 border-b-1 border-gray-300 pt-2.5 pb-5">
       <button
         type="button"
         onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}

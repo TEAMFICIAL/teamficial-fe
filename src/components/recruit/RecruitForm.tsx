@@ -103,6 +103,7 @@ const RecruitForm = ({
           type="submit"
           label={mode === 'edit' ? '수정하기' : showProfileList ? '업로드하기' : '다음으로'}
           disabled={!isValid}
+          className="desktop:w-fit w-full"
         />
       </div>
     </form>
