@@ -22,25 +22,27 @@ const ProfileList = () => {
   };
 
   return (
-    <main className="flex flex-col items-center justify-center pb-14">
-      <div className="flex w-full flex-col gap-4">
-        {hasProfiles ? (
-          profiles.map((profile) => <ProfileCard key={profile.profileId} profile={profile} />)
-        ) : (
-          <p className="text-gray-500">아직 등록된 프로필이 없습니다.</p>
+    <>
+      <div className="tablet:pb-14 mx-4 flex flex-col items-center justify-center pb-10">
+        <div className="tablet:gap-4 flex w-full flex-col">
+          {hasProfiles ? (
+            profiles.map((profile) => <ProfileCard key={profile.profileId} profile={profile} />)
+          ) : (
+            <p className="text-gray-500">아직 등록된 프로필이 없습니다.</p>
+          )}
+        </div>
+        {(!hasProfiles || profiles.length < 3) && (
+          <Image
+            src="/icons/profile-add.svg"
+            onClick={handleAddProfile}
+            alt="add"
+            width={40}
+            height={40}
+            className="mt-4 cursor-pointer"
+          />
         )}
       </div>
-      {(!hasProfiles || profiles.length < 3) && (
-        <Image
-          src="/icons/profile-add.svg"
-          onClick={handleAddProfile}
-          alt="add"
-          width={40}
-          height={40}
-          className="mt-4 cursor-pointer"
-        />
-      )}
-    </main>
+    </>
   );
 };
 

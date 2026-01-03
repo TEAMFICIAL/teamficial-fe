@@ -26,9 +26,10 @@ const MyPageInfo = () => {
   const hasMyTeamResponses = myTeamResponses.length > 0;
 
   return (
-    <div className="pb-14">
+    <div className="tablet:pb-14 pb-10">
       <MyPageTitle />
       {hasProfileData ? <ProfileSlider /> : <InitialProfile />}
+      <div className="tablet:h-5 -mx-4 h-4 bg-gray-200" />
       {hasApplications ? (
         <AppliedTeamSection applications={myApplications} />
       ) : (
