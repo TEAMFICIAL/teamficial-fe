@@ -2,13 +2,20 @@ import { DeleteProfileCompleteModalProps } from '@/constants/ModalList';
 import Button from '../../common/button/Button';
 import BaseModal from '../index';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 const DeleteProfileCompleteModal = ({
   isOpen,
   onClose,
   profileName,
 }: DeleteProfileCompleteModalProps) => {
+  const router = useRouter();
   const displayName = profileName ? profileName.trim() || '새 프로필' : '새 프로필';
+
+  const handleHomeClick = () => {
+    onClose();
+    router.push('/mypage/profile');
+  };
 
   return (
     <BaseModal isOpen={isOpen} onClose={onClose}>
@@ -18,13 +25,15 @@ const DeleteProfileCompleteModal = ({
           alt="symbol"
           width={55}
           height={55}
-          className="mb-6.5 flex flex-col"
+          className="tablet:h-[55px] tablet:w-[55px] tablet:mb-6.5 h-[45px] w-[45px]"
         />
-        <p className="title-3 mb-6.5 text-gray-800">{displayName}(프로필 명) 삭제가 완료됐어요</p>
-        <div className="flex gap-2">
+        <p className="tablet:title-3 body-7 tablet:mb-6.5 mb-4 text-gray-800">
+          {displayName}(프로필 명) 삭제가 완료됐어요
+        </p>
+        <div className="w-full gap-2">
           <Button
-            onClick={onClose}
-            className="body-5 bg-primary-900 text-gray-0 px-56 py-4 text-center"
+            onClick={handleHomeClick}
+            className="tablet:body-5 body-7 bg-primary-900 text-gray-0 tablet:px-56 tablet:py-4 w-full px-4 py-3 text-center"
           >
             홈으로
           </Button>

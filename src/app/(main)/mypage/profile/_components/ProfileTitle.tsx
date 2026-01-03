@@ -3,7 +3,7 @@ import React from 'react';
 
 const ProfileTitle = () => {
   return (
-    <div className="flex flex-col pt-7 pb-5">
+    <div className="tablet:flex hidden flex-col pt-7 pb-5">
       <p className="title-2 text-gray-900">프로필 관리하기</p>
       <p className="body-4 text-gray-700">
         대표 키워드 수정은{' '}

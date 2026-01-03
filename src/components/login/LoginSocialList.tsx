@@ -59,7 +59,7 @@ export default function LoginSocialList() {
   const socials = Object.keys(socialConfig) as Array<keyof typeof socialConfig>;
 
   return (
-    <div className="flex w-full flex-col items-center gap-4">
+    <div className="tablet:gap-4 mt-6 flex w-full flex-col items-center gap-2">
       {socials.map((type) => (
         <LoginSocial key={type} type={type} onClick={socialConfig[type].onClick} />
       ))}

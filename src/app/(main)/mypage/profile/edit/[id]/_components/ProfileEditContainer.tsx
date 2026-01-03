@@ -8,6 +8,7 @@ import { ResponseProfile } from '@/types/profile';
 import { useUpdateProfile } from '@/hooks/mutation/useUpdateProfile';
 import { useModal } from '@/contexts/ModalContext';
 import { useToast } from '@/contexts/ToastContext';
+import Image from 'next/image';
 
 interface ProfileEditContainerProps {
   profile: ResponseProfile;
@@ -38,6 +39,13 @@ const ProfileEditContainer = ({ profile }: ProfileEditContainerProps) => {
       });
     }
   }, [profile]);
+
+  const handleDeleteProfile = () => {
+    openModal('profileDelete', {
+      profileId: profile.profileId,
+      profileName: profile.profileName,
+    });
+  };
 
   const handleChange =
     (key: keyof typeof formData, index?: number) => (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -114,14 +122,22 @@ const ProfileEditContainer = ({ profile }: ProfileEditContainerProps) => {
   };
 
   return (
-    <>
+    <div className="tablet:mx-0 mx-4">
       <LabeledTextarea
         id="title"
         label="프로필 제목 지정하기"
         placeholder="프로필 제목을 입력해주세요"
         value={formData.title}
         onChange={handleChange('title')}
-        className="mb-6"
+        className="tablet:flex mb-6 hidden"
+      />
+      <LabeledTextarea
+        id="title"
+        label="프로필 제목"
+        placeholder="프로필 제목을 입력해주세요"
+        value={formData.title}
+        onChange={handleChange('title')}
+        className="tablet:hidden mb-4"
       />
       <LabeledTextarea
         id="contact"
@@ -129,11 +145,11 @@ const ProfileEditContainer = ({ profile }: ProfileEditContainerProps) => {
         placeholder="Ex. 카카오톡 오픈채팅 링크"
         value={formData.contact}
         onChange={handleChange('contact')}
-        className="mb-6"
+        className="tablet:mb-6 mb-4"
       />
 
-      <div className="mb-6 flex flex-col gap-4">
-        <p className="title-3 text-gray-900">작업시간</p>
+      <div className="tablet:mb-6 mb-4 flex flex-col gap-4">
+        <p className="tablet:title-3 body-5 text-gray-900">작업시간</p>
         <WorkTimeDropdown
           value={formData.workingTime}
           onChange={(value) => setFormData({ ...formData, workingTime: value })}
@@ -142,8 +158,8 @@ const ProfileEditContainer = ({ profile }: ProfileEditContainerProps) => {
 
       <div className="flex flex-col">
         <div>
-          <p className="title-3 text-gray-900">나를 소개하는 링크 추가하기</p>
-          <p className="body-4 text-gray-700">링크는 최대 3개까지 입력할 수 있어요</p>
+          <p className="tablet:title-3 body-5 text-gray-900">나를 소개하는 링크 추가하기</p>
+          <p className="tablet:body-4 body-8 text-gray-700">링크는 최대 3개까지 입력할 수 있어요</p>
         </div>
         {formData.links.map((link, idx) => (
           <LabeledTextarea
@@ -157,7 +173,22 @@ const ProfileEditContainer = ({ profile }: ProfileEditContainerProps) => {
           />
         ))}
       </div>
-      <div className="mb-14 flex justify-end">
+      <div className="tablet:hidden bg-gray-0 fixed right-0 bottom-0 left-0 z-50 flex w-full gap-2 px-4 pt-3 pb-5">
+        <Image
+          onClick={handleDeleteProfile}
+          src="/icons/profile-mobile-trash.svg"
+          alt="trash"
+          width={58}
+          height={58}
+        />
+        <Button
+          onClick={handleSubmit}
+          className="body-5 bg-primary-900 text-gray-0 w-full px-5 py-4 text-center"
+        >
+          저장하기
+        </Button>
+      </div>
+      <div className="tablet:flex mb-14 hidden justify-end">
         <Button
           onClick={handleSubmit}
           className="body-3 bg-primary-900 text-gray-0 mt-[162px] px-8 py-4 disabled:bg-gray-300 disabled:text-gray-600"
@@ -165,7 +196,7 @@ const ProfileEditContainer = ({ profile }: ProfileEditContainerProps) => {
           저장하기
         </Button>
       </div>
-    </>
+    </div>
   );
 };
 

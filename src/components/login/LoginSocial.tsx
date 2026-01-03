@@ -13,10 +13,10 @@ export default function LoginSocial({ type, onClick }: LoginSocialProps) {
 
   return (
     <div
-      className={`title-3 flex w-full cursor-pointer flex-row items-center justify-center rounded-lg px-10 py-5 ${config.bgColor}`}
+      className={`tablet:title-3 body-7 tablet:py-5 flex w-full cursor-pointer flex-row items-center justify-center rounded-lg px-10 py-4 ${config.bgColor}`}
       onClick={onClick}
     >
-      <div className="mr-[10px] h-6 w-6">
+      <div className="tablet:h-6 tablet:w-6 tablet:mr-[10px] mr-2 h-5 w-5">
         <Image
           src={config.imageSrc}
           alt={`${config.name} logo`}

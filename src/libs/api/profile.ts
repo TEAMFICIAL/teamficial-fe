@@ -96,3 +96,11 @@ export const updateProfileImage = async (profileId: number, objectKey: string): 
     throw new Error(data.message || 'Failed to update profile image');
   }
 };
+
+export const deleteProfileImage = async (profileId: number): Promise<void> => {
+  const { data } = await api.delete<CommonResponse<string>>(`profile/${profileId}/image`);
+
+  if (!data.isSuccess) {
+    throw new Error(data.message || 'Failed to delete profile image');
+  }
+};

@@ -37,7 +37,7 @@ const WorkTimeDropdown = ({ value, onChange }: WorkTimeDropdownProps) => {
         type="button"
         onClick={() => setIsOpen(!isOpen)}
         className={clsx(
-          'body-6 flex w-full items-center justify-between rounded-lg border border-gray-300 px-7 py-3 text-left focus:outline-none',
+          'tablet:body-6 body-8 tablet:px-7 flex w-full items-center justify-between rounded-lg border border-gray-300 px-5 py-3 text-left focus:outline-none',
           selectedLabel ? 'text-gray-800' : 'text-gray-500',
           isOpen && 'rounded-b-none border-b-0',
         )}
@@ -56,13 +56,13 @@ const WorkTimeDropdown = ({ value, onChange }: WorkTimeDropdownProps) => {
       </button>
 
       {isOpen && (
-        <ul className="body-6 absolute z-10 w-full rounded-b-lg border border-t border-gray-300 bg-white text-gray-800">
+        <ul className="tablet:body-6 body-8 absolute z-10 w-full rounded-b-lg border border-t border-gray-300 bg-white text-gray-800">
           {WORKING_TIME_OPTIONS.map((option, idx) => (
             <li
               key={option.value}
               onClick={() => handleSelect(option.value)}
               className={clsx(
-                'hover:bg-primary-50 cursor-pointer px-7 py-3 text-gray-800',
+                'hover:bg-primary-50 tablet:px-7 cursor-pointer px-5 py-3 text-gray-800',
                 value === option.value && 'bg-primary-50',
                 idx !== WORKING_TIME_OPTIONS.length - 1 && 'border-b border-gray-300',
               )}

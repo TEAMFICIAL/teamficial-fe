@@ -21,7 +21,7 @@ const ApplicantStatusCard = ({ recruiting }: ApplicantStatusCardProps) => {
   return (
     <div
       onClick={handleClick}
-      className="bg-gray-0 w-76 cursor-pointer rounded-2xl border border-gray-300 p-5"
+      className="bg-gray-0 tablet:w-76 tablet:p-5 w-full cursor-pointer rounded-2xl border border-gray-300 px-5 py-4"
     >
       <div className="mb-2.5 flex justify-between">
         <Tag className="bg-primary-50 border-primary-900 text-primary-900 border">
@@ -31,10 +31,14 @@ const ApplicantStatusCard = ({ recruiting }: ApplicantStatusCardProps) => {
           {recruiting.recruitingPostStatus === '모집 마감' ? '마감' : formatDday(recruiting.dday)}
         </Tag>
       </div>
-      <p className="title-3 truncate text-gray-900">{recruiting.title}</p>
-      <div className="body-8 flex gap-1 text-gray-600">
+      <p className="tablet:title-3 body-5 max-w-[248px] truncate text-gray-900">
+        {recruiting.title}
+      </p>
+      <div className="tablet:body-8 body-9 flex max-w-[248px] gap-1 overflow-hidden text-gray-600">
         {recruiting.tags.map((tag) => (
-          <p key={tag}>#{tag}</p>
+          <p key={tag} className="truncate">
+            #{tag}
+          </p>
         ))}
       </div>
     </div>
