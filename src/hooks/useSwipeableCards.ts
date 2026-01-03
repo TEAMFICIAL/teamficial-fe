@@ -20,8 +20,9 @@ export const useSwipeableCards = <T>({
   const displayItems = items.slice(0, maxItems);
 
   useEffect(() => {
-    if (currentIndex >= displayItems.length && displayItems.length > 0) {
-      setCurrentIndex(displayItems.length - 1);
+    const maxIndex = Math.max(displayItems.length - 1, 0);
+    if (currentIndex > maxIndex) {
+      setCurrentIndex(maxIndex);
     }
   }, [displayItems.length, currentIndex]);
 
