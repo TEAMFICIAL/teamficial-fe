@@ -31,10 +31,14 @@ const ApplicantStatusCard = ({ recruiting }: ApplicantStatusCardProps) => {
           {recruiting.recruitingPostStatus === '모집 마감' ? '마감' : formatDday(recruiting.dday)}
         </Tag>
       </div>
-      <p className="tablet:title-3 body-5 truncate text-gray-900">{recruiting.title}</p>
-      <div className="tablet:body-8 body-9 flex gap-1 text-gray-600">
+      <p className="tablet:title-3 body-5 max-w-[248px] truncate text-gray-900">
+        {recruiting.title}
+      </p>
+      <div className="tablet:body-8 body-9 flex max-w-[248px] gap-1 overflow-hidden text-gray-600">
         {recruiting.tags.map((tag) => (
-          <p key={tag}>#{tag}</p>
+          <p key={tag} className="truncate">
+            #{tag}
+          </p>
         ))}
       </div>
     </div>

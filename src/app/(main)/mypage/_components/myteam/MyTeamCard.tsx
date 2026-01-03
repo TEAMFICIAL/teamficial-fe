@@ -27,10 +27,12 @@ const MyTeamCard = ({ myteam }: MyTeamCardProps) => {
         </div>
         <Tag className="body-9 bg-blue-50 text-blue-200">{myteam.totalMembers}명 참여</Tag>
       </div>
-      <p className="tablet:title-3 body-5 truncate text-gray-900">{myteam.title}</p>
-      <div className="tablet:body-8 body-9 flex gap-1 truncate text-gray-600">
+      <p className="tablet:title-3 body-5 max-w-[248px] truncate text-gray-900">{myteam.title}</p>
+      <div className="tablet:body-8 body-9 flex max-w-[248px] gap-1 overflow-hidden text-gray-600">
         {myteam.tags.map((tag) => (
-          <p key={tag}>#{tag}</p>
+          <p key={tag} className="truncate">
+            #{tag}
+          </p>
         ))}
       </div>
     </div>

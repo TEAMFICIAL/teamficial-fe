@@ -30,10 +30,14 @@ const AppliedTeamCard = ({ application }: AppliedTeamCardProps) => {
         </div>
         <Tag className={getStatusColor(application.status)}>{application.status}</Tag>
       </div>
-      <p className="tablet:title-3 body-5 truncate text-gray-900">{application.title}</p>
-      <div className="tablet:body-8 body-9 tablet:mb-5 mb-3 flex gap-1 text-gray-600">
+      <p className="tablet:title-3 body-5 max-w-[248px] truncate text-gray-900">
+        {application.title}
+      </p>
+      <div className="tablet:body-8 body-9 tablet:mb-5 mb-3 flex max-w-[248px] gap-1 overflow-hidden text-gray-600">
         {application.tags.map((tag) => (
-          <p key={tag}>#{tag}</p>
+          <p key={tag} className="truncate">
+            #{tag}
+          </p>
         ))}
       </div>
       <div className="flex items-center justify-between border-t border-gray-200 pt-2">
