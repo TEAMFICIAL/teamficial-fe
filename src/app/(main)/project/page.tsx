@@ -41,29 +41,50 @@ const Page = () => {
         <ButtonContainer onChange={setFilters} />
       </div>
       <div className="tablet:grid tablet:py-5 tablet:gap-4 tablet:grid-cols-3 flex flex-col gap-2">
-        {currentCards.map((card: ResponseProject) => (
-          <RecruitCard
-            key={card.postId}
-            title={card.title}
-            profileImageUrl={card.profileImageUrl}
-            hashtag={card.recruitingPositions
-              .map((r) => `#${POSITION_KR[r.position] || r.position}`)
-              .join(' ')}
-            author={card.userName}
-            date={card.createdAt.split('T')[0]}
-            duration={PERIOD_KR[card.period] || card.period}
-            mode={PROGRESS_WAY_KR[card.progressWay] || card.progressWay}
-            dday={card.dday}
-            status={card.status}
-            onClick={() => handleCardClick(card.postId)}
-          />
-        ))}
+        <div className="tablet:contents hidden">
+          {currentCards.map((card: ResponseProject) => (
+            <RecruitCard
+              key={card.postId}
+              title={card.title}
+              profileImageUrl={card.profileImageUrl}
+              hashtag={card.recruitingPositions
+                .map((r) => `#${POSITION_KR[r.position] || r.position}`)
+                .join(' ')}
+              author={card.userName}
+              date={card.createdAt.split('T')[0]}
+              duration={PERIOD_KR[card.period] || card.period}
+              mode={PROGRESS_WAY_KR[card.progressWay] || card.progressWay}
+              dday={card.dday}
+              status={card.status}
+              onClick={() => handleCardClick(card.postId)}
+            />
+          ))}
+        </div>
+        <div className="tablet:hidden flex flex-col gap-2">
+          {currentCards.slice(0, 3).map((card: ResponseProject) => (
+            <RecruitCard
+              key={card.postId}
+              title={card.title}
+              profileImageUrl={card.profileImageUrl}
+              hashtag={card.recruitingPositions
+                .map((r) => `#${POSITION_KR[r.position] || r.position}`)
+                .join(' ')}
+              author={card.userName}
+              date={card.createdAt.split('T')[0]}
+              duration={PERIOD_KR[card.period] || card.period}
+              mode={PROGRESS_WAY_KR[card.progressWay] || card.progressWay}
+              dday={card.dday}
+              status={card.status}
+              onClick={() => handleCardClick(card.postId)}
+            />
+          ))}
+        </div>
       </div>
 
       <div className="tablet:hidden flex justify-center py-3">
         <Button
           className="body-5 w-full cursor-pointer border border-gray-300 bg-gray-50 px-5 py-3 text-gray-800"
-          onClick={() => router.push('/project/mobile/all')}
+          onClick={() => router.push('/project/all')}
         >
           공고 전체보기
         </Button>
