@@ -19,15 +19,24 @@ const EditProfileCompleteModal = ({ isOpen, onClose }: EditProfileCompleteModalP
           alt="symbol"
           width={55}
           height={55}
-          className="mb-6.5 flex flex-col"
+          className="tablet:h-[55px] tablet:w-[55px] tablet:mb-6.5 h-[45px] w-[45px]"
         />
-        <p className="title-3 mb-6.5 text-gray-800">프로필 수정이 완료됐어요</p>
-        <div className="flex gap-2">
+
+        <p className="tablet:title-3 body-7 tablet:mb-6.5 mb-4 text-gray-800">
+          프로필 수정이 완료됐어요
+        </p>
+        <div className="flex w-full">
           <Button
             onClick={handleClick}
-            className="body-5 bg-primary-900 text-gray-0 px-56 py-4 text-center"
+            className="tablet:block body-5 bg-primary-900 text-gray-0 hidden px-56 py-4 text-center"
           >
             홈으로
+          </Button>
+          <Button
+            onClick={handleClick}
+            className="tablet:hidden body-7 bg-primary-900 text-gray-0 flex w-full items-center justify-center px-4 py-3"
+          >
+            목록으로
           </Button>
         </div>
       </div>
