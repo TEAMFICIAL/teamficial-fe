@@ -21,7 +21,7 @@ const AppliedTeamCard = ({ application }: AppliedTeamCardProps) => {
   return (
     <div
       onClick={handleClick}
-      className="flex w-76 cursor-pointer flex-col rounded-2xl border border-gray-300 p-5"
+      className="tablet:p-5 tablet:w-76 flex w-full cursor-pointer flex-col rounded-2xl border border-gray-300 px-5 py-4"
     >
       <div className="mb-2.5 flex justify-between">
         <div className="flex gap-1">
@@ -30,8 +30,8 @@ const AppliedTeamCard = ({ application }: AppliedTeamCardProps) => {
         </div>
         <Tag className={getStatusColor(application.status)}>{application.status}</Tag>
       </div>
-      <p className="title-3 truncate text-gray-900">{application.title}</p>
-      <div className="body-8 mb-5 flex gap-1 text-gray-600">
+      <p className="tablet:title-3 body-5 truncate text-gray-900">{application.title}</p>
+      <div className="tablet:body-8 body-9 tablet:mb-5 mb-3 flex gap-1 text-gray-600">
         {application.tags.map((tag) => (
           <p key={tag}>#{tag}</p>
         ))}
@@ -45,9 +45,11 @@ const AppliedTeamCard = ({ application }: AppliedTeamCardProps) => {
             height={32}
             className="h-8 w-8 rounded-full object-cover"
           />
-          <span className="body-8 text-gray-700">{application.writerName}</span>
+          <span className="tablet:body-8 body-10 text-gray-700">{application.writerName}</span>
         </div>
-        <span className="body-8 text-gray-700">{formatDateDot(application.deadline)}</span>
+        <span className="tablet:body-8 body-10 text-gray-700">
+          {formatDateDot(application.deadline)}
+        </span>
       </div>
     </div>
   );
