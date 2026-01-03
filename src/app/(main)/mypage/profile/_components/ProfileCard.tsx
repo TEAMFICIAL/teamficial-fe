@@ -5,6 +5,8 @@ import ProfileHeader from './ProfileHeader';
 import ProfileInfo from './ProfileInfo';
 import ProfileLinks from './ProfileLinks';
 import { useModal } from '@/contexts/ModalContext';
+import Link from 'next/link';
+import Image from 'next/image';
 
 interface ProfileCardProps {
   profile?: ResponseProfile;
@@ -31,6 +33,11 @@ const ProfileCard = ({ profile }: ProfileCardProps) => {
     });
   };
 
+  const handleClickDetail = () => {
+    if (!profile) return;
+    router.push(`/mypage/profile/edit/${profile?.profileId}`);
+  };
+
   return (
     <div>
       <ProfileHeader
@@ -38,7 +45,42 @@ const ProfileCard = ({ profile }: ProfileCardProps) => {
         handleDelete={handleDelete}
         title={profile?.profileName}
       />
-      <div className="flex w-full justify-between rounded-2xl border border-gray-300 px-14 py-8">
+      <div className="tablet:hidden">
+        <div className="bg-gray-0 flex flex-col justify-between rounded-2xl border border-gray-300">
+          <div className="flex flex-col gap-1.5 px-5 py-4">
+            <p className="flex items-center gap-1">
+              <Image
+                src={profile?.profileImageUrl || '/icons/profile.svg'}
+                alt="profile"
+                width={32}
+                height={32}
+                className="h-8 w-8 rounded-full object-cover"
+              />
+              <span className="body-7 text-gray-900">{profile?.userName}님</span>
+            </p>
+            <div className="flex flex-wrap gap-1">
+              {profile?.headKeywords.map((keyword) => (
+                <span
+                  key={keyword}
+                  className="body-10 bg-gray-0 rounded-lg border border-gray-300 px-2 py-1 text-gray-600"
+                >
+                  #{keyword}
+                </span>
+              ))}
+            </div>
+          </div>
+          <div className="body-7 flex border-t border-gray-300 text-gray-800">
+            <button className="flex-1 py-3" onClick={handleClickDetail}>
+              상세보기
+            </button>
+            <div className="w-[1px] bg-gray-300"></div>
+            <Link href={`/teampsylog/${profile?.uuid}`} className="flex-1 py-3 text-center">
+              전체 키워드 보기
+            </Link>
+          </div>
+        </div>
+      </div>
+      <div className="tablet:flex hidden w-full justify-between rounded-2xl border border-gray-300 px-14 py-8">
         <div className="flex flex-col">
           <ProfileInfo profile={profile} />
         </div>
