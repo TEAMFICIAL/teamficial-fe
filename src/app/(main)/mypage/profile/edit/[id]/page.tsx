@@ -5,6 +5,7 @@ import ProfileTitle from '../../_components/ProfileTitle';
 import ProfileEditContainer from './_components/ProfileEditContainer';
 import ProfileImage from './_components/ProfileImage';
 import { useGetProfile } from '@/hooks/queries/useProfile';
+import MobileHeader from '@/components/common/MobileHeader';
 
 const Page = () => {
   const { id } = useParams();
@@ -19,9 +20,12 @@ const Page = () => {
 
   return (
     <>
-      <ProfileTitle />
-      <ProfileImage profile={profile} />
-      <ProfileEditContainer profile={profile} />
+      <MobileHeader title="프로필 편집" />
+      <div className="tablet:bg-transparent -mx-4 h-full bg-gray-100">
+        <ProfileTitle />
+        <ProfileImage profile={profile} />
+        <ProfileEditContainer profile={profile} />
+      </div>
     </>
   );
 };
