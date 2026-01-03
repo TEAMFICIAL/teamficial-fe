@@ -22,7 +22,7 @@ const RecruitCompleteModal = ({
   };
 
   return (
-    <BaseModal isOpen={isOpen} onClose={onClose}>
+    <BaseModal isOpen={isOpen} onClose={handleListClick}>
       <div className="flex flex-col items-center">
         <Image
           src={`/icons/gray_teamficial_symbol.svg`}
@@ -31,16 +31,19 @@ const RecruitCompleteModal = ({
           height={55}
           className="mb-3 flex flex-col"
         />
-        <h3 className="title-3 text-gray-800">팀원 모집글 작성이 완료되었어요!</h3>
-        <p className="body-6 mb-10 text-gray-700">
+        <h3 className="desktop:title-3 body-7 text-gray-800">팀원 모집글 작성이 완료되었어요!</h3>
+        <p className="desktop:body-6 body-10 desktop:mb-10 mb-4 text-gray-700">
           {`작성한 글은 마이페이지 > 지원자 현황에서 확인할 수 있어요`}
         </p>
         <div className="flex gap-2">
-          <Button className="body-5 bg-gray-300 px-8 py-4 text-gray-800" onClick={handleListClick}>
+          <Button
+            className="body-7 desktop:body-5 desktop:px-8 desktop:py-4 bg-gray-300 px-4 py-3 text-gray-800"
+            onClick={handleListClick}
+          >
             목록으로
           </Button>
           <Button
-            className="bg-primary-900 text-gray-0 body-5 hover:bg-primary-700 px-30 py-4"
+            className="bg-primary-900 text-gray-0 body-7 desktop:body-5 hover:bg-primary-700 desktop:px-30 desktop:py-4 px-10 py-3"
             onClick={handleDetailClick}
           >
             작성한 글 보러가기

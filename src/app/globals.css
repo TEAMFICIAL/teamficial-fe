@@ -253,7 +253,7 @@ body {
   @apply desktop:text-xl desktop:my-1 my-0.5 text-lg font-bold;
 }
 .prose p {
-  @apply desktop:body-4 body-6;
+  @apply desktop:body-6 body-8;
 }
 
 /* slide-up 애니메이션 */

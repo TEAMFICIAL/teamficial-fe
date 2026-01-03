@@ -67,9 +67,9 @@ const ProjectDropdown = ({
         aria-expanded={open}
       >
         {isPlaceholder ? (
-          <span className="body-6">{placeholder}</span>
+          <span className="body-8 desktop:body-6">{placeholder}</span>
         ) : (
-          <span className="body-5">{selectedLabel}</span>
+          <span className="body-7 desktop:body-5">{selectedLabel}</span>
         )}
         <Image
           src={open ? '/icons/arrow-up-gray.svg' : '/icons/arrow-down-gray.svg'}
@@ -101,7 +101,7 @@ const ProjectDropdown = ({
                 aria-selected={isSelected}
                 className={[
                   'cursor-pointer px-7 py-3',
-                  'hover:bg-primary-50 body-6',
+                  'hover:bg-primary-50 desktop:body-6 body-8',
                   isLast ? 'rounded-b-md' : '',
                 ].join(' ')}
                 onClick={() => {

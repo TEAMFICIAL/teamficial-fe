@@ -32,7 +32,7 @@ const TextContent = ({ control, name = 'content' }: Props) => {
     editorProps: {
       attributes: {
         class:
-          'ProseMirror appearance-none min-h-45 w-full bg-white body-6 text-gray-700 focus:outline-none',
+          'ProseMirror appearance-none desktop:min-h-45 min-h-60 w-full bg-white body-6 text-gray-700 focus:outline-none',
       },
     },
     onUpdate: ({ editor }) => {
@@ -76,8 +76,10 @@ const TextContent = ({ control, name = 'content' }: Props) => {
   const textLength = editor.getText().replace(/\r?\n/g, '').length;
 
   return (
-    <div className="flex flex-col gap-2">
-      <div className={`flex flex-col rounded-2xl border-1 border-gray-300 px-8 pt-4 pb-9`}>
+    <div className="bg-gray-0 flex flex-col">
+      <div
+        className={`desktop:px-8 desktop:pb-9 flex flex-col rounded-2xl border-1 border-gray-300 px-6 pt-4 pb-7`}
+      >
         <Toolbar editor={editor} onLinkButtonClick={() => handleLink(editor)} />
         <EditorContent editor={editor} className="mt-7" />
         <p className={`body-8 self-end ${textLength < 50 ? 'text-red-100' : 'text-gray-600'}`}>

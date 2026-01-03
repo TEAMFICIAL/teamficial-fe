@@ -13,13 +13,13 @@ type Props = {
 const ProcessMethod = ({ control }: Props) => {
   return (
     <div className="flex flex-col gap-4">
-      <p className="title-3">진행 방법</p>
+      <p className="desktop:title-3 body-5">진행 방법</p>
       <Controller
         name="progressWay"
         control={control}
         render={({ field: { value, onChange } }) => (
           <div className="flex flex-col gap-2">
-            <div className="flex gap-6">
+            <div className="desktop:gap-6 desktop:flex-row flex flex-col gap-4">
               {DURATION_OPTIONS.slice(1).map((option) => (
                 <RadioButton
                   key={option.value}
