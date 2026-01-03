@@ -18,6 +18,7 @@ import ProfileSelect from './ProfileSelect';
 import Image from 'next/image';
 import MobileHeader from '../common/MobileHeader';
 import { useRecruitNavigationGuard } from '@/hooks/useRecruitNavigationGuard';
+import { usePreventNavigation } from '@/hooks/usePreventNavigation';
 
 type Step = 'form' | 'profile';
 
@@ -42,6 +43,15 @@ const RecruitPage = () => {
   }, [step]);
 
   useRecruitNavigationGuard(!isSubmitting, setIsSubmitting);
+
+  usePreventNavigation(!isSubmitting, (navigate) => {
+    openModal('notFinish', {
+      onConfirm: () => {
+        setIsSubmitting(true);
+        navigate();
+      },
+    });
+  });
 
   const handleNext = (data: Partial<RecruitFormType>) => {
     setFormData(data);
@@ -97,7 +107,7 @@ const RecruitPage = () => {
             </p>
           </div>
           <Image
-            src={step === 'form' ? 'icons/first.svg' : 'icons/second.svg'}
+            src={step === 'form' ? '/icons/first.svg' : '/icons/second.svg'}
             alt=""
             width={96}
             height={40}
