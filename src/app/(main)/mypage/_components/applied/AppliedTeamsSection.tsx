@@ -47,7 +47,7 @@ const AppliedTeamSection = ({ applications }: AppliedTeamSectionProps) => {
     }
   };
 
-  if (displayApplications.length === 0) return null;
+  if (applications.length === 0) return null;
 
   return (
     <>

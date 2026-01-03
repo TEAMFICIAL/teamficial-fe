@@ -5,7 +5,7 @@ const EmptyAppliedTeam = () => {
     <>
       <div className="flex w-full justify-between py-5">
         <p className="tablet:title-2 title-4 text-gray-900">내가 지원한 팀</p>
-        <Link href="/" className="tablet:block body-6 hidden self-end text-gray-700">
+        <Link href="/mypage/applied" className="tablet:block body-6 hidden self-end text-gray-700">
           전체보기
         </Link>
       </div>

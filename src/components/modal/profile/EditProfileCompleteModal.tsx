@@ -28,15 +28,9 @@ const EditProfileCompleteModal = ({ isOpen, onClose }: EditProfileCompleteModalP
         <div className="flex w-full">
           <Button
             onClick={handleClick}
-            className="tablet:block body-5 bg-primary-900 text-gray-0 hidden px-56 py-4 text-center"
+            className="tablet:body-5 body-7 bg-primary-900 text-gray-0 tablet:px-56 tablet:py-4 w-full px-4 py-3 text-center"
           >
             홈으로
-          </Button>
-          <Button
-            onClick={handleClick}
-            className="tablet:hidden body-7 bg-primary-900 text-gray-0 flex w-full items-center justify-center px-4 py-3"
-          >
-            목록으로
           </Button>
         </div>
       </div>

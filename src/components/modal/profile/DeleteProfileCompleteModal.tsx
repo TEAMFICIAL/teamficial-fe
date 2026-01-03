@@ -11,7 +11,8 @@ const DeleteProfileCompleteModal = ({
 }: DeleteProfileCompleteModalProps) => {
   const router = useRouter();
   const displayName = profileName ? profileName.trim() || '새 프로필' : '새 프로필';
-  const onClickList = () => {
+
+  const handleHomeClick = () => {
     onClose();
     router.push('/mypage/profile');
   };
@@ -29,20 +30,12 @@ const DeleteProfileCompleteModal = ({
         <p className="tablet:title-3 body-7 tablet:mb-6.5 mb-4 text-gray-800">
           {displayName}(프로필 명) 삭제가 완료됐어요
         </p>
-        <div className="tablet:flex hidden gap-2">
+        <div className="w-full gap-2">
           <Button
-            onClick={onClose}
-            className="body-5 bg-primary-900 text-gray-0 px-56 py-4 text-center"
+            onClick={handleHomeClick}
+            className="tablet:body-5 body-7 bg-primary-900 text-gray-0 tablet:px-56 tablet:py-4 w-full px-4 py-3 text-center"
           >
             홈으로
-          </Button>
-        </div>
-        <div className="tablet:hidden flex w-full gap-2">
-          <Button
-            onClick={onClickList}
-            className="body-7 bg-primary-900 text-gray-0 w-full px-4 py-3 text-center"
-          >
-            목록으로
           </Button>
         </div>
       </div>

@@ -47,7 +47,7 @@ const MyTeamSection = ({ teams }: MyTeamSectionProps) => {
     }
   };
 
-  if (displayTeams.length === 0) return null;
+  if (teams.length === 0) return null;
 
   return (
     <>
