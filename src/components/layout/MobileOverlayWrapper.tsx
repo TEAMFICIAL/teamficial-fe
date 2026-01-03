@@ -14,6 +14,7 @@ const OVERLAY_ROUTES = [
   /^\/recruit$/, // /recruit
   /^\/mypage\/profile$/, // /mypage/profile
   /^\/mypage\/profile\/edit\/[^/]+$/, // /mypage/profile/edit/:profileId
+  /^\/project\/all$/, // /project/all
   /^\/mypage\/applicant$/, // /mypage/applicant
   /^\/mypage\/applied$/, // /mypage/applied
   /^\/mypage\/team$/, // /mypage/team
