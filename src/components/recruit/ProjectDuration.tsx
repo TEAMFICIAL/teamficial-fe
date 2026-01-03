@@ -13,7 +13,7 @@ type Props = {
 const ProjectDuration = ({ control }: Props) => {
   return (
     <div className="flex flex-col gap-4">
-      <p className="title-3">프로젝트 진행기간</p>
+      <p className="body-5 desktop:title-3">프로젝트 진행기간</p>
       <Controller
         name="period"
         control={control}

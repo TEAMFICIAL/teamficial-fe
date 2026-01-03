@@ -51,7 +51,9 @@ export default function PositionDropdown({
         aria-haspopup="listbox"
         aria-expanded={open}
       >
-        <span className="body-5 pl-7">{isPlaceholder ? placeholder : selected?.label}</span>
+        <span className="desktop:body-5 body-7 desktop:pl-7 pl-4">
+          {isPlaceholder ? placeholder : selected?.label}
+        </span>
         <Image
           src={open ? '/icons/arrow-up-gray.svg' : '/icons/arrow-down-gray.svg'}
           alt=""
@@ -74,7 +76,7 @@ export default function PositionDropdown({
               role="option"
               aria-selected={opt.value === value}
               className={[
-                'body-5 cursor-pointer border-b border-gray-300 select-none',
+                'desktop:body-5 body-7 cursor-pointer border-b border-gray-300 select-none',
                 'hover:bg-primary-50 px-7 py-3 text-gray-800',
                 opt.value === value ? 'bg-primary-50' : '',
                 idx === options.length - 1 ? 'rounded-b-md' : '',
