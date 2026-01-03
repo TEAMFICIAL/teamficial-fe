@@ -4,7 +4,7 @@ import { MyApplication } from '@/types/project';
 import AppliedTeamCard from './AppliedTeamCard';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { useState, useRef } from 'react';
+import { useSwipeableCards } from '@/hooks/useSwipeableCards';
 
 interface AppliedTeamSectionProps {
   applications: MyApplication[];
@@ -12,39 +12,17 @@ interface AppliedTeamSectionProps {
 
 const AppliedTeamSection = ({ applications }: AppliedTeamSectionProps) => {
   const router = useRouter();
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const touchStartX = useRef<number | null>(null);
-  const touchEndX = useRef<number | null>(null);
+  const {
+    currentIndex,
+    setCurrentIndex,
+    displayItems: displayApplications,
+    onTouchStart,
+    onTouchMove,
+    onTouchEnd,
+  } = useSwipeableCards({ items: applications });
 
   const handleClick = () => {
     router.push('/mypage/applied');
-  };
-
-  const displayApplications = applications.slice(0, 3);
-
-  const minSwipeDistance = 50;
-
-  const onTouchStart = (e: React.TouchEvent) => {
-    touchEndX.current = null;
-    touchStartX.current = e.targetTouches[0].clientX;
-  };
-
-  const onTouchMove = (e: React.TouchEvent) => {
-    touchEndX.current = e.targetTouches[0].clientX;
-  };
-
-  const onTouchEnd = () => {
-    if (!touchStartX.current || !touchEndX.current) return;
-    const distance = touchStartX.current - touchEndX.current;
-    const isLeftSwipe = distance > minSwipeDistance;
-    const isRightSwipe = distance < -minSwipeDistance;
-
-    if (isLeftSwipe && currentIndex < displayApplications.length - 1) {
-      setCurrentIndex(currentIndex + 1);
-    }
-    if (isRightSwipe && currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1);
-    }
   };
 
   if (applications.length === 0) return null;

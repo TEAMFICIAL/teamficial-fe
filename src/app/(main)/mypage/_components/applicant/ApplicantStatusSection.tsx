@@ -4,7 +4,7 @@ import { MyRecruitingPost } from '@/types/project';
 import ApplicantStatusCard from './ApplicantStatusCard';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { useRef, useState } from 'react';
+import { useSwipeableCards } from '@/hooks/useSwipeableCards';
 
 interface ApplicantStatusSectionProps {
   recruitings: MyRecruitingPost[];
@@ -12,39 +12,17 @@ interface ApplicantStatusSectionProps {
 
 const ApplicantStatusSection = ({ recruitings }: ApplicantStatusSectionProps) => {
   const router = useRouter();
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const touchStartX = useRef<number | null>(null);
-  const touchEndX = useRef<number | null>(null);
+  const {
+    currentIndex,
+    setCurrentIndex,
+    displayItems: displayApplicants,
+    onTouchStart,
+    onTouchMove,
+    onTouchEnd,
+  } = useSwipeableCards({ items: recruitings });
 
   const handleClick = () => {
     router.push('/mypage/applicant');
-  };
-
-  const displayApplicants = recruitings.slice(0, 3);
-
-  const minSwipeDistance = 50;
-
-  const onTouchStart = (e: React.TouchEvent) => {
-    touchEndX.current = null;
-    touchStartX.current = e.targetTouches[0].clientX;
-  };
-
-  const onTouchMove = (e: React.TouchEvent) => {
-    touchEndX.current = e.targetTouches[0].clientX;
-  };
-
-  const onTouchEnd = () => {
-    if (!touchStartX.current || !touchEndX.current) return;
-    const distance = touchStartX.current - touchEndX.current;
-    const isLeftSwipe = distance > minSwipeDistance;
-    const isRightSwipe = distance < -minSwipeDistance;
-
-    if (isLeftSwipe && currentIndex < displayApplicants.length - 1) {
-      setCurrentIndex(currentIndex + 1);
-    }
-    if (isRightSwipe && currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1);
-    }
   };
 
   if (displayApplicants.length === 0) return null;

@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import MyTeamCard from './MyTeamCard';
 import { MyTeamResponses } from '@/types/project';
 import Image from 'next/image';
-import { useRef, useState } from 'react';
+import { useSwipeableCards } from '@/hooks/useSwipeableCards';
 
 interface MyTeamSectionProps {
   teams: MyTeamResponses[];
@@ -12,39 +12,17 @@ interface MyTeamSectionProps {
 
 const MyTeamSection = ({ teams }: MyTeamSectionProps) => {
   const router = useRouter();
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const touchStartX = useRef<number | null>(null);
-  const touchEndX = useRef<number | null>(null);
+  const {
+    currentIndex,
+    setCurrentIndex,
+    displayItems: displayTeams,
+    onTouchStart,
+    onTouchMove,
+    onTouchEnd,
+  } = useSwipeableCards({ items: teams });
 
   const handleClick = () => {
     router.push('/mypage/team');
-  };
-
-  const displayTeams = teams.slice(0, 3);
-
-  const minSwipeDistance = 50;
-
-  const onTouchStart = (e: React.TouchEvent) => {
-    touchEndX.current = null;
-    touchStartX.current = e.targetTouches[0].clientX;
-  };
-
-  const onTouchMove = (e: React.TouchEvent) => {
-    touchEndX.current = e.targetTouches[0].clientX;
-  };
-
-  const onTouchEnd = () => {
-    if (!touchStartX.current || !touchEndX.current) return;
-    const distance = touchStartX.current - touchEndX.current;
-    const isLeftSwipe = distance > minSwipeDistance;
-    const isRightSwipe = distance < -minSwipeDistance;
-
-    if (isLeftSwipe && currentIndex < displayTeams.length - 1) {
-      setCurrentIndex(currentIndex + 1);
-    }
-    if (isRightSwipe && currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1);
-    }
   };
 
   if (teams.length === 0) return null;
