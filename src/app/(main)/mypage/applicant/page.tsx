@@ -13,7 +13,7 @@ const Page = () => {
     <>
       <MobileHeader title="지원자 현황" />
 
-      <div className="tablet:bg-transparent -mx-4 h-full bg-gray-100">
+      <div className="tablet:bg-transparent -mx-4 min-h-full bg-gray-100">
         <ApplicantTitle applicantStatus={status} setApplicantStatus={setStatus} />
         <ApplicantTeamList status={status} page={page} setPage={setPage} />
       </div>

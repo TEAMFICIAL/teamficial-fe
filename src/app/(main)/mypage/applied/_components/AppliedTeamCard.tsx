@@ -23,7 +23,7 @@ const AppliedTeamCard = ({ applicant, index }: AppliedTeamCardProps) => {
       <div className="tablet:hidden">
         <button
           onClick={handleClick}
-          className="tablet:hidden flex w-full flex-col gap-2 rounded-2xl border border-gray-300 px-5 py-4"
+          className="tablet:hidden bg-gray-0 flex w-full flex-col gap-2 rounded-2xl border border-gray-300 px-5 py-4"
         >
           <div className="flex w-full justify-between">
             <div className="flex gap-1">

@@ -11,7 +11,7 @@ const Page = () => {
   return (
     <>
       <MobileHeader title="참여중인 팀" />
-      <div className="tablet:bg-transparent -mx-4 h-full bg-gray-100">
+      <div className="tablet:bg-transparent -mx-4 min-h-full bg-gray-100">
         <MyTeamTitle />
         <MyTeamList page={page} setPage={setPage} />
       </div>

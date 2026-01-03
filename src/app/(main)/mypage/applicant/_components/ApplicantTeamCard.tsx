@@ -25,7 +25,7 @@ const ApplicantTeamCard = ({ application, index }: ApplicantTeamCardProps) => {
     <>
       <button
         onClick={handleClick}
-        className="tablet:hidden flex flex-col gap-2 rounded-2xl border border-gray-300 px-5 py-4"
+        className="tablet:hidden bg-gray-0 flex flex-col gap-2 rounded-2xl border border-gray-300 px-5 py-4"
       >
         <div className="flex w-full justify-between">
           <Tag className="body-9 bg-primary-50 border-primary-900 text-primary-900 border">

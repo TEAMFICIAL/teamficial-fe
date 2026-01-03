@@ -66,7 +66,7 @@ const AppliedTeamList = ({ status, page, setPage }: AppliedTeamListProps) => {
             {hasMore && !isMobileLoading && (
               <Button
                 onClick={handleLoadMore}
-                className="body-7 w-full cursor-pointer border border-gray-300 bg-gray-50 px-4 py-2.5 text-gray-800"
+                className="body-7 bg-gray-0 w-full cursor-pointer border border-gray-300 px-4 py-2.5 text-gray-800"
               >
                 더보기
               </Button>
