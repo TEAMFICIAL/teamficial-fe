@@ -34,7 +34,7 @@ const RecruitPage = () => {
     if (!isLoggedIn(userName)) {
       redirectedRef.current = true;
       alert('로그인이 필요합니다.');
-      router.push('/login');
+      setTimeout(() => router.push('/login'), 0);
     }
   }, [_hasHydrated, userName, router]);
 
