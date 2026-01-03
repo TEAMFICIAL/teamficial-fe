@@ -41,32 +41,14 @@ const RecruitCard = ({
       <div className="tablet:gap-2.5 flex flex-col gap-2">
         <div className="flex w-full justify-between">
           <div className="flex gap-1">
-            <Tag
-              className={
-                isClosed
-                  ? 'bg-gray-200 text-gray-600'
-                  : 'bg-gray-200 text-gray-700 disabled:bg-gray-400 disabled:text-gray-50'
-              }
-            >
+            <Tag className={isClosed ? 'bg-gray-200 text-gray-600' : 'bg-gray-200 text-gray-700'}>
               {duration}
             </Tag>
-            <Tag
-              className={
-                isClosed
-                  ? 'bg-gray-200 text-gray-600'
-                  : 'bg-gray-200 text-gray-700 disabled:bg-gray-400 disabled:text-gray-50'
-              }
-            >
+            <Tag className={isClosed ? 'bg-gray-200 text-gray-600' : 'bg-gray-200 text-gray-700'}>
               {mode}
             </Tag>
           </div>
-          <Tag
-            className={
-              isClosed
-                ? 'bg-gray-300 text-gray-600'
-                : 'bg-red-10 text-red-100 disabled:bg-gray-200 disabled:text-gray-500'
-            }
-          >
+          <Tag className={isClosed ? 'bg-gray-300 text-gray-600' : 'bg-red-10 text-red-100'}>
             {formatDday(dday)}
           </Tag>
         </div>

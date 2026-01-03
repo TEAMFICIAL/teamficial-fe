@@ -11,10 +11,11 @@ import Loading from '@/components/common/Loading';
 import ErrorDisplay from '@/components/common/Error';
 import MobileHeader from '@/components/common/MobileHeader';
 import Button from '@/components/common/button/Button';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 const AllProjectPage = () => {
   const router = useRouter();
-  const [isMobileState, setIsMobileState] = useState<boolean | undefined>(undefined);
+  const isMobile = useIsMobile();
 
   const [currentPage, setCurrentPage] = useState(1);
   const [allCards, setAllCards] = useState<ResponseProject[]>([]);
@@ -26,20 +27,10 @@ const AllProjectPage = () => {
   });
 
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobileState(window.innerWidth < 640);
-    };
-
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  useEffect(() => {
-    if (isMobileState === false) {
+    if (!isMobile) {
       router.replace('/project');
     }
-  }, [isMobileState, router]);
+  }, [isMobile, router]);
 
   const { data, isLoading, isError } = useRecruitingPosts(filters, currentPage, 20);
 
@@ -53,7 +44,7 @@ const AllProjectPage = () => {
       }
       setHasMore(currentPage < (data.totalPages ?? 1));
     }
-  }, [data, currentPage]);
+  }, [data, currentPage, filters]);
 
   useEffect(() => {
     setCurrentPage(1);
