@@ -55,7 +55,7 @@ const ProfileSelect = ({ control }: Props) => {
       name="profileId"
       control={control}
       render={({ field: { value, onChange } }) => (
-        <div className="flex flex-col gap-4">
+        <div className="desktop:mb-0 mb-25 flex flex-col gap-4">
           {filteredProfiles &&
             filteredProfiles.map((profile) => (
               <ProfileCard
