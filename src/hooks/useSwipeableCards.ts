@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 interface UseSwipeableCardsProps<T> {
   items: T[];
@@ -18,6 +18,12 @@ export const useSwipeableCards = <T>({
   const touchEndX = useRef<number | null>(null);
 
   const displayItems = items.slice(0, maxItems);
+
+  useEffect(() => {
+    if (currentIndex >= displayItems.length && displayItems.length > 0) {
+      setCurrentIndex(displayItems.length - 1);
+    }
+  }, [displayItems.length, currentIndex]);
 
   const onTouchStart = (e: React.TouchEvent) => {
     touchEndX.current = null;
