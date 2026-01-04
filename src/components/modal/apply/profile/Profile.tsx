@@ -12,7 +12,7 @@ const Profile = ({ profile }: ProfileCardProps) => {
   return (
     <>
       {/* desktop */}
-      <div className="desktop:flex mb-10 hidden justify-between gap-1 rounded-lg border border-gray-300 p-6">
+      <div className="desktop:flex mb-10 hidden w-135 justify-between gap-1 rounded-lg border border-gray-300 p-6">
         <div className="flex items-start gap-4">
           <Image
             src={profile.profile.profileImageUrl || '/icons/profile.svg'}
@@ -41,14 +41,14 @@ const Profile = ({ profile }: ProfileCardProps) => {
                 </div>
               </div>
             </div>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex min-w-0 flex-1 flex-wrap gap-2">
               {profile.profile.headKeywords.map((keyword) => (
                 <ProfileTag key={keyword}>{keyword}</ProfileTag>
               ))}
             </div>
           </div>
         </div>
-        <div className="flex flex-col justify-between">
+        <div className="flex flex-shrink-0 flex-col justify-between">
           <div className="flex items-start justify-end gap-4">
             {profile.profile.links &&
               profile.profile.links.length > 0 &&
