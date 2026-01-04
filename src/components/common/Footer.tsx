@@ -3,7 +3,7 @@ import Image from 'next/image';
 const Footer = () => {
   return (
     <>
-      <footer className="tablet:hidden">
+      <footer className="desktop:hidden">
         <div className="-mx-4 flex flex-col gap-4 bg-gray-100 py-6">
           <div className="body-9 flex justify-between px-4">
             <div className="flex flex-col gap-1">
@@ -44,7 +44,7 @@ const Footer = () => {
           </div>
         </div>
       </footer>
-      <footer className="tablet:flex mx-auto hidden w-full justify-center bg-gray-600 px-10 pb-10">
+      <footer className="desktop:flex mx-auto hidden w-full justify-center bg-gray-600 px-10 pb-10">
         <div className="flex w-[944px] items-center justify-between">
           <div className="body-6 flex flex-col text-gray-100">
             <Image src="/icons/footer-logo.svg" alt="logo" width={149} height={19} />
