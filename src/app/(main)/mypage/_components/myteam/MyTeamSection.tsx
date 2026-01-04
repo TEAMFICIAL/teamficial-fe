@@ -29,7 +29,7 @@ const MyTeamSection = ({ teams }: MyTeamSectionProps) => {
 
   return (
     <>
-      <div className="flex w-full justify-between py-5">
+      <div className="tablet:py-5 flex w-full justify-between pb-3">
         <p className="tablet:title-2 title-4 text-gray-900">참여중인 팀</p>
         <button
           type="button"

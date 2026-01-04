@@ -26,15 +26,15 @@ const QuestionList = ({ setValue, watch, errors, userName }: QuestionListProps) 
   ] as const;
 
   return (
-    <div className="flex flex-col gap-6 py-4">
+    <div className="tablet:pb-4 flex flex-col gap-6 pt-4 pb-25">
       {QUESTION_SECTIONS.map(({ key, title, set }) => (
         <div
           key={key}
-          className="bg-gray-0 flex flex-col gap-5 rounded-xl border border-gray-300 px-8 pt-6 pb-8"
+          className="bg-gray-0 tablet:gap-5 tablet:px-8 tablet:pt-6 tablet:pb-8 flex flex-col gap-2 rounded-xl border border-gray-300 px-5 pt-5 pb-7"
         >
           <div className="flex gap-1">
             <Image src="/icons/question.svg" alt="question" width={29} height={24} />
-            <p className="title-4 text-gray-900">{title}</p>
+            <p className="tablet:title-4 body-7 text-gray-900">{title}</p>
           </div>
           <div className="flex flex-col gap-2">
             <QuestionDropdown
@@ -52,7 +52,7 @@ const QuestionList = ({ setValue, watch, errors, userName }: QuestionListProps) 
               hasError={!!errors[key]?.answer}
             />
             {errors[key]?.answer && (
-              <p className="body-8 text-red-100">{errors[key]?.answer?.message}</p>
+              <p className="tablet:body-8 body-10 text-red-100">{errors[key]?.answer?.message}</p>
             )}
           </div>
         </div>

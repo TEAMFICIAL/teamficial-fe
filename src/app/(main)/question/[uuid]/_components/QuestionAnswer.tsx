@@ -30,7 +30,7 @@ const QuestionAnswer = ({ value, onChange, hasError, maxLength = 250 }: Question
   return (
     <div
       className={clsx(
-        'bg-gray-0 body-6 flex flex-col rounded-md border border-gray-300 px-8 py-5 transition-all duration-200',
+        'bg-gray-0 tablet:body-6 body-8 tablet:px-8 tablet:py-5 flex flex-col rounded-md border border-gray-300 px-5 py-4 transition-all duration-200',
         isOverLimit || hasError
           ? 'border-red-100 focus-within:border-red-100'
           : 'border-gray-300 focus-within:border-gray-600',
@@ -46,7 +46,7 @@ const QuestionAnswer = ({ value, onChange, hasError, maxLength = 250 }: Question
       />
       <span
         className={clsx(
-          'flex h-6 justify-end text-gray-500 transition-colors duration-200',
+          'body-10 tablet:body-8 flex h-6 justify-end text-gray-500 transition-colors duration-200',
           isOverLimit && 'text-red-100',
         )}
       >

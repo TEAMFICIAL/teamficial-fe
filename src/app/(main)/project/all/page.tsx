@@ -11,11 +11,9 @@ import Loading from '@/components/common/Loading';
 import ErrorDisplay from '@/components/common/Error';
 import MobileHeader from '@/components/common/MobileHeader';
 import Button from '@/components/common/button/Button';
-import { useIsMobile } from '@/hooks/useIsMobile';
-
 const AllProjectPage = () => {
   const router = useRouter();
-  const isMobile = useIsMobile();
+  const [hasChecked, setHasChecked] = useState(false);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [allCards, setAllCards] = useState<ResponseProject[]>([]);
@@ -27,10 +25,13 @@ const AllProjectPage = () => {
   });
 
   useEffect(() => {
-    if (!isMobile) {
-      router.replace('/project');
+    if (typeof window !== 'undefined' && !hasChecked) {
+      setHasChecked(true);
+      if (window.innerWidth >= 640) {
+        router.replace('/project');
+      }
     }
-  }, [isMobile, router]);
+  }, [router, hasChecked]);
 
   const { data, isLoading, isError } = useRecruitingPosts(filters, currentPage, 20);
 
@@ -44,14 +45,13 @@ const AllProjectPage = () => {
       }
       setHasMore(currentPage < (data.totalPages ?? 1));
     }
-  }, [data, currentPage, filters]);
+  }, [data, currentPage]);
 
   useEffect(() => {
     setCurrentPage(1);
-    setAllCards([]);
+    setHasMore(true);
   }, [filters]);
 
-  if (isLoading && currentPage === 1) return <Loading />;
   if (isError) return <ErrorDisplay />;
 
   const handleCardClick = (id: number) => {
@@ -70,29 +70,39 @@ const AllProjectPage = () => {
       <div className="py-5">
         <ButtonContainer onChange={setFilters} />
       </div>
-      <div className="mb-2 flex flex-col gap-2">
-        {allCards.map((card: ResponseProject, index) => (
-          <div
-            key={card.postId}
-            className={index === allCards.length - 1 && !hasMore ? 'pb-25' : ''}
-          >
-            <RecruitCard
-              title={card.title}
-              profileImageUrl={card.profileImageUrl}
-              hashtag={card.recruitingPositions
-                .map((r) => `#${POSITION_KR[r.position] || r.position}`)
-                .join(' ')}
-              author={card.userName}
-              date={card.createdAt.split('T')[0]}
-              duration={PERIOD_KR[card.period] || card.period}
-              mode={PROGRESS_WAY_KR[card.progressWay] || card.progressWay}
-              dday={card.dday}
-              status={card.status}
-              onClick={() => handleCardClick(card.postId)}
-            />
+      {isLoading && currentPage === 1 && allCards.length === 0 ? (
+        <Loading />
+      ) : (
+        <>
+          <div className="mb-2 flex flex-col gap-2">
+            {allCards.length > 0 ? (
+              allCards.map((card: ResponseProject, index) => (
+                <div
+                  key={card.postId}
+                  className={index === allCards.length - 1 && !hasMore ? 'pb-25' : ''}
+                >
+                  <RecruitCard
+                    title={card.title}
+                    profileImageUrl={card.profileImageUrl}
+                    hashtag={card.recruitingPositions
+                      .map((r) => `#${POSITION_KR[r.position] || r.position}`)
+                      .join(' ')}
+                    author={card.userName}
+                    date={card.createdAt.split('T')[0]}
+                    duration={PERIOD_KR[card.period] || card.period}
+                    mode={PROGRESS_WAY_KR[card.progressWay] || card.progressWay}
+                    dday={card.dday}
+                    status={card.status}
+                    onClick={() => handleCardClick(card.postId)}
+                  />
+                </div>
+              ))
+            ) : (
+              <p className="py-10 text-center text-gray-500">프로젝트가 없습니다.</p>
+            )}
           </div>
-        ))}
-      </div>
+        </>
+      )}
       {hasMore && !isLoading && (
         <div className="pb-27">
           <Button

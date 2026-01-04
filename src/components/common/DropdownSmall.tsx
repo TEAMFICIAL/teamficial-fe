@@ -78,7 +78,7 @@ const DropdownSmall = ({
         ref={buttonRef}
         type="button"
         style={open && openWidth ? { width: openWidth } : undefined}
-        className={`desktop:body-6 body-8 desktop:px-4 desktop:py-3 inline-flex cursor-pointer items-center justify-between border px-3 py-2 transition-[width] duration-150 ${open ? 'rounded-t-md rounded-b-none' : 'rounded-md'} ${isPlaceholder ? 'border-gray-300 text-gray-800' : 'text-primary-900 bg-primary-50 border-primary-900'} `}
+        className={`tablet:body-6 body-8 tablet:px-4 tablet:py-3 bg-gray-0 inline-flex cursor-pointer items-center justify-between border px-3 py-2 transition-[width] duration-150 ${open ? 'rounded-t-md rounded-b-none' : 'rounded-md'} ${isPlaceholder ? 'border-gray-300 text-gray-800' : 'text-primary-900 bg-primary-50 border-primary-900'} `}
         onClick={() => setOpen((p) => !p)}
         onKeyDown={(e) => {
           if (e.key === 'Enter' || e.key === ' ') {
@@ -122,7 +122,7 @@ const DropdownSmall = ({
                 key={opt.value}
                 role="option"
                 aria-selected={isSelected}
-                className={`body-7 desktop:body-5 flex items-center justify-center px-4 py-3 ${idx === options.length - 1 ? 'rounded-b-md' : ''} ${
+                className={`tablet:body-5 body-8 tablet:px-4 tablet:py-3 flex items-center justify-center px-3 py-2 ${idx === options.length - 1 ? 'rounded-b-md' : ''} ${
                   isSelected ? 'bg-primary-50' : 'hover:bg-primary-50 text-gray-800'
                 }`}
                 onClick={() => {
