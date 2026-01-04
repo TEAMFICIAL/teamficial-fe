@@ -9,6 +9,7 @@ import Link from 'next/link';
 import { useUserStore } from '@/store/useUserStore';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 const ProjectTitle = ({
   postId,
@@ -26,12 +27,15 @@ const ProjectTitle = ({
   const isLoggedIn = !!userName;
   const navigate = useRouter();
 
+  const isDesktop = useMediaQuery('(min-width: 1024px)');
+
   const handleApplyModal = () => {
     if (!isLoggedIn) {
       window.alert('로그인이 필요합니다.');
       navigate.push('/login');
     } else {
-      openModal('apply', { postId, recruitingPositions });
+      const modalType = isDesktop ? 'apply' : 'applyMo';
+      openModal(modalType, { postId, recruitingPositions });
     }
   };
 
