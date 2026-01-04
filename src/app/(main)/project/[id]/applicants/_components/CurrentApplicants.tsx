@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DropdownSmall from '@/components/common/DropdownSmall';
 import { RECRUIT_OPTIONS } from '@/constants/Dropdown';
 import { PositionType } from '@/utils/position';
@@ -31,12 +31,22 @@ const CurrentApplicants = ({
     });
   };
 
+  // 화면 너비에 따라 cardStyle 분기
+  const [cardStyle, setCardStyle] = useState<'desktop' | 'mobile'>(
+    typeof window !== 'undefined' && window.innerWidth >= 1024 ? 'desktop' : 'mobile',
+  );
+
+  useEffect(() => {
+    const handleResize = () => {
+      setCardStyle(window.innerWidth >= 1024 ? 'desktop' : 'mobile');
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   // 필터 관리
   const handleChange = (value: string) => {
-    if (value === 'ALL') {
-      setRecruit('ALL');
-      onFilterChange?.(undefined);
-    } else if (!value) {
+    if (value === 'ALL' || !value) {
       setRecruit('ALL');
       onFilterChange?.(undefined);
     } else {
@@ -46,16 +56,14 @@ const CurrentApplicants = ({
   };
 
   const filteredApplicants = filter
-    ? applicants.filter((item) => {
-        return item.profilePosition === POSITION_KR[filter];
-      })
+    ? applicants.filter((item) => item.profilePosition === POSITION_KR[filter])
     : applicants;
 
   return (
     <div className="flex flex-col">
-      <div className="flex items-center justify-between py-5">
-        <p className="title-2 text-gray-900">지원자 현황</p>
-        {/* 파트 선택 드롭다운 */}
+      <div className="desktop:hidden -mx-4 h-4 bg-gray-200" />
+      <div className="desktop:py-5 flex items-center justify-between pt-3 pb-4">
+        <p className="title-4 desktop:title-2 text-gray-900">지원자 현황</p>
         <DropdownSmall
           name="recruit"
           value={recruit}
@@ -64,13 +72,19 @@ const CurrentApplicants = ({
           options={RECRUIT_OPTIONS}
         />
       </div>
-      {/* 지원자 현황 그리드 */}
       {filteredApplicants.length > 0 && (
-        <div className="grid grid-cols-3 gap-4">
+        <div
+          className={
+            cardStyle === 'desktop'
+              ? 'desktop:grid-cols-3 desktop:gap-4 grid gap-2'
+              : 'desktop:hidden grid gap-2'
+          }
+        >
           {filteredApplicants.map((item) => (
             <CurrentApplicantItem
               key={item.applicationId}
               item={item}
+              cardStyle={cardStyle}
               onClick={() => handleApplicantClick(item.applicationId, recruitingPostId!)}
             />
           ))}
