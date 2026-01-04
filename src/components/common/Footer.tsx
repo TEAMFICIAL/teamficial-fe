@@ -15,11 +15,11 @@ const Footer = () => {
               >
                 문의하기
               </a>
-              <p>개인정보처리방침</p>
+              <a>개인정보처리방침</a>
             </div>
             <div className="flex flex-col gap-1">
-              <p>광고상품 소개</p>
-              <p>서비스이용약관</p>
+              <a>광고상품 소개</a>
+              <a>서비스이용약관</a>
             </div>
           </div>
           <div className="flex justify-between px-4">
@@ -74,9 +74,9 @@ const Footer = () => {
               >
                 문의하기
               </a>
-              <p>서비스이용약관</p>
-              <p>개인정보처리방침</p>
-              <p>광고상품 소개</p>
+              <a>서비스이용약관</a>
+              <a>개인정보처리방침</a>
+              <a>광고상품 소개</a>
             </div>
           </div>
         </div>
