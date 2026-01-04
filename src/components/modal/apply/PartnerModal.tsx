@@ -69,12 +69,12 @@ const PartnerModal = ({ isOpen, onClose, applicationId, recruitingPostId }: Part
   };
 
   return (
-    <BaseModal isOpen={isOpen} onClose={onClose}>
+    <BaseModal isOpen={isOpen} onClose={onClose} paddingClass="tablet:p-6">
       <div className="desktop:pt-0 flex flex-col pt-1">
         <div className="flex items-start justify-between">
           <div className="desktop:gap-0 flex flex-col gap-1">
-            <span className="body-5 desktop:title-3 text-gray-800">함께할 사람이 생겼어요!</span>
-            <p className="body-9 desktop:body-6 desktop:mb-4 text-gray-700">
+            <span className="body-5 text-gray-800">함께할 사람이 생겼어요!</span>
+            <p className="body-9 desktop:body-8 desktop:mb-4 text-gray-700">
               한 번 선택한 결정은 되돌릴 수 없으니
               <span className="desktop:hidden block" />
               신중하게 선택해주세요
@@ -95,7 +95,7 @@ const PartnerModal = ({ isOpen, onClose, applicationId, recruitingPostId }: Part
             value={profileData.content}
             onChange={() => {}}
             readOnly
-            className="desktop:block hidden"
+            className="desktop:flex hidden"
           />
           <div className="desktop:flex hidden w-full gap-2">
             <Button
