@@ -11,12 +11,7 @@ import { useApplicateProject } from '@/hooks/mutation/useApplicateProject';
 import { PositionType } from '@/utils/position';
 import PartDropdown from './PartDropdown';
 
-interface Props {
-  onPositionSelect: (position: PositionType | null) => void;
-  positions: PositionType[];
-}
-
-const ApplyModal = ({ isOpen, onClose, postId, recruitingPositions }: ApplyModalProps & Props) => {
+const ApplyModal = ({ isOpen, onClose, postId, recruitingPositions }: ApplyModalProps) => {
   const { mutate: applicateProject } = useApplicateProject();
   const positions = recruitingPositions?.map((pos) => pos.position) || [];
 
@@ -24,11 +19,11 @@ const ApplyModal = ({ isOpen, onClose, postId, recruitingPositions }: ApplyModal
 
   const [selectedProfileId, setSelectedProfileId] = useState<number | null>(null);
   const [selectedPosition, setSelectedPosition] = useState<PositionType | null>(null);
+  const [message, setMessage] = useState('');
 
   const handleProfileSelect = (profileId: number) => {
     setSelectedProfileId(profileId);
   };
-  const [message, setMessage] = useState('');
 
   const handleSubmit = () => {
     if (!postId || !selectedProfileId || !selectedPosition) return;
@@ -41,18 +36,15 @@ const ApplyModal = ({ isOpen, onClose, postId, recruitingPositions }: ApplyModal
       content: message,
     };
 
-    applicateProject(
-      { ...applicationData },
-      {
-        onSuccess: () => {
-          onClose();
-          openModal('applyComplete');
-        },
-        onError: (error) => {
-          console.error('Failed to apply for project:', error);
-        },
+    applicateProject(applicationData, {
+      onSuccess: () => {
+        onClose();
+        openModal('applyComplete');
       },
-    );
+      onError: (error) => {
+        console.error('Failed to apply for project:', error);
+      },
+    });
   };
 
   return (
