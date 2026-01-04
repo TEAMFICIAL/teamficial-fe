@@ -15,6 +15,11 @@ const ProfileHeader = ({ title, handleEdit, handleDelete }: ProfileHeaderProps) 
         삭제하기
       </button>
     </div>
+    <div className="tablet:hidden flex">
+      <button onClick={handleEdit} className="body-8 cursor-pointer">
+        수정하기
+      </button>
+    </div>
   </div>
 );
 

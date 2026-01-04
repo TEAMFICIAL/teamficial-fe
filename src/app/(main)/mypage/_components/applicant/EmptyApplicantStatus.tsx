@@ -3,7 +3,7 @@ import Link from 'next/link';
 const EmptyApplicantStatus = () => {
   return (
     <>
-      <div className="flex w-full justify-between py-5">
+      <div className="tablet:py-5 flex w-full justify-between pb-3">
         <p className="tablet:title-2 title-4 text-gray-900">지원자 현황</p>
         <Link
           href="/mypage/applicant"
@@ -12,7 +12,7 @@ const EmptyApplicantStatus = () => {
           전체보기
         </Link>
       </div>
-      <div className="tablet:body-3 body-7 flex h-[187px] w-full max-w-[944px] items-center justify-center rounded-2xl bg-gray-200 p-2.5 text-center text-gray-600">
+      <div className="tablet:body-3 body-7 tablet:mb-0 mb-7 flex h-[187px] w-full max-w-[944px] items-center justify-center rounded-2xl bg-gray-200 p-2.5 text-center text-gray-600">
         <span>
           <Link href="/recruit" className="text-gray-700 underline">
             팀원 모집하기

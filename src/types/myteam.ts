@@ -7,6 +7,7 @@ export interface ResponseConfirmedProfile {
   position: string;
   keywords: string[];
   links: string[];
+  uuid: string;
 }
 
 export type ResponseConfirmedProfiles = ResponseConfirmedProfile[];
