@@ -66,7 +66,7 @@ const ProjectInfo = ({ id }: { id: string }) => {
   return (
     <>
       <MobileHeader title="지원자 현황" />
-      <div className="desktop:bg-gray-0 desktop:pb-14 desktop:mb-0 -mx-4 mb-22 bg-gray-50 px-4">
+      <div className="desktop:bg-gray-0 desktop:pb-14 desktop:mb-0 -mx-4 mb-22 bg-gray-50 px-4 pb-4">
         <ProjectTitle {...data.recruitingPost} />
         <div className="desktop:gap-4 mb-14 flex flex-col gap-3">
           <InfoCard {...data.recruitingPost} />
