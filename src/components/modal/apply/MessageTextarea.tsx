@@ -1,4 +1,5 @@
 import { ChangeEvent, useState } from 'react';
+import clsx from 'clsx';
 
 interface ApplyMessageFieldProps {
   value: string;
@@ -6,6 +7,7 @@ interface ApplyMessageFieldProps {
   placeholder?: string;
   maxLength?: number;
   readOnly?: boolean;
+  className?: string;
 }
 
 const MessageTextarea = ({
@@ -14,6 +16,7 @@ const MessageTextarea = ({
   placeholder = '기술보다 중요한 건 함께하는 태도예요.\n어떤 마음으로 이 프로젝트에 참여하고 싶은지 적어주세요. (250자 내외, 선택사항)',
   maxLength = 250,
   readOnly = false,
+  className,
 }: ApplyMessageFieldProps) => {
   const [isFocused, setIsFocused] = useState(false);
 
@@ -25,7 +28,7 @@ const MessageTextarea = ({
   const isActive = readOnly ? true : isFocused;
 
   return (
-    <main className="flex flex-col gap-4">
+    <main className={clsx('flex flex-col gap-4', className)}>
       <p className="title-3 text-gray-800">글 작성자에게 하고 싶은 말을 적어주세요</p>
       <div className="flex flex-col gap-2">
         <textarea

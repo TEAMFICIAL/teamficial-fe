@@ -70,12 +70,14 @@ const PartnerModal = ({ isOpen, onClose, applicationId, recruitingPostId }: Part
 
   return (
     <BaseModal isOpen={isOpen} onClose={onClose}>
-      <div className="flex flex-col">
+      <div className="desktop:pt-0 flex flex-col pt-1">
         <div className="flex items-start justify-between">
-          <div>
-            <span className="title-3 text-gray-800">함께할 사람이 생겼어요!</span>
-            <p className="body-6 mb-4 text-gray-700">
-              한 번 선택한 결정은 되돌릴 수 없으니 신중하게 선택해주세요
+          <div className="desktop:gap-0 flex flex-col gap-1">
+            <span className="body-5 desktop:title-3 text-gray-800">함께할 사람이 생겼어요!</span>
+            <p className="body-9 desktop:body-6 desktop:mb-4 text-gray-700">
+              한 번 선택한 결정은 되돌릴 수 없으니
+              <span className="desktop:hidden block" />
+              신중하게 선택해주세요
             </p>
           </div>
           <Image
@@ -89,8 +91,13 @@ const PartnerModal = ({ isOpen, onClose, applicationId, recruitingPostId }: Part
         </div>
         <Profile profile={profileData} />
         <div>
-          <MessageTextarea value={profileData.content} onChange={() => {}} readOnly />
-          <div className="flex w-full gap-2">
+          <MessageTextarea
+            value={profileData.content}
+            onChange={() => {}}
+            readOnly
+            className="desktop:block hidden"
+          />
+          <div className="desktop:flex hidden w-full gap-2">
             <Button
               className="body-5 flex-1 bg-gray-300 py-4 text-gray-800"
               onClick={handleFailClick}
@@ -103,6 +110,20 @@ const PartnerModal = ({ isOpen, onClose, applicationId, recruitingPostId }: Part
             >
               함께할래요
             </Button>
+          </div>
+          <div className="desktop:hidden -mx-4 -mb-5 flex">
+            <div
+              className="body-7 flex-1 rounded-bl-xl border-0 border-t border-solid border-gray-300 border-t-gray-300 py-3 text-center text-gray-800"
+              onClick={handleFailClick}
+            >
+              다음에 함께할래요
+            </div>
+            <div
+              className="border-t-primary-900 bg-primary-900 text-gray-0 flex-1 rounded-br-xl border-0 border-t border-solid py-3 text-center"
+              onClick={handleSuccessClick}
+            >
+              함께할래요
+            </div>
           </div>
         </div>
       </div>

@@ -38,18 +38,21 @@ const ApplicateFinishModal = ({ isOpen, onClose, recruitingPostId }: ApplicateFi
           alt="symbol"
           width={55}
           height={55}
-          className="mb-3 flex flex-col"
+          className="desktop:mb-3 desktop:w-[55px] desktop:h-[55px] mb-2 flex h-11 w-11 flex-col"
         />
-        <h3 className="title-3 text-gray-800">팀원 모집을 마치시겠어요?</h3>
-        <p className="body-6 mb-10 text-gray-700">
+        <h3 className="body-7 desktop:title-3 text-gray-800">팀원 모집을 마치시겠어요?</h3>
+        <p className="body-10 desktop:body-6 desktop:mb-10 mb-4 text-gray-700">
           {`정말 모집을 마치겠습니까? 지금 모집을 마치면 되돌릴 수 없어요`}
         </p>
-        <div className="flex gap-2">
-          <Button className="bg-gray-300 px-8 py-4 text-gray-800" onClick={handleCancelClick}>
+        <div className="desktop:gap-2 flex w-full gap-1">
+          <Button
+            className="desktop:px-8 desktop:py-4 bg-gray-300 px-4 py-3 text-gray-800"
+            onClick={handleCancelClick}
+          >
             취소하기
           </Button>
           <Button
-            className="bg-primary-900 text-gray-0 body-5 hover:bg-primary-700 px-30 py-4"
+            className="bg-primary-900 text-gray-0 body-5 hover:bg-primary-700 desktop:px-30 desktop:py-4 flex-1 py-3"
             onClick={handleFinishClick}
           >
             팀원 모집 마치기
