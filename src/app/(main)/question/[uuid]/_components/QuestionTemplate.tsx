@@ -60,7 +60,7 @@ const QuestionTemplate = ({ uuid }: { uuid: string }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="mx-10 pb-14">
+    <form onSubmit={handleSubmit(onSubmit)} className="tablet:pb-14 mx-10 pb-10">
       <QuestionTitle userName={requesterName} />
       <QuestionList setValue={setValue} watch={watch} errors={errors} userName={requesterName} />
       <QuestionFooter />

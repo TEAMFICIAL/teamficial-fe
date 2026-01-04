@@ -28,13 +28,19 @@ const QuestionDropdown = ({ options, selected, onSelect, hasError }: QuestionDro
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
         className={clsx(
-          'bg-gray-0 flex w-full cursor-pointer items-center justify-between rounded-lg border px-7 py-3 transition',
+          'bg-gray-0 tablet:px-7 tablet:py-3 flex w-full cursor-pointer items-center justify-between rounded-lg border px-5 py-3 transition',
           hasError
             ? 'border-red-100 focus:border-red-100'
             : 'border-gray-300 focus:border-gray-600',
         )}
       >
-        <span className={clsx(selected ? 'body-6 text-gray-700' : 'body-6 text-gray-500')}>
+        <span
+          className={clsx(
+            selected
+              ? 'tablet:body-6 body-8 text-start text-gray-700'
+              : 'tablet:body-6 body-8 text-gray-500',
+          )}
+        >
           {selected || '질문을 선택해주세요'}
         </span>
         <Image
@@ -46,13 +52,13 @@ const QuestionDropdown = ({ options, selected, onSelect, hasError }: QuestionDro
       </button>
 
       {isOpen && (
-        <ul className="bg-gray-0 absolute z-10 w-full rounded-lg border border-gray-300">
+        <ul className="tablet:body-6 body-8 bg-gray-0 absolute z-10 w-full rounded-lg border border-gray-300">
           {options.map((option, index) => (
             <li
               key={option}
               onClick={() => handleSelect(option)}
               className={clsx(
-                'cursor-pointer px-7 py-3 text-gray-700',
+                'tablet:px-7 tablet:py-3 cursor-pointer px-5 py-3 text-gray-700',
                 selected === option && 'bg-primary-50',
                 index !== options.length - 1 && 'border-b border-gray-300',
               )}

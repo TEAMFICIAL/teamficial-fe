@@ -30,7 +30,7 @@ const MyTeamCard = ({ team, index }: MyTeamCardProps) => {
           <Tag className="bg-blue-50 text-blue-200">{team.totalMembers}명 참여</Tag>
         </div>
         <div>
-          <p className="title-3 flex w-144.75 items-start text-gray-900">{team.title}</p>
+          <p className="title-3 flex w-full items-start truncate text-gray-900">{team.title}</p>
           {team.tags.length > 0 && (
             <p className="body-8 flex items-start text-gray-600">#{team.tags.join(' #')}</p>
           )}

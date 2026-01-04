@@ -33,7 +33,7 @@ const PartDropdown = ({ selected, onSelect }: PartDropdownProps) => {
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
         className={clsx(
-          'title-4 flex w-[144px] items-center justify-between rounded-lg border border-gray-300 px-4.5 py-2 text-gray-500 transition',
+          'tablet:title-4 body-8 tablet:px-4.5 tablet:py-2 flex items-center justify-between gap-2 rounded-lg border border-gray-300 px-3 py-2 text-gray-500 transition',
           isOpen && 'border-gray-400',
         )}
       >
@@ -44,13 +44,13 @@ const PartDropdown = ({ selected, onSelect }: PartDropdownProps) => {
       </button>
 
       {isOpen && (
-        <ul className="title-4 bg-gray-0 absolute z-10 w-[144px] rounded-lg border border-gray-300">
+        <ul className="tablet:title-4 body-8 bg-gray-0 absolute z-10 w-full rounded-lg border border-gray-300">
           {options.map((option) => (
             <li
               key={option}
               onClick={() => handleSelect(option)}
               className={clsx(
-                'cursor-pointer border-b border-gray-300 px-4.5 py-2 text-gray-800 last:border-b-0',
+                'tablet:px-4.5 tablet:py-2 cursor-pointer border-b border-gray-300 px-3 py-2 text-gray-800 last:border-b-0',
                 selected === option && 'bg-primary-50',
               )}
             >

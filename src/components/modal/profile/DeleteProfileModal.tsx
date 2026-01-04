@@ -95,7 +95,7 @@ const DeleteProfileModal = ({
             취소
           </Button>
           <Button
-            className="text-gray-0 tablet:body-5 body-7 tablet:px-40 tablet:py-4 flex-1 bg-red-100 px-4 py-2 hover:bg-red-200"
+            className="text-gray-0 tablet:body-5 body-7 tablet:px-40 tablet:py-4 flex-1 bg-red-100 px-4 py-3 hover:bg-red-200"
             onClick={handleDelete}
           >
             삭제하기

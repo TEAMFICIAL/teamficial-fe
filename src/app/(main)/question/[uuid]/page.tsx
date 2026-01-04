@@ -2,6 +2,7 @@ import React from 'react';
 import QuestionTemplate from './_components/QuestionTemplate';
 import { Metadata } from 'next';
 import axios from 'axios';
+import MobileHeader from '@/components/common/MobileHeader';
 
 type Props = {
   params: Promise<{ uuid: string }>;
@@ -47,9 +48,12 @@ const page = async ({ params }: Props) => {
   const { uuid } = await params;
 
   return (
-    <main className="-mx-10 mt-5 bg-gray-100">
-      <QuestionTemplate uuid={uuid} />
-    </main>
+    <>
+      <MobileHeader title="팀피셜록 작성" />
+      <div className="tablet:mt-5 -mx-10 bg-gray-100">
+        <QuestionTemplate uuid={uuid} />
+      </div>
+    </>
   );
 };
 
