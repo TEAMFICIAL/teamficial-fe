@@ -101,7 +101,7 @@ const Header = () => {
                   마이페이지
                 </Link>
                 <button
-                  className="block w-full cursor-pointer rounded-b-lg border-b border-gray-300 py-3 pl-7 text-left hover:bg-gray-100"
+                  className="block w-full cursor-pointer border-b border-gray-300 py-3 pl-7 text-left hover:bg-gray-100"
                   onClick={handleLogout}
                 >
                   로그아웃

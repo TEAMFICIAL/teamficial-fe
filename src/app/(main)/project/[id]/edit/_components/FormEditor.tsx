@@ -37,7 +37,7 @@ const FormEditor = ({ postId }: Props) => {
         <p className="title-2 text-gray-900">팀원 모집하기</p>
         <p className="body-6 text-gray-700">게시글을 작성하여 원하는 분야의 팀원을 모집해보세요</p>
       </div>
-      <RecruitForm mode="edit" initialData={projectData} postId={postId} />;
+      <RecruitForm mode="edit" initialData={projectData} postId={postId} />
     </>
   );
 };

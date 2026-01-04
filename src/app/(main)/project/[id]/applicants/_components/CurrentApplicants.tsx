@@ -32,11 +32,10 @@ const CurrentApplicants = ({
   };
 
   // 화면 너비에 따라 cardStyle 분기
-  const [cardStyle, setCardStyle] = useState<'desktop' | 'mobile'>(
-    typeof window !== 'undefined' && window.innerWidth >= 1024 ? 'desktop' : 'mobile',
-  );
+  const [cardStyle, setCardStyle] = useState<'desktop' | 'mobile'>('mobile');
 
   useEffect(() => {
+    setCardStyle(window.innerWidth >= 1024 ? 'desktop' : 'mobile');
     const handleResize = () => {
       setCardStyle(window.innerWidth >= 1024 ? 'desktop' : 'mobile');
     };

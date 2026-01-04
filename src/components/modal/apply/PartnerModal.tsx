@@ -112,18 +112,18 @@ const PartnerModal = ({ isOpen, onClose, applicationId, recruitingPostId }: Part
             </Button>
           </div>
           <div className="desktop:hidden -mx-4 -mb-5 flex">
-            <div
+            <button
               className="body-7 flex-1 rounded-bl-xl border-0 border-t border-solid border-gray-300 border-t-gray-300 py-3 text-center text-gray-800"
               onClick={handleFailClick}
             >
               다음에 함께할래요
-            </div>
-            <div
+            </button>
+            <button
               className="border-t-primary-900 bg-primary-900 text-gray-0 flex-1 rounded-br-xl border-0 border-t border-solid py-3 text-center"
               onClick={handleSuccessClick}
             >
               함께할래요
-            </div>
+            </button>
           </div>
         </div>
       </div>
