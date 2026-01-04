@@ -19,7 +19,7 @@ const PartDropdown = ({ positions, onPositionSelect }: ProfileCardProps) => {
   };
   return (
     <main className="flex flex-col gap-4 pt-5">
-      <p className="title-3 text-gray-800">
+      <p className="body-7 desktop:title-3 text-gray-800">
         어떤 분야를 지원하시나요?
         <span className="text-red-100"> *</span>
       </p>

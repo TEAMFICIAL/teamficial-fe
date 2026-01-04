@@ -28,8 +28,10 @@ const MessageTextarea = ({
   const isActive = readOnly ? true : isFocused;
 
   return (
-    <main className={clsx('flex flex-col gap-4', className)}>
-      <p className="title-3 text-gray-800">글 작성자에게 하고 싶은 말을 적어주세요</p>
+    <main className={clsx('desktop:gap-4 flex flex-col gap-2', className)}>
+      <p className="body-7 desktop:title-3 text-gray-800">
+        글 작성자에게 하고 싶은 말을 적어주세요
+      </p>
       <div className="flex flex-col gap-2">
         <textarea
           value={value}
@@ -38,7 +40,7 @@ const MessageTextarea = ({
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           readOnly={readOnly}
-          className={`body-6 bg-gray-0 resize-none rounded-lg border px-8 pt-5 pb-7.5 transition-colors ${
+          className={`desktop:body-6 body-9 bg-gray-0 desktop:px-8 desktop:pt-5 desktop:pb-7.5 min-h-22 resize-none rounded-lg border p-4 transition-colors ${
             isOverLimit
               ? 'border-red-100 text-gray-800'
               : isActive
@@ -46,7 +48,9 @@ const MessageTextarea = ({
                 : 'border-gray-400 text-gray-500'
           } placeholder-gray-400 focus:outline-none ${!isOverLimit ? 'mb-4' : ''}`}
         />
-        {isOverLimit && <p className="body-8 text-red-100">250자 내로 작성해주세요</p>}
+        {isOverLimit && (
+          <p className="desktop:body-8 body-10 text-red-100">250자 내로 작성해주세요</p>
+        )}
       </div>
     </main>
   );

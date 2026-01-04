@@ -16,6 +16,7 @@ import { QuestionFormValues } from '@/libs/schemas/questionFormSchema';
 import ProfileDetailModal from '@/components/modal/profile/ProfileDetailModal';
 import { ResponseProfile } from '@/types/profile';
 import NotFinishModal from '@/components/modal/NotFinishModal';
+import ApplyModalMo from '@/components/modal/apply/ApplyModalMo';
 
 export interface BaseModalProps {
   isOpen: boolean;
@@ -91,6 +92,7 @@ export interface ProfileDetailModalProps {
 
 export const MODAL_COMPONENTS = {
   apply: ApplyModal,
+  applyMo: ApplyModalMo,
   applyComplete: ApplyCompleteModal,
   delete: DeleteModal,
   partner: PartnerModal,
@@ -111,6 +113,7 @@ export type ModalType = keyof typeof MODAL_COMPONENTS;
 
 export interface ModalPropsMap {
   apply: ApplyModalProps;
+  applyMo: ApplyModalProps;
   applyComplete: ApplyCompleteModalProps;
   delete: DeleteModalProps;
   partner: PartnerModalProps;
