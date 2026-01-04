@@ -109,14 +109,14 @@ const ProjectTitle = ({
           </>
         ) : (
           <>
-            <div className="desktop:flex hidden">
+            <div className="tablet:flex hidden">
               {alreadyApplied ? (
                 <Button label="지원완료" variant="gray" disabled size="large" />
               ) : (
                 <Button label="지원하기" size="large" onClick={handleApplyModal} />
               )}
             </div>
-            <div className="desktop:hidden fixed bottom-0 left-0 z-50 block w-full border-t border-gray-300 bg-white px-4 pt-3 pb-5">
+            <div className="tablet:hidden fixed bottom-0 left-0 z-50 block w-full border-t border-gray-300 bg-white px-4 pt-3 pb-5">
               {alreadyApplied ? (
                 <Button label="지원완료" variant="gray" disabled size="large" className="w-full" />
               ) : (
