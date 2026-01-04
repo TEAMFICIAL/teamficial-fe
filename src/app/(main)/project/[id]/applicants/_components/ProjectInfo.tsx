@@ -71,7 +71,7 @@ const ProjectInfo = ({ id }: { id: string }) => {
         <div className="desktop:gap-4 mb-14 flex flex-col gap-3">
           <InfoCard {...data.recruitingPost} />
           {isContentOpen && (
-            <div className="prose desktop:bg-gray-0 max-w-none rounded-2xl border border-gray-300 bg-gray-50 p-10 text-gray-700">
+            <div className="prose desktop:bg-gray-0 desktop:p-10 max-w-none rounded-2xl border border-gray-300 bg-gray-50 px-5 py-6 text-gray-700">
               <div dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
             </div>
           )}
