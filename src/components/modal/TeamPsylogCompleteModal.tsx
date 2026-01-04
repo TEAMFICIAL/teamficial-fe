@@ -45,7 +45,7 @@ const TeamPsylogCompleteModal = ({
             홈으로
           </Button>
           <Button
-            className="bg-primary-900 text-gray-0 tablet:body-5 body-7 hover:bg-primary-700 tablet:px-30 tablet:py-4 w-full px-4 py-2"
+            className="bg-primary-900 text-gray-0 tablet:body-5 body-7 hover:bg-primary-700 tablet:px-30 tablet:py-4 w-full px-4 py-3"
             onClick={handleTeampsylog}
           >
             팀피셜록 구경가기
