@@ -48,14 +48,14 @@ const ApplyModal = ({ isOpen, onClose, postId, recruitingPositions }: ApplyModal
   };
 
   return (
-    <BaseModal isOpen={isOpen} onClose={onClose}>
+    <BaseModal isOpen={isOpen} onClose={onClose} paddingClass="tablet:p-6">
       <div className="flex flex-col gap-10">
         <div>
-          <p className="title-3 flex">
+          <p className="body-5 flex">
             <span className="text-gray-800">해당 프로젝트를 지원할까요?</span>
             <span className="text-red-100"> *</span>
           </p>
-          <p className="body-6 mb-4 text-gray-700">
+          <p className="body-8 mb-4 text-gray-700">
             마이페이지에서 설정한 프로필 중 한 가지를 선택해주세요
           </p>
           <ProfileSlider onProfileSelect={handleProfileSelect} />

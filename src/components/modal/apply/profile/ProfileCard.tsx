@@ -24,33 +24,32 @@ const ProfileCard = ({ profile, isSelected }: ProfileCardProps) => {
         <div className="flex justify-between gap-4">
           <Image
             src={profile.profileImageUrl || '/icons/profile.svg'}
-            className="h-[90px] w-[90px] rounded-full object-cover"
+            className="h-[64px] w-[64px] rounded-full object-cover"
             alt="profile"
-            width={90}
-            height={90}
+            width={64}
+            height={64}
           />
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
-              <div className="flex items-center gap-2">
-                <p className="body-1">{profile.userName}</p>
-              </div>
+              <p className="body-1">{profile.userName}</p>
+
               <div className="flex flex-col gap-1">
                 <div className="flex min-w-0 items-center gap-2">
-                  <p className="body-5 flex-shrink-0 text-gray-800">연락수단</p>
+                  <p className="body-8 flex-shrink-0 text-gray-800">연락수단</p>
                   <div className="h-3 w-[1px] bg-gray-700"></div>
                   {isUrl ? (
                     <a
                       href={profile.contactWay}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="body-6 text-primary-900 max-w-[300px] truncate underline"
+                      className="body-8 text-primary-900 max-w-[300px] truncate underline"
                       title={profile.contactWay}
                     >
                       {profile.contactWay}
                     </a>
                   ) : (
                     <p
-                      className="body-6 max-w-[300px] truncate text-gray-700"
+                      className="body-8 max-w-[300px] truncate text-gray-700"
                       title={profile.contactWay}
                     >
                       {profile.contactWay || '연락수단을 등록하지 않았어요'}
@@ -58,9 +57,9 @@ const ProfileCard = ({ profile, isSelected }: ProfileCardProps) => {
                   )}
                 </div>
                 <div className="flex items-center gap-2">
-                  <p className="body-5 text-gray-800">작업시간</p>
+                  <p className="body-8 text-gray-800">작업시간</p>
                   <div className="h-3 w-[1px] bg-gray-700" />
-                  <p className="body-6 text-gray-700">
+                  <p className="body-8 text-gray-700">
                     {profile.workingTime
                       ? `${profile.workingTime}에 작업하는 게 편해요`
                       : '작업시간대를 선택해주세요'}

@@ -29,9 +29,7 @@ const MessageTextarea = ({
 
   return (
     <main className={clsx('desktop:gap-4 flex flex-col gap-2', className)}>
-      <p className="body-7 desktop:title-3 text-gray-800">
-        글 작성자에게 하고 싶은 말을 적어주세요
-      </p>
+      <p className="body-7 desktop:body-5 text-gray-800">글 작성자에게 하고 싶은 말을 적어주세요</p>
       <div className="flex flex-col gap-2">
         <textarea
           value={value}
@@ -40,7 +38,7 @@ const MessageTextarea = ({
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           readOnly={readOnly}
-          className={`desktop:body-6 body-9 bg-gray-0 desktop:px-8 desktop:pt-5 desktop:pb-7.5 min-h-22 resize-none rounded-lg border p-4 transition-colors ${
+          className={`desktop:body-8 body-9 bg-gray-0 desktop:px-8 desktop:pt-5 desktop:pb-7.5 min-h-22 resize-none rounded-lg border p-4 transition-colors ${
             isOverLimit
               ? 'border-red-100 text-gray-800'
               : isActive

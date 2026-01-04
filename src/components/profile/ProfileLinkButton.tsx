@@ -22,7 +22,7 @@ const ProfileLinkButton = ({ link }: { link: string }) => {
   return (
     <button
       aria-label={`${type} 링크`}
-      className="h-7 w-7 cursor-pointer"
+      className="h-6 w-6 cursor-pointer"
       onClick={() => {
         if (link) {
           window.open(link, '_blank', 'noopener,noreferrer');
@@ -35,7 +35,7 @@ const ProfileLinkButton = ({ link }: { link: string }) => {
         alt={type}
         width={28}
         height={28}
-        className="desktop:h-7 desktop:w-7 h-6 w-6"
+        className="h-6 w-6"
       />
     </button>
   );
