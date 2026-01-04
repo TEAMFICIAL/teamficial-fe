@@ -13,6 +13,8 @@ import MoProfileSlider from './profile/MoProfileSlider';
 
 type Step = 'profile' | 'detail';
 
+// 이전으로 했을 때 기존 선택했던 것 보이기..?
+
 const ApplyModalMo = ({ isOpen, onClose, postId, recruitingPositions }: ApplyModalProps) => {
   const { mutate: applicateProject } = useApplicateProject();
   const { openModal } = useModal();
@@ -72,6 +74,10 @@ const ApplyModalMo = ({ isOpen, onClose, postId, recruitingPositions }: ApplyMod
       {/* 프로필 선택 */}
       {step === 'profile' && (
         <div className="flex flex-col gap-4">
+          <div className="flex w-full gap-1">
+            <div className="bg-primary-900 h-[3px] flex-1" />
+            <div className="h-[3px] flex-1 bg-gray-400" />
+          </div>
           <div>
             <p className="body-7 flex">
               <span className="text-gray-800">해당 프로필로 지원할까요?</span>
@@ -105,7 +111,11 @@ const ApplyModalMo = ({ isOpen, onClose, postId, recruitingPositions }: ApplyMod
 
       {/* 상세 정보 입력 */}
       {step === 'detail' && (
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-4">
+          <div className="flex w-full gap-1">
+            <div className="bg-primary-900 h-[3px] flex-1" />
+            <div className="h-[3px] flex-1 bg-gray-400" />
+          </div>
           <div className="flex flex-col gap-3">
             <PartDropdown onPositionSelect={setSelectedPosition} positions={positions} />
             <MessageTextarea value={message} onChange={setMessage} />
