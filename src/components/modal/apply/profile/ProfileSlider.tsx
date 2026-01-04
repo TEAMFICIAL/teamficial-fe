@@ -31,7 +31,7 @@ const ProfileSlider = ({ onProfileSelect }: Props) => {
 
   if (!profiles || profiles.length === 0) {
     return (
-      <div className="flex h-53 w-172 items-center justify-center rounded-2xl border border-gray-300 bg-gray-50 px-5 py-12">
+      <div className="flex h-53 w-172 items-center justify-center rounded-2xl border border-gray-300 bg-gray-50 px-4 py-4">
         <p className="body-4 text-gray-600">
           대표키워드가 설정된 프로필이 없습니다.
           <Link
@@ -72,7 +72,7 @@ const ProfileSlider = ({ onProfileSelect }: Props) => {
     <>
       <div
         onClick={handleCardClick}
-        className={`flex w-172 cursor-pointer items-center justify-between gap-2 rounded-2xl border px-5 py-8 transition-all ${
+        className={`flex w-135 cursor-pointer items-center justify-between gap-4 rounded-2xl border px-4 py-6 transition-all ${
           isSelected
             ? 'border-primary-900 bg-primary-50 border-[2px]'
             : 'border border-gray-300 bg-white'

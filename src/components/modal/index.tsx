@@ -7,9 +7,10 @@ interface BaseModalProps {
   isOpen: boolean;
   onClose: () => void;
   children: ReactNode;
+  paddingClass?: string;
 }
 
-const BaseModal = ({ isOpen, onClose, children }: BaseModalProps) => {
+const BaseModal = ({ isOpen, onClose, children, paddingClass }: BaseModalProps) => {
   const handleOverlayClick = (e: MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) onClose();
   };
@@ -25,7 +26,7 @@ const BaseModal = ({ isOpen, onClose, children }: BaseModalProps) => {
           exit={{ opacity: 0 }}
         >
           <motion.div
-            className="bg-gray-0 tablet:mx-0 tablet:w-auto tablet:max-w-none tablet:p-10 mx-5 w-full max-w-[400px] rounded-xl px-4 py-5"
+            className={`bg-gray-0 tablet:mx-0 tablet:w-auto tablet:max-w-none mx-5 w-full max-w-[400px] rounded-xl px-4 py-5 ${paddingClass ?? 'tablet:p-10'}`}
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}

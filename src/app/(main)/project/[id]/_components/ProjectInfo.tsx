@@ -13,7 +13,7 @@ const ProjectInfo = ({ id }: { id: string }) => {
   const sanitizedContent = DOMPurify.sanitize(data.content);
 
   return (
-    <div className="desktop:bg-gray-0 desktop:pb-14 mx-[-16px] bg-gray-100 px-4 pb-5">
+    <div className="desktop:bg-gray-0 desktop:pb-14 mx-[-16px] min-h-[calc(100vh-72px)] bg-gray-100 px-4 pb-5">
       <ProjectTitle {...data} />
       <div className="desktop:gap-4 flex flex-col gap-3">
         <InfoCard {...data} />

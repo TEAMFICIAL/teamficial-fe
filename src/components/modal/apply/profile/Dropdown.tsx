@@ -38,7 +38,7 @@ const DropdownSelect = ({
     <div ref={dropdownRef} className="relative inline-block">
       <button
         onClick={() => setIsOpen((prev) => !prev)}
-        className={`body-6 flex w-full items-center justify-between border border-gray-300 bg-white px-7 py-3 focus:border-gray-500 ${isOpen ? 'rounded-t-md rounded-b-none' : 'rounded-md'} `}
+        className={`desktop:body-6 body-9 desktop:px-7 flex w-full items-center justify-between border border-gray-300 bg-white px-4 py-3 focus:border-gray-500 ${isOpen ? 'rounded-t-md rounded-b-none' : 'rounded-md'} `}
       >
         <span className={selected ? '' : 'text-gray-500'}>{selected?.label || defaultLabel}</span>
         <Image
@@ -67,7 +67,7 @@ const DropdownSelect = ({
                 onClick={() => handleSelect(option)}
                 className={[
                   'cursor-pointer px-7 py-3',
-                  'hover:bg-primary-50 body-6',
+                  'hover:bg-primary-50 desktop:body-6 body-9',
                   isLast ? 'rounded-b-md' : '',
                 ].join(' ')}
               >
