@@ -12,16 +12,16 @@ const ProjectTitle = ({
   status,
 }: CurrentRecruitingPost) => {
   return (
-    <div className="flex items-center justify-between py-7">
-      <div className="flex flex-col">
-        <div className="flex items-center gap-2.5">
-          <p className="title-1 text-gray-900">{recruitingPostTitle}</p>
-          <DDay status={status} dday={dday} />
-        </div>
-        <p className="body-2 text-gray-700">
-          {createdAt.split('T')[0]}~{deadline}
+    <div className="desktop:py-7 flex flex-col py-3">
+      <div className="desktop:flex-row desktop:gap-2.5 desktop:justify-start flex w-full flex-row items-center justify-between gap-2">
+        <p className="desktop:title-1 title-3 min-w-0 break-words whitespace-pre-line text-gray-900">
+          {recruitingPostTitle}
         </p>
+        <DDay status={status} dday={dday} />
       </div>
+      <p className="desktop:body-2 body-8 text-gray-700">
+        {createdAt.split('T')[0]}~{deadline}
+      </p>
     </div>
   );
 };

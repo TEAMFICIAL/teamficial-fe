@@ -88,7 +88,7 @@ const DropdownSmall = ({
           if (e.key === 'Escape') setOpen(false);
         }}
       >
-        <span className="body-5">{isPlaceholder ? placeholder : selectedLabel}</span>
+        <span className="body-7 desktop:body-5">{isPlaceholder ? placeholder : selectedLabel}</span>
         <Image
           src={
             isPlaceholder

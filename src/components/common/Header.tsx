@@ -4,14 +4,30 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { useUserStore } from '@/store/useUserStore';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import clsx from 'clsx';
 import { useToast } from '@/contexts/ToastContext';
+import { isLoggedIn as checkIsLoggedIn } from '@/utils/auth';
 import Footer from './Footer';
 
 const Header = () => {
-  const { userName } = useUserStore();
-  const isLoggedIn = !!userName;
+  const { userName, _hasHydrated } = useUserStore();
+  const router = useRouter();
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    setIsLoggedIn(checkIsLoggedIn(userName));
+  }, [userName, _hasHydrated]);
+
+  useEffect(() => {
+    if (!_hasHydrated) return;
+    if (!checkIsLoggedIn(userName)) {
+      useUserStore.getState().clearUser();
+      setIsLoggedIn(false);
+    }
+  }, [_hasHydrated, userName, router]);
+
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { addToast } = useToast();
@@ -86,11 +102,19 @@ const Header = () => {
                   마이페이지
                 </Link>
                 <button
-                  className="block w-full cursor-pointer rounded-b-lg py-3 pl-7 text-left hover:bg-gray-100"
+                  className="block w-full cursor-pointer border-b border-gray-300 py-3 pl-7 text-left hover:bg-gray-100"
                   onClick={handleLogout}
                 >
                   로그아웃
                 </button>
+                <Link
+                  className="block w-full cursor-pointer rounded-b-lg py-3 pl-7 text-left hover:bg-gray-100"
+                  href="https://forms.gle/g6vxkjLMy74PRVFG9"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  제안하기
+                </Link>
               </div>
             )}
           </div>

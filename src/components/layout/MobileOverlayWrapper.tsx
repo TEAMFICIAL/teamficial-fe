@@ -19,6 +19,8 @@ const OVERLAY_ROUTES = [
   /^\/mypage\/applied$/, // /mypage/applied
   /^\/mypage\/team$/, // /mypage/team
   /^\/mypage\/team\/[^/]+$/, // /mypage/team/:id
+  /^\/project\/[^/]+\/edit$/, // /project/:id/edit
+  /^\/project\/[^/]+\/applicants$/, // /project/:id/applicants
 ];
 
 interface MobileOverlayWrapperProps {

@@ -49,8 +49,14 @@ const ProjectTitle = ({
     <div className="desktop:py-7 flex items-center justify-between py-3">
       <div className="flex flex-col">
         <div className="desktop:gap-2.5 flex items-center gap-2">
-          <p className="desktop:title-1 title-3 text-gray-900">{title}</p>
-          <DDay status={status} dday={dday} />
+          <div className="min-w-0 flex-1">
+            <p className="desktop:title-1 title-3 break-words whitespace-pre-line text-gray-900">
+              {title}
+            </p>
+          </div>
+          <div className="flex-shrink-0">
+            <DDay status={status} dday={dday} />
+          </div>
         </div>
         <p className="desktop:body-2 body-8 text-gray-700">
           {createdAt.split(' ')[0]}~{deadline}

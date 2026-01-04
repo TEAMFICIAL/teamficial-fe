@@ -1,6 +1,8 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { isLoggedIn } from '@/utils/auth';
+import { useUserStore } from '@/store/useUserStore';
 import RecruitForm from '@/components/recruit/RecruitForm';
 import Button from '@/components/common/Button';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -23,10 +25,22 @@ import { usePreventNavigation } from '@/hooks/usePreventNavigation';
 type Step = 'form' | 'profile';
 
 const RecruitPage = () => {
+  const { userName, _hasHydrated } = useUserStore();
+  const router = useRouter();
+
+  const redirectedRef = useRef(false);
+  useEffect(() => {
+    if (!_hasHydrated || redirectedRef.current) return;
+    if (!isLoggedIn(userName)) {
+      redirectedRef.current = true;
+      alert('로그인이 필요합니다.');
+      setTimeout(() => router.push('/login'), 0);
+    }
+  }, [_hasHydrated, userName, router]);
+
   const [step, setStep] = useState<Step>('form');
   const [formData, setFormData] = useState<Partial<RecruitFormType> | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const router = useRouter();
   const { openModal } = useModal();
   const { mutate: createProject } = useCreateProject();
 
