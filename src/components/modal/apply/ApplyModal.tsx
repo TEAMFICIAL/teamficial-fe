@@ -67,9 +67,9 @@ const ApplyModal = ({ isOpen, onClose, postId, recruitingPositions }: ApplyModal
             마이페이지에서 설정한 프로필 중 한 가지를 선택해주세요
           </p>
           <ProfileSlider onProfileSelect={handleProfileSelect} />
+          <PartDropdown onPositionSelect={setSelectedPosition} positions={positions} />
         </div>
         <div>
-          <PartDropdown onPositionSelect={setSelectedPosition} positions={positions} />
           <MessageTextarea value={message} onChange={setMessage} />
           <div className="flex justify-end gap-2">
             <Button
