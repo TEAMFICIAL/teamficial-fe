@@ -10,8 +10,8 @@ interface AppliedTitleProps {
 
 const AppliedTitle = ({ applicantStatus, setApplicantStatus }: AppliedTitleProps) => {
   return (
-    <div className="flex flex-col pb-5">
-      <p className="title-2 pt-7 pb-5 text-gray-900">내가 지원한 팀</p>
+    <div className="tablet:pb-5 tablet:pt-0 tablet:mx-0 mx-4 flex flex-col pt-5 pb-3">
+      <p className="tablet:block title-2 hidden pt-7 pb-5 text-gray-900">내가 지원한 팀</p>
       <DropdownSmall
         name="recruitStatus"
         value={applicantStatus}
