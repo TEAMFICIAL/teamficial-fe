@@ -4,8 +4,17 @@ import React, { useEffect } from 'react';
 import { useInfiniteKeywordComment } from '@/hooks/queries/useKeyword';
 import { useInView } from 'react-intersection-observer';
 import { formatDateDot } from '@/utils/project/formatDate';
+import Image from 'next/image';
 
-const CommentPage = ({ keywordId, keywordName }: { keywordId: number; keywordName: string }) => {
+const CommentPage = ({
+  keywordId,
+  keywordName,
+  isShareMode = false,
+}: {
+  keywordId: number;
+  keywordName: string;
+  isShareMode?: boolean;
+}) => {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteKeywordComment({
     keywordId,
     size: 4,
@@ -36,9 +45,16 @@ const CommentPage = ({ keywordId, keywordName }: { keywordId: number; keywordNam
             className="desktop:px-5 desktop:pt-4 flex flex-col gap-2 rounded-[12px] bg-white px-4 pt-2 pb-5"
           >
             <div>
-              <p className="desktop:body-8 body-10 text-gray-500">
-                {formatDateDot(comment.createdAt)}
-              </p>
+              <div className="flex justify-between">
+                <p className="desktop:body-8 body-10 text-gray-500">
+                  {formatDateDot(comment.createdAt)}
+                </p>
+                {isShareMode ? null : (
+                  <button className="">
+                    <Image src="/icons/siren.svg" width={16} height={16} alt="" />
+                  </button>
+                )}
+              </div>
               <div className="h-[1px] w-full bg-gray-300" />
             </div>
             <div className="desktop:body-6 body-9 text-gray-800">{comment.comment}</div>

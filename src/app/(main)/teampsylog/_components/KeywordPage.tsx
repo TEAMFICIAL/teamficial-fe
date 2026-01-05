@@ -175,6 +175,7 @@ const KeywordPage = ({ share = false, uuid }: Props) => {
         isEditMode={isEditMode}
         selectedSlot={selectedSlot}
         onSelectKeyword={handleSelectKeyword}
+        isShareMode={share}
       />
     </div>
   );
