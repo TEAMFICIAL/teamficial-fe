@@ -10,12 +10,14 @@ import { ApplyModalProps } from '@/constants/ModalList';
 import { useApplicateProject } from '@/hooks/mutation/useApplicateProject';
 import { PositionType } from '@/utils/position';
 import PartDropdown from './PartDropdown';
+import { useToast } from '@/contexts/ToastContext';
 
 const ApplyModal = ({ isOpen, onClose, postId, recruitingPositions }: ApplyModalProps) => {
   const { mutate: applicateProject } = useApplicateProject();
   const positions = recruitingPositions?.map((pos) => pos.position) || [];
 
   const { openModal } = useModal();
+  const { addToast } = useToast();
 
   const [selectedProfileId, setSelectedProfileId] = useState<number | null>(null);
   const [selectedPosition, setSelectedPosition] = useState<PositionType | null>(null);
@@ -43,6 +45,7 @@ const ApplyModal = ({ isOpen, onClose, postId, recruitingPositions }: ApplyModal
       },
       onError: (error) => {
         console.error('Failed to apply for project:', error);
+        addToast({ message: '프로젝트 지원에 실패했어요. 다시 시도해주세요.', type: 'error' });
       },
     });
   };
