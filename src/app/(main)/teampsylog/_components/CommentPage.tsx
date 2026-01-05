@@ -5,6 +5,7 @@ import { useInfiniteKeywordComment } from '@/hooks/queries/useKeyword';
 import { useInView } from 'react-intersection-observer';
 import { formatDateDot } from '@/utils/project/formatDate';
 import Image from 'next/image';
+import { useModal } from '@/contexts/ModalContext';
 
 const CommentPage = ({
   keywordId,
@@ -15,10 +16,15 @@ const CommentPage = ({
   keywordName: string;
   isShareMode?: boolean;
 }) => {
+  const { openModal } = useModal();
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteKeywordComment({
     keywordId,
     size: 4,
   });
+
+  const onReportClick = () => {
+    openModal('reportComment', { keywordId });
+  };
 
   const comments = data?.pages.flatMap((page) => page.data) || [];
 
@@ -50,7 +56,7 @@ const CommentPage = ({
                   {formatDateDot(comment.createdAt)}
                 </p>
                 {isShareMode ? null : (
-                  <button className="">
+                  <button className="cursor-pointer" onClick={onReportClick}>
                     <Image src="/icons/siren.svg" width={16} height={16} alt="" />
                   </button>
                 )}
