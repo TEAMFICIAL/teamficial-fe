@@ -10,6 +10,7 @@ import {
   RequestHeadKeyword,
   ResponseHeadKeyword,
   ResponseRandomKeywords,
+  RequestReportComment,
 } from '@/types/teampsylog';
 import api from './api';
 import { CommonResponse } from '@/types/common';
@@ -124,3 +125,32 @@ export const getRandomKeywords = async (requesterUuid: string): Promise<Response
 
   return data.result;
 };
+
+export async function postReportCommment({
+  keywordCommentId,
+  reportType,
+  reportEtc,
+  content,
+}: RequestReportComment): Promise<CommonResponse<string>> {
+  // body에서 keywordCommentId 제외
+  const body: {
+    reportType: string;
+    reportEtc?: string;
+    content: string;
+  } = {
+    reportType,
+    content,
+  };
+
+  // reportEtc가 있을 때만 포함
+  if (reportEtc) {
+    body.reportEtc = reportEtc;
+  }
+
+  const { data } = await api.post<CommonResponse<string>>(`reports/${keywordCommentId}`, body);
+
+  if (!data.isSuccess) {
+    throw new Error(data.message || 'Failed to report keyword comment');
+  }
+  return data;
+}

@@ -78,3 +78,10 @@ export interface ResponseRandomKeywords {
     count: number;
   }[];
 }
+
+export interface RequestReportComment {
+  keywordCommentId: number;
+  reportType: 'HATE_SPEECH' | 'UNSUITABLE_KEYWORD' | 'OTHER';
+  reportEtc?: string;
+  content: string;
+}
