@@ -4,7 +4,7 @@ import Button from '@/components/common/button/Button';
 import BaseModal from '../index';
 import MessageTextarea from './MessageTextarea';
 import { useModal } from '@/contexts/ModalContext';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { ApplyModalProps } from '@/constants/ModalList';
 import { useApplicateProject } from '@/hooks/mutation/useApplicateProject';
 import { PositionType } from '@/utils/position';
@@ -12,8 +12,6 @@ import PartDropdown from './PartDropdown';
 import MoProfileSlider from './profile/MoProfileSlider';
 
 type Step = 'profile' | 'detail';
-
-// 이전으로 했을 때 기존 선택했던 것 보이기..?
 
 const ApplyModalMo = ({ isOpen, onClose, postId, recruitingPositions }: ApplyModalProps) => {
   const { mutate: applicateProject } = useApplicateProject();
@@ -25,9 +23,18 @@ const ApplyModalMo = ({ isOpen, onClose, postId, recruitingPositions }: ApplyMod
   const [selectedPosition, setSelectedPosition] = useState<PositionType | null>(null);
   const [message, setMessage] = useState('');
 
-  const handleProfileSelect = (profileId: number) => {
+  useEffect(() => {
+    if (!isOpen) {
+      setStep('profile');
+      setSelectedProfileId(null);
+      setSelectedPosition(null);
+      setMessage('');
+    }
+  }, [isOpen]);
+
+  const handleProfileSelect = useCallback((profileId: number) => {
     setSelectedProfileId(profileId);
-  };
+  }, []);
 
   const handleNext = () => {
     if (selectedProfileId) {
@@ -88,7 +95,10 @@ const ApplyModalMo = ({ isOpen, onClose, postId, recruitingPositions }: ApplyMod
             </p>
           </div>
           <div>
-            <MoProfileSlider onProfileSelect={handleProfileSelect} />
+            <MoProfileSlider
+              onProfileSelect={handleProfileSelect}
+              initialProfileId={selectedProfileId} // 이전에 선택한 프로필 ID 전달
+            />
           </div>
           <div className="mt-1 flex gap-2">
             <Button className="body-5 flex-1 bg-gray-300 py-4 text-gray-800" onClick={handleClose}>

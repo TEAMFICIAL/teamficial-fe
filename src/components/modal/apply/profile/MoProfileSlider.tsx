@@ -7,10 +7,10 @@ import Link from 'next/link';
 
 interface Props {
   onProfileSelect: (profileId: number) => void;
+  initialProfileId?: number | null;
 }
 
-const MoProfileSlider = ({ onProfileSelect }: Props) => {
-  const [index, setIndex] = useState(0);
+const MoProfileSlider = ({ onProfileSelect, initialProfileId }: Props) => {
   const { data: allProfiles } = useGetProfileList();
   const touchStartX = useRef<number>(0);
   const touchEndX = useRef<number>(0);
@@ -20,6 +20,25 @@ const MoProfileSlider = ({ onProfileSelect }: Props) => {
     (profile) => profile.headKeywords && profile.headKeywords.length > 0,
   );
 
+  // 초기 인덱스 계산
+  const getInitialIndex = () => {
+    if (!initialProfileId || !profiles) return 0;
+    const foundIndex = profiles.findIndex((p) => p.profileId === initialProfileId);
+    return foundIndex >= 0 ? foundIndex : 0;
+  };
+
+  const [index, setIndex] = useState(getInitialIndex());
+
+  useEffect(() => {
+    if (profiles && initialProfileId) {
+      const foundIndex = profiles.findIndex((p) => p.profileId === initialProfileId);
+      if (foundIndex >= 0) {
+        setIndex(foundIndex);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [profiles?.length, initialProfileId]);
+
   const currentProfile = profiles?.[index];
 
   // 인덱스 변경 시 해당 프로필 자동 선택
@@ -27,7 +46,8 @@ const MoProfileSlider = ({ onProfileSelect }: Props) => {
     if (currentProfile?.profileId !== undefined) {
       onProfileSelect(currentProfile.profileId);
     }
-  }, [index, currentProfile?.profileId, onProfileSelect]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [index, currentProfile?.profileId]);
 
   if (!profiles || profiles.length === 0) {
     return (
