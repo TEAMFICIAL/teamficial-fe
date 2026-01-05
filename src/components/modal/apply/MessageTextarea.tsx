@@ -1,9 +1,10 @@
-import { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import clsx from 'clsx';
 
 interface ApplyMessageFieldProps {
   value: string;
   onChange: (value: string) => void;
+  title?: string | React.ReactNode;
   placeholder?: string;
   maxLength?: number;
   readOnly?: boolean;
@@ -13,6 +14,7 @@ interface ApplyMessageFieldProps {
 const MessageTextarea = ({
   value,
   onChange,
+  title = '글 작성자에게 하고 싶은 말을 적어주세요',
   placeholder = '기술보다 중요한 건 함께하는 태도예요.\n어떤 마음으로 이 프로젝트에 참여하고 싶은지 적어주세요. (250자 내외, 선택사항)',
   maxLength = 250,
   readOnly = false,
@@ -29,7 +31,7 @@ const MessageTextarea = ({
 
   return (
     <main className={clsx('desktop:gap-4 flex flex-col gap-2', className)}>
-      <p className="body-7 desktop:body-5 text-gray-800">글 작성자에게 하고 싶은 말을 적어주세요</p>
+      <p className="body-7 desktop:body-5 text-gray-800">{title}</p>
       <div className="flex flex-col gap-2">
         <textarea
           value={value}
@@ -47,7 +49,7 @@ const MessageTextarea = ({
           } placeholder-gray-400 focus:outline-none ${!isOverLimit ? 'mb-4' : ''}`}
         />
         {isOverLimit && (
-          <p className="desktop:body-8 body-10 text-red-100">250자 내로 작성해주세요</p>
+          <p className="desktop:body-8 body-10 text-red-100">{maxLength}자 내로 작성해주세요</p>
         )}
       </div>
     </main>

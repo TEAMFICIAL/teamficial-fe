@@ -10,9 +10,16 @@ interface QuestionDropdownProps {
   options: string[];
   selected: string | null;
   onSelect: (value: string) => void;
+  placeholder?: string;
 }
 
-const QuestionDropdown = ({ options, selected, onSelect, hasError }: QuestionDropdownProps) => {
+const QuestionDropdown = ({
+  options,
+  selected,
+  onSelect,
+  hasError,
+  placeholder = '질문을 선택해주세요',
+}: QuestionDropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   useOutsideClick(dropdownRef, () => setIsOpen(false));
@@ -41,7 +48,7 @@ const QuestionDropdown = ({ options, selected, onSelect, hasError }: QuestionDro
               : 'tablet:body-6 body-8 text-gray-500',
           )}
         >
-          {selected || '질문을 선택해주세요'}
+          {selected || placeholder}
         </span>
         <Image
           src={isOpen ? '/icons/question_gray_up.svg' : '/icons/question_gray_down.svg'}
