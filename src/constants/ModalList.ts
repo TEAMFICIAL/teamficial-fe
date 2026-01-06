@@ -96,7 +96,7 @@ export interface ProfileDetailModalProps {
 export interface ReportCommentModalProps {
   isOpen: boolean;
   onClose: () => void;
-  commentId: number;
+  keywordCommentId: number;
 }
 
 export interface ReportCompleteModalProps {

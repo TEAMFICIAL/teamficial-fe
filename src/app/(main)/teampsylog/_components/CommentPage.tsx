@@ -22,8 +22,8 @@ const CommentPage = ({
     size: 4,
   });
 
-  const onReportClick = (commentId: number) => {
-    openModal('reportComment', { commentId });
+  const onReportClick = (keywordCommentId: number) => {
+    openModal('reportComment', { keywordCommentId });
   };
 
   const comments = data?.pages.flatMap((page) => page.data) || [];
