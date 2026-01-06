@@ -73,13 +73,9 @@ const ProfileCard = ({ profile, isSelected }: ProfileCardProps) => {
             <p className="body-7">{profile.userName}</p>
           </div>
           <div className="flex gap-1">
-            {profile.headKeywords &&
-              profile.headKeywords.length > 2 &&
-              Array.from({ length: 3 }).map((_, i) => (
-                <ProfileTag key={i} maxLength={3}>
-                  {profile.headKeywords[2]}
-                </ProfileTag>
-              ))}
+            {profile.headKeywords?.map((keyword) => (
+              <ProfileTag key={keyword}>{keyword}</ProfileTag>
+            ))}
           </div>
         </div>
         <div className="flex flex-col rounded-lg bg-gray-100 pt-3 pr-5 pb-5 pl-6">
