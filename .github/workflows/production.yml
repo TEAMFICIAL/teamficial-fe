@@ -1,8 +1,9 @@
 name: Production Deployment
 
 on:
-  release:
-    types: [created]
+  push:
+    branches:
+      - develop
 
 jobs:
   Deploy-Preview:
