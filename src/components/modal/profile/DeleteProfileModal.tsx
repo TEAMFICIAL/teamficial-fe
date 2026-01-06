@@ -69,33 +69,33 @@ const DeleteProfileModal = ({
 
   return (
     <BaseModal isOpen={isOpen} onClose={onClose}>
-      <div className="flex flex-col items-center">
+      <div className="desktop:w-115 flex flex-col items-center">
         <Image
           src={`/icons/gray_teamficial_symbol.svg`}
           alt="symbol"
           width={55}
           height={55}
-          className="tablet:h-[55px] tablet:w-[55px] tablet:mb-3 h-[45px] w-[45px]"
+          className="desktop:mb-3 desktop:w-14 desktop:h-14 mb-1 flex h-10 w-10 flex-col"
         />
-        <h3 className="tablet:title-3 body-7 text-gray-800">정말 삭제하시겠어요?</h3>
-        <p className="tablet:body-6 body-10 tablet:mb-10 mb-4 text-gray-700">
+        <h3 className="desktop:title-3 body-7 text-gray-800">정말 삭제하시겠어요?</h3>
+        <p className="desktop:body-6 body-10 desktop:mb-6 mb-4 text-gray-700">
           한 번 삭제한 프로필은 복구할 수 없어요
         </p>
-        <div className="tablet:gap-2 flex w-full gap-1">
+        <div className="desktop:gap-2 flex w-full gap-1">
           <Button
-            className="tablet:block body-5 hidden bg-gray-300 px-8 py-4 text-gray-800"
+            className="desktop:block body-5 hidden bg-gray-300 px-8 py-4 text-gray-800"
             onClick={onClose}
           >
             취소하기
           </Button>
           <Button
-            className="tablet:hidden body-7 flex-shrink-0 bg-gray-300 px-4 py-2 text-gray-800"
+            className="desktop:hidden body-7 bg-gray-300 px-4 py-3 text-gray-800"
             onClick={onClose}
           >
             취소
           </Button>
           <Button
-            className="text-gray-0 tablet:body-5 body-7 tablet:px-40 tablet:py-4 flex-1 bg-red-100 px-4 py-3 hover:bg-red-200"
+            className="text-gray-0 desktop:body-5 body-7 desktop:py-4 flex-1 bg-red-100 py-3 hover:bg-red-200"
             onClick={handleDelete}
           >
             삭제하기

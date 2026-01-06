@@ -32,7 +32,7 @@ const ApplicateFinishModal = ({ isOpen, onClose, recruitingPostId }: ApplicateFi
 
   return (
     <BaseModal isOpen={isOpen} onClose={onClose}>
-      <div className="flex flex-col items-center">
+      <div className="desktop:w-115 flex flex-col items-center">
         <Image
           src={`/icons/gray_teamficial_symbol.svg`}
           alt="symbol"
@@ -41,7 +41,7 @@ const ApplicateFinishModal = ({ isOpen, onClose, recruitingPostId }: ApplicateFi
           className="desktop:mb-3 desktop:w-[55px] desktop:h-[55px] mb-2 flex h-11 w-11 flex-col"
         />
         <h3 className="body-7 desktop:title-3 text-gray-800">팀원 모집을 마치시겠어요?</h3>
-        <p className="body-10 desktop:body-6 desktop:mb-10 mb-4 text-gray-700">
+        <p className="desktop:body-6 body-10 desktop:mb-6 mb-4 text-gray-700">
           {`정말 모집을 마치겠습니까? 지금 모집을 마치면 되돌릴 수 없어요`}
         </p>
         <div className="desktop:gap-2 flex w-full gap-1">
@@ -52,7 +52,7 @@ const ApplicateFinishModal = ({ isOpen, onClose, recruitingPostId }: ApplicateFi
             취소하기
           </Button>
           <Button
-            className="bg-primary-900 text-gray-0 body-5 hover:bg-primary-700 desktop:px-30 desktop:py-4 flex-1 py-3"
+            className="text-gray-0 desktop:body-5 body-7 desktop:py-4 bg-primary-900 hover:bg-primary-700 flex-1 py-3"
             onClick={handleFinishClick}
           >
             팀원 모집 마치기

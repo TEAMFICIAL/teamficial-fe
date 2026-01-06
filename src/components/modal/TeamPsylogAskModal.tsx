@@ -53,28 +53,26 @@ const TeamPsylogAskModal = ({
 
   return (
     <BaseModal isOpen={isOpen} onClose={onClose}>
-      <div className="tablet:gap-6.5 flex flex-col items-center gap-4">
-        <div className="flex flex-col items-center">
-          <Image
-            src={`/icons/gray_teamficial_symbol.svg`}
-            alt="symbol"
-            width={55}
-            height={55}
-            className="tablet:h-[55px] tablet:w-[55px] tablet:mb-6.5 h-[45px] w-[45px]"
-          />
-          <h3 className="tablet:title-3 body-7 text-gray-800">
-            {userName}님의 팀피셜록 작성을 완료할까요?
-          </h3>
-        </div>
-        <div className="tablet:gap-2 flex w-full gap-1">
+      <div className="desktop:w-115 flex flex-col items-center">
+        <Image
+          src={`/icons/gray_teamficial_symbol.svg`}
+          alt="symbol"
+          width={55}
+          height={55}
+          className="desktop:mb-3 desktop:w-14 desktop:h-14 mb-1 flex h-10 w-10 flex-col"
+        />
+        <h3 className="desktop:title-3 body-7 desktop:mb-6 mb-4 text-gray-800">
+          {userName}님의 팀피셜록 작성을 완료할까요?
+        </h3>
+        <div className="desktop:gap-2 flex w-full gap-1">
           <Button
-            className="tablet:body-5 body-7 tablet:px-8 tablet:py-4 bg-gray-300 px-4 py-2 whitespace-nowrap text-gray-800"
+            className="desktop:body-5 body-7 desktop:px-8 desktop:py-4 bg-gray-300 px-4 py-3 text-gray-800"
             onClick={onClose}
           >
             이전으로
           </Button>
           <Button
-            className="bg-primary-900 text-gray-0 tablet:body-5 body-7 hover:bg-primary-700 tablet:px-30 tablet:py-4 w-full px-4 py-3"
+            className="bg-primary-900 text-gray-0 desktop:body-5 body-7 hover:bg-primary-700 desktop:py-4 flex-1 py-3"
             onClick={handleClick}
           >
             {isPending ? (

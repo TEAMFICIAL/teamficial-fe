@@ -17,7 +17,7 @@ const ApplicantFinishModal = ({ isOpen, onClose }: BaseModalProps) => {
 
   return (
     <BaseModal isOpen={isOpen} onClose={onClose}>
-      <div className="flex flex-col items-center">
+      <div className="desktop:w-115 flex flex-col items-center">
         <Image
           src={`/icons/gray_teamficial_symbol.svg`}
           alt="symbol"
@@ -26,12 +26,12 @@ const ApplicantFinishModal = ({ isOpen, onClose }: BaseModalProps) => {
           className="desktop:mb-3 desktop:w-[55px] desktop:h-[55px] mb-2 flex h-11 w-11 flex-col"
         />
         <h3 className="body-7 desktop:title-3 text-gray-800">팀원 모집이 완료되었어요!</h3>
-        <p className="body-10 desktop:body-6 desktop:mb-10 mb-4 text-gray-700">
+        <p className="desktop:body-6 body-10 desktop:mb-6 mb-4 text-gray-700">
           {`마이페이지 > 지원자 현황에서 팀원정보를 확인할 수 있어요`}
         </p>
         <div className="desktop:gap-2 flex w-full">
           <Button
-            className="bg-primary-900 text-gray-0 body-5 hover:bg-primary-700 desktop:py-4 desktop:px-30 w-full py-3"
+            className="text-gray-0 desktop:body-5 body-7 desktop:py-4 bg-primary-900 hover:bg-primary-700 flex-1 py-3"
             onClick={handleFinishClick}
           >
             마이페이지로 돌아가기
