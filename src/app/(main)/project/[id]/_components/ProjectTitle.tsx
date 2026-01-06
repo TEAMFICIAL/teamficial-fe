@@ -9,6 +9,7 @@ import Link from 'next/link';
 import { useUserStore } from '@/store/useUserStore';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 const ProjectTitle = ({
   postId,
@@ -26,12 +27,15 @@ const ProjectTitle = ({
   const isLoggedIn = !!userName;
   const navigate = useRouter();
 
+  const isDesktop = useMediaQuery('(min-width: 1024px)');
+
   const handleApplyModal = () => {
     if (!isLoggedIn) {
       window.alert('로그인이 필요합니다.');
       navigate.push('/login');
     } else {
-      openModal('apply', { postId, recruitingPositions });
+      const modalType = isDesktop ? 'apply' : 'applyMo';
+      openModal(modalType, { postId, recruitingPositions });
     }
   };
 
@@ -49,7 +53,7 @@ const ProjectTitle = ({
     <div className="desktop:py-7 flex items-center justify-between py-3">
       <div className="flex flex-col">
         <div className="desktop:gap-2.5 flex items-center gap-2">
-          <div className="min-w-0 flex-1">
+          <div className="min-w-0">
             <p className="desktop:title-1 title-3 break-words whitespace-pre-line text-gray-900">
               {title}
             </p>

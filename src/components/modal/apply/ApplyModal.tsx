@@ -10,25 +10,22 @@ import { ApplyModalProps } from '@/constants/ModalList';
 import { useApplicateProject } from '@/hooks/mutation/useApplicateProject';
 import { PositionType } from '@/utils/position';
 import PartDropdown from './PartDropdown';
+import { useToast } from '@/contexts/ToastContext';
 
-interface Props {
-  onPositionSelect: (position: PositionType | null) => void;
-  positions: PositionType[];
-}
-
-const ApplyModal = ({ isOpen, onClose, postId, recruitingPositions }: ApplyModalProps & Props) => {
+const ApplyModal = ({ isOpen, onClose, postId, recruitingPositions }: ApplyModalProps) => {
   const { mutate: applicateProject } = useApplicateProject();
   const positions = recruitingPositions?.map((pos) => pos.position) || [];
 
   const { openModal } = useModal();
+  const { addToast } = useToast();
 
   const [selectedProfileId, setSelectedProfileId] = useState<number | null>(null);
   const [selectedPosition, setSelectedPosition] = useState<PositionType | null>(null);
+  const [message, setMessage] = useState('');
 
   const handleProfileSelect = (profileId: number) => {
     setSelectedProfileId(profileId);
   };
-  const [message, setMessage] = useState('');
 
   const handleSubmit = () => {
     if (!postId || !selectedProfileId || !selectedPosition) return;
@@ -41,35 +38,33 @@ const ApplyModal = ({ isOpen, onClose, postId, recruitingPositions }: ApplyModal
       content: message,
     };
 
-    applicateProject(
-      { ...applicationData },
-      {
-        onSuccess: () => {
-          onClose();
-          openModal('applyComplete');
-        },
-        onError: (error) => {
-          console.error('Failed to apply for project:', error);
-        },
+    applicateProject(applicationData, {
+      onSuccess: () => {
+        onClose();
+        openModal('applyComplete');
       },
-    );
+      onError: (error) => {
+        console.error('Failed to apply for project:', error);
+        addToast({ message: '프로젝트 지원에 실패했어요. 다시 시도해주세요.', type: 'error' });
+      },
+    });
   };
 
   return (
-    <BaseModal isOpen={isOpen} onClose={onClose}>
+    <BaseModal isOpen={isOpen} onClose={onClose} paddingClass="tablet:p-6">
       <div className="flex flex-col gap-10">
         <div>
-          <p className="title-3 flex">
+          <p className="body-5 flex">
             <span className="text-gray-800">해당 프로젝트를 지원할까요?</span>
             <span className="text-red-100"> *</span>
           </p>
-          <p className="body-6 mb-4 text-gray-700">
+          <p className="body-8 mb-4 text-gray-700">
             마이페이지에서 설정한 프로필 중 한 가지를 선택해주세요
           </p>
           <ProfileSlider onProfileSelect={handleProfileSelect} />
+          <PartDropdown onPositionSelect={setSelectedPosition} positions={positions} />
         </div>
         <div>
-          <PartDropdown onPositionSelect={setSelectedPosition} positions={positions} />
           <MessageTextarea value={message} onChange={setMessage} />
           <div className="flex justify-end gap-2">
             <Button
