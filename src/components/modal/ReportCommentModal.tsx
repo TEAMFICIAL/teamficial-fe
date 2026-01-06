@@ -16,7 +16,7 @@ const REPORT_TYPE_OPTIONS = [
   '기타(직접 입력)',
 ];
 
-const ReportCommentModal = ({ isOpen, onClose, commentId }: ReportCommentModalProps) => {
+const ReportCommentModal = ({ isOpen, onClose, keywordCommentId }: ReportCommentModalProps) => {
   const { openModal } = useModal();
   const [reportType, setReportType] = useState<string | null>(null);
   const [content, setContent] = useState('');
@@ -55,15 +55,15 @@ const ReportCommentModal = ({ isOpen, onClose, commentId }: ReportCommentModalPr
   };
 
   const handleSubmitClick = () => {
-    if (commentId === undefined || commentId === null) {
-      console.warn('commentId가 정의되지 않았습니다.');
+    if (keywordCommentId === undefined || keywordCommentId === null) {
+      console.warn('keywordCommentId가 정의되지 않았습니다.');
       return;
     }
 
     const typeCode = getReportTypeCode(reportType);
 
     const data: RequestReportComment = {
-      keywordCommentId: commentId,
+      keywordCommentId,
       reportType: typeCode as 'HATE_SPEECH' | 'UNSUITABLE_KEYWORD' | 'OTHER',
       content,
       ...(typeCode === 'OTHER' && etcInput.trim() && { reportEtc: etcInput.trim() }),
@@ -75,8 +75,8 @@ const ReportCommentModal = ({ isOpen, onClose, commentId }: ReportCommentModalPr
 
   const isSubmitDisabled =
     content.length > 300 ||
-    commentId === undefined ||
-    commentId === null ||
+    keywordCommentId === undefined ||
+    keywordCommentId === null ||
     !reportType ||
     (reportType === '기타(직접 입력)' ? !etcInput.trim() : false) ||
     !content.trim();
