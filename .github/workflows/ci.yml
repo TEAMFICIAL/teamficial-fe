@@ -1,22 +1,31 @@
-name: CI
+name: CI/CD Build Check
 
 on:
+  push:
+    branches: ['main', 'develop']
   pull_request:
-    branches:
-      - develop
+    branches: ['main', 'develop']
 
 jobs:
-  check:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Install Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
-      - run: corepack enable
-      - run: corepack prepare pnpm@latest --activate
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 10
 
-      - run: pnpm install
-      - run: pnpm run lint
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build check
+        run: pnpm run build
