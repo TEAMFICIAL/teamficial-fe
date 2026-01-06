@@ -1,6 +1,9 @@
 'use client';
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
+import { useRouter } from 'next/navigation';
+import { useUserStore } from '@/store/useUserStore';
+import { isLoggedIn as checkIsLoggedIn } from '@/utils/auth';
 import LogTitle from './LogTitle';
 import { useGetProfileList, useGetUuidProfileList } from '@/hooks/queries/useProfile';
 import { useGetKeyword } from '@/hooks/queries/useKeyword';
@@ -18,6 +21,26 @@ interface Props {
 }
 
 const KeywordPage = ({ share = false, uuid }: Props) => {
+  const router = useRouter();
+  const { addToast } = useToast();
+  const { userName, _hasHydrated } = useUserStore();
+
+  const hasAlerted = useRef(false);
+
+  useEffect(() => {
+    if (share || hasAlerted.current) return;
+
+    if (_hasHydrated && !checkIsLoggedIn(userName)) {
+      hasAlerted.current = true;
+      addToast({
+        type: 'error',
+        title: '로그인이 필요합니다.',
+        message: '로그인 페이지로 이동합니다.',
+      });
+      router.replace('/login');
+    }
+  }, [share, _hasHydrated, userName, router, addToast]);
+
   // 공유 모드: uuid가 있을 때만 실행
   const requesterInfoResult = useRequesterInfo(uuid ?? '', { enabled: share && !!uuid });
   const requesterInfo = requesterInfoResult.data;
@@ -26,8 +49,6 @@ const KeywordPage = ({ share = false, uuid }: Props) => {
 
   // 공유모드 getProfileList 가져오기
   const { data: sharedProfiles } = useGetUuidProfileList(uuid ?? '');
-
-  // TODO: 공유 모드에서 프로필 선택 기능 추가 필요. api 요청.
 
   // 일반 모드
   const { data: myProfiles } = useGetProfileList();
@@ -93,8 +114,6 @@ const KeywordPage = ({ share = false, uuid }: Props) => {
     setSelectedSlot(index);
   };
 
-  const { addToast } = useToast();
-
   const handleSelectKeyword = (keywordId: number) => {
     if (!isEditMode || selectedSlot === null || !selectedProfileId) return;
 
@@ -126,6 +145,11 @@ const KeywordPage = ({ share = false, uuid }: Props) => {
 
   if (isLoading && !keywordData) {
     return <Loading />;
+  }
+
+  // 로그인되지 않은 상태라면 null 반환 (깜빡임 방지)
+  if (!share && _hasHydrated && !checkIsLoggedIn(userName)) {
+    return null;
   }
 
   return (
