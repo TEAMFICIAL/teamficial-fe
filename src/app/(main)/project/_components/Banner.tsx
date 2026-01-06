@@ -17,7 +17,7 @@ const Banner = () => {
     }
 
     router.push(`/teampsylog`);
-    const url = `${window.location.origin}/question/${uuid}`;
+    const url = `${window.location.origin}/teampsylog/head/${uuid}`;
     await navigator.clipboard.writeText(url);
     addToast({ message: '링크가 복사되었어요' });
   };

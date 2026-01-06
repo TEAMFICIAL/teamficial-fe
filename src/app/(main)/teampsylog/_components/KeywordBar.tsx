@@ -55,12 +55,13 @@ const KeywordBar = ({
       }
     }
     const url = uuid
-      ? `${window.location.origin}/question/${uuid}`
+      ? `${window.location.origin}/teampsylog/head/${uuid}`
       : `${window.location.origin}/teampsylog`;
     await navigator.clipboard.writeText(url);
     addToast({ message: '링크가 복사되었어요' });
   };
 
+  if (!isShareMode) return null;
   return (
     <>
       {/* desktop */}
@@ -108,21 +109,16 @@ const KeywordBar = ({
             selectedProfileId={selectedProfileId}
             onSelectProfile={onSelectProfile}
           />
-          {isShareMode && (
-            <div className="flex gap-4">
-              <button onClick={onToggleEditMode} className="cursor-pointer">
-                <Image
-                  src={isEditMode ? '/icons/edit-selected.svg' : '/icons/edit-black.svg'}
-                  alt="수정하기"
-                  width={28}
-                  height={28}
-                />
-              </button>
-              <button onClick={handleShare} className="cursor-pointer">
-                <Image src="/icons/share-black.svg" alt="공유하기" width={28} height={28} />
-              </button>
-            </div>
-          )}
+          <div className="flex gap-4">
+            <button onClick={onToggleEditMode} className="cursor-pointer">
+              <Image
+                src={isEditMode ? '/icons/edit-selected.svg' : '/icons/edit-black.svg'}
+                alt="수정하기"
+                width={28}
+                height={28}
+              />
+            </button>
+          </div>
         </div>
         <div className="flex items-center gap-1">
           {mobileDisplayKeywords.map((keyword, index) => (

@@ -14,11 +14,13 @@ const LogNote = ({
   isEditMode = false,
   selectedSlot = null,
   onSelectKeyword,
+  isShareMode = false,
 }: {
   userId?: number;
   isEditMode?: boolean;
   selectedSlot?: number | null;
   onSelectKeyword?: (keywordId: number) => void;
+  isShareMode?: boolean;
 }) => {
   const [page, setPage] = useState(0);
   const [isMobileSheetOpen, setIsMobileSheetOpen] = useState(false);
@@ -64,7 +66,7 @@ const LogNote = ({
       ) : (
         <section className="relative flex justify-center">
           {/* 왼쪽 페이지 */}
-          <div className="desktop:h-162 desktop:rounded-l-2xl desktop:gap-[13px] relative flex h-100 w-118 flex-col items-center justify-center gap-2 rounded-2xl bg-gray-100 shadow-[0_4px_7.1px_0_#E1E1E1]">
+          <div className="desktop:h-162 desktop:rounded-l-2xl desktop:gap-[13px] relative flex h-100 w-118 flex-col items-center justify-center gap-2 rounded-l-2xl bg-gray-100 shadow-[0_4px_7.1px_0_#E1E1E1]">
             <button
               onClick={() => setPage((p) => Math.max(0, p - 1))}
               disabled={page === 0}
@@ -174,6 +176,7 @@ const LogNote = ({
               <CommentPage
                 keywordName={keywords[keywordIds.findIndex((id) => id === selectedKeywordId)] ?? ''}
                 keywordId={selectedKeywordId}
+                isShareMode={isShareMode}
               />
             )}
           </div>
@@ -183,6 +186,7 @@ const LogNote = ({
               <CommentPage
                 keywordName={keywords[keywordIds.findIndex((id) => id === selectedKeywordId)] ?? ''}
                 keywordId={selectedKeywordId}
+                isShareMode={isShareMode}
               />
             )}
           </BottomComment>

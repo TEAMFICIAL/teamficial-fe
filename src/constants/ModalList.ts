@@ -17,6 +17,9 @@ import ProfileDetailModal from '@/components/modal/profile/ProfileDetailModal';
 import { ResponseProfile } from '@/types/profile';
 import NotFinishModal from '@/components/modal/NotFinishModal';
 import ApplyModalMo from '@/components/modal/apply/ApplyModalMo';
+import { RequestReportComment } from '@/types/teampsylog';
+import ReportCommentModal from '@/components/modal/ReportCommentModal';
+import ReportCompleteModal from '@/components/modal/ReportCompleteModal';
 
 export interface BaseModalProps {
   isOpen: boolean;
@@ -90,6 +93,18 @@ export interface ProfileDetailModalProps {
   profile: ResponseProfile;
 }
 
+export interface ReportCommentModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  keywordCommentId: number;
+}
+
+export interface ReportCompleteModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  data: RequestReportComment;
+}
+
 export const MODAL_COMPONENTS = {
   apply: ApplyModal,
   applyMo: ApplyModalMo,
@@ -107,6 +122,8 @@ export const MODAL_COMPONENTS = {
   profileEditComplete: EditProfileCompleteModal,
   profileDetail: ProfileDetailModal,
   notFinish: NotFinishModal,
+  reportComment: ReportCommentModal,
+  reportComplete: ReportCompleteModal,
 };
 
 export type ModalType = keyof typeof MODAL_COMPONENTS;
@@ -128,4 +145,6 @@ export interface ModalPropsMap {
   profileEditComplete: BaseModalProps;
   profileDetail: ProfileDetailModalProps;
   notFinish: BaseModalProps;
+  reportComment: ReportCommentModalProps;
+  reportComplete: ReportCompleteModalProps;
 }

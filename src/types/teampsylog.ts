@@ -53,6 +53,7 @@ export interface RequestKeywordComment {
 
 export interface ResponseKeywordComment {
   data: {
+    commentId: number;
     comment: string;
     createdAt: string;
   }[];
@@ -77,4 +78,11 @@ export interface ResponseRandomKeywords {
     keywordName: string;
     count: number;
   }[];
+}
+
+export interface RequestReportComment {
+  keywordCommentId: number;
+  reportType: 'HATE_SPEECH' | 'UNSUITABLE_KEYWORD' | 'OTHER';
+  reportEtc?: string;
+  content: string;
 }
