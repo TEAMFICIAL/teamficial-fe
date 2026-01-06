@@ -22,8 +22,8 @@ const CommentPage = ({
     size: 4,
   });
 
-  const onReportClick = () => {
-    openModal('reportComment', { keywordId });
+  const onReportClick = (commentId: number) => {
+    openModal('reportComment', { commentId });
   };
 
   const comments = data?.pages.flatMap((page) => page.data) || [];
@@ -56,7 +56,10 @@ const CommentPage = ({
                   {formatDateDot(comment.createdAt)}
                 </p>
                 {isShareMode ? null : (
-                  <button className="cursor-pointer" onClick={onReportClick}>
+                  <button
+                    className="cursor-pointer"
+                    onClick={() => onReportClick(comment.commentId)}
+                  >
                     <Image src="/icons/siren.svg" width={16} height={16} alt="" />
                   </button>
                 )}

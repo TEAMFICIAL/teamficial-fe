@@ -53,6 +53,7 @@ export interface RequestKeywordComment {
 
 export interface ResponseKeywordComment {
   data: {
+    commentId: number;
     comment: string;
     createdAt: string;
   }[];

@@ -5,8 +5,10 @@ import Button from '../common/button/Button';
 import BaseModal from './index';
 import Image from 'next/image';
 import { usePostReportComment } from '@/hooks/mutation/useReportComment';
+import { useToast } from '@/contexts/ToastContext';
 
 const ReportCompleteModal = ({ isOpen, onClose, data }: ReportCompleteModalProps) => {
+  const { addToast } = useToast();
   const handleCancelClick = () => {
     onClose();
   };
@@ -16,10 +18,11 @@ const ReportCompleteModal = ({ isOpen, onClose, data }: ReportCompleteModalProps
   const handleSubmitClick = () => {
     reportComment(data, {
       onSuccess: () => {
+        addToast({ message: '신고가 접수되었습니다.' });
         onClose();
       },
       onError: () => {
-        console.error('댓글 신고 중 오류 발생');
+        addToast({ type: 'error', message: '신고 접수에 실패했습니다. 다시 시도해주세요.' });
       },
     });
   };

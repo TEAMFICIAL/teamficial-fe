@@ -61,7 +61,7 @@ const CurrentApplicantItem = ({
         <Tag className={tagStyle}>{item.profilePosition}</Tag>
       </div>
       <div className="flex gap-1">
-        {item.keywordList.map((keyword, index) => (
+        {(item.keywordList || []).map((keyword, index) => (
           <ProfileTag key={index}>{keyword}</ProfileTag>
         ))}
       </div>

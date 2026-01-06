@@ -23,7 +23,7 @@ export type CurrentApplicant = {
   profilePosition: string;
   profileImage: string;
   applicationStatus: string;
-  keywordList: string[];
+  keywordList?: string[];
 };
 
 export type ResponseApplicantsDetail = {

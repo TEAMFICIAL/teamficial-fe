@@ -126,7 +126,7 @@ export const getRandomKeywords = async (requesterUuid: string): Promise<Response
   return data.result;
 };
 
-export async function postReportCommment({
+export async function postReportComment({
   keywordCommentId,
   reportType,
   reportEtc,
