@@ -30,7 +30,7 @@ const ProfileCard = ({ profile, isSelected }: ProfileCardProps) => {
             width={64}
             height={64}
           />
-          <div className="flex min-w-0 flex-col gap-4">
+          <div className="flex min-w-0 flex-col gap-2">
             <div className="flex flex-col gap-2">
               <p className="body-1">{profile.userName}</p>
 
@@ -40,7 +40,7 @@ const ProfileCard = ({ profile, isSelected }: ProfileCardProps) => {
               </div>
             </div>
             {/* 태그 */}
-            <div className="flex min-w-0 flex-wrap gap-2">
+            <div className="flex min-w-0 flex-wrap gap-1.5">
               {profile.headKeywords?.map((keyword) => (
                 <ProfileTag key={keyword}>{keyword}</ProfileTag>
               ))}
@@ -73,9 +73,13 @@ const ProfileCard = ({ profile, isSelected }: ProfileCardProps) => {
             <p className="body-7">{profile.userName}</p>
           </div>
           <div className="flex gap-1">
-            {profile.headKeywords?.map((keyword) => (
-              <ProfileTag key={keyword}>{keyword}</ProfileTag>
-            ))}
+            {profile.headKeywords &&
+              profile.headKeywords.length > 2 &&
+              Array.from({ length: 3 }).map((_, i) => (
+                <ProfileTag key={i} maxLength={3}>
+                  {profile.headKeywords[2]}
+                </ProfileTag>
+              ))}
           </div>
         </div>
         <div className="flex flex-col rounded-lg bg-gray-100 pt-3 pr-5 pb-5 pl-6">
