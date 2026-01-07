@@ -49,6 +49,7 @@ export interface DeleteModalProps extends BaseModalProps {
 export interface PartnerModalProps extends BaseModalProps {
   recruitingPostId: number;
   applicationId: number;
+  profilePosition?: string;
 }
 
 export interface TeamPsylogCompleteModalProps extends BaseModalProps {

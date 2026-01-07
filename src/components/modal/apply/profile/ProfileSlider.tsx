@@ -72,7 +72,7 @@ const ProfileSlider = ({ onProfileSelect }: Props) => {
     <>
       <div
         onClick={handleCardClick}
-        className={`flex w-135 cursor-pointer items-center justify-between gap-4 rounded-2xl border px-4 py-6 transition-all ${
+        className={`flex w-135 cursor-pointer items-center justify-between gap-1 rounded-2xl border px-2 py-6 transition-all ${
           isSelected
             ? 'border-primary-900 bg-primary-50 border-[2px]'
             : 'border border-gray-300 bg-white'

@@ -6,24 +6,25 @@ import Image from 'next/image';
 
 interface ProfileCardProps {
   profile: ApplicationResponse;
+  profilePosition?: string;
 }
 
-const Profile = ({ profile }: ProfileCardProps) => {
+const Profile = ({ profile, profilePosition }: ProfileCardProps) => {
   return (
     <>
       {/* desktop */}
       <div className="desktop:flex mb-10 hidden w-135 justify-between gap-1 rounded-lg border border-gray-300 p-6">
         <div className="flex items-start gap-4">
-          <Image
-            src={profile.profile.profileImageUrl || '/icons/profile.svg'}
-            className="h-16 w-16 rounded-full object-cover"
-            alt="profile"
-            width={90}
-            height={90}
-          />
-          <div className="flex flex-col gap-4">
-            <div className="flex flex-col gap-2">
-              <p className="body-5">{profile.profile.userName}</p>
+          <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-1">
+              <div className="flex gap-2">
+                <p className="body-5">{profile.profile.userName}</p>
+                {profilePosition && (
+                  <div className="body-9 inline-flex rounded-[4px] bg-gray-200 px-2 py-0.5 text-gray-700">
+                    {profilePosition}
+                  </div>
+                )}
+              </div>
               <div className="flex flex-col gap-1">
                 <div className="flex items-center gap-2">
                   <p className="body-8 text-gray-800">연락수단</p>
@@ -41,7 +42,7 @@ const Profile = ({ profile }: ProfileCardProps) => {
                 </div>
               </div>
             </div>
-            <div className="flex min-w-0 flex-1 flex-wrap gap-2">
+            <div className="flex min-w-0 flex-1 flex-wrap gap-1.5">
               {profile.profile.headKeywords.map((keyword) => (
                 <ProfileTag key={keyword}>{keyword}</ProfileTag>
               ))}
@@ -57,7 +58,7 @@ const Profile = ({ profile }: ProfileCardProps) => {
               ))}
           </div>
           <Button
-            className="bg-primary-900 body-5 text-gray-0 px-4 py-2"
+            className="bg-primary-900 body-9 text-gray-0 px-4 py-2"
             onClick={() => {
               window.open(`/teampsylog/${profile.profile.uuid}`, '_blank');
             }}

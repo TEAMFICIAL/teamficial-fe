@@ -256,6 +256,12 @@ body {
   @apply desktop:body-6 body-8;
 }
 
+.prose code {
+  @apply rounded bg-gray-100 px-1 py-0.5;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
 /* slide-up 애니메이션 */
 @keyframes slide-up {
   from {

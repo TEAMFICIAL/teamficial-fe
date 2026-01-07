@@ -28,6 +28,8 @@ const CurrentApplicants = ({
     openModal('partner', {
       applicationId,
       recruitingPostId,
+      profilePosition: applicants.find((app) => app.applicationId === applicationId)
+        ?.profilePosition,
     });
   };
 

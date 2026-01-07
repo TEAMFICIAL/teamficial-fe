@@ -10,7 +10,13 @@ import { useUpdateApplicant } from '@/hooks/mutation/useUpdateApplicant';
 import { useQueryClient } from '@tanstack/react-query';
 import { ApplicationStatus } from '@/utils/applicate';
 
-const PartnerModal = ({ isOpen, onClose, applicationId, recruitingPostId }: PartnerModalProps) => {
+const PartnerModal = ({
+  isOpen,
+  onClose,
+  applicationId,
+  recruitingPostId,
+  profilePosition,
+}: PartnerModalProps) => {
   const { mutate: updateStatus } = useUpdateApplicant();
   // const { openModal } = useModal();
   const queryClient = useQueryClient();
@@ -89,7 +95,7 @@ const PartnerModal = ({ isOpen, onClose, applicationId, recruitingPostId }: Part
             className="cursor-pointer"
           />
         </div>
-        <Profile profile={profileData} />
+        <Profile profile={profileData} profilePosition={profilePosition} />
         <div>
           <MessageTextarea
             value={profileData.content}

@@ -15,7 +15,7 @@ const ApplyCompleteModal = ({ isOpen, onClose }: ApplyCompleteModalProps) => {
 
   return (
     <BaseModal isOpen={isOpen} onClose={onClose}>
-      <div className="flex flex-col items-center">
+      <div className="desktop:w-115 flex flex-col items-center">
         <Image
           src={`/icons/gray_teamficial_symbol.svg`}
           alt="symbol"
@@ -24,7 +24,7 @@ const ApplyCompleteModal = ({ isOpen, onClose }: ApplyCompleteModalProps) => {
           className="desktop:mb-3 desktop:w-14 desktop:h-14 mb-1 flex h-11 w-11 flex-col"
         />
         <h3 className="body-7 desktop:title-3 text-gray-800">지원이 완료되었어요!</h3>
-        <p className="body-10 desktop:body-6 desktop:mb-10 mb-4 text-gray-700">
+        <p className="body-10 desktop:body-6 desktop:mb-6 mb-4 text-gray-700">
           지원한 프로젝트는 마이페이지에서 합격여부를 알 수 있어요
         </p>
         <div className="desktop:gap-2 flex w-full gap-1">

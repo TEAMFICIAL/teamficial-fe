@@ -30,7 +30,7 @@ const ProfileCard = ({ profile, isSelected }: ProfileCardProps) => {
             width={64}
             height={64}
           />
-          <div className="flex min-w-0 flex-col gap-4">
+          <div className="flex min-w-0 flex-col gap-2">
             <div className="flex flex-col gap-2">
               <p className="body-1">{profile.userName}</p>
 
@@ -40,7 +40,7 @@ const ProfileCard = ({ profile, isSelected }: ProfileCardProps) => {
               </div>
             </div>
             {/* 태그 */}
-            <div className="flex min-w-0 flex-wrap gap-2">
+            <div className="flex min-w-0 flex-wrap gap-1.5">
               {profile.headKeywords?.map((keyword) => (
                 <ProfileTag key={keyword}>{keyword}</ProfileTag>
               ))}
