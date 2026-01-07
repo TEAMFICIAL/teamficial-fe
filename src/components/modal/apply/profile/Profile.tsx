@@ -19,9 +19,11 @@ const Profile = ({ profile, profilePosition }: ProfileCardProps) => {
             <div className="flex flex-col gap-1">
               <div className="flex gap-2">
                 <p className="body-5">{profile.profile.userName}</p>
-                <div className="body-9 inline-flex rounded-[4px] bg-gray-200 px-2 py-0.5 text-gray-700">
-                  {profilePosition}
-                </div>
+                {profilePosition && (
+                  <div className="body-9 inline-flex rounded-[4px] bg-gray-200 px-2 py-0.5 text-gray-700">
+                    {profilePosition}
+                  </div>
+                )}
               </div>
               <div className="flex flex-col gap-1">
                 <div className="flex items-center gap-2">
