@@ -55,7 +55,9 @@ const ProjectInfo = ({ id }: { id: string }) => {
     );
   if (!data) return null;
 
-  const sanitizedContent = DOMPurify.sanitize(data.recruitingPost.recruitingPostContent);
+  const sanitizedContent = DOMPurify.sanitize(
+    data.recruitingPost.recruitingPostContent.replace(/<p><\/p>/g, '<p><br /></p>'),
+  );
 
   const filteredApplicants = selectedPosition
     ? data.applicantList.filter((item) => item.profilePosition === POSITION_KR[selectedPosition])
