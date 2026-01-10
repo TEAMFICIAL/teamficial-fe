@@ -1,11 +1,11 @@
+import { useIsMobile } from '@/hooks/useIsMobile';
 import React from 'react';
+import { useState, useRef } from 'react';
 
 type TagProps = {
   children: string;
   maxLength?: number;
 };
-
-import { useState, useRef } from 'react';
 
 const ProfileTag = ({ children, maxLength }: TagProps) => {
   const [showTooltip, setShowTooltip] = useState(false);
@@ -28,8 +28,10 @@ const ProfileTag = ({ children, maxLength }: TagProps) => {
     }
   }
 
+  const isMobile = useIsMobile();
+
   const handleMouseEnter = (e: React.MouseEvent<HTMLSpanElement>) => {
-    if (isTruncated) {
+    if (!isMobile && isTruncated) {
       const rect = (e.target as HTMLElement).getBoundingClientRect();
       setTooltipPos({ left: rect.left + window.scrollX, top: rect.bottom + window.scrollY });
       setShowTooltip(true);
@@ -40,6 +42,18 @@ const ProfileTag = ({ children, maxLength }: TagProps) => {
     setTooltipPos(null);
   };
 
+  const handleTouch = (e: React.TouchEvent<HTMLSpanElement>) => {
+    if (isMobile && isTruncated) {
+      const rect = (e.target as HTMLElement).getBoundingClientRect();
+      setTooltipPos({ left: rect.left + window.scrollX, top: rect.bottom + window.scrollY });
+      setShowTooltip(true);
+      setTimeout(() => {
+        setShowTooltip(false);
+        setTooltipPos(null);
+      }, 1500);
+    }
+  };
+
   return (
     <>
       <span
@@ -47,6 +61,7 @@ const ProfileTag = ({ children, maxLength }: TagProps) => {
         className="body-9 bg-gray-0 desktop:px-4 desktop:py-2 relative cursor-default rounded-lg border border-gray-300 px-2 py-1 text-gray-600"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        onTouchStart={handleTouch}
       >
         #{displayText}
       </span>
