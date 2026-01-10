@@ -12,7 +12,7 @@ const EmptyApplicantStatus = () => {
           전체보기
         </Link>
       </div>
-      <div className="body-3 tablet:flex mb-0 mb-7 hidden h-[187px] w-full max-w-[944px] items-center justify-center rounded-2xl bg-gray-200 p-2.5 text-center text-gray-600">
+      <div className="body-3 tablet:flex hidden h-[187px] w-full max-w-[944px] items-center justify-center rounded-2xl bg-gray-200 p-2.5 text-center text-gray-600">
         <span>
           <Link href="/recruit" className="text-gray-700 underline">
             팀원 모집하기

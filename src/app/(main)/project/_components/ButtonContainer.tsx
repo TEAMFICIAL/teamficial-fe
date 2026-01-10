@@ -53,14 +53,13 @@ const ButtonContainer = ({ filters, onChange }: Props) => {
     notifyChange({ onlyOpen: checked });
   };
 
-  // filters prop이 변경되면 내부 state 동기화
   useEffect(() => {
     if (filters) {
-      setDuration(filters.duration);
-      setRecruit(filters.recruit);
-      setOnlyOpen(filters.onlyOpen);
+      if (filters.duration !== duration) setDuration(filters.duration);
+      if (filters.recruit !== recruit) setRecruit(filters.recruit);
+      if (filters.onlyOpen !== onlyOpen) setOnlyOpen(filters.onlyOpen);
     }
-  }, [filters]);
+  }, [filters, duration, recruit, onlyOpen]);
 
   const handleRecruitClick = () => {
     router.push('/recruit');
