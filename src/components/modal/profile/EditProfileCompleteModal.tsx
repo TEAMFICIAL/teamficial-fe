@@ -29,7 +29,7 @@ const EditProfileCompleteModal = ({ isOpen, onClose }: EditProfileCompleteModalP
             className="bg-primary-900 text-gray-0 desktop:body-5 body-7 hover:bg-primary-700 desktop:py-4 flex-1 py-3"
             onClick={handleClick}
           >
-            홈으로
+            목록으로
           </Button>
         </div>
       </div>
