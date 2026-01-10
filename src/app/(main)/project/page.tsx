@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Banner from './_components/Banner';
 import ButtonContainer from './_components/ButtonContainer';
 import RecruitCard from './_components/RecruitCard';
@@ -8,11 +8,15 @@ import Pagination from '../../../components/common/Pagination';
 import { useRouter } from 'next/navigation';
 import { ResponseProject } from '@/types/project';
 import { PERIOD_KR, POSITION_KR, PROGRESS_WAY_KR } from '@/constants/Translate';
-import { Filters, useRecruitingPosts } from '@/hooks/queries/useRecruitingPosts';
+import {
+  Filters,
+  useRecruitingPosts,
+  useInfiniteRecruitingPosts,
+} from '@/hooks/queries/useRecruitingPosts';
 import Loading from '@/components/common/Loading';
 import ErrorDisplay from '@/components/common/Error';
 import Button from '@/components/common/button/Button';
-import { useInfiniteScroll } from '@/hooks/useInfiniteScroll';
+import { useInView } from 'react-intersection-observer';
 
 const Page = () => {
   const router = useRouter();
@@ -24,22 +28,59 @@ const Page = () => {
   });
 
   const pageSize = 9;
+  const mobilePageSize = 10;
+  const initialDisplayCount = 5;
+  const loadMoreCount = 10;
 
   const { data, isLoading, isError } = useRecruitingPosts(filters, currentPage, pageSize);
 
   const {
-    cards: mobileCards,
+    data: infiniteData,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
     isLoading: isMobileLoading,
     isError: isMobileError,
-    hasMore,
-    ref,
     isInitialLoading: isMobileInitialLoading,
-  } = useInfiniteScroll({
-    filters,
-    pageSize: 10,
-    initialDisplayCount: 5,
-    loadMoreCount: 10,
+  } = useInfiniteRecruitingPosts(filters, mobilePageSize);
+
+  const [displayCount, setDisplayCount] = useState(initialDisplayCount);
+
+  useEffect(() => {
+    setDisplayCount(initialDisplayCount);
+  }, [filters]);
+
+  const { ref, inView } = useInView({
+    threshold: 0,
   });
+
+  const allMobileCards = infiniteData?.pages.flatMap((page) => page.content) ?? [];
+
+  const mobileCards = allMobileCards.slice(0, displayCount);
+
+  useEffect(() => {
+    if (inView && hasNextPage && !isFetchingNextPage) {
+      const nextDisplayCount = displayCount + loadMoreCount;
+
+      if (nextDisplayCount > allMobileCards.length) {
+        fetchNextPage();
+      } else {
+        setDisplayCount(nextDisplayCount);
+      }
+    }
+  }, [inView, hasNextPage, isFetchingNextPage, displayCount, allMobileCards.length, fetchNextPage]);
+
+  useEffect(() => {
+    if (infiniteData && allMobileCards.length > 0) {
+      const currentTotalCards = allMobileCards.length;
+      if (!hasNextPage && displayCount < currentTotalCards) {
+        setDisplayCount(currentTotalCards);
+      }
+      if (displayCount > currentTotalCards) {
+        setDisplayCount(Math.max(initialDisplayCount, currentTotalCards));
+      }
+    }
+  }, [infiniteData, hasNextPage, displayCount, allMobileCards.length]);
 
   const handleFilterChange = (newFilters: Filters) => {
     setFilters(newFilters);
@@ -111,7 +152,7 @@ const Page = () => {
                   />
                 </div>
               ))}
-              {isMobileLoading && mobileCards.length > 5 && (
+              {isFetchingNextPage && mobileCards.length > initialDisplayCount && (
                 <div className="py-4 text-center text-gray-500">불러오는 중...</div>
               )}
             </>

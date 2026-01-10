@@ -101,7 +101,7 @@ const DropdownSmall = ({
           alt=""
           width={24}
           height={24}
-          className="tablet:h-6 tablet:w-6 ml-1.25 h-5 w-3 text-gray-400 transition-transform"
+          className="ml-1.25 h-5 w-3 text-gray-400 transition-transform"
           aria-hidden
         />
       </button>
