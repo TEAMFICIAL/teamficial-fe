@@ -132,6 +132,7 @@ const KeywordBar = ({
               isSelected={selectedSlot === index}
               isPlaceholder={index >= headKeywords.length}
               onClick={() => isEditMode && onSelectSlot(index)}
+              isMobileDevice={true}
             />
           ))}
         </div>

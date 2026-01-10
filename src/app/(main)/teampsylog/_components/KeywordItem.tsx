@@ -1,4 +1,16 @@
 import React from 'react';
+import { useState } from 'react';
+
+interface KeywordItemProps {
+  keyword: string;
+  isEditMode?: boolean;
+  isSelected?: boolean;
+  isPlaceholder?: boolean;
+  onClick?: () => void;
+  isMobileDevice?: boolean;
+}
+
+const getTextLengthWithoutSpaces = (text: string) => text.replace(/\s/g, '').length;
 
 const KeywordItem = ({
   keyword,
@@ -6,13 +18,35 @@ const KeywordItem = ({
   isSelected = false,
   isPlaceholder = false,
   onClick,
-}: {
-  keyword: string;
-  isEditMode?: boolean;
-  isSelected?: boolean;
-  isPlaceholder?: boolean;
-  onClick?: () => void;
-}) => {
+  isMobileDevice = false,
+}: KeywordItemProps) => {
+  const [showTooltip, setShowTooltip] = useState(false);
+
+  const limit = isMobileDevice ? 5 : 9999;
+  const textLength = getTextLengthWithoutSpaces(keyword);
+  const isTruncated = textLength > limit;
+  let displayText = keyword;
+  if (isMobileDevice && isTruncated) {
+    // 띄어쓰기 제외 5글자 제한
+    let count = 0;
+    displayText = '';
+    for (let i = 0; i < keyword.length; i++) {
+      if (keyword[i] !== ' ') count++;
+      if (count > limit) {
+        displayText += '...';
+        break;
+      }
+      displayText += keyword[i];
+    }
+  }
+
+  const handleTouch = () => {
+    if (!isEditMode && isMobileDevice && isTruncated) {
+      setShowTooltip(true);
+      setTimeout(() => setShowTooltip(false), 1500);
+    }
+  };
+
   return (
     <div
       onClick={onClick}
@@ -28,7 +62,14 @@ const KeywordItem = ({
                 : `border border-gray-300 bg-gray-50 ${isPlaceholder ? 'text-gray-600' : 'text-gray-800'}`
       } `}
     >
-      #{keyword}
+      <span onTouchStart={handleTouch} className="relative cursor-pointer">
+        #{displayText}
+        {showTooltip && (
+          <span className="absolute top-full left-1/2 z-20 mt-1 -translate-x-1/2 rounded bg-black/70 px-2 py-1 text-xs whitespace-nowrap text-white shadow-lg">
+            #{keyword}
+          </span>
+        )}
+      </span>
     </div>
   );
 };
