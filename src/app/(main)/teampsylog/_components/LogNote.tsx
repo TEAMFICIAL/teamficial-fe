@@ -64,7 +64,7 @@ const LogNote = ({
       ) : isError ? (
         <ErrorDisplay message="데이터를 불러오는 중 오류가 발생했습니다." />
       ) : (
-        <section className="relative flex justify-center">
+        <section className="relative flex h-dvh justify-center">
           {/* 왼쪽 페이지 */}
           <div className="desktop:h-162 desktop:gap-[13px] desktop:rounded-r-none relative flex h-100 w-118 flex-col items-center justify-center gap-2 rounded-l-2xl rounded-r-2xl bg-gray-100 shadow-[0_4px_7.1px_0_#E1E1E1]">
             <button
