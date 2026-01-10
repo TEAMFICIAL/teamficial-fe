@@ -1,5 +1,5 @@
 import { useIsMobile } from '@/hooks/useIsMobile';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState, useRef } from 'react';
 
 type TagProps = {
@@ -42,12 +42,21 @@ const ProfileTag = ({ children, maxLength }: TagProps) => {
     setTooltipPos(null);
   };
 
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, []);
+
   const handleTouch = (e: React.TouchEvent<HTMLSpanElement>) => {
     if (isMobile && isTruncated) {
       const rect = (e.target as HTMLElement).getBoundingClientRect();
       setTooltipPos({ left: rect.left + window.scrollX, top: rect.bottom + window.scrollY });
       setShowTooltip(true);
-      setTimeout(() => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      timeoutRef.current = setTimeout(() => {
         setShowTooltip(false);
         setTooltipPos(null);
       }, 1500);

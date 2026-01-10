@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useState } from 'react';
 
 interface KeywordItemProps {
@@ -22,6 +22,16 @@ const KeywordItem = ({
 }: KeywordItemProps) => {
   const [showTooltip, setShowTooltip] = useState(false);
 
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
+
   const limit = isMobileDevice ? 5 : 9999;
   const textLength = getTextLengthWithoutSpaces(keyword);
   const isTruncated = textLength > limit;
@@ -40,10 +50,32 @@ const KeywordItem = ({
     }
   }
 
+  const handleMouseEnter = () => {
+    if (!isEditMode && isTruncated) {
+      setShowTooltip(true);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (!isEditMode && isTruncated) {
+      setShowTooltip(false);
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
+      }
+    }
+  };
+
   const handleTouch = () => {
     if (!isEditMode && isMobileDevice && isTruncated) {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
       setShowTooltip(true);
-      setTimeout(() => setShowTooltip(false), 1500);
+      timeoutRef.current = setTimeout(() => {
+        setShowTooltip(false);
+        timeoutRef.current = null;
+      }, 1500);
     }
   };
 
@@ -62,10 +94,22 @@ const KeywordItem = ({
                 : `border border-gray-300 bg-gray-50 ${isPlaceholder ? 'text-gray-600' : 'text-gray-800'}`
       } `}
     >
-      <span onTouchStart={handleTouch} className="relative cursor-pointer">
+      <span
+        onTouchStart={handleTouch}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        onFocus={handleMouseEnter}
+        onBlur={handleMouseLeave}
+        tabIndex={!isEditMode && isTruncated ? 0 : undefined}
+        className="relative cursor-pointer"
+        aria-label={isTruncated ? keyword : undefined}
+      >
         #{displayText}
         {showTooltip && (
-          <span className="absolute top-full left-1/2 z-20 mt-1 -translate-x-1/2 rounded bg-black/70 px-2 py-1 text-xs whitespace-nowrap text-white shadow-lg">
+          <span
+            role="tooltip"
+            className="absolute top-full left-1/2 z-20 mt-1 -translate-x-1/2 rounded bg-black/70 px-2 py-1 text-xs whitespace-nowrap text-white shadow-lg"
+          >
             #{keyword}
           </span>
         )}

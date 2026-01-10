@@ -12,18 +12,20 @@ const ApplyCompleteModal = ({ isOpen, onClose, postId }: ApplyCompleteModalProps
 
   const navigate = useRouter();
 
-  const handleClose = () => {
-    queryClient.invalidateQueries({ queryKey: ['project', postId] });
+  const handleClose = async () => {
+    if (postId != null) {
+      await queryClient.invalidateQueries({ queryKey: ['project', postId] });
+    }
     onClose();
   };
 
-  const handleClick = () => {
-    onClose();
+  const handleClick = async () => {
+    await handleClose();
     navigate.push('/mypage');
   };
 
   return (
-    <BaseModal isOpen={isOpen} onClose={onClose}>
+    <BaseModal isOpen={isOpen} onClose={handleClose}>
       <div className="desktop:w-115 flex flex-col items-center">
         <Image
           src={`/icons/gray_teamficial_symbol.svg`}
