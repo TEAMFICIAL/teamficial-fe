@@ -70,6 +70,13 @@ const KeywordPage = ({ share = false, uuid }: Props) => {
   const [showGuide, setShowGuide] = useState(false);
 
   useEffect(() => {
+    if (share) return;
+
+    const hide = localStorage.getItem('hideKeywordGuide');
+    if (!hide) setShowGuide(true);
+  }, [share]);
+
+  useEffect(() => {
     if (!share) {
       const hide = localStorage.getItem('hideKeywordGuide');
       if (!hide) setShowGuide(true);
@@ -153,7 +160,11 @@ const KeywordPage = ({ share = false, uuid }: Props) => {
   }
 
   return (
-    <div className="desktop:bg-gray-0 -mx-4 flex flex-col gap-5 bg-gray-50 px-4 pb-14">
+    <div
+      className={
+        `desktop:bg-gray-0 -mx-4 flex flex-col gap-5 bg-gray-50 px-4 pb-14 ` + (share ? 'mt-5' : '')
+      }
+    >
       {!share && showGuide && <KeywordGuideOverlay onClose={() => setShowGuide(false)} />}
       {/* 제목  */}
       <LogTitle

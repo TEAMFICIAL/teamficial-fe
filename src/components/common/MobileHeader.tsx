@@ -13,11 +13,11 @@ const MobileHeader = ({ title, progress }: MobileHeaderProps) => {
 
   return (
     <>
-      <header className="tablet:hidden bg-gray-0 w-full">
+      <header className="tablet:hidden bg-gray-0 relative z-50 w-full">
         <div className="mx-auto max-w-[1024px]">
           <div className="-mx-4 flex items-center px-4 py-3">
             <div className="flex flex-1">
-              <button onClick={() => router.back()} className="flex items-center">
+              <button onClick={() => router.back()} className="flex cursor-pointer items-center">
                 <Image src="/icons/header-arrow-left.svg" alt="back" width={30} height={30} />
               </button>
             </div>
