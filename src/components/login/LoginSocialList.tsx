@@ -1,6 +1,10 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import LoginSocial from './LoginSocial';
+import { getCookie } from '@/utils/cookie';
+
+type SocialType = 'kakao' | 'naver' | 'google';
 
 function handleKakaoLogin() {
   localStorage.removeItem('accessToken');
@@ -56,12 +60,29 @@ export const socialConfig = {
 };
 
 export default function LoginSocialList() {
-  const socials = Object.keys(socialConfig) as Array<keyof typeof socialConfig>;
+  const [lastLoginProvider, setLastLoginProvider] = useState<SocialType | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const lastProvider = getCookie('lastLoginProvider') as SocialType | null;
+      if (lastProvider && ['naver', 'kakao', 'google'].includes(lastProvider)) {
+        setLastLoginProvider(lastProvider);
+      }
+    }
+  }, []);
+
+  // 고정된 순서: 네이버, 카카오, 구글
+  const fixedOrder: SocialType[] = ['naver', 'kakao', 'google'];
 
   return (
     <div className="tablet:gap-4 mt-6 flex w-full flex-col items-center gap-2">
-      {socials.map((type) => (
-        <LoginSocial key={type} type={type} onClick={socialConfig[type].onClick} />
+      {fixedOrder.map((type) => (
+        <LoginSocial
+          key={type}
+          type={type}
+          onClick={socialConfig[type].onClick}
+          isRecentLogin={type === lastLoginProvider}
+        />
       ))}
     </div>
   );

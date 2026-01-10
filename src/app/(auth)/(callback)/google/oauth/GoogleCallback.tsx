@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import api from '@/libs/api/api';
 import { useUserStore } from '@/store/useUserStore';
+import { setCookie } from '@/utils/cookie';
 
 export default function GoogleCallbackClient() {
   const router = useRouter();
@@ -35,6 +36,7 @@ export default function GoogleCallbackClient() {
 
             localStorage.setItem('accessToken', accessToken);
             localStorage.setItem('refreshToken', refreshToken);
+            setCookie('lastLoginProvider', 'google', { expires: 365 });
             const redirectPath = localStorage.getItem('redirectAfterLogin');
             localStorage.removeItem('redirectAfterLogin');
 
