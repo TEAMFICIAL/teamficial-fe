@@ -143,7 +143,7 @@ const KeywordPage = ({ share = false, uuid }: Props) => {
     );
   };
 
-  if (isLoading && !keywordData) {
+  if (isLoading || !keywordData) {
     return <Loading />;
   }
 
