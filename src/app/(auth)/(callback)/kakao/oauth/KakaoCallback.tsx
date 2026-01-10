@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import api from '@/libs/api/api';
 import { useUserStore } from '@/store/useUserStore';
+import { setCookie } from '@/utils/cookie';
 
 export default function KakaoCallbackClient() {
   const router = useRouter();
@@ -35,6 +36,7 @@ export default function KakaoCallbackClient() {
 
             localStorage.setItem('accessToken', accessToken);
             localStorage.setItem('refreshToken', refreshToken);
+            setCookie('lastLoginProvider', 'kakao', { expires: 365 });
             const redirectPath = localStorage.getItem('redirectAfterLogin');
             localStorage.removeItem('redirectAfterLogin');
 
