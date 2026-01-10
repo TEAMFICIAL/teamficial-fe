@@ -5,9 +5,18 @@ import Button from '../common/button/Button';
 import BaseModal from './index';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { useQueryClient } from '@tanstack/react-query';
 
-const ApplyCompleteModal = ({ isOpen, onClose }: ApplyCompleteModalProps) => {
+const ApplyCompleteModal = ({ isOpen, onClose, postId }: ApplyCompleteModalProps) => {
+  const queryClient = useQueryClient();
+
   const navigate = useRouter();
+
+  const handleClose = () => {
+    queryClient.invalidateQueries({ queryKey: ['project', postId] });
+    onClose();
+  };
+
   const handleClick = () => {
     onClose();
     navigate.push('/mypage');
@@ -30,7 +39,7 @@ const ApplyCompleteModal = ({ isOpen, onClose }: ApplyCompleteModalProps) => {
         <div className="desktop:gap-2 flex w-full gap-1">
           <Button
             className="desktop:body-5 body-7 desktop:px-8 desktop:py-4 bg-gray-300 px-4 py-3 text-gray-800"
-            onClick={onClose}
+            onClick={handleClose}
           >
             닫기
           </Button>

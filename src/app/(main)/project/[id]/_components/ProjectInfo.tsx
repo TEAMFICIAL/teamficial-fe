@@ -7,7 +7,10 @@ import Profile1 from '@/components/profile/Profile1';
 import { useGetProject } from '@/hooks/queries/useProject';
 
 const ProjectInfo = ({ id }: { id: string }) => {
-  const { data } = useGetProject({ postId: Number(id) });
+  const { data } = useGetProject(
+    { postId: Number(id) },
+    { refetchOnMount: true, refetchOnWindowFocus: true },
+  );
   if (!data) return null;
 
   const sanitizedContent = DOMPurify.sanitize(data.content.replace(/<p><\/p>/g, '<p><br /></p>'));

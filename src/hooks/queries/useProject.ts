@@ -5,10 +5,14 @@ import { ResponseProject } from '@/types/project';
 import { PositionType } from '@/utils/position';
 import { useQuery } from '@tanstack/react-query';
 
-export const useGetProject = ({ postId }: { postId: number }) => {
+export const useGetProject = (
+  { postId }: { postId: number },
+  p0: { refetchOnMount: boolean; refetchOnWindowFocus: boolean },
+) => {
   return useQuery<ResponseProject>({
     queryKey: ['project', postId],
     queryFn: () => getSingleProject(postId),
+    ...p0,
   });
 };
 
