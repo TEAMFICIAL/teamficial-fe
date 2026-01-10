@@ -59,14 +59,25 @@ const ProfileCard = ({ profile }: ProfileCardProps) => {
               <span className="body-7 text-gray-900">{profile?.userName}님</span>
             </p>
             <div className="flex flex-wrap gap-1">
-              {profile?.headKeywords.map((keyword) => (
-                <span
-                  key={keyword}
-                  className="body-10 bg-gray-0 rounded-lg border border-gray-300 px-2 py-1 text-gray-600"
+              {profile?.headKeywords && profile?.headKeywords.length > 0 ? (
+                <div className="flex flex-wrap gap-1">
+                  {profile?.headKeywords.map((keyword) => (
+                    <span
+                      key={keyword}
+                      className="body-10 bg-gray-0 rounded-lg border border-gray-300 px-2 py-1 text-gray-600"
+                    >
+                      #{keyword}
+                    </span>
+                  ))}
+                </div>
+              ) : (
+                <Button
+                  onClick={() => router.push('/teampsylog')}
+                  className="border-primary-100 bg-primary-50 body-10 text-primary-900 border px-2 py-1 whitespace-nowrap"
                 >
-                  #{keyword}
-                </span>
-              ))}
+                  팀피셜록에서 대표 키워드 설정하러가기
+                </Button>
+              )}
             </div>
           </div>
           <div className="body-7 flex border-t border-gray-300 text-gray-800">
