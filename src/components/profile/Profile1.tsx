@@ -18,7 +18,7 @@ const Profile1 = ({ profileId }: { profileId: number }) => {
   return (
     <>
       {/* PC */}
-      <div className="desktop:flex hidden justify-between rounded-2xl border border-gray-400 px-14 py-8">
+      <div className="desktop:flex hidden justify-between rounded-2xl border border-gray-300 px-14 py-8">
         <div className="flex items-start gap-7">
           {/* 프로필 사진 */}
           <Image
