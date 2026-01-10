@@ -7,7 +7,6 @@ import { ReactNode } from 'react';
 
 // 오버레이 경로 패턴 정의
 const OVERLAY_ROUTES = [
-  /^\/teampsylog\/head\/[^/]+$/, // /teampsylog/head/:uuid
   /^\/question\/[^/]+$/, // /question/:uuid
   /^\/teampsylog\/[^/]+$/, // /teampsylog/:uuid
   /^\/teampsylog$/, // /teampsylog
