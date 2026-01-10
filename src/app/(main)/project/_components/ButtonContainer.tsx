@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import Button from '@/components/common/button/Button';
 import Toggle from '@/components/common/Toggle';
 import { DURATION_OPTIONS, RECRUIT_OPTIONS } from '@/constants/Dropdown';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import DropdownSmall from './Dropdown';
 
 type Filters = {
@@ -14,14 +14,15 @@ type Filters = {
 };
 
 type Props = {
+  filters?: Filters;
   onChange?: (filters: Filters) => void;
 };
 
-const ButtonContainer = ({ onChange }: Props) => {
+const ButtonContainer = ({ filters, onChange }: Props) => {
   const router = useRouter();
-  const [duration, setDuration] = useState('');
-  const [recruit, setRecruit] = useState('');
-  const [onlyOpen, setOnlyOpen] = useState(true);
+  const [duration, setDuration] = useState(filters?.duration ?? '');
+  const [recruit, setRecruit] = useState(filters?.recruit ?? '');
+  const [onlyOpen, setOnlyOpen] = useState(filters?.onlyOpen ?? true);
 
   const notifyChange = (updates: Partial<Filters>) => {
     const processedFilters = {
@@ -52,6 +53,15 @@ const ButtonContainer = ({ onChange }: Props) => {
     notifyChange({ onlyOpen: checked });
   };
 
+  // filters prop이 변경되면 내부 state 동기화
+  useEffect(() => {
+    if (filters) {
+      setDuration(filters.duration);
+      setRecruit(filters.recruit);
+      setOnlyOpen(filters.onlyOpen);
+    }
+  }, [filters]);
+
   const handleRecruitClick = () => {
     router.push('/recruit');
   };
@@ -79,7 +89,7 @@ const ButtonContainer = ({ onChange }: Props) => {
           className="tablet:flex bg-primary-900 body-5 text-gray-0 hover:bg-primary-700 hidden px-5 py-3"
           onClick={handleRecruitClick}
         >
-          팀원 모집하기
+          모집글 작성하기
         </Button>
       </div>
       <Toggle checked={onlyOpen} onChange={handleToggleChange} label="모집 중만 보기" />
