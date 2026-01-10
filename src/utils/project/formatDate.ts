@@ -16,8 +16,15 @@ export const formatDateDot = (dateString: string): string => {
   return `${year}.${month}.${day}`;
 };
 
-export const formatDday = (dday: number): string => {
-  if (dday > 0) return `D-${dday}`;
-  if (dday === 0) return 'D-DAY';
+export const formatDday = (dday: number | null | undefined): string => {
+  // NaN 체크
+  if (dday == null || isNaN(Number(dday))) {
+    return '마감';
+  }
+
+  const numDday = Number(dday);
+
+  if (numDday > 0) return `D-${numDday}`;
+  if (numDday === 0) return 'D-DAY';
   return '마감';
 };
