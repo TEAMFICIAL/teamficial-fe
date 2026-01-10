@@ -9,11 +9,20 @@ const EmptyMyTeam = () => {
           전체보기
         </Link>
       </div>
-      <div className="tablet:title-4 body-8 flex h-[187px] w-full max-w-[944px] items-center justify-center rounded-2xl bg-gray-200 p-2.5 text-center text-gray-600">
+      <div className="tablet:flex title-4 hidden h-[187px] w-full max-w-[944px] items-center justify-center rounded-2xl bg-gray-200 p-2.5 text-center text-gray-600">
         <span>
           누가 함께하게 될까요?
           <br />
           프로젝트에 지원해 팀에 들어가보세요!
+        </span>
+      </div>
+      <div className="tablet:hidden body-8 flex h-[164px] w-full max-w-[944px] items-center justify-center rounded-2xl bg-gray-200 p-2.5 text-center text-gray-600">
+        <span>
+          누가 함께하게 될까요?
+          <br />
+          프로젝트에 지원해 팀에
+          <br />
+          들어가보세요!
         </span>
       </div>
     </>

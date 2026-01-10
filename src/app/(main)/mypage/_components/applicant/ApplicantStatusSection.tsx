@@ -51,7 +51,7 @@ const ApplicantStatusSection = ({ recruitings }: ApplicantStatusSectionProps) =>
           <ApplicantStatusCard key={post.recruitingPostId} recruiting={post} />
         ))}
       </div>
-      <div className="tablet:hidden">
+      <div className="tablet:hidden mb-7">
         <div
           className="overflow-hidden"
           onTouchStart={onTouchStart}
@@ -70,7 +70,7 @@ const ApplicantStatusSection = ({ recruitings }: ApplicantStatusSectionProps) =>
           </div>
         </div>
         {displayApplicants.length > 1 && (
-          <div className="mt-3 mb-7 flex items-center justify-center gap-2">
+          <div className="mt-3 flex items-center justify-center gap-2">
             {displayApplicants.map((_, i) => (
               <button
                 key={i}

@@ -53,7 +53,7 @@ const MyTeamSection = ({ teams }: MyTeamSectionProps) => {
           ))}
         </div>
       </div>
-      <div className="tablet:hidden">
+      <div className="tablet:hidden mb-7">
         <div
           className="overflow-hidden"
           onTouchStart={onTouchStart}
@@ -72,7 +72,7 @@ const MyTeamSection = ({ teams }: MyTeamSectionProps) => {
           </div>
         </div>
         {displayTeams.length > 1 && (
-          <div className="mt-3 mb-7 flex items-center justify-center gap-2">
+          <div className="mt-3 flex items-center justify-center gap-2">
             {displayTeams.map((_, i) => (
               <button
                 key={i}

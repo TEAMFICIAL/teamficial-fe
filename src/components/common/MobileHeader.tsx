@@ -22,7 +22,7 @@ const MobileHeader = ({ title, progress }: MobileHeaderProps) => {
               </button>
             </div>
             <div className="flex flex-1 justify-center">
-              <span className="body-5 text-center">{title}</span>
+              <span className="body-5 truncate text-center">{title}</span>
             </div>
             <div className="flex-1"></div>
           </div>

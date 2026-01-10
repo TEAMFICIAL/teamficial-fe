@@ -26,7 +26,7 @@ const Banner = () => {
     <>
       <style>{`
         .banner-responsive {
-          background-image: url('/icons/banner-mobile.svg');
+          background-image: url('/icons/banner-mobile.png');
         }
         @media (min-width: 640px) {
           .banner-responsive {
