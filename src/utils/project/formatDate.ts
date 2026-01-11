@@ -1,7 +1,7 @@
 export const parseDate = (dateString: string): Date | null => {
   if (!dateString) return null;
 
-  const isoString = dateString.replace(/\./g, '-').replace(' ', 'T');
+  const isoString = dateString.replace(/\./g, '-').replace(/ /g, 'T');
 
   const date = new Date(isoString);
 
