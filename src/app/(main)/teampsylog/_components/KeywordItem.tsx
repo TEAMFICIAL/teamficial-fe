@@ -31,9 +31,14 @@ const KeywordItem = ({
     handleTouch,
   } = useTruncatedTooltip({ text: keyword, maxLength, isMobile: isMobileDevice });
 
-  const handleFocus = (e: React.FocusEvent<HTMLSpanElement>) =>
-    handleMouseEnter(e as unknown as React.MouseEvent<HTMLSpanElement>);
-  const handleBlur = () => handleMouseLeave();
+  const handleFocus = () => {
+    if (!isMobileDevice && isTruncated) {
+      handleMouseEnter(undefined as unknown as React.MouseEvent<HTMLElement>);
+    }
+  };
+  const handleBlur = () => {
+    handleMouseLeave();
+  };
 
   return (
     <div
