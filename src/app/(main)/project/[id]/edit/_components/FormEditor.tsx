@@ -9,7 +9,11 @@ type Props = {
 };
 
 const FormEditor = ({ postId }: Props) => {
-  const { data: projectData, isLoading, isError } = useGetProject({ postId });
+  const {
+    data: projectData,
+    isLoading,
+    isError,
+  } = useGetProject({ postId }, { refetchOnMount: false, refetchOnWindowFocus: false });
 
   if (isLoading) {
     return (

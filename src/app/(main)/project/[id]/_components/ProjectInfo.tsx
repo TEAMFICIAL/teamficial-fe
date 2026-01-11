@@ -7,13 +7,22 @@ import Profile1 from '@/components/profile/Profile1';
 import { useGetProject } from '@/hooks/queries/useProject';
 
 const ProjectInfo = ({ id }: { id: string }) => {
-  const { data } = useGetProject({ postId: Number(id) });
+  const { data } = useGetProject(
+    { postId: Number(id) },
+    { refetchOnMount: true, refetchOnWindowFocus: true },
+  );
   if (!data) return null;
 
-  const sanitizedContent = DOMPurify.sanitize(data.content);
+  const sanitizedContent = DOMPurify.sanitize(data.content.replace(/<p><\/p>/g, '<p><br /></p>'));
+  const isWriter = data.writer;
 
   return (
-    <div className="desktop:bg-gray-0 desktop:pb-14 mx-[-16px] min-h-[calc(100vh-72px)] bg-gray-100 px-4 pb-5">
+    <div
+      className={
+        `desktop:bg-gray-0 desktop:pb-14 desktop:mb-0 mx-[-16px] min-h-[calc(100vh-72px)] bg-gray-100 px-4 pb-5 ` +
+        (!isWriter ? 'mb-22' : '')
+      }
+    >
       <ProjectTitle {...data} />
       <div className="desktop:gap-4 flex flex-col gap-3">
         <InfoCard {...data} />

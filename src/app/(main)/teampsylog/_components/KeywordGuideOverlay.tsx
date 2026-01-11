@@ -47,7 +47,7 @@ const KeywordGuideOverlay = ({ onClose }: Props) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <div className="fixed inset-0 z-[9999] flex justify-center bg-black/70">
+    <div className="fixed inset-0 z-[9999] flex h-dvh justify-center bg-black/70">
       {/* desktop */}
       <div className="desktop:block relative mx-auto hidden w-[1024px]">
         <div className="mt-[25px] flex justify-center">

@@ -28,18 +28,29 @@ const KeywordPage = ({ share = false, uuid }: Props) => {
   const hasAlerted = useRef(false);
 
   useEffect(() => {
-    if (share || hasAlerted.current) return;
+    if (!_hasHydrated) return;
+    if (hasAlerted.current) return;
 
-    if (_hasHydrated && !checkIsLoggedIn(userName)) {
+    // 로그인 체크
+    const loggedIn = checkIsLoggedIn(userName);
+
+    if (!loggedIn) {
       hasAlerted.current = true;
       addToast({
         type: 'error',
         title: '로그인이 필요합니다.',
         message: '로그인 페이지로 이동합니다.',
       });
+
+      // 현재 경로 저장
+      if (typeof window !== 'undefined') {
+        const currentPath = window.location.pathname;
+        localStorage.setItem('redirectAfterLogin', currentPath);
+      }
+
       router.replace('/login');
     }
-  }, [share, _hasHydrated, userName, router, addToast]);
+  }, [_hasHydrated, userName, router, addToast]);
 
   // 공유 모드: uuid가 있을 때만 실행
   const requesterInfoResult = useRequesterInfo(uuid ?? '', { enabled: share && !!uuid });
@@ -70,9 +81,11 @@ const KeywordPage = ({ share = false, uuid }: Props) => {
   const [showGuide, setShowGuide] = useState(false);
 
   useEffect(() => {
-    if (!share) {
-      const hide = localStorage.getItem('hideKeywordGuide');
-      if (!hide) setShowGuide(true);
+    if (share) return;
+
+    const hide = localStorage.getItem('hideKeywordGuide');
+    if (!hide) {
+      setShowGuide(true);
     }
   }, [share]);
 
@@ -83,16 +96,16 @@ const KeywordPage = ({ share = false, uuid }: Props) => {
   });
 
   useEffect(() => {
-    if (!share) {
-      try {
-        const userString = localStorage.getItem('user');
-        if (!userString) return;
-        const userData = JSON.parse(userString);
-        const userId = userData?.state?.userId;
-        if (userId) setLocalUserId(userId);
-      } catch {
-        setLocalUserId(null);
-      }
+    if (share) return;
+
+    try {
+      const userString = localStorage.getItem('user');
+      if (!userString) return;
+      const userData = JSON.parse(userString);
+      const userId = userData?.state?.userId;
+      if (userId) setLocalUserId(userId);
+    } catch {
+      setLocalUserId(null);
     }
   }, [share]);
 
@@ -143,19 +156,30 @@ const KeywordPage = ({ share = false, uuid }: Props) => {
     );
   };
 
-  if (isLoading && !keywordData) {
+  // hydration 완료 대기 중이면 Loading 표시
+  if (!_hasHydrated) {
     return <Loading />;
   }
 
-  // 로그인되지 않은 상태라면 null 반환 (깜빡임 방지)
-  if (!share && _hasHydrated && !checkIsLoggedIn(userName)) {
-    return null;
+  // 로그인되지 않았으면 Loading 표시 (리다이렉트 대기)
+  if (!checkIsLoggedIn(userName)) {
+    return <Loading />;
+  }
+
+  // 데이터 로딩 중
+  if (isLoading || !keywordData) {
+    return <Loading />;
   }
 
   return (
-    <div className="desktop:bg-gray-0 -mx-4 flex flex-col gap-5 bg-gray-50 px-4 pb-14">
+    <div
+      className={
+        `desktop:bg-gray-0 -mx-4 flex flex-col gap-5 bg-gray-50 px-4 pb-14 ` + (share ? 'mt-5' : '')
+      }
+    >
       {!share && showGuide && <KeywordGuideOverlay onClose={() => setShowGuide(false)} />}
-      {/* 제목  */}
+
+      {/* 제목 */}
       <LogTitle
         profiles={
           share
@@ -179,7 +203,8 @@ const KeywordPage = ({ share = false, uuid }: Props) => {
             : profiles
         }
       />
-      {/* 키워드 별 대표키워드, 수정하기, 공유하기 */}
+
+      {/* 키워드 바 */}
       {selectedProfileId !== null && (
         <KeywordBar
           profileId={selectedProfileId}
@@ -204,4 +229,5 @@ const KeywordPage = ({ share = false, uuid }: Props) => {
     </div>
   );
 };
+
 export default KeywordPage;

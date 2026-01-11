@@ -4,11 +4,12 @@ import ProfileLinkButton from './ProfileLinkButton';
 import Image from 'next/image';
 import { useGetProfile } from '@/hooks/queries/useProfile';
 import { useModal } from '@/contexts/ModalContext';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 const Profile1 = ({ profileId }: { profileId: number }) => {
   const { openModal } = useModal();
   const { data } = useGetProfile({ profileId });
+  const router = useRouter();
   if (!data) return null;
 
   const handleOpenDetailModal = () => {
@@ -18,7 +19,7 @@ const Profile1 = ({ profileId }: { profileId: number }) => {
   return (
     <>
       {/* PC */}
-      <div className="desktop:flex hidden justify-between rounded-2xl border border-gray-400 px-14 py-8">
+      <div className="desktop:flex hidden justify-between rounded-2xl border border-gray-300 px-14 py-8">
         <div className="flex items-start gap-7">
           {/* 프로필 사진 */}
           <Image
@@ -96,9 +97,12 @@ const Profile1 = ({ profileId }: { profileId: number }) => {
             상세보기
           </button>
           <div className="w-[1px] bg-gray-300"></div>
-          <Link href={`/teampsylog/${data.uuid}`} className="flex-1 py-3 text-center">
+          <button
+            className="flex-1 py-3 text-center"
+            onClick={() => router.push(`/teampsylog/${data.uuid}`)}
+          >
             전체 키워드 보기
-          </Link>
+          </button>
         </div>
       </div>
     </>

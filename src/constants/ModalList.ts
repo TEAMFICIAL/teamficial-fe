@@ -38,6 +38,7 @@ export interface ApplyModalProps extends BaseModalProps {
 
 export interface ApplyCompleteModalProps extends BaseModalProps {
   projectName?: string;
+  postId?: number;
 }
 
 export interface DeleteModalProps extends BaseModalProps {

@@ -68,7 +68,7 @@ const ApplyModalMo = ({ isOpen, onClose, postId, recruitingPositions }: ApplyMod
     applicateProject(applicationData, {
       onSuccess: () => {
         handleClose();
-        openModal('applyComplete');
+        openModal('applyComplete', { postId });
       },
       onError: (error) => {
         console.error('Failed to apply for project:', error);

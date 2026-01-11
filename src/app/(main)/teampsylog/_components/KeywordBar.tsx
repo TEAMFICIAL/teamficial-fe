@@ -118,6 +118,9 @@ const KeywordBar = ({
                 height={28}
               />
             </button>
+            <button onClick={handleShare} className="cursor-pointer">
+              <Image src="/icons/share-black.svg" alt="공유하기" width={28} height={28} />
+            </button>
           </div>
         </div>
         <div className="flex items-center gap-1">
@@ -129,6 +132,7 @@ const KeywordBar = ({
               isSelected={selectedSlot === index}
               isPlaceholder={index >= headKeywords.length}
               onClick={() => isEditMode && onSelectSlot(index)}
+              isMobileDevice={true}
             />
           ))}
         </div>

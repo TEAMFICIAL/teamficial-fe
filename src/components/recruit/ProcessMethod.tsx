@@ -17,6 +17,7 @@ const ProcessMethod = ({ control }: Props) => {
       <Controller
         name="progressWay"
         control={control}
+        defaultValue="ONLINE"
         render={({ field: { value, onChange } }) => (
           <div className="flex flex-col gap-2">
             <div className="desktop:gap-6 desktop:flex-row flex flex-col gap-4">
