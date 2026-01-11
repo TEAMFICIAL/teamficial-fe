@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from 'react';
-import { useState } from 'react';
+import React from 'react';
+import { useTruncatedTooltip } from '@/hooks/useTruncatedTooltip';
 
 interface KeywordItemProps {
   keyword: string;
@@ -10,8 +10,6 @@ interface KeywordItemProps {
   isMobileDevice?: boolean;
 }
 
-const getTextLengthWithoutSpaces = (text: string) => text.replace(/\s/g, '').length;
-
 const KeywordItem = ({
   keyword,
   isEditMode = false,
@@ -20,64 +18,17 @@ const KeywordItem = ({
   onClick,
   isMobileDevice = false,
 }: KeywordItemProps) => {
-  const [showTooltip, setShowTooltip] = useState(false);
-
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-  useEffect(() => {
-    return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-    };
-  }, []);
-
-  const limit = isMobileDevice ? 5 : 9999;
-  const textLength = getTextLengthWithoutSpaces(keyword);
-  const isTruncated = textLength > limit;
-  let displayText = keyword;
-  if (isMobileDevice && isTruncated) {
-    // 띄어쓰기 제외 5글자 제한
-    let count = 0;
-    displayText = '';
-    for (let i = 0; i < keyword.length; i++) {
-      if (keyword[i] !== ' ') count++;
-      if (count > limit) {
-        displayText += '...';
-        break;
-      }
-      displayText += keyword[i];
-    }
-  }
-
-  const handleMouseEnter = () => {
-    if (!isEditMode && isTruncated) {
-      setShowTooltip(true);
-    }
-  };
-
-  const handleMouseLeave = () => {
-    if (!isEditMode && isTruncated) {
-      setShowTooltip(false);
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-        timeoutRef.current = null;
-      }
-    }
-  };
-
-  const handleTouch = () => {
-    if (!isEditMode && isMobileDevice && isTruncated) {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-      setShowTooltip(true);
-      timeoutRef.current = setTimeout(() => {
-        setShowTooltip(false);
-        timeoutRef.current = null;
-      }, 1500);
-    }
-  };
+  // limit: 모바일 5, 데스크탑 9999 (사실상 무제한)
+  const maxLength = isMobileDevice ? 5 : 9999;
+  const {
+    ref: spanRef,
+    showTooltip,
+    displayText,
+    isTruncated,
+    handleMouseEnter,
+    handleMouseLeave,
+    handleTouch,
+  } = useTruncatedTooltip({ text: keyword, maxLength, isMobile: isMobileDevice });
 
   return (
     <div
@@ -95,11 +46,12 @@ const KeywordItem = ({
       } `}
     >
       <span
-        onTouchStart={handleTouch}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        onFocus={handleMouseEnter}
-        onBlur={handleMouseLeave}
+        ref={spanRef as React.RefObject<HTMLSpanElement>}
+        onTouchStart={handleTouch as React.TouchEventHandler<HTMLSpanElement>}
+        onMouseEnter={handleMouseEnter as React.MouseEventHandler<HTMLSpanElement>}
+        onMouseLeave={handleMouseLeave as React.MouseEventHandler<HTMLSpanElement>}
+        onFocus={handleMouseEnter as React.FocusEventHandler<HTMLSpanElement>}
+        onBlur={handleMouseLeave as React.FocusEventHandler<HTMLSpanElement>}
         tabIndex={!isEditMode && isTruncated ? 0 : undefined}
         className="relative cursor-pointer"
         aria-label={isTruncated ? keyword : undefined}
