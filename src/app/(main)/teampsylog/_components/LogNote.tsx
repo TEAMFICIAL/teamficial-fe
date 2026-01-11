@@ -146,32 +146,13 @@ const LogNote = ({
             >
               <Image src="/icons/page-after.svg" alt="다음 페이지" width={32} height={32} />
             </button>
-            {data?.totalElements === 0 ? null : isEditMode ? (
-              <>
-                <Image
-                  src="/icons/gray_teamficial_symbol.svg"
-                  alt="teamficial_symbol"
-                  width={66}
-                  height={67}
-                />
-                <p className="body-3 text-center whitespace-pre-line text-gray-500">
-                  {selectedSlot !== null
-                    ? `변경할 키워드를 선택하세요`
-                    : '변경할 대표키워드를\n먼저 선택하세요'}
-                </p>
-              </>
-            ) : !selectedKeywordId ? (
-              <>
-                <Image
-                  src="/icons/gray_teamficial_symbol.svg"
-                  alt="teamficial_symbol"
-                  width={66}
-                  height={67}
-                />
-                <p className="body-3 text-center whitespace-pre-line text-gray-500">
-                  키워드를 선택해 자세한 내용을 확인하세요
-                </p>
-              </>
+            {!selectedKeywordId ? (
+              <Image
+                src="/icons/teamficial-keyword.svg"
+                alt="teamficial_symbol"
+                width={161}
+                height={94}
+              />
             ) : (
               <CommentPage
                 keywordName={keywords[keywordIds.findIndex((id) => id === selectedKeywordId)] ?? ''}
