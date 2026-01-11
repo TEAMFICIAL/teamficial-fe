@@ -20,6 +20,7 @@ const KeywordItem = ({
 }: KeywordItemProps) => {
   // limit: 모바일 5, 데스크탑 9999 (사실상 무제한)
   const maxLength = isMobileDevice ? 5 : 9999;
+
   const {
     ref: spanRef,
     showTooltip,
@@ -29,6 +30,10 @@ const KeywordItem = ({
     handleMouseLeave,
     handleTouch,
   } = useTruncatedTooltip({ text: keyword, maxLength, isMobile: isMobileDevice });
+
+  const handleFocus = (e: React.FocusEvent<HTMLSpanElement>) =>
+    handleMouseEnter(e as unknown as React.MouseEvent<HTMLSpanElement>);
+  const handleBlur = () => handleMouseLeave();
 
   return (
     <div
@@ -50,8 +55,8 @@ const KeywordItem = ({
         onTouchStart={handleTouch as React.TouchEventHandler<HTMLSpanElement>}
         onMouseEnter={handleMouseEnter as React.MouseEventHandler<HTMLSpanElement>}
         onMouseLeave={handleMouseLeave as React.MouseEventHandler<HTMLSpanElement>}
-        onFocus={handleMouseEnter as React.FocusEventHandler<HTMLSpanElement>}
-        onBlur={handleMouseLeave as React.FocusEventHandler<HTMLSpanElement>}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
         tabIndex={!isEditMode && isTruncated ? 0 : undefined}
         className="relative cursor-pointer"
         aria-label={isTruncated ? keyword : undefined}
