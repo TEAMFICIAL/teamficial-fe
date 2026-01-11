@@ -3,20 +3,25 @@ import React from 'react';
 interface KeywordGuideBalloonProps {
   position: 'top' | 'bottom';
   onClose: () => void;
+  text?: string;
 }
 
-const KeywordGuideBalloon: React.FC<KeywordGuideBalloonProps> = ({ position, onClose }) => {
+const KeywordGuideBalloon: React.FC<KeywordGuideBalloonProps> = ({
+  position,
+  onClose,
+  text = '변경할 대표 키워드를\n먼저 선택하세요',
+}) => {
   return (
     <div
-      className={`absolute left-1/3 z-50 flex max-w-[180px] min-w-[120px] -translate-x-1/2 items-center rounded bg-gray-800 px-4 py-2 text-white shadow-lg ${
+      className={`absolute left-1/2 z-50 flex -translate-x-1/2 items-center rounded bg-gray-800 px-4 py-2 text-white shadow-lg ${
         position === 'top' ? 'bottom-full mb-1.5' : 'top-full mt-1.5'
       }`}
     >
-      <div className="relative flex min-h-6 w-full items-center justify-between gap-1">
-        <span className="body-10 desktop:body-8">변경할 대표 키워드를 먼저 선택하세요</span>
+      <div className="relative flex min-h-6 items-center justify-between gap-2">
+        <span className="body-10 desktop:body-8 text-start whitespace-pre-line">{text}</span>
         <button
           onClick={onClose}
-          className="ml-1 flex h-4 w-4 items-center justify-center p-0 text-base text-white/70 hover:text-white focus:outline-none"
+          className="flex h-4 w-4 flex-shrink-0 items-center justify-center p-0 text-base text-white/70 hover:text-white focus:outline-none"
         >
           ✕
         </button>

@@ -8,6 +8,7 @@ import AllKeyword from './AllKeyword';
 import Loading from '@/components/common/Loading';
 import ErrorDisplay from '@/components/common/Error';
 import BottomComment from './BottomComment';
+import KeywordGuideBalloon from './KeywordGuideBalloon';
 
 const LogNote = ({
   userId,
@@ -24,6 +25,7 @@ const LogNote = ({
 }) => {
   const [page, setPage] = useState(0);
   const [isMobileSheetOpen, setIsMobileSheetOpen] = useState(false);
+  const [showGuide, setShowGuide] = useState(false);
 
   const { data, isLoading, isError } = useGetKeywordList({
     userId: userId ?? 0,
@@ -41,6 +43,14 @@ const LogNote = ({
   useEffect(() => {
     setSelectedKeywordId(null);
   }, [page]);
+
+  useEffect(() => {
+    if (isEditMode && selectedSlot !== null) {
+      setShowGuide(true);
+    } else {
+      setShowGuide(false);
+    }
+  }, [isEditMode, selectedSlot]);
 
   const handleKeywordClick = (keywordId: number) => {
     if (isEditMode && selectedSlot !== null) {
@@ -67,6 +77,16 @@ const LogNote = ({
         <section className="relative flex justify-center">
           {/* 왼쪽 페이지 */}
           <div className="desktop:h-162 desktop:gap-[13px] desktop:rounded-r-none relative flex h-100 w-118 flex-col items-center justify-center gap-2 rounded-l-2xl rounded-r-2xl bg-gray-100 shadow-[0_4px_7.1px_0_#E1E1E1]">
+            {showGuide && (
+              <div className="desktop:left-3/4 desktop:top-60 absolute top-12 left-1/2 z-50 min-w-100 -translate-x-1/2">
+                <KeywordGuideBalloon
+                  position="top"
+                  onClose={() => setShowGuide(false)}
+                  text={`변경할 키워드를\n선택하세요`}
+                />
+              </div>
+            )}
+
             <button
               onClick={() => setPage((p) => Math.max(0, p - 1))}
               disabled={page === 0}
