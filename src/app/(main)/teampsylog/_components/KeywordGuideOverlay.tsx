@@ -78,7 +78,7 @@ const KeywordGuideOverlay = ({ onClose }: Props) => {
         </label>
       </div>
       {/* mobile */}
-      <div className="desktop:hidden relative mx-auto flex min-h-screen w-full flex-col">
+      <div className="desktop:hidden relative mx-auto flex min-h-[100dvh] w-full flex-col">
         <div className="mt-[25px] flex justify-center">
           <Swiper
             spaceBetween={0}

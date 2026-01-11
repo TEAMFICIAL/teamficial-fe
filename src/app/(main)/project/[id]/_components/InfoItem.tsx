@@ -18,7 +18,7 @@ const InfoItem = ({ label, value, className = '' }: InfoItemProps) => {
             href={value}
             target="_blank"
             rel="noopener noreferrer"
-            className="body-4 text-primary-900 line-clamp-1 break-all underline"
+            className="desktop:body-4 body-8 text-primary-900 line-clamp-1 break-all underline"
             title={value}
           >
             {value}
