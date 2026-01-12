@@ -59,23 +59,27 @@ const KeywordGuideOverlay = ({ onClose }: Props) => {
             className="ml-[50px]"
           />
         </div>
-
-        <label className="pointer-events-auto absolute right-[55px] bottom-[80px] flex cursor-pointer items-center gap-2">
-          <input
-            type="checkbox"
-            checked={checked}
-            onChange={handleClick}
-            className="sr-only"
-            aria-label="튜토리얼 다시 보지 않기"
-          />
-          <div
-            className={`h-4 w-4 border border-white transition-colors ${
-              checked ? 'bg-white' : 'bg-transparent'
-            }`}
-            aria-hidden="true"
-          />
-          <span className="body-5 text-gray-0">다시보지않기</span>
-        </label>
+        <div className="absolute bottom-0 flex w-full flex-col items-center justify-center gap-3 pb-10">
+          <Button onClick={onClose} className="bg-primary-900 body-3 text-gray-0 px-6 py-3">
+            튜토리얼 마치기
+          </Button>
+          <label className="pointer-events-auto flex cursor-pointer items-center gap-2">
+            <input
+              type="checkbox"
+              checked={checked}
+              onChange={handleClick}
+              className="sr-only"
+              aria-label="튜토리얼 다시 보지 않기"
+            />
+            <div
+              className={`h-4 w-4 border border-white transition-colors ${
+                checked ? 'bg-white' : 'bg-transparent'
+              }`}
+              aria-hidden="true"
+            />
+            <span className="body-5 text-gray-0">다시보지않기</span>
+          </label>
+        </div>
       </div>
       {/* mobile */}
       <div className="desktop:hidden relative mx-auto flex min-h-screen w-full flex-col">
