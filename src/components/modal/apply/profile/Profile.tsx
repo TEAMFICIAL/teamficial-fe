@@ -1,0 +1,117 @@
+import ProfileLinkButton from '@/app/(main)/mypage/_components/profile/ProfileLinkButton';
+import Button from '@/components/common/button/Button';
+import ProfileTag from '@/components/profile/ProfileTag';
+import { ApplicationResponse } from '@/types/application';
+import Image from 'next/image';
+
+interface ProfileCardProps {
+  profile: ApplicationResponse;
+  profilePosition?: string;
+}
+
+const Profile = ({ profile, profilePosition }: ProfileCardProps) => {
+  return (
+    <>
+      {/* desktop */}
+      <div className="desktop:flex mb-10 hidden w-135 justify-between gap-1 rounded-lg border border-gray-300 p-6">
+        <div className="flex items-start gap-4">
+          <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-1">
+              <div className="flex gap-2">
+                <p className="body-5">{profile.profile.userName}</p>
+                {profilePosition && (
+                  <div className="body-9 inline-flex rounded-[4px] bg-gray-200 px-2 py-0.5 text-gray-700">
+                    {profilePosition}
+                  </div>
+                )}
+              </div>
+              <div className="flex flex-col gap-1">
+                <div className="flex items-center gap-2">
+                  <p className="body-8 text-gray-800">연락수단</p>
+                  <div className="h-3 w-[1px] bg-gray-700" />
+                  <p className="body-8 text-gray-700">팀원이 되면 공개해요</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <p className="body-8 text-gray-800">작업시간</p>
+                  <div className="h-3 w-[1px] bg-gray-700" />
+                  <p className="body-8 text-gray-700">
+                    {profile.profile.workingTime
+                      ? `${profile.profile.workingTime}에 작업하는 게 편해요`
+                      : '작업시간을 등록하지 않았어요'}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="flex min-w-0 flex-1 flex-wrap gap-1.5">
+              {profile.profile.headKeywords.map((keyword) => (
+                <ProfileTag key={keyword}>{keyword}</ProfileTag>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div className="flex flex-shrink-0 flex-col justify-between">
+          <div className="flex items-start justify-end gap-4">
+            {profile.profile.links &&
+              profile.profile.links.length > 0 &&
+              profile.profile.links.map((link, index) => (
+                <ProfileLinkButton key={index} link={link} />
+              ))}
+          </div>
+          <Button
+            className="bg-primary-900 body-9 text-gray-0 px-4 py-2"
+            onClick={() => {
+              window.open(`/teampsylog/${profile.profile.uuid}`, '_blank');
+            }}
+          >
+            전체 키워드 보기
+          </Button>
+        </div>
+      </div>
+      {/* mobile */}
+      <div className="desktop:hidden flex flex-col items-center gap-6 rounded-lg py-6">
+        <div className="flex flex-col items-center gap-4">
+          <div className="flex flex-col items-center gap-2">
+            <Image
+              src={profile.profile.profileImageUrl || '/icons/profile.svg'}
+              className="h-15 w-15 rounded-full object-cover"
+              alt="profile"
+              width={90}
+              height={90}
+            />
+            <p className="body-7">{profile.profile.userName}</p>
+            <div className="flex flex-wrap gap-1">
+              {profile.profile.headKeywords.map((keyword) => (
+                <ProfileTag key={keyword}>{keyword}</ProfileTag>
+              ))}
+            </div>
+          </div>
+          <div className="flex flex-col gap-1">
+            <div className="flex items-center gap-1.5">
+              <p className="body-7 text-gray-800">연락수단</p>
+              <div className="h-3 w-[1px] bg-gray-700" />
+              <p className="body-8 text-gray-700">팀원이 되면 공개해요</p>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <p className="body-7 text-gray-800">작업시간</p>
+              <div className="h-3 w-[1px] bg-gray-700" />
+              <p className="body-8 text-gray-700">
+                {profile.profile.workingTime
+                  ? `${profile.profile.workingTime}에 작업하는 게 편해요`
+                  : '작업시간을 등록하지 않았어요'}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className="flex items-start justify-end gap-6">
+          {profile.profile.links &&
+            profile.profile.links.length > 0 &&
+            profile.profile.links.map((link, index) => (
+              <ProfileLinkButton key={index} link={link} />
+            ))}
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default Profile;
