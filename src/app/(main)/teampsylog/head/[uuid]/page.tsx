@@ -29,14 +29,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   return {
-    title: `${userName}님의 팀피셜록을 작성해볼까요?`,
+    title: `${userName}님의 팀피셜록`,
     description: `소프트스킬 팀빌딩 서비스, 팀피셜`,
     openGraph: {
       title: `${userName}님의 팀피셜록을 작성해볼까요?`,
       description: `소프트스킬 팀빌딩 서비스, 팀피셜`,
       images: [
         {
-          url: '/og/Teamficial_metatag_Image.jpg',
+          url: 'https://www.teamficial.com/og/Teamficial_metatag_Image.jpg',
           width: 1200,
           height: 630,
         },
