@@ -3,10 +3,10 @@ import { redirect } from 'next/navigation';
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: `소프트스킬 팀빌딩 서비스, 팀피셜`,
+    title: `TEAMFICIAL`,
     description: `소프트스킬 팀빌딩 서비스, 팀피셜`,
     openGraph: {
-      title: `소프트스킬 팀빌딩 서비스, 팀피셜`,
+      title: `TEAMFICIAL`,
       description: `소프트스킬 팀빌딩 서비스, 팀피셜`,
       images: [
         {
