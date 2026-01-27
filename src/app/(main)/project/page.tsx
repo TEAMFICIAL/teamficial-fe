@@ -28,7 +28,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description: `소프트스킬 팀빌딩 서비스, 팀피셜`,
       images: [
         {
-          url: '/og/Teamficial_metatag_Image.jpg',
+          url: 'https://www.teamficial.com/og/Teamficial_metatag_Image.jpg',
           width: 1200,
           height: 630,
         },
