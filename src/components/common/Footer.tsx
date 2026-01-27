@@ -3,6 +3,7 @@ import Image from 'next/image';
 const Footer = () => {
   return (
     <>
+      {/* 모바일 */}
       <footer className="desktop:hidden">
         <div className="-mx-4 flex flex-col gap-4 bg-gray-200 py-6">
           <div className="body-9 flex justify-between px-4">
@@ -22,28 +23,45 @@ const Footer = () => {
               <a>서비스이용약관</a>
             </div>
           </div>
-          <div className="flex justify-between px-4">
+          <div className="flex items-center justify-between px-4">
             <div>
               <p className="body-11 text-gray-500">Teamficial@gmail.com</p>
               <p className="body-11 text-gray-500">© 2025.Teamficial. ALL rights reserved.</p>
             </div>
-            <a
-              href="https://www.instagram.com/teamficial.official/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="인스타그램"
-            >
-              <Image
-                src="/icons/mobile-instagram.svg"
-                alt="instagram"
-                width={24}
-                height={24}
-                className="justify-end"
-              />
-            </a>
+            <div className="flex gap-2">
+              <a
+                href="https://www.instagram.com/teamficial.official/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="인스타그램"
+              >
+                <Image
+                  src="/icons/mobile-instagram.svg"
+                  alt="instagram"
+                  width={24}
+                  height={24}
+                  className="justify-end"
+                />
+              </a>
+              <a
+                href="https://www.threads.com/@teamficial.official"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="쓰레드"
+              >
+                <Image
+                  src="/icons/mobile-thread.svg"
+                  alt="thread"
+                  width={24}
+                  height={24}
+                  className="justify-end"
+                />
+              </a>
+            </div>
           </div>
         </div>
       </footer>
+      {/* 데스크탑 */}
       <footer className="desktop:flex mx-auto hidden w-full justify-center bg-gray-600 px-10 pb-10">
         <div className="flex w-[944px] items-center justify-between">
           <div className="body-6 flex flex-col text-gray-100">
@@ -63,6 +81,14 @@ const Footer = () => {
                 aria-label="인스타그램"
               >
                 <Image src="/icons/instagram.svg" alt="instagram" width={24} height={24} />
+              </a>
+              <a
+                href="https://www.threads.com/@teamficial.official"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="쓰레드"
+              >
+                <Image src="/icons/thread.svg" alt="thread" width={24} height={24} />
               </a>
             </div>
             <div className="body-7 flex gap-4 text-gray-100">
