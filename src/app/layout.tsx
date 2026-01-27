@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
+import { GoogleTagManager } from '@next/third-parties/google';
 import './globals.css';
 import { ModalProvider } from '@/contexts/ModalContext';
 import Providers from './provider';
@@ -33,6 +34,7 @@ export default function RootLayout({
             <ModalProvider>{children}</ModalProvider>
           </ToastProvider>
         </Providers>
+        <GoogleTagManager gtmId="GTM-5KPSS9WV" />
       </body>
     </html>
   );
