@@ -17,6 +17,25 @@ import Loading from '@/components/common/Loading';
 import ErrorDisplay from '@/components/common/Error';
 import Button from '@/components/common/button/Button';
 import { useInView } from 'react-intersection-observer';
+import { Metadata } from 'next';
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: `소프트스킬 팀빌딩 서비스, 팀피셜`,
+    description: `소프트스킬 팀빌딩 서비스, 팀피셜`,
+    openGraph: {
+      title: `소프트스킬 팀빌딩 서비스, 팀피셜`,
+      description: `소프트스킬 팀빌딩 서비스, 팀피셜`,
+      images: [
+        {
+          url: '/og/Teamficial_metatag_Image.jpg',
+          width: 1200,
+          height: 630,
+        },
+      ],
+    },
+  };
+}
 
 const Page = () => {
   const router = useRouter();
