@@ -20,6 +20,7 @@ import ApplyModalMo from '@/components/modal/apply/ApplyModalMo';
 import { RequestReportComment } from '@/types/teampsylog';
 import ReportCommentModal from '@/components/modal/ReportCommentModal';
 import ReportCompleteModal from '@/components/modal/ReportCompleteModal';
+import ReportErrorModal from '@/components/modal/ReportErrorModal';
 
 export interface BaseModalProps {
   isOpen: boolean;
@@ -126,6 +127,7 @@ export const MODAL_COMPONENTS = {
   notFinish: NotFinishModal,
   reportComment: ReportCommentModal,
   reportComplete: ReportCompleteModal,
+  reportError: ReportErrorModal,
 };
 
 export type ModalType = keyof typeof MODAL_COMPONENTS;
@@ -149,4 +151,5 @@ export interface ModalPropsMap {
   notFinish: BaseModalProps;
   reportComment: ReportCommentModalProps;
   reportComplete: ReportCompleteModalProps;
+  reportError: BaseModalProps;
 }
