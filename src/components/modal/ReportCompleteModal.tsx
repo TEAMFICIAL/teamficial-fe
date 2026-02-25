@@ -6,23 +6,26 @@ import BaseModal from './index';
 import Image from 'next/image';
 import { usePostReportComment } from '@/hooks/mutation/useReportComment';
 import { useToast } from '@/contexts/ToastContext';
+import { useModal } from '@/contexts/ModalContext';
 
 const ReportCompleteModal = ({ isOpen, onClose, data }: ReportCompleteModalProps) => {
+  const { openModal } = useModal();
   const { addToast } = useToast();
   const handleCancelClick = () => {
     onClose();
   };
 
-  const { mutate: reportComment } = usePostReportComment();
+  const { mutate: reportComment, isPending } = usePostReportComment();
 
   const handleSubmitClick = () => {
+    if (isPending) return;
     reportComment(data, {
       onSuccess: () => {
         addToast({ message: '신고가 접수되었습니다.' });
         onClose();
       },
       onError: () => {
-        addToast({ type: 'error', message: '신고 접수에 실패했습니다. 다시 시도해주세요.' });
+        openModal('reportError');
       },
     });
   };
@@ -45,14 +48,20 @@ const ReportCompleteModal = ({ isOpen, onClose, data }: ReportCompleteModalProps
           <Button
             className="desktop:px-8 body-5 desktop:py-4 bg-gray-300 px-4 py-3 text-gray-800"
             onClick={handleCancelClick}
+            disabled={isPending}
           >
             취소하기
           </Button>
           <Button
             className="text-gray-0 body-5 desktop:py-4 desktop:px-27.75 flex-1 bg-red-100 py-3"
             onClick={handleSubmitClick}
+            disabled={isPending}
           >
-            신고하기
+            {isPending ? (
+              <span className="border-gray-0 inline-block h-5 w-5 animate-spin rounded-full border-2 border-t-transparent" />
+            ) : (
+              '신고하기'
+            )}
           </Button>
         </div>
       </div>
