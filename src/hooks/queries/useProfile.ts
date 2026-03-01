@@ -9,10 +9,11 @@ export const useGetProfile = ({ profileId }: { profileId: number }) => {
   });
 };
 
-export const useGetProfileList = () => {
+export const useGetProfileList = (enabled?: boolean) => {
   return useQuery<ResponseProfile[]>({
     queryKey: ['profile'],
     queryFn: () => getProfileList(),
+    enabled,
   });
 };
 

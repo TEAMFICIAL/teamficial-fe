@@ -31,26 +31,27 @@ const KeywordPage = ({ share = false, uuid }: Props) => {
     if (!_hasHydrated) return;
     if (hasAlerted.current) return;
 
-    // 로그인 체크
-    const loggedIn = checkIsLoggedIn(userName);
+    // 일반 모드: 로그인 체크
+    if (!share) {
+      const loggedIn = checkIsLoggedIn(userName);
+      if (!loggedIn) {
+        hasAlerted.current = true;
+        addToast({
+          type: 'error',
+          title: '로그인이 필요합니다.',
+          message: '로그인 페이지로 이동합니다.',
+        });
 
-    if (!loggedIn) {
-      hasAlerted.current = true;
-      addToast({
-        type: 'error',
-        title: '로그인이 필요합니다.',
-        message: '로그인 페이지로 이동합니다.',
-      });
+        // 현재 경로 저장
+        if (typeof window !== 'undefined') {
+          const currentPath = window.location.pathname;
+          localStorage.setItem('redirectAfterLogin', currentPath);
+        }
 
-      // 현재 경로 저장
-      if (typeof window !== 'undefined') {
-        const currentPath = window.location.pathname;
-        localStorage.setItem('redirectAfterLogin', currentPath);
+        router.replace('/login');
       }
-
-      router.replace('/login');
     }
-  }, [_hasHydrated, userName, router, addToast]);
+  }, [_hasHydrated, userName, router, addToast, share]);
 
   // 공유 모드: uuid가 있을 때만 실행
   const requesterInfoResult = useRequesterInfo(uuid ?? '', { enabled: share && !!uuid });
@@ -62,7 +63,8 @@ const KeywordPage = ({ share = false, uuid }: Props) => {
   const { data: sharedProfiles } = useGetUuidProfileList(uuid ?? '');
 
   // 일반 모드
-  const { data: myProfiles } = useGetProfileList();
+  const isAuthenticated = _hasHydrated && checkIsLoggedIn(userName);
+  const { data: myProfiles } = useGetProfileList(!share && isAuthenticated);
   // share 모드에 따라 프로필 결정
   const profiles = useMemo(() => {
     if (share) {
@@ -162,7 +164,8 @@ const KeywordPage = ({ share = false, uuid }: Props) => {
   }
 
   // 로그인되지 않았으면 Loading 표시 (리다이렉트 대기)
-  if (!checkIsLoggedIn(userName)) {
+  if (!share && !checkIsLoggedIn(userName)) {
+    console.log('User not logged in, waiting for redirect...');
     return <Loading />;
   }
 
