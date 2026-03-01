@@ -63,8 +63,8 @@ const KeywordPage = ({ share = false, uuid }: Props) => {
   const { data: sharedProfiles } = useGetUuidProfileList(uuid ?? '');
 
   // 일반 모드
-  const { data: myProfiles } = useGetProfileList(!share);
-
+  const isAuthenticated = _hasHydrated && checkIsLoggedIn(userName);
+  const { data: myProfiles } = useGetProfileList(!share && isAuthenticated);
   // share 모드에 따라 프로필 결정
   const profiles = useMemo(() => {
     if (share) {
