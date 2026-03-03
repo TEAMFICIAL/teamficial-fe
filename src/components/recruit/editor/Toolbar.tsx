@@ -187,11 +187,17 @@ const Toolbar = ({ editor, onLinkButtonClick }: ToolbarProps) => {
           chain.insertTable({ rows: 3, cols, withHeaderRow: true }).run();
 
           requestAnimationFrame(() => {
-            const dom = editor.view.dom as HTMLElement;
-            const cols_el = dom.querySelectorAll('table colgroup col');
-            if (!cols_el.length) return;
-            const equalWidth = Math.floor(100 / cols);
-            cols_el.forEach((col) => {
+            const { from } = editor.state.selection;
+            const domAtPos = editor.view.domAtPos(from).node;
+            const anchor = domAtPos instanceof Element ? domAtPos : domAtPos.parentElement;
+            const table = anchor?.closest('table');
+            if (!table) return;
+
+            const colsEl = table.querySelectorAll(':scope > colgroup > col');
+            if (!colsEl.length) return;
+
+            const equalWidth = 100 / cols;
+            colsEl.forEach((col) => {
               (col as HTMLElement).style.width = `${equalWidth}%`;
             });
           });

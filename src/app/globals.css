@@ -297,25 +297,36 @@ body {
 .ProseMirror table {
   table-layout: fixed;
   width: 100%;
-  min-width: 100%; /* 추가 */
 }
 
 .ProseMirror table colgroup col {
-  min-width: 40px; /* 열이 너무 좁아지는 것 방지 */
 }
 
 .ProseMirror table td,
 .ProseMirror table th {
   overflow: hidden;
   overflow-wrap: anywhere;
+  min-width: 120px;
 }
 
 .table-mobile-handle {
   display: none;
 }
+
 @media (max-width: 640px) {
   .table-mobile-handle {
     display: flex;
+  }
+}
+
+@media (max-width: 640px) {
+  .ProseMirror table {
+    width: 100%;
+    table-layout: auto;
+  }
+
+  .column-resize-handle {
+    display: none;
   }
 }
 

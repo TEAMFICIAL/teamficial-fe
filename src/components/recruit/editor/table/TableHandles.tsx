@@ -21,7 +21,8 @@ interface HandleInfo {
 interface DragState {
   type: 'row' | 'col';
   fromIndex: number;
-  toIndex: number; // hover 중인 대상 인덱스
+  toIndex: number;
+  tableEl: HTMLTableElement; // 추가
 }
 
 export const TableHandles = ({ editor }: Props) => {
@@ -48,18 +49,22 @@ export const TableHandles = ({ editor }: Props) => {
     };
   }, []);
 
+  // 선택 위치를 기반으로 현재 활성화된 표 구하기
+  const getActiveTable = useCallback((): HTMLTableElement | null => {
+    const { from } = editor.state.selection;
+    const domAtPos = editor.view.domAtPos(from).node;
+    const anchor = domAtPos instanceof Element ? domAtPos : domAtPos.parentElement;
+    return (anchor?.closest('table') as HTMLTableElement) ?? null;
+  }, [editor]);
+
   // 테이블 DOM에서 행/열 핸들 위치 계산
 
   const computeHandles = useCallback(() => {
-    const dom = editor.view.dom as HTMLElement;
-    const tables = dom.querySelectorAll('table');
-    if (!tables.length) {
+    const table = getActiveTable();
+    if (!table) {
       setHandles([]);
       return;
     }
-
-    // 첫 번째 테이블만 처리
-    const table = tables[0] as HTMLTableElement;
     const tableRect = table.getBoundingClientRect();
     const newHandles: HandleInfo[] = [];
 
@@ -91,7 +96,7 @@ export const TableHandles = ({ editor }: Props) => {
     }
 
     setHandles(newHandles);
-  }, [editor]);
+  }, [editor, getActiveTable]);
 
   // 에디터 업데이트 / 스크롤 시 핸들 재계산
   useEffect(() => {
@@ -165,17 +170,21 @@ export const TableHandles = ({ editor }: Props) => {
       e.stopPropagation();
 
       isDragging.current = false;
-
-      // 해당 행/열에 커서 이동 (메뉴 명령 기준 위치 설정)
       focusCell(editor, handle.type, handle.index);
 
-      // 롱프레스 타이머 (300ms)
       longPressTimer.current = setTimeout(() => {
         isDragging.current = true;
-        setDrag({ type: handle.type, fromIndex: handle.index, toIndex: handle.index });
+        const table = getActiveTable(); // 드래그 시작 시점 테이블 고정
+        if (!table) return;
+        setDrag({
+          type: handle.type,
+          fromIndex: handle.index,
+          toIndex: handle.index,
+          tableEl: table,
+        });
       }, 300);
     },
-    [editor],
+    [editor, getActiveTable],
   );
 
   const handleMouseUp = useCallback(
@@ -387,9 +396,15 @@ const DragHighlightOverlay = ({
 
   const isRow = drag.type === 'row';
 
-  // 테이블 전체 rect 구하기
-  const dom = editor.view.dom as HTMLElement;
-  const table = dom.querySelector('table');
+  // 선택 위치를 기반으로 현재 활성화된 표 구하기
+  const getActiveTableElement = (): HTMLTableElement | null => {
+    const { from } = editor.state.selection;
+    const domAtPos = editor.view.domAtPos(from).node;
+    const anchor = domAtPos instanceof Element ? domAtPos : domAtPos.parentElement;
+    return (anchor?.closest('table') as HTMLTableElement) ?? null;
+  };
+
+  const table = drag.tableEl;
   if (!table) return null;
   const tableRect = table.getBoundingClientRect();
 
@@ -418,40 +433,51 @@ const DragHighlightOverlay = ({
 
 function focusCell(editor: Editor, type: 'row' | 'col', index: number) {
   const { state, view } = editor;
-  const { doc } = state;
-  let targetPos: number | null = null;
 
-  doc.descendants((node, pos) => {
-    if (targetPos !== null) return false;
-    if (node.type.name === 'table') {
-      let rowIdx = 0;
-      node.forEach((rowNode, rowOffset) => {
-        if (targetPos !== null) return;
-        if (type === 'row' && rowIdx === index) {
-          // 해당 행 첫 번째 셀
-          targetPos = pos + rowOffset + 2;
-        }
-        if (type === 'col') {
-          let colIdx = 0;
-          rowNode.forEach((cellNode, cellOffset) => {
-            if (targetPos !== null) return;
-            if (rowIdx === 0 && colIdx === index) {
-              targetPos = pos + rowOffset + cellOffset + 2;
-            }
-            colIdx++;
-          });
-        }
-        rowIdx++;
-      });
-      return false;
+  // 현재 커서가 있는 테이블 노드와 위치를 먼저 찾기
+  const { $from } = state.selection;
+  let tablePos: number | null = null;
+  let tableNode = null;
+
+  for (let depth = $from.depth; depth > 0; depth--) {
+    if ($from.node(depth).type.name === 'table') {
+      tablePos = $from.before(depth);
+      tableNode = $from.node(depth);
+      break;
     }
+  }
+
+  if (tablePos === null || !tableNode) return;
+
+  let targetPos: number | null = null;
+  let rowIdx = 0;
+
+  tableNode.forEach((rowNode, rowOffset) => {
+    if (targetPos !== null) return;
+    if (type === 'row' && rowIdx === index) {
+      targetPos = tablePos! + rowOffset + 2;
+    }
+    if (type === 'col') {
+      let colIdx = 0;
+      rowNode.forEach((_, cellOffset) => {
+        if (targetPos !== null) return;
+        if (rowIdx === 0 && colIdx === index) {
+          targetPos = tablePos! + rowOffset + cellOffset + 2;
+        }
+        colIdx++;
+      });
+    }
+    rowIdx++;
   });
 
   if (targetPos !== null) {
-    const tr = state.tr.setSelection(
-      state.selection.constructor.prototype.constructor.near(state.doc.resolve(targetPos)),
-    );
-    view.dispatch(tr);
+    try {
+      const resolvedPos = state.doc.resolve(targetPos);
+      const selection = (state.selection.constructor as any).near(resolvedPos);
+      view.dispatch(state.tr.setSelection(selection));
+    } catch {
+      // silent
+    }
   }
 }
 
@@ -466,18 +492,14 @@ function clearHighlights(editor: Editor) {
 
 function applyDragHighlight(editor: Editor, drag: DragState) {
   clearHighlights(editor);
-  const dom = editor.view.dom as HTMLElement;
-  const table = dom.querySelector('table');
+  const table = drag.tableEl; // 고정된 테이블 사용
   if (!table) return;
 
   if (drag.type === 'row') {
-    const rows = table.querySelectorAll('tr');
-    rows[drag.fromIndex]?.classList.add('table-drag-highlight');
+    table.querySelectorAll('tr')[drag.fromIndex]?.classList.add('table-drag-highlight');
   } else {
-    const rows = table.querySelectorAll('tr');
-    rows.forEach((row) => {
-      const cells = row.querySelectorAll('th, td');
-      cells[drag.fromIndex]?.classList.add('table-drag-highlight');
+    table.querySelectorAll('tr').forEach((row) => {
+      row.querySelectorAll('th, td')[drag.fromIndex]?.classList.add('table-drag-highlight');
     });
   }
 }
