@@ -33,7 +33,9 @@ export function moveTableRow(editor: Editor, fromIndex: number, toIndex: number)
     return false;
 
   const rowNodes: PmNode[] = [];
-  tableNode.forEach((row) => rowNodes.push(row));
+  tableNode.forEach((row) => {
+    rowNodes.push(row);
+  });
   const reordered = [...rowNodes];
   const [removed] = reordered.splice(fromIndex, 1);
   reordered.splice(toIndex, 0, removed);
@@ -56,7 +58,9 @@ export function moveTableCol(editor: Editor, fromCol: number, toCol: number): bo
   const newRows: PmNode[] = [];
   tableNode.forEach((rowNode) => {
     const cells: PmNode[] = [];
-    rowNode.forEach((cell) => cells.push(cell));
+    rowNode.forEach((cell) => {
+      cells.push(cell);
+    });
     const reordered = [...cells];
     const [removed] = reordered.splice(fromCol, 1);
     reordered.splice(toCol, 0, removed);
