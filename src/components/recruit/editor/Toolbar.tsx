@@ -173,6 +173,50 @@ const Toolbar = ({ editor, onLinkButtonClick }: ToolbarProps) => {
           className="h-6 w-6"
         />
       </button>
+      <button
+        type="button"
+        onClick={() => {
+          // 표 안에 있으면 삽입 막기
+          if (editor.isActive('table')) return;
+
+          const cols = 3;
+          const chain = editor.chain().focus() as ReturnType<typeof editor.chain> & {
+            insertTable: (opts: { rows: number; cols: number; withHeaderRow: boolean }) => any;
+          };
+
+          chain.insertTable({ rows: 3, cols, withHeaderRow: true }).run();
+
+          requestAnimationFrame(() => {
+            const { from } = editor.state.selection;
+            const domAtPos = editor.view.domAtPos(from).node;
+            const anchor = domAtPos instanceof Element ? domAtPos : domAtPos.parentElement;
+            const table = anchor?.closest('table');
+            if (!table) return;
+
+            const colsEl = table.querySelectorAll(':scope > colgroup > col');
+            if (!colsEl.length) return;
+
+            const equalWidth = 100 / cols;
+            colsEl.forEach((col) => {
+              (col as HTMLElement).style.width = `${equalWidth}%`;
+            });
+          });
+        }}
+        title="표 삽입"
+        className="cursor-pointer transition-opacity hover:opacity-80"
+      >
+        <Image
+          src={
+            editor.isActive('table')
+              ? '/icons/editor/table-selected.svg'
+              : '/icons/editor/table.svg'
+          }
+          alt="Table"
+          width={24}
+          height={24}
+          className="h-6 w-6"
+        />
+      </button>
     </div>
   );
 };
