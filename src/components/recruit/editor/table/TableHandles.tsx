@@ -39,6 +39,15 @@ export const TableHandles = ({ editor }: Props) => {
   const longPressTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isDragging = useRef(false);
 
+  useEffect(() => {
+    return () => {
+      if (longPressTimer.current) {
+        clearTimeout(longPressTimer.current);
+        longPressTimer.current = null;
+      }
+    };
+  }, []);
+
   // 테이블 DOM에서 행/열 핸들 위치 계산
 
   const computeHandles = useCallback(() => {
