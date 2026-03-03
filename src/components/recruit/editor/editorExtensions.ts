@@ -1,12 +1,31 @@
 import StarterKit from '@tiptap/starter-kit';
 import Link from '@tiptap/extension-link';
 import Placeholder from '@tiptap/extension-placeholder';
+import { TableKit } from '@tiptap/extension-table';
 
 export const getEditorExtensions = () => [
   StarterKit.configure({
     link: false,
     bulletList: { HTMLAttributes: { class: 'list-disc ml-4' } },
     orderedList: { HTMLAttributes: { class: 'list-decimal ml-4' } },
+  }),
+  TableKit.configure({
+    table: {
+      resizable: true,
+      HTMLAttributes: {
+        class: 'border-collapse w-full my-4',
+      },
+    },
+    tableCell: {
+      HTMLAttributes: {
+        class: 'border border-gray-300 px-3 py-2 text-left',
+      },
+    },
+    tableHeader: {
+      HTMLAttributes: {
+        class: 'border border-gray-300 px-3 py-2 bg-gray-100 font-semibold text-left',
+      },
+    },
   }),
   Link.configure({
     autolink: true,
@@ -20,7 +39,13 @@ export const getEditorExtensions = () => [
     validate: (href) => /^(https?:\/\/|mailto:|tel:|www\.)/i.test(href),
   }),
   Placeholder.configure({
-    placeholder: ({ node }) => {
+    placeholder: ({ node, pos, editor }) => {
+      const resolvedPos = editor.state.doc.resolve(pos);
+      const parent = resolvedPos.parent;
+      if (parent.type.name === 'tableCell' || parent.type.name === 'tableHeader') {
+        return '';
+      }
+
       if (node.type.name === 'paragraph') {
         return [
           '*최소 50자 이상부터 작성 가능해요',

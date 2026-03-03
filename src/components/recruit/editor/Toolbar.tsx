@@ -173,6 +173,31 @@ const Toolbar = ({ editor, onLinkButtonClick }: ToolbarProps) => {
           className="h-6 w-6"
         />
       </button>
+      <button
+        type="button"
+        onClick={() => {
+          const cols = 3;
+          const chain = editor.chain().focus() as ReturnType<typeof editor.chain> & {
+            insertTable: (opts: { rows: number; cols: number; withHeaderRow: boolean }) => any;
+          };
+
+          chain.insertTable({ rows: 3, cols, withHeaderRow: true }).run();
+
+          requestAnimationFrame(() => {
+            const dom = editor.view.dom as HTMLElement;
+            const cols_el = dom.querySelectorAll('table colgroup col');
+            if (!cols_el.length) return;
+            const equalWidth = Math.floor(100 / cols);
+            cols_el.forEach((col) => {
+              (col as HTMLElement).style.width = `${equalWidth}%`;
+            });
+          });
+        }}
+        title="표 삽입"
+        className="cursor-pointer transition-opacity hover:opacity-80"
+      >
+        <p>{editor.isActive('table') ? 'o' : 'x'}</p>
+      </button>
     </div>
   );
 };
