@@ -30,6 +30,12 @@ export const TableHandles = ({ editor }: Props) => {
   const [menu, setMenu] = useState<HandleMenuState | null>(null);
   const [drag, setDrag] = useState<DragState | null>(null);
 
+  const [mobileCell, setMobileCell] = useState<{
+    rect: DOMRect;
+    rowIndex: number;
+    colIndex: number;
+  } | null>(null);
+
   const longPressTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isDragging = useRef(false);
 
@@ -80,7 +86,38 @@ export const TableHandles = ({ editor }: Props) => {
 
   // 에디터 업데이트 / 스크롤 시 핸들 재계산
   useEffect(() => {
-    const update = () => computeHandles();
+    const update = () => {
+      computeHandles();
+
+      // 모바일 셀 위치 계산
+      const { $from } = editor.state.selection;
+      for (let depth = $from.depth; depth > 0; depth--) {
+        const node = $from.node(depth);
+        if (node.type.name === 'tableCell' || node.type.name === 'tableHeader') {
+          const domNode = editor.view.nodeDOM($from.before(depth));
+          if (!(domNode instanceof HTMLElement)) {
+            setMobileCell(null);
+            return;
+          }
+
+          const tableNode = $from.node(depth - 2);
+          const rowNode = $from.node(depth - 1);
+          let rowIndex = 0;
+          let colIndex = 0;
+          tableNode.forEach((row, _, i) => {
+            if (row === rowNode) rowIndex = i;
+          });
+          rowNode.forEach((cell, _, i) => {
+            if (cell === node) colIndex = i;
+          });
+
+          setMobileCell({ rect: domNode.getBoundingClientRect(), rowIndex, colIndex });
+          return;
+        }
+      }
+      setMobileCell(null);
+    };
+
     editor.on('update', update);
     editor.on('selectionUpdate', update);
     window.addEventListener('scroll', update, true);
@@ -231,10 +268,28 @@ export const TableHandles = ({ editor }: Props) => {
                 'flex h-5 w-4 cursor-grab items-center justify-center rounded transition-all',
                 isDragTarget ? 'bg-primary-100 opacity-100' : '',
                 isDragSource ? 'opacity-40' : '',
+                // PC: hover 시만 표시 / 모바일: mobileCell의 행일 때만 표시
                 !isDragTarget && !isDragSource
-                  ? 'opacity-0 group-hover:opacity-100 hover:bg-gray-100'
+                  ? mobileCell?.rowIndex === h.index
+                    ? 'tablet:opacity-0 tablet:group-hover:opacity-100 opacity-100 hover:bg-gray-100'
+                    : 'opacity-0 group-hover:opacity-100 hover:bg-gray-100'
                   : '',
               ].join(' ')}
+              onPointerDown={
+                mobileCell?.rowIndex === h.index
+                  ? (e) => {
+                      if (e.pointerType === 'touch') {
+                        e.preventDefault();
+                        setMenu({
+                          type: 'row',
+                          index: h.index,
+                          x: h.rect.right + 4,
+                          y: h.rect.top,
+                        });
+                      }
+                    }
+                  : undefined
+              }
             >
               <DragIcon />
             </div>
@@ -271,9 +326,26 @@ export const TableHandles = ({ editor }: Props) => {
                 isDragTarget ? 'bg-primary-100 opacity-100' : '',
                 isDragSource ? 'opacity-40' : '',
                 !isDragTarget && !isDragSource
-                  ? 'opacity-0 group-hover:opacity-100 hover:bg-gray-100'
+                  ? mobileCell?.colIndex === h.index
+                    ? 'tablet:opacity-0 tablet:group-hover:opacity-100 opacity-100 hover:bg-gray-100'
+                    : 'opacity-0 group-hover:opacity-100 hover:bg-gray-100'
                   : '',
               ].join(' ')}
+              onPointerDown={
+                mobileCell?.colIndex === h.index
+                  ? (e) => {
+                      if (e.pointerType === 'touch') {
+                        e.preventDefault();
+                        setMenu({
+                          type: 'col',
+                          index: h.index,
+                          x: h.rect.left,
+                          y: h.rect.bottom + 4,
+                        });
+                      }
+                    }
+                  : undefined
+              }
             >
               <DragIcon rotate />
             </div>
