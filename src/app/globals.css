@@ -299,9 +299,6 @@ body {
   width: 100%;
 }
 
-.ProseMirror table colgroup col {
-}
-
 .ProseMirror table td,
 .ProseMirror table th {
   overflow: hidden;
