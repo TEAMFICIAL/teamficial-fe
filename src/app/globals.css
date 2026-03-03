@@ -262,6 +262,55 @@ body {
   word-break: break-all;
 }
 
+.table-drag-highlight {
+  opacity: 0.4;
+  background-color: rgb(var(--color-primary-100) / 0.3);
+}
+
+.selectedCell {
+  background-color: rgb(0 0 0 / 0.05);
+}
+
+/* 테이블 컬럼 리사이즈 핸들 */
+.column-resize-handle {
+  position: absolute;
+  right: -2px;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background-color: transparent;
+  cursor: col-resize;
+  z-index: 20;
+  transition: background-color 0.15s;
+}
+
+.column-resize-handle:hover,
+.resize-cursor .column-resize-handle {
+  background-color: rgb(0 0 0 / 0.2);
+}
+
+/* 리사이즈 중 커서 전체 적용 */
+.resize-cursor {
+  cursor: col-resize;
+}
+
+.ProseMirror table {
+  table-layout: fixed;
+  width: 100%;
+  min-width: 100%; /* 추가 */
+}
+
+.ProseMirror table colgroup col {
+  min-width: 40px; /* 열이 너무 좁아지는 것 방지 */
+}
+
+.ProseMirror table td,
+.ProseMirror table th {
+  overflow: hidden;
+  word-break: break-word;
+  /* width: auto 제거 — col이 제어하도록 */
+}
+
 /* slide-up 애니메이션 */
 @keyframes slide-up {
   from {
