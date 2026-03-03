@@ -176,6 +176,9 @@ const Toolbar = ({ editor, onLinkButtonClick }: ToolbarProps) => {
       <button
         type="button"
         onClick={() => {
+          // 표 안에 있으면 삽입 막기
+          if (editor.isActive('table')) return;
+
           const cols = 3;
           const chain = editor.chain().focus() as ReturnType<typeof editor.chain> & {
             insertTable: (opts: { rows: number; cols: number; withHeaderRow: boolean }) => any;
