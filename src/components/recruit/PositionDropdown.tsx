@@ -55,7 +55,7 @@ export default function PositionDropdown({
           {isPlaceholder ? placeholder : selected?.label}
         </span>
         <Image
-          src={open ? '/icons/arrow-up-gray.svg' : '/icons/arrow-down-gray.svg'}
+          src={open ? '/icons/question_gray_up.svg' : '/icons/question_gray_down.svg'}
           alt=""
           width={20}
           height={20}

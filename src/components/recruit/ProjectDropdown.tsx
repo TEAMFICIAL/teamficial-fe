@@ -72,7 +72,7 @@ const ProjectDropdown = ({
           <span className="body-7 desktop:body-5">{selectedLabel}</span>
         )}
         <Image
-          src={open ? '/icons/arrow-up-gray.svg' : '/icons/arrow-down-gray.svg'}
+          src={open ? '/icons/question_gray_up.svg' : '/icons/question_gray_down.svg'}
           alt={open ? '드롭다운 열림' : '드롭다운 닫힘'}
           width={24}
           height={24}
