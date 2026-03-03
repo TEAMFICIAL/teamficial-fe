@@ -196,7 +196,17 @@ const Toolbar = ({ editor, onLinkButtonClick }: ToolbarProps) => {
         title="표 삽입"
         className="cursor-pointer transition-opacity hover:opacity-80"
       >
-        <p>{editor.isActive('table') ? 'o' : 'x'}</p>
+        <Image
+          src={
+            editor.isActive('table')
+              ? '/icons/editor/table-selected.svg'
+              : '/icons/editor/table.svg'
+          }
+          alt="Table"
+          width={24}
+          height={24}
+          className="h-6 w-6"
+        />
       </button>
     </div>
   );
