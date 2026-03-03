@@ -307,8 +307,7 @@ body {
 .ProseMirror table td,
 .ProseMirror table th {
   overflow: hidden;
-  word-break: break-word;
-  /* width: auto 제거 — col이 제어하도록 */
+  overflow-wrap: anywhere;
 }
 
 .table-mobile-handle {
