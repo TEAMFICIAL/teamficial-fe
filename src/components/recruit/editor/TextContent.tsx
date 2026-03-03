@@ -81,7 +81,9 @@ const TextContent = ({ control, name = 'content' }: Props) => {
         className={`desktop:px-8 desktop:pb-9 flex flex-col rounded-2xl border-1 border-gray-300 px-6 pt-4 pb-7`}
       >
         <Toolbar editor={editor} onLinkButtonClick={() => handleLink(editor)} />
-        <EditorContent editor={editor} className="mt-7" />
+        <div className="tablet:overflow-visible mt-7 overflow-x-auto">
+          <EditorContent editor={editor} />
+        </div>
         <p className={`body-8 self-end ${textLength < 50 ? 'text-red-100' : 'text-gray-600'}`}>
           {textLength}
         </p>

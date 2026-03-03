@@ -11,7 +11,7 @@ export const getEditorExtensions = () => [
   }),
   TableKit.configure({
     table: {
-      resizable: true,
+      resizable: false,
       HTMLAttributes: {
         class: 'border-collapse w-full my-4',
       },

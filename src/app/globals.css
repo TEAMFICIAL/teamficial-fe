@@ -311,6 +311,34 @@ body {
   /* width: auto 제거 — col이 제어하도록 */
 }
 
+.table-mobile-handle {
+  display: none;
+}
+@media (max-width: 640px) {
+  .table-mobile-handle {
+    display: flex;
+  }
+}
+
+/* 모바일 테이블 가로 스크롤 */
+@media (max-width: 640px) {
+  .ProseMirror table {
+    width: 100%;
+    table-layout: auto;
+  }
+
+  .ProseMirror td,
+  .ProseMirror th {
+    min-width: 120px;
+  }
+}
+
+@media (max-width: 640px) {
+  .column-resize-handle {
+    display: none;
+  }
+}
+
 /* slide-up 애니메이션 */
 @keyframes slide-up {
   from {

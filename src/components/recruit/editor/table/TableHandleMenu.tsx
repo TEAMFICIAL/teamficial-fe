@@ -74,9 +74,13 @@ export const TableHandleMenu = ({ editor, menu, onClose }: Props) => {
     >
       {isRow ? (
         <>
-          <Item onClick={() => run(() => editor.chain().focus().addRowBefore().run())}>
-            위에 행 추가
-          </Item>
+          {!isHeader && (
+            <>
+              <Item onClick={() => run(() => editor.chain().focus().addRowBefore().run())}>
+                위에 행 추가
+              </Item>
+            </>
+          )}
           <Item onClick={() => run(() => editor.chain().focus().addRowAfter().run())}>
             아래에 행 추가
           </Item>
@@ -88,6 +92,10 @@ export const TableHandleMenu = ({ editor, menu, onClose }: Props) => {
               </Item>
             </>
           )}
+          <div className="my-1 h-px bg-gray-100" />
+          <Item onClick={() => run(() => editor.chain().focus().deleteTable().run())} danger>
+            표 삭제
+          </Item>
         </>
       ) : (
         <>
@@ -100,6 +108,10 @@ export const TableHandleMenu = ({ editor, menu, onClose }: Props) => {
           <div className="my-1 h-px bg-gray-100" />
           <Item onClick={() => run(() => editor.chain().focus().deleteColumn().run())} danger>
             열 삭제
+          </Item>
+          <div className="my-1 h-px bg-gray-100" />
+          <Item onClick={() => run(() => editor.chain().focus().deleteTable().run())} danger>
+            표 삭제
           </Item>
         </>
       )}

@@ -77,6 +77,7 @@ export const TableBubbleMenu = ({ editor }: Props) => {
     <BubbleMenu
       editor={editor}
       shouldShow={({ editor }) => {
+        if (typeof window !== 'undefined' && window.innerWidth < 640) return false;
         const { selection } = editor.state;
         return selection instanceof CellSelection;
       }}
@@ -101,7 +102,7 @@ export const TableBubbleMenu = ({ editor }: Props) => {
         <Sep />
 
         {/* 행 조작 */}
-        <Btn onClick={() => editor.chain().focus().addRowBefore().run()}>
+        <Btn onClick={() => editor.chain().focus().addRowBefore().run()} disabled={isHeader}>
           <IcRowBefore /> 위에 행
         </Btn>
         <Btn onClick={() => editor.chain().focus().addRowAfter().run()}>
