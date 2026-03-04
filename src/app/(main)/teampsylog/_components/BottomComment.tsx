@@ -43,6 +43,8 @@ const BottomComment = ({ isOpen, onClose, children }: BottomSheetProps) => {
           height: '70vh',
           maxHeight: '70vh',
           overscrollBehavior: 'contain',
+          display: 'flex',
+          flexDirection: 'column',
           transform: isDragging
             ? `translateY(${dragCurrentY}px)`
             : isOpen && !isClosing
@@ -63,7 +65,10 @@ const BottomComment = ({ isOpen, onClose, children }: BottomSheetProps) => {
         >
           <div className="h-[3px] w-9.5 rounded-full bg-gray-400" />
         </div>
-        <div className="h-full overflow-y-auto pb-5" style={{ overscrollBehavior: 'contain' }}>
+        <div
+          className="min-h-0 flex-1 overflow-y-auto pb-5"
+          style={{ overscrollBehavior: 'contain' }}
+        >
           {children}
         </div>
       </div>
