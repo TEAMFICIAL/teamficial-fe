@@ -38,8 +38,8 @@ const BottomComment = ({ isOpen, onClose, children }: BottomSheetProps) => {
       <div
         className="desktop:hidden fixed inset-x-0 bottom-0 z-50 rounded-t-2xl bg-gray-200"
         style={{
-          height: '80vh',
-          maxHeight: '80vh',
+          height: '70vh',
+          maxHeight: '70vh',
           transform: isDragging
             ? `translateY(${dragCurrentY}px)`
             : isOpen && !isClosing
