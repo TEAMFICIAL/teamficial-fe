@@ -10,6 +10,8 @@ interface BottomSheetProps {
 }
 
 const BottomComment = ({ isOpen, onClose, children }: BottomSheetProps) => {
+  const sheetHeight = Math.round(typeof window !== 'undefined' ? window.innerHeight * 0.7 : 500);
+
   const {
     dragCurrentY,
     isDragging,
@@ -20,7 +22,7 @@ const BottomComment = ({ isOpen, onClose, children }: BottomSheetProps) => {
     handleTouchEnd,
     handleClose,
     shouldShow,
-  } = useBottomSheetDrag({ isOpen, onClose });
+  } = useBottomSheetDrag({ isOpen, onClose, sheetHeight });
 
   return (
     <>
@@ -38,8 +40,8 @@ const BottomComment = ({ isOpen, onClose, children }: BottomSheetProps) => {
       <div
         className="desktop:hidden fixed inset-x-0 bottom-0 z-50 rounded-t-2xl bg-gray-200"
         style={{
-          height: '80vh',
-          maxHeight: '80vh',
+          height: '70vh',
+          maxHeight: '70vh',
           transform: isDragging
             ? `translateY(${dragCurrentY}px)`
             : isOpen && !isClosing

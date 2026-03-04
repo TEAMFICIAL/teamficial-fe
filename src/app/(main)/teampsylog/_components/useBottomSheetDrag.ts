@@ -3,10 +3,12 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 interface UseBottomSheetDragProps {
   isOpen: boolean;
   onClose: () => void;
+  sheetHeight: number;
 }
 
-const useBottomSheetDrag = ({ isOpen, onClose }: UseBottomSheetDragProps) => {
+const useBottomSheetDrag = ({ isOpen, onClose, sheetHeight }: UseBottomSheetDragProps) => {
   const closeTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const closeThreshold = sheetHeight * 0.24;
 
   const [dragStartY, setDragStartY] = useState(0);
   const [dragCurrentY, setDragCurrentY] = useState(0);
@@ -46,14 +48,14 @@ const useBottomSheetDrag = ({ isOpen, onClose }: UseBottomSheetDragProps) => {
 
   const handleMouseUp = useCallback(() => {
     if (!isDragging) return;
-    if (dragCurrentY > 150) {
+    if (dragCurrentY > closeThreshold) {
       handleClose();
       setDragCurrentY(0);
     } else {
       setDragCurrentY(0);
     }
     setIsDragging(false);
-  }, [isDragging, dragCurrentY, handleClose]);
+  }, [isDragging, dragCurrentY, handleClose, closeThreshold]);
 
   const handleTouchStart = (e: React.TouchEvent) => {
     setDragStartY(e.touches[0].clientY);
@@ -65,13 +67,14 @@ const useBottomSheetDrag = ({ isOpen, onClose }: UseBottomSheetDragProps) => {
     const currentY = e.touches[0].clientY;
     const diff = currentY - dragStartY;
     if (diff > 0) {
+      e.preventDefault();
       setDragCurrentY(diff);
     }
   };
 
   const handleTouchEnd = () => {
     if (!isDragging) return;
-    if (dragCurrentY > 150) {
+    if (dragCurrentY > closeThreshold) {
       handleClose();
       setDragCurrentY(0);
     } else {

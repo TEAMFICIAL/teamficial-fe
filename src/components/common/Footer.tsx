@@ -25,7 +25,7 @@ const Footer = () => {
           </div>
           <div className="flex items-center justify-between px-4">
             <div>
-              <p className="body-11 text-gray-500">Teamficial@gmail.com</p>
+              <p className="body-11 text-gray-500">teamficial25@gmail.com</p>
               <p className="body-11 text-gray-500">© 2025.Teamficial. ALL rights reserved.</p>
             </div>
             <div className="flex gap-2">
@@ -66,12 +66,12 @@ const Footer = () => {
         <div className="flex w-[944px] items-center justify-between">
           <div className="body-6 flex flex-col text-gray-100">
             <Image src="/icons/footer-logo.svg" alt="logo" width={149} height={19} />
-            <p className="pb-1">Teamficial@gmail.com</p>
+            <p className="pb-1">teamficial25@gmail.com</p>
             <p>© 2025.Teamficial. ALL rights reserved.</p>
           </div>
           <div className="flex flex-col justify-end gap-3">
             <div className="flex justify-end gap-3">
-              <a href="mailto:Teamficial@gmail.com" aria-label="이메일 문의">
+              <a href="mailto:teamficial25@gmail.com" aria-label="이메일 문의">
                 <Image src="/icons/mail.svg" alt="mail" width={24} height={24} />
               </a>
               <a
