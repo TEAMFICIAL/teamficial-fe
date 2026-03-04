@@ -507,8 +507,8 @@ function applyDragHighlight(editor: Editor, drag: DragState) {
 // 드래그 핸들 아이콘
 const DragIcon = ({ rotate = false }: { rotate?: boolean }) => (
   <svg
-    width="10"
-    height="10"
+    width="16"
+    height="16"
     viewBox="0 0 10 10"
     fill="currentColor"
     style={rotate ? { transform: 'rotate(90deg)' } : undefined}
