@@ -10,6 +10,8 @@ interface BottomSheetProps {
 }
 
 const BottomComment = ({ isOpen, onClose, children }: BottomSheetProps) => {
+  const sheetHeight = Math.round(typeof window !== 'undefined' ? window.innerHeight * 0.7 : 500);
+
   const {
     dragCurrentY,
     isDragging,
@@ -20,7 +22,7 @@ const BottomComment = ({ isOpen, onClose, children }: BottomSheetProps) => {
     handleTouchEnd,
     handleClose,
     shouldShow,
-  } = useBottomSheetDrag({ isOpen, onClose });
+  } = useBottomSheetDrag({ isOpen, onClose, sheetHeight });
 
   return (
     <>
