@@ -65,6 +65,7 @@ const useBottomSheetDrag = ({ isOpen, onClose }: UseBottomSheetDragProps) => {
     const currentY = e.touches[0].clientY;
     const diff = currentY - dragStartY;
     if (diff > 0) {
+      e.preventDefault();
       setDragCurrentY(diff);
     }
   };
