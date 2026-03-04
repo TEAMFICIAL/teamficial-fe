@@ -42,6 +42,7 @@ const BottomComment = ({ isOpen, onClose, children }: BottomSheetProps) => {
         style={{
           height: '70vh',
           maxHeight: '70vh',
+          overscrollBehavior: 'contain',
           transform: isDragging
             ? `translateY(${dragCurrentY}px)`
             : isOpen && !isClosing
@@ -54,6 +55,7 @@ const BottomComment = ({ isOpen, onClose, children }: BottomSheetProps) => {
       >
         <div
           className="flex cursor-grab justify-center pt-3 pb-2 active:cursor-grabbing"
+          style={{ touchAction: 'none' }}
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
@@ -61,7 +63,9 @@ const BottomComment = ({ isOpen, onClose, children }: BottomSheetProps) => {
         >
           <div className="h-[3px] w-9.5 rounded-full bg-gray-400" />
         </div>
-        <div className="h-full overflow-y-auto pb-5">{children}</div>
+        <div className="h-full overflow-y-auto pb-5" style={{ overscrollBehavior: 'contain' }}>
+          {children}
+        </div>
       </div>
     </>
   );
