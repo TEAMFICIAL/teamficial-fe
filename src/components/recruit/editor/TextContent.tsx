@@ -9,6 +9,7 @@ import { Control, useController } from 'react-hook-form';
 import { RecruitFormType } from '@/libs/schemas/projectSchema';
 import { TableBubbleMenu } from './table/TableBubbleMenu';
 import { TableHandles } from './table/TableHandles';
+import PostImage from './PostImage';
 
 type Props = {
   control: Control<RecruitFormType>;
@@ -87,6 +88,7 @@ const TextContent = ({ control, name = 'content' }: Props) => {
         <p className={`body-8 self-end ${textLength < 50 ? 'text-red-100' : 'text-gray-600'}`}>
           {textLength}
         </p>
+        <PostImage />
       </div>
       <TableBubbleMenu editor={editor} />
       <TableHandles editor={editor} />
