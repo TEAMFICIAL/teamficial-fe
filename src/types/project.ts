@@ -33,7 +33,12 @@ export type ResponseProject = Project & {
   alreadyApplied: boolean;
   writer: boolean;
   profileImageUrl: string;
-  imageUrls: string[];
+  images: [
+    {
+      imageUrl: 'string';
+      objectKey: 'string';
+    },
+  ];
 };
 
 export type DeleteProject = {
