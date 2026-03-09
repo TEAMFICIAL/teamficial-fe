@@ -16,6 +16,7 @@ export type Project = {
   content: string;
   title: string;
   recruitingPositions: RecruitingPosition[];
+  imageKeys?: string[];
 };
 
 export type CreateProject = Project & {
@@ -32,6 +33,7 @@ export type ResponseProject = Project & {
   alreadyApplied: boolean;
   writer: boolean;
   profileImageUrl: string;
+  imageUrls: string[];
 };
 
 export type DeleteProject = {
