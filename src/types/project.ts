@@ -6,6 +6,11 @@ export type RecruitingPosition = {
   count: number;
 };
 
+export type ProjectImage = {
+  imageUrl: string;
+  objectKey: string;
+};
+
 export type Project = {
   progressWay: ProgressWayType;
   contactWay: string;
@@ -17,6 +22,7 @@ export type Project = {
   title: string;
   recruitingPositions: RecruitingPosition[];
   imageKeys?: string[];
+  images?: ProjectImage[];
 };
 
 export type CreateProject = Project & {
@@ -33,12 +39,6 @@ export type ResponseProject = Project & {
   alreadyApplied: boolean;
   writer: boolean;
   profileImageUrl: string;
-  images: [
-    {
-      imageUrl: 'string';
-      objectKey: 'string';
-    },
-  ];
 };
 
 export type DeleteProject = {
