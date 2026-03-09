@@ -49,6 +49,7 @@ export const recruitFormSchema = z.object({
     { message: '최소 50자 이상 작성해주세요.' },
   ),
   profileId: z.number().min(1).optional(),
+  imageKeys: z.array(z.string()).default([]),
 });
 
 export type RecruitFormType = z.infer<typeof recruitFormSchema>;
