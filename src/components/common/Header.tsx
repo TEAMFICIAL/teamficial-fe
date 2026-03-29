@@ -42,10 +42,18 @@ const Header = () => {
     setIsProfileDropdownOpen((prev) => !prev);
   };
 
+  const PROTECTED_PATH = [/^\/mypage/, /^\/project\/[^/]+(\/|$)/];
+
   const handleLogout = () => {
     useUserStore.getState().clearUser();
     setIsProfileDropdownOpen(false);
+    setIsMenuOpen(false);
     addToast({ message: '로그아웃 완료되었습니다.' });
+
+    const isProtected = PROTECTED_PATH.some((pattern) => pattern.test(pathname));
+    if (isProtected) {
+      router.push('/');
+    }
   };
 
   return (
