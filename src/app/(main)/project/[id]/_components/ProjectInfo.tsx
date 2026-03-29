@@ -5,6 +5,7 @@ import ProjectTitle from './ProjectTitle';
 import InfoCard from './InfoCard';
 import Profile1 from '@/components/profile/Profile1';
 import { useGetProject } from '@/hooks/queries/useProject';
+import ProjectImage from './ProjectImage';
 
 const ProjectInfo = ({ id }: { id: string }) => {
   const { data } = useGetProject(
@@ -29,6 +30,7 @@ const ProjectInfo = ({ id }: { id: string }) => {
         <div className="prose desktop:bg-none bg-gray-0 desktop:p-10 max-w-none rounded-2xl border border-gray-300 px-5 py-6 text-gray-700">
           <div dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
         </div>
+        <ProjectImage {...data} />
         <Profile1 profileId={data.writerProfileId} />
       </div>
     </div>

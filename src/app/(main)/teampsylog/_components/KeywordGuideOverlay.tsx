@@ -63,7 +63,7 @@ const KeywordGuideOverlay = ({ onClose }: Props) => {
           <Button onClick={onClose} className="bg-primary-900 body-3 text-gray-0 px-6 py-3">
             튜토리얼 마치기
           </Button>
-          <label className="pointer-events-auto flex cursor-pointer items-center gap-2">
+          {/* <label className="pointer-events-auto flex cursor-pointer items-center gap-2">
             <input
               type="checkbox"
               checked={checked}
@@ -78,7 +78,7 @@ const KeywordGuideOverlay = ({ onClose }: Props) => {
               aria-hidden="true"
             />
             <span className="body-5 text-gray-0">다시보지않기</span>
-          </label>
+          </label> */}
         </div>
       </div>
       {/* mobile */}

@@ -22,7 +22,6 @@ export const useRecruitingPosts = (filters: Filters, pageNumber: number, pageSiz
         size: pageSize,
         sort: [''],
       });
-      console.log(result);
       return result;
     },
   });

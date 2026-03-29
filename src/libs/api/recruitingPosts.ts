@@ -12,7 +12,6 @@ interface GetRecruitingPostsParams {
 }
 
 export const getRecruitingPosts = async (params: GetRecruitingPostsParams) => {
-  console.log(params);
   const response = await axios.get<{ result: PagedProjects }>(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/recruiting-posts`,
     {

@@ -6,6 +6,11 @@ export type RecruitingPosition = {
   count: number;
 };
 
+export type ProjectImage = {
+  imageUrl: string;
+  objectKey: string;
+};
+
 export type Project = {
   progressWay: ProgressWayType;
   contactWay: string;
@@ -16,6 +21,8 @@ export type Project = {
   content: string;
   title: string;
   recruitingPositions: RecruitingPosition[];
+  imageKeys?: string[];
+  images?: ProjectImage[];
 };
 
 export type CreateProject = Project & {

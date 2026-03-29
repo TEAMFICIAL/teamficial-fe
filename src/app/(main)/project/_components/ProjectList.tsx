@@ -107,7 +107,7 @@ const ProjectListPage = () => {
       <div className="tablet:pt-5 w-full pt-5 pb-3">
         <ButtonContainer filters={filters} onChange={handleFilterChange} />
       </div>
-      <div className="tablet:grid tablet:py-5 tablet:gap-4 tablet:grid-cols-3 flex flex-col gap-2">
+      <div className="tablet:grid tablet:py-5 tablet:gap-4 desktop:grid-cols-3 tablet:grid-cols-2 flex flex-col gap-2">
         <div className="tablet:contents hidden">
           {tabletCards.length > 0
             ? tabletCards.map((card: ResponseProject) => (
@@ -128,7 +128,9 @@ const ProjectListPage = () => {
                 />
               ))
             : !isLoading && (
-                <p className="col-span-3 py-10 text-center text-gray-500">프로젝트가 없습니다.</p>
+                <p className="tablet:col-span-2 desktop:col-span-3 py-10 text-center text-gray-500">
+                  프로젝트가 없습니다.
+                </p>
               )}
         </div>
         <div className="tablet:hidden mb-28 flex flex-col gap-2">

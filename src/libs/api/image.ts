@@ -50,3 +50,48 @@ export const uploadImage = async (file: File): Promise<string | null> => {
     return null;
   }
 };
+
+// 게시글 이미지용 presigned URL 여러 장 한번에 발급
+export async function getPostImagePresignedUrls(
+  fileNames: string[],
+): Promise<PresignedUrlResponse[]> {
+  try {
+    const params = new URLSearchParams();
+    fileNames.forEach((name) => params.append('fileNames', name));
+
+    const { data } = await api.post<CommonResponse<PresignedUrlResponse[]>>(
+      `/post-images/presigned-url?${params.toString()}`,
+    );
+
+    if (!data.isSuccess) {
+      throw new Error(data.message || 'Failed to get post image presigned URLs');
+    }
+
+    return data.result;
+  } catch (error) {
+    console.error('getPostImagePresignedUrls Error:', error);
+    throw error;
+  }
+}
+
+// 게시글 이미지 여러 장 S3 업로드 → objectKey[] 반환
+export async function uploadPostImages(files: File[]): Promise<string[]> {
+  const presignedList = await getPostImagePresignedUrls(files.map((f) => f.name));
+
+  if (presignedList.length !== files.length) {
+    throw new Error(
+      `Presigned URL count mismatch: expected ${files.length}, got ${presignedList.length}`,
+    );
+  }
+
+  const results = await Promise.all(
+    files.map(async (file, i) => {
+      const target = presignedList[i];
+      const success = await uploadToS3(target.preSignedUrl, file);
+      if (!success) throw new Error(`S3 upload failed: ${file.name}`);
+      return target.objectKey;
+    }),
+  );
+
+  return results;
+}

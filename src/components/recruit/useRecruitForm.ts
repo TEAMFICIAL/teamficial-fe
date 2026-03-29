@@ -52,7 +52,7 @@ export const useRecruitForm = ({
   const formMethods = useForm<RecruitFormType>({
     mode: 'onChange',
     reValidateMode: 'onChange',
-    resolver: zodResolver(getSchema()),
+    resolver: zodResolver(getSchema()) as any,
     defaultValues:
       mode === 'edit' && initialData
         ? {
@@ -64,6 +64,8 @@ export const useRecruitForm = ({
             deadline: convertDateFormat(initialData.deadline),
             contactWay: initialData.contactWay,
             content: initialData.content,
+            // TODO: 서버 확인 및 objectKey 전달 방식 확인
+            imageKeys: initialData?.images?.map((img) => img.objectKey) || [],
           }
         : initialFormData || {
             title: '',
@@ -75,6 +77,7 @@ export const useRecruitForm = ({
             contactWay: '',
             content: '',
             profileId: undefined,
+            imageKeys: [], // create 모드 초기값
           },
   });
 
@@ -91,6 +94,7 @@ export const useRecruitForm = ({
       contactWay: formData.contactWay,
       content: formData.content,
       status: initialData?.status || 'OPEN',
+      imageKeys: initialData?.images?.map((img) => img.objectKey) ?? initialData?.imageKeys ?? [],
     };
 
     updateProject(
@@ -112,6 +116,7 @@ export const useRecruitForm = ({
       ...formData,
       profileId: formData.profileId,
       status: 'OPEN',
+      imageKeys: formData.imageKeys ?? [],
     };
 
     createProject(projectData, {
@@ -146,7 +151,7 @@ export const useRecruitForm = ({
   };
 
   return {
-    ...formMethods,
+    formMethods,
     onSubmit,
     onError,
   };
