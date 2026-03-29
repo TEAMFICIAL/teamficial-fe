@@ -90,7 +90,8 @@ const TextContent = ({ control, name = 'content', initialImages }: Props) => {
         <p className={`body-8 self-end ${textLength < 50 ? 'text-red-100' : 'text-gray-600'}`}>
           {textLength}
         </p>
-        <PostImage initialImages={initialImages} />
+        {/* TODO: 이미지 업로드 버튼 복구 */}
+        {/* <PostImage initialImages={initialImages} /> */}
       </div>
       <TableBubbleMenu editor={editor} />
       <TableHandles editor={editor} />

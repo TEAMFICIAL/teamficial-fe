@@ -30,7 +30,8 @@ const ProjectInfo = ({ id }: { id: string }) => {
         <div className="prose desktop:bg-none bg-gray-0 desktop:p-10 max-w-none rounded-2xl border border-gray-300 px-5 py-6 text-gray-700">
           <div dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
         </div>
-        <ProjectImage {...data} />
+        {/* TODO: 프로젝트 이미지 부분 복구 */}
+        {/* <ProjectImage {...data} /> */}
         <Profile1 profileId={data.writerProfileId} />
       </div>
     </div>
