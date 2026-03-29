@@ -94,8 +94,7 @@ export const useRecruitForm = ({
       contactWay: formData.contactWay,
       content: formData.content,
       status: initialData?.status || 'OPEN',
-      // TODO: 서버 확인 후 imageKeys 전달 방식 결정
-      imageKeys: formData.imageKeys ?? [], // 폼에서 관리된 imageKeys 전달
+      imageKeys: initialData?.images?.map((img) => img.objectKey) ?? initialData?.imageKeys ?? [],
     };
 
     updateProject(

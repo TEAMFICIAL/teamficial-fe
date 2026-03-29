@@ -128,7 +128,9 @@ const ProjectListPage = () => {
                 />
               ))
             : !isLoading && (
-                <p className="col-span-3 py-10 text-center text-gray-500">프로젝트가 없습니다.</p>
+                <p className="tablet:col-span-2 desktop:col-span-3 py-10 text-center text-gray-500">
+                  프로젝트가 없습니다.
+                </p>
               )}
         </div>
         <div className="tablet:hidden mb-28 flex flex-col gap-2">

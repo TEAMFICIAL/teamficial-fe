@@ -8,7 +8,6 @@ export const uploadToS3 = async (presignedUrl: string, file: File): Promise<bool
     const response = await axios.put(presignedUrl, file, {
       headers: {
         'Content-Type': file.type,
-        'x-amz-acl': 'public-read',
       },
     });
     return response.status === 200;
@@ -79,11 +78,18 @@ export async function getPostImagePresignedUrls(
 export async function uploadPostImages(files: File[]): Promise<string[]> {
   const presignedList = await getPostImagePresignedUrls(files.map((f) => f.name));
 
+  if (presignedList.length !== files.length) {
+    throw new Error(
+      `Presigned URL count mismatch: expected ${files.length}, got ${presignedList.length}`,
+    );
+  }
+
   const results = await Promise.all(
-    presignedList.map(async ({ preSignedUrl, objectKey }, i) => {
-      const success = await uploadToS3(preSignedUrl, files[i]);
-      if (!success) throw new Error(`S3 upload failed: ${files[i].name}`);
-      return objectKey;
+    files.map(async (file, i) => {
+      const target = presignedList[i];
+      const success = await uploadToS3(target.preSignedUrl, file);
+      if (!success) throw new Error(`S3 upload failed: ${file.name}`);
+      return target.objectKey;
     }),
   );
 
