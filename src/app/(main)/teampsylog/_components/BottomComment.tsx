@@ -27,16 +27,17 @@ const BottomComment = ({ isOpen, onClose, children }: BottomSheetProps) => {
   return (
     <>
       <div
-        className={`desktop:hidden fixed inset-0 z-40 bg-black/70 ${shouldShow ? 'block' : 'hidden'}`}
+        className="desktop:hidden fixed inset-0 z-40 block bg-black/70"
         onClick={handleClose}
         style={{
           opacity: isDragging ? Math.max(0, 1 - dragCurrentY / 300) : isOpen && !isClosing ? 1 : 0,
           transition: isDragging ? 'none' : 'opacity 0.3s',
+          pointerEvents: shouldShow ? 'auto' : 'none',
         }}
       />
       {/* 바텀 시트 */}
       <div
-        className={`desktop:hidden fixed inset-x-0 bottom-0 z-50 rounded-t-2xl bg-gray-200 ${shouldShow ? 'flex' : 'hidden'}`}
+        className="desktop:hidden fixed inset-x-0 bottom-0 z-50 flex rounded-t-2xl bg-gray-200"
         style={{
           height: '70vh',
           maxHeight: '70vh',
