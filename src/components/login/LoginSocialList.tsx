@@ -72,7 +72,7 @@ export default function LoginSocialList() {
   }, []);
 
   // 고정된 순서: 네이버, 카카오, 구글
-  const fixedOrder: SocialType[] = ['naver', 'kakao', 'google'];
+  const fixedOrder: SocialType[] = ['kakao', 'google'];
 
   return (
     <div className="tablet:gap-4 mt-6 flex w-full flex-col items-center gap-2">
