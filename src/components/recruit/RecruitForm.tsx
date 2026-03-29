@@ -96,7 +96,7 @@ const RecruitForm = ({
               <TextInput title="연락 방법" name="contactWay" control={control} />
             </div>
           </div>
-          <TextContent control={control} name="content" />
+          <TextContent control={control} name="content" initialImages={initialData?.images} />
           {mode === 'create' && showProfileList && <ProfileSlider control={control} />}
         </div>
         <div className="mt-6 mb-10 flex justify-end">

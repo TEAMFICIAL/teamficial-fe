@@ -4,7 +4,7 @@ import Image from 'next/image';
 const ProjectImage = ({ images }: ResponseProject) => {
   return (
     <div className="grid grid-cols-2 gap-5">
-      {images.map((img, index) => (
+      {images?.map((img, index) => (
         <Image
           key={img.objectKey}
           src={img.imageUrl}

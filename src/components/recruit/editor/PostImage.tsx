@@ -5,6 +5,7 @@ import { useFormContext } from 'react-hook-form';
 import Image from 'next/image';
 import { RecruitFormType } from '@/libs/schemas/projectSchema';
 import { uploadPostImages } from '@/libs/api/image';
+import { ProjectImage } from '@/types/project';
 
 const MAX_IMAGE_COUNT = 2;
 
@@ -13,9 +14,18 @@ type ImageItem = {
   previewUrl: string;
 };
 
-export default function PostImage() {
+type PostImageProps = {
+  initialImages?: ProjectImage[];
+};
+
+export default function PostImage({ initialImages }: PostImageProps) {
   const { setValue } = useFormContext<RecruitFormType>();
-  const [images, setImages] = useState<ImageItem[]>([]);
+  const [images, setImages] = useState<ImageItem[]>(() =>
+    (initialImages ?? []).map((img) => ({
+      objectKey: img.objectKey,
+      previewUrl: img.imageUrl, // 서버 URL을 previewUrl로
+    })),
+  );
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -81,7 +91,7 @@ export default function PostImage() {
           type="button"
           onClick={() => fileInputRef.current?.click()}
           disabled={isUploading}
-          className="flex w-fit items-center gap-1.5 rounded-lg border border-gray-400 px-3 py-2 text-sm text-gray-500 transition-colors hover:bg-gray-50 disabled:opacity-50"
+          className="flex w-fit cursor-pointer items-center gap-1.5 rounded-lg border border-gray-400 px-3 py-2 text-sm text-gray-500 transition-colors hover:bg-gray-50 disabled:opacity-50"
         >
           <CameraIcon />
           <span>{isUploading ? '업로드 중...' : '사진'}</span>

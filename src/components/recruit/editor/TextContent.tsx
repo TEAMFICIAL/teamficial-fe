@@ -10,13 +10,15 @@ import { RecruitFormType } from '@/libs/schemas/projectSchema';
 import { TableBubbleMenu } from './table/TableBubbleMenu';
 import { TableHandles } from './table/TableHandles';
 import PostImage from './PostImage';
+import { ProjectImage } from '@/types/project';
 
 type Props = {
   control: Control<RecruitFormType>;
   name?: 'content';
+  initialImages?: ProjectImage[];
 };
 
-const TextContent = ({ control, name = 'content' }: Props) => {
+const TextContent = ({ control, name = 'content', initialImages }: Props) => {
   const { field } = useController({ name, control });
   const value = field.value ?? '';
   const onChange = field.onChange as (html: string) => void;
@@ -88,7 +90,7 @@ const TextContent = ({ control, name = 'content' }: Props) => {
         <p className={`body-8 self-end ${textLength < 50 ? 'text-red-100' : 'text-gray-600'}`}>
           {textLength}
         </p>
-        <PostImage />
+        <PostImage initialImages={initialImages} />
       </div>
       <TableBubbleMenu editor={editor} />
       <TableHandles editor={editor} />

@@ -65,7 +65,7 @@ export const useRecruitForm = ({
             contactWay: initialData.contactWay,
             content: initialData.content,
             // TODO: 서버 확인 및 objectKey 전달 방식 확인
-            imageKeys: [],
+            imageKeys: initialData?.images?.map((img) => img.objectKey) || [],
           }
         : initialFormData || {
             title: '',

@@ -8,6 +8,7 @@ export const uploadToS3 = async (presignedUrl: string, file: File): Promise<bool
     const response = await axios.put(presignedUrl, file, {
       headers: {
         'Content-Type': file.type,
+        'x-amz-acl': 'public-read',
       },
     });
     return response.status === 200;
