@@ -9,6 +9,7 @@ import clsx from 'clsx';
 import { useToast } from '@/contexts/ToastContext';
 import { isLoggedIn as checkIsLoggedIn } from '@/utils/auth';
 import Footer from './Footer';
+import { logout } from '@/libs/api/auth';
 
 const Header = () => {
   const { userName, _hasHydrated } = useUserStore();
@@ -44,15 +45,19 @@ const Header = () => {
 
   const PROTECTED_PATH = [/^\/mypage/, /^\/project\/[^/]+(\/|$)/];
 
-  const handleLogout = () => {
-    useUserStore.getState().clearUser();
-    setIsProfileDropdownOpen(false);
-    setIsMenuOpen(false);
-    addToast({ message: '로그아웃 완료되었습니다.' });
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch (e) {
+      console.error('logout api failed', e);
+    } finally {
+      useUserStore.getState().clearUser();
+      setIsProfileDropdownOpen(false);
+      setIsMenuOpen(false);
+      addToast({ message: '로그아웃 완료되었습니다.' });
 
-    const isProtected = PROTECTED_PATH.some((pattern) => pattern.test(pathname));
-    if (isProtected) {
-      router.push('/');
+      const isProtected = PROTECTED_PATH.some((pattern) => pattern.test(pathname));
+      if (isProtected) router.push('/');
     }
   };
 
