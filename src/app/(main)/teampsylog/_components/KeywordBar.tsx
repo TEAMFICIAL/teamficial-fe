@@ -127,6 +127,7 @@ const KeywordBar = ({
                     }}
                     text="팀피셜록 링크를 공유해보세요!"
                     share={true}
+                    balloonClassName="right-4"
                   />
                 )}
               </div>
@@ -171,6 +172,7 @@ const KeywordBar = ({
               }}
               text={`팀피셜록 링크를\n공유해보세요!`}
               share={true}
+              balloonClassName="right-0 -translate-y-10"
             />
           )}
           <div className="flex items-center gap-1">
