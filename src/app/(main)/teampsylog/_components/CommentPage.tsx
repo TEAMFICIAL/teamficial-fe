@@ -37,7 +37,7 @@ const CommentPage = ({
 
   return (
     <div
-      className="desktop:gap-7 desktop:p-8 flex flex-col gap-3 px-4 pt-3 pb-5"
+      className="desktop:gap-7 desktop:p-8 scrollbar-hide flex flex-col gap-3 px-4 pt-3 pb-5"
       style={{ overflowY: 'auto' }}
     >
       <div className="flex flex-col">
