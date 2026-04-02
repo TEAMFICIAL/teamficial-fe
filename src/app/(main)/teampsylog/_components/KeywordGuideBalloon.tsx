@@ -2,18 +2,20 @@ import React from 'react';
 
 interface KeywordGuideBalloonProps {
   position: 'top' | 'bottom';
+  share?: boolean;
   onClose: () => void;
   text?: string;
 }
 
 const KeywordGuideBalloon: React.FC<KeywordGuideBalloonProps> = ({
   position,
+  share = false,
   onClose,
   text = '변경할 대표 키워드를\n먼저 선택하세요',
 }) => {
   return (
     <div
-      className={`absolute left-1/2 z-50 flex -translate-x-1/2 items-center rounded bg-gray-800 px-4 py-2 text-white shadow-lg ${
+      className={`absolute left-1/2 z-50 flex -translate-x-1/2 items-center bg-gray-800 px-4 py-2 text-white shadow-lg ${share ? 'rounded-lg' : 'rounded'} ${
         position === 'top' ? 'bottom-full mb-1.5' : 'top-full mt-1.5'
       }`}
     >
