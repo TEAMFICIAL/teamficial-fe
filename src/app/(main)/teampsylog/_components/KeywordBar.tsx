@@ -1,5 +1,5 @@
 import { useGetKeyword } from '@/hooks/queries/useKeyword';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import KeywordItem from './KeywordItem';
 import Image from 'next/image';
 import ProfileDropdown from './ProfileDropdown';
@@ -63,6 +63,9 @@ const KeywordBar = ({
     addToast({ message: '링크가 복사되었어요' });
   };
 
+  const [dismissedByUser, setDismissedByUser] = useState(false);
+  const showShareGuide = !dismissedByUser && !isEditMode;
+
   useEffect(() => {
     // 편집 모드이고 아직 슬롯이 선택되지 않았을 때만 가이드 표시
     if (isEditMode && selectedSlot === null) {
@@ -114,6 +117,15 @@ const KeywordBar = ({
                 <button onClick={handleShare} className="cursor-pointer">
                   <Image src="/icons/share.svg" alt="공유하기" width={28} height={28} />
                 </button>
+                {showShareGuide && (
+                  <KeywordGuideBalloon
+                    position="top"
+                    onClose={() => setDismissedByUser(true)}
+                    text="팀피셜록 링크를 공유해보세요!"
+                    share={true}
+                    balloonClassName="right-4"
+                  />
+                )}
               </div>
             )}
           </div>
@@ -147,6 +159,15 @@ const KeywordBar = ({
         <div className="relative">
           {isEditMode && showGuide && (
             <KeywordGuideBalloon position="bottom" onClose={() => setShowGuide(false)} />
+          )}
+          {showShareGuide && (
+            <KeywordGuideBalloon
+              position="bottom"
+              onClose={() => setDismissedByUser(true)}
+              text={`팀피셜록 링크를\n공유해보세요!`}
+              share={true}
+              balloonClassName="right-0 -translate-y-10"
+            />
           )}
           <div className="flex items-center gap-1">
             {mobileDisplayKeywords.map((keyword, index) => (

@@ -156,7 +156,7 @@ const LogNote = ({
           {/* 오른쪽 페이지 (데스크톱만) */}
           <div
             className={`desktop:flex relative hidden h-162 w-118 flex-col gap-[13px] rounded-r-[16px] bg-gray-200 shadow-[0_4px_4px_0_#E1E1E1] ${
-              !selectedKeywordId || isEditMode ? 'items-center justify-center' : ''
+              !selectedKeywordId ? 'items-center justify-center' : ''
             }`}
           >
             <button
