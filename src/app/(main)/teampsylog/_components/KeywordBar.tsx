@@ -1,5 +1,5 @@
 import { useGetKeyword } from '@/hooks/queries/useKeyword';
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import KeywordItem from './KeywordItem';
 import Image from 'next/image';
 import ProfileDropdown from './ProfileDropdown';
@@ -63,10 +63,8 @@ const KeywordBar = ({
     addToast({ message: '링크가 복사되었어요' });
   };
 
-  const dismissedByUser = useRef(false); // X 버튼으로 닫았는지 여부
-
-  // showShareGuide: dismissedByUser가 false이고, 수정모드가 아닐 때만 표시
-  const showShareGuide = !dismissedByUser.current && !isEditMode;
+  const [dismissedByUser, setDismissedByUser] = useState(false);
+  const showShareGuide = !dismissedByUser && !isEditMode;
 
   useEffect(() => {
     // 편집 모드이고 아직 슬롯이 선택되지 않았을 때만 가이드 표시
@@ -122,9 +120,7 @@ const KeywordBar = ({
                 {showShareGuide && (
                   <KeywordGuideBalloon
                     position="top"
-                    onClose={() => {
-                      dismissedByUser.current = true;
-                    }}
+                    onClose={() => setDismissedByUser(true)}
                     text="팀피셜록 링크를 공유해보세요!"
                     share={true}
                     balloonClassName="right-4"
@@ -167,9 +163,7 @@ const KeywordBar = ({
           {showShareGuide && (
             <KeywordGuideBalloon
               position="bottom"
-              onClose={() => {
-                dismissedByUser.current = true;
-              }}
+              onClose={() => setDismissedByUser(true)}
               text={`팀피셜록 링크를\n공유해보세요!`}
               share={true}
               balloonClassName="right-0 -translate-y-10"
