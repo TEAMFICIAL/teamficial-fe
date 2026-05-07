@@ -6,6 +6,7 @@ import ProfileDropdown from './ProfileDropdown';
 import { ResponseProfile } from '@/types/profile';
 import { useToast } from '@/contexts/ToastContext';
 import KeywordGuideBalloon from './KeywordGuideBalloon';
+import { useModal } from '@/contexts/ModalContext';
 
 const KeywordBar = ({
   profileId,
@@ -42,6 +43,8 @@ const KeywordBar = ({
     ...Array(Math.max(0, 3 - headKeywords.length)).fill('키워드 선택'),
   ];
 
+  // 모달 추가
+  const { openModal } = useModal();
   const handleShare = async () => {
     let uuid: string | undefined;
     if (typeof window !== 'undefined') {
@@ -60,7 +63,9 @@ const KeywordBar = ({
       ? `${window.location.origin}/teampsylog/head/${uuid}`
       : `${window.location.origin}/teampsylog`;
     await navigator.clipboard.writeText(url);
-    addToast({ message: '링크가 복사되었어요' });
+
+    openModal('linkShare');
+    // addToast({ message: '링크가 복사되었어요' });
   };
 
   const [dismissedByUser, setDismissedByUser] = useState(false);
