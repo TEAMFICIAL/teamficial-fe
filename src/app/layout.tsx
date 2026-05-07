@@ -7,6 +7,7 @@ import './globals.css';
 import { ModalProvider } from '@/contexts/ModalContext';
 import Providers from './provider';
 import { ToastProvider } from '@/contexts/ToastContext';
+import KakaoScript from '@/components/common/KaKaoScript';
 
 const pretendard = localFont({
   src: '../../public/fonts/PretendardVariable.woff2',
@@ -23,7 +24,8 @@ export const metadata: Metadata = {
       { url: '/favicon.ico', sizes: '48x48', type: 'image/x-icon' },
       { url: '/favicon.svg', type: 'image/svg+xml' },
     ],
-    apple: '/apple-touch-icon.png',
+    apple: [{ url: '/apple-touch-icon.png', sizes: '180x180' }],
+    shortcut: '/favicon.ico',
   },
 };
 
@@ -41,17 +43,7 @@ export default function RootLayout({
           </ToastProvider>
         </Providers>
         <GoogleTagManager gtmId="GTM-5KPSS9WV" />
-        <Script
-          src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
-          integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4"
-          crossOrigin="anonymous"
-          strategy="lazyOnload"
-          onLoad={() => {
-            if (window.Kakao && !window.Kakao.isInitialized()) {
-              window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_JS_KEY!);
-            }
-          }}
-        />
+        <KakaoScript />
       </body>
     </html>
   );
