@@ -2,18 +2,50 @@ import { BaseModalProps } from '@/constants/ModalList';
 import BaseModal from '.';
 import Image from 'next/image';
 import { useToast } from '@/contexts/ToastContext';
+import { useUserStore } from '@/store/useUserStore';
 
 const LinkShareModal = ({ isOpen, onClose }: BaseModalProps) => {
   const { addToast } = useToast();
+  const { userName } = useUserStore();
+
+  const getShareUrl = () => {
+    const uuid = window.location.pathname.split('/').pop();
+    return `${window.location.origin}/teampsylog/head/${uuid}`;
+  };
 
   const handleKakaoShare = () => {
-    addToast({ message: '카카오톡 공유 기능은 준비 중입니다.' });
+    if (!window.Kakao?.isInitialized()) {
+      addToast({ message: '카카오톡 공유를 불러오는 중입니다. 잠시 후 다시 시도해주세요.' });
+      return;
+    }
+
+    const shareUrl = getShareUrl();
+
+    window.Kakao.Share.sendDefault({
+      objectType: 'feed',
+      content: {
+        title: '팀피셜 (Teamficial)',
+        description: `${userName}님이 협업 후기를 기다리고 있어요!`,
+        imageUrl: `https://www.teamficial.com/og/Teamficial_metatag_Image.jpg`,
+        link: {
+          mobileWebUrl: shareUrl,
+          webUrl: shareUrl,
+        },
+      },
+      buttons: [
+        {
+          title: '팀피셜록 작성하기',
+          link: {
+            mobileWebUrl: shareUrl,
+            webUrl: shareUrl,
+          },
+        },
+      ],
+    });
   };
 
   const handleCopyLink = async () => {
-    const uuid = window.location.pathname.split('/').pop();
-    const shareUrl = `${window.location.origin}/teampsylog/head/${uuid}`;
-
+    const shareUrl = getShareUrl();
     await navigator.clipboard.writeText(shareUrl);
     addToast({ message: '링크가 복사되었습니다.' });
   };
