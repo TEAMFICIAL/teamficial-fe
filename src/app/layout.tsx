@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import Script from 'next/script';
 import { GoogleTagManager } from '@next/third-parties/google';
-// @ts-expect-error Next.js handles global CSS side-effect imports at build time.
 import './globals.css';
 import { ModalProvider } from '@/contexts/ModalContext';
 import Providers from './provider';
