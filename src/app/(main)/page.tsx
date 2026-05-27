@@ -20,5 +20,5 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default function RootPage() {
-  redirect('/project');
+  redirect('/teampsylog');
 }

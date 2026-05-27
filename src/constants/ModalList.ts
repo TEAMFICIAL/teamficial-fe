@@ -21,6 +21,7 @@ import { RequestReportComment } from '@/types/teampsylog';
 import ReportCommentModal from '@/components/modal/ReportCommentModal';
 import ReportCompleteModal from '@/components/modal/ReportCompleteModal';
 import ReportErrorModal from '@/components/modal/ReportErrorModal';
+import LinkShareModal from '@/components/modal/LinkShareModal';
 
 export interface BaseModalProps {
   isOpen: boolean;
@@ -128,6 +129,7 @@ export const MODAL_COMPONENTS = {
   reportComment: ReportCommentModal,
   reportComplete: ReportCompleteModal,
   reportError: ReportErrorModal,
+  linkShare: LinkShareModal,
 };
 
 export type ModalType = keyof typeof MODAL_COMPONENTS;
@@ -152,4 +154,5 @@ export interface ModalPropsMap {
   reportComment: ReportCommentModalProps;
   reportComplete: ReportCompleteModalProps;
   reportError: BaseModalProps;
+  linkShare: BaseModalProps;
 }

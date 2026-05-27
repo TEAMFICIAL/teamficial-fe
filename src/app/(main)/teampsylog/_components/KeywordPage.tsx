@@ -16,14 +16,17 @@ import Loading from '@/components/common/Loading';
 import KeywordGuideOverlay from './KeywordGuideOverlay';
 
 interface Props {
-  share?: boolean;
   uuid?: string;
 }
 
-const KeywordPage = ({ share = false, uuid }: Props) => {
+// uuid 비교후 사용자와 동일하면 일반모드, 다르면 공유모드.
+
+const KeywordPage = ({ uuid }: Props) => {
   const router = useRouter();
   const { addToast } = useToast();
-  const { userName, _hasHydrated } = useUserStore();
+  const { uuid: userUuid, userName, _hasHydrated } = useUserStore();
+
+  const share = !_hasHydrated || userUuid !== uuid;
 
   const hasAlerted = useRef(false);
 
@@ -53,14 +56,14 @@ const KeywordPage = ({ share = false, uuid }: Props) => {
     }
   }, [_hasHydrated, userName, router, addToast, share]);
 
-  // 공유 모드: uuid가 있을 때만 실행
+  // 공유 모드일 때만 실행
   const requesterInfoResult = useRequesterInfo(uuid ?? '', { enabled: share && !!uuid });
   const requesterInfo = requesterInfoResult.data;
   const shareUserId = share && requesterInfo ? requesterInfo.userId : null;
   const requesterName = requesterInfo?.requesterName;
 
-  // 공유모드 getProfileList 가져오기
-  const { data: sharedProfiles } = useGetUuidProfileList(uuid ?? '');
+  // 공유 모드일 때만 uuid 기반 프로필을 가져온다.
+  const { data: sharedProfiles } = useGetUuidProfileList(share && uuid ? uuid : '');
 
   // 일반 모드
   const isAuthenticated = _hasHydrated && checkIsLoggedIn(userName);

@@ -37,12 +37,12 @@ const CommentPage = ({
 
   return (
     <div
-      className="desktop:gap-7 desktop:p-8 scrollbar-hide flex flex-col gap-3 px-4 pt-3 pb-5"
+      className="desktop:gap-5 desktop:p-8 scrollbar-hide flex flex-col gap-3 px-4 pt-3 pb-5"
       style={{ overflowY: 'auto' }}
     >
       <div className="flex flex-col">
         <p className="desktop:title-4 body-7">{`‘${keywordName}’에 대한 다른 사람들의 코멘트에요`}</p>
-        <p className="desktop:body-6 body-9 text-gray-600">중복된 키워드는 말풍선이 커져요</p>
+        {/* <p className="desktop:body-6 body-9 text-gray-600">중복된 키워드는 말풍선이 커져요</p> */}
       </div>
       <div className="desktop:gap-3 flex flex-col gap-2">
         {comments.map((comment, idx) => (

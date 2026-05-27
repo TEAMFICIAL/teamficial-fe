@@ -10,7 +10,7 @@ const KeywordListPage = () => {
 
   return (
     <>
-      <KeywordPage share={true} uuid={uuid} />
+      <KeywordPage uuid={uuid} />
     </>
   );
 };

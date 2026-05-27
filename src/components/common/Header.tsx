@@ -74,7 +74,7 @@ const Header = () => {
               height={41}
             />
           </Link>
-          <Link
+          {/* <Link
             href="/project"
             className={clsx(
               'hover:text-primary-900 px-3 transition-colors',
@@ -93,7 +93,7 @@ const Header = () => {
             )}
           >
             팀피셜록
-          </Link>
+          </Link> */}
         </div>
         {isLoggedIn ? (
           <div className="relative">
@@ -106,7 +106,7 @@ const Header = () => {
               <Image src="/icons/profile.svg" alt="profile" width={44} height={44} />
             </button>
             {isProfileDropdownOpen && (
-              <div className="body-5 absolute right-0 z-20 mt-2 w-34 cursor-pointer rounded-lg border border-gray-300 bg-white text-gray-800 shadow-lg">
+              <div className="body-5 absolute right-0 z-60 mt-2 w-34 cursor-pointer rounded-lg border border-gray-300 bg-white text-gray-800 shadow-lg">
                 <Link
                   href="/mypage"
                   className="block border-b border-gray-300 py-3 pl-7 hover:bg-gray-100"
@@ -187,7 +187,7 @@ const Header = () => {
               </div>
               <div className="mt-4 h-[1px] w-full bg-gray-300" />
               <div className="body-5 flex flex-col gap-4 pt-5">
-                <Link
+                {/* <Link
                   href="/project"
                   className={clsx(
                     pathname.startsWith('/project') ? 'text-primary-900' : 'text-gray-800',
@@ -195,7 +195,7 @@ const Header = () => {
                   onClick={() => setIsMenuOpen(false)}
                 >
                   프로젝트
-                </Link>
+                </Link> */}
                 <Link
                   href="/teampsylog"
                   className={clsx(
@@ -205,7 +205,7 @@ const Header = () => {
                 >
                   팀피셜록
                 </Link>
-                {isLoggedIn ? (
+                {/* {isLoggedIn ? (
                   <Link
                     href="/mypage"
                     className={clsx(
@@ -215,7 +215,7 @@ const Header = () => {
                   >
                     마이페이지
                   </Link>
-                ) : null}
+                ) : null} */}
               </div>
             </div>
             <div className="mt-auto">
