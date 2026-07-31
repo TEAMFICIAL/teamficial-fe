@@ -1,5 +1,5 @@
+import { LandingPage } from '@/components/landing/LandingPage';
 import { Metadata } from 'next';
-import { redirect } from 'next/navigation';
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -20,5 +20,5 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default function RootPage() {
-  redirect('/teampsylog');
+  return <LandingPage />;
 }

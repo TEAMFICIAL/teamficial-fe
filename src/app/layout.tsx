@@ -35,7 +35,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={`${pretendard.variable} antialiased`}>
+      <body className={`${pretendard.variable} min-h-dvh w-full antialiased`}>
         <Providers>
           <ToastProvider>
             <ModalProvider>{children}</ModalProvider>
