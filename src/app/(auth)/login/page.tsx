@@ -1,7 +1,24 @@
+'use client';
+
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import LoginSocialList from '@/components/login/LoginSocialList';
 import Image from 'next/image';
+import { useUserStore } from '@/store/useUserStore';
+import { isLoggedIn as checkIsLoggedIn } from '@/utils/auth';
 
 export default function Home() {
+  const router = useRouter();
+  const { userName, _hasHydrated } = useUserStore();
+
+  useEffect(() => {
+    if (!_hasHydrated) return;
+
+    if (checkIsLoggedIn(userName)) {
+      router.replace('/');
+    }
+  }, [_hasHydrated, router, userName]);
+
   return (
     <main className="tablet:gap-10 mx-auto flex min-h-screen max-w-[400px] flex-col items-center justify-center gap-3 px-4">
       <div className="flex items-center justify-center gap-2">
