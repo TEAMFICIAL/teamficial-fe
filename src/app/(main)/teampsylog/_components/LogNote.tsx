@@ -90,7 +90,7 @@ const LogNote = ({
             <button
               onClick={() => setPage((p) => Math.max(0, p - 1))}
               disabled={page === 0}
-              className="absolute top-1/2 left-[-16px] flex -translate-y-1/2 cursor-pointer items-center justify-center disabled:hidden"
+              className="absolute top-1/2 left-[-16px] z-10 flex -translate-y-1/2 cursor-pointer items-center justify-center disabled:hidden"
             >
               <Image src="/icons/page-before.svg" alt="이전 페이지" width={32} height={32} />
             </button>
@@ -148,7 +148,7 @@ const LogNote = ({
             <button
               onClick={() => setPage((p) => (p + 1 < totalPages ? p + 1 : p))}
               disabled={page + 1 >= totalPages}
-              className="desktop:hidden absolute top-1/2 right-[-16px] flex -translate-y-1/2 cursor-pointer items-center justify-center disabled:hidden"
+              className="desktop:hidden absolute top-1/2 right-[-16px] z-10 flex -translate-y-1/2 cursor-pointer items-center justify-center disabled:hidden"
             >
               <Image src="/icons/page-after.svg" alt="다음 페이지" width={32} height={32} />
             </button>
